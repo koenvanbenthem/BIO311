@@ -1,0 +1,42 @@
+\contentsline {section}{\numberline {1}Preparing the data}{2}
+\contentsline {section}{\numberline {2}Finding transition rates based on linear fits (\texttt {lm})}{2}
+\contentsline {subsection}{\numberline {2.1} Commercial high }{3}
+\contentsline {subsubsection}{\numberline {2.1.1}Determining reproduction}{3}
+\contentsline {subsubsection}{\numberline {2.1.2}Determining survival}{3}
+\contentsline {subsection}{\numberline {2.2} Commercial low }{4}
+\contentsline {subsubsection}{\numberline {2.2.1}Determining reproduction}{4}
+\contentsline {subsubsection}{\numberline {2.2.2}Determining survival}{4}
+\contentsline {subsection}{\numberline {2.3} Commercial medium }{4}
+\contentsline {subsubsection}{\numberline {2.3.1}Determining reproduction}{4}
+\contentsline {subsubsection}{\numberline {2.3.2}Determining survival}{5}
+\contentsline {subsection}{\numberline {2.4} Pollution high }{5}
+\contentsline {subsubsection}{\numberline {2.4.1}Determining reproduction}{5}
+\contentsline {subsubsection}{\numberline {2.4.2}Determining survival}{6}
+\contentsline {subsection}{\numberline {2.5} Pollution low }{6}
+\contentsline {subsubsection}{\numberline {2.5.1}Determining reproduction}{6}
+\contentsline {subsubsection}{\numberline {2.5.2}Determining survival}{7}
+\contentsline {subsection}{\numberline {2.6} Pollution medium }{7}
+\contentsline {subsubsection}{\numberline {2.6.1}Determining reproduction}{7}
+\contentsline {subsubsection}{\numberline {2.6.2}Determining survival}{8}
+\contentsline {subsection}{\numberline {2.7} Postpollution high }{8}
+\contentsline {subsubsection}{\numberline {2.7.1}Determining reproduction}{8}
+\contentsline {subsubsection}{\numberline {2.7.2}Determining survival}{9}
+\contentsline {subsection}{\numberline {2.8} Postpollution low }{9}
+\contentsline {subsubsection}{\numberline {2.8.1}Determining reproduction}{9}
+\contentsline {subsubsection}{\numberline {2.8.2}Determining survival}{10}
+\contentsline {subsection}{\numberline {2.9} Postpollution medium }{10}
+\contentsline {subsubsection}{\numberline {2.9.1}Determining reproduction}{10}
+\contentsline {subsubsection}{\numberline {2.9.2}Determining survival}{11}
+\contentsline {subsection}{\numberline {2.10} Recovery high }{11}
+\contentsline {subsubsection}{\numberline {2.10.1}Determining reproduction}{11}
+\contentsline {subsubsection}{\numberline {2.10.2}Determining survival}{12}
+\contentsline {subsection}{\numberline {2.11} Recovery low }{12}
+\contentsline {subsubsection}{\numberline {2.11.1}Determining reproduction}{12}
+\contentsline {subsubsection}{\numberline {2.11.2}Determining survival}{13}
+\contentsline {subsection}{\numberline {2.12} Recovery medium }{13}
+\contentsline {subsubsection}{\numberline {2.12.1}Determining reproduction}{13}
+\contentsline {subsubsection}{\numberline {2.12.2}Determining survival}{14}
+\contentsline {subsection}{\numberline {2.13}Summary of the data for the 2--3 transition}{14}
+\contentsline {subsection}{\numberline {2.14}Summary of the data for both transitions}{15}
+\contentsline {section}{\numberline {3}Taking into account that $0<S_J<1$ and $0<S_A<1$}{16}
+\contentsline {section}{\numberline {4}What the students found}{18}

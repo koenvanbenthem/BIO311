@@ -1,0 +1,189 @@
+% Created by tikzDevice version 0.9 on 2016-02-23 12:02:34
+% !TEX encoding = UTF-8 Unicode
+\documentclass{article}
+\nonstopmode
+
+\usepackage{tikz}
+
+\usepackage[active,tightpage,psfixbb]{preview}
+
+\PreviewEnvironment{pgfpicture}
+
+\setlength\PreviewBorder{0pt}
+
+\newcommand{\SweaveOpts}[1]{}  % do not interfere with LaTeX
+\newcommand{\SweaveInput}[1]{} % because they are not real TeX commands
+\newcommand{\Sexpr}[1]{}       % will only be parsed by R
+
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+%\usepackage{bbold}
+\usepackage{tikz}
+%\usepackage{silence}
+\usepackage{mdframed}
+%\WarningFilter{mdframed}{You got a bad break}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{listings}
+\usepackage{color}
+\colorlet{exampcol}{blue!10}
+\usepackage{multicol}
+\usepackage[answerdelayed]{exercise}
+\usepackage{booktabs}
+\usepackage{caption}
+
+\title{BIO311: Population Ecology\\ \textit{Prac 9: Population Matrices \& LTRE}}
+
+\author{Koen van Benthem \& Tina Cornioley\\\\
+\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
+
+\date{Spring 2014}
+\setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
+
+%\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%
+
+
+\begin{document}
+
+\begin{tikzpicture}[x=1pt,y=1pt]
+\definecolor{fillColor}{RGB}{255,255,255}
+\path[use as bounding box,fill=fillColor,fill opacity=0.00] (0,0) rectangle (505.89,505.89);
+\begin{scope}
+\path[clip] ( 54.00, 54.00) rectangle (487.89,487.89);
+\definecolor{drawColor}{RGB}{0,0,255}
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 70.07,162.58) --
+	(114.71,181.46) --
+	(159.35,215.61) --
+	(203.99,246.06) --
+	(248.63,277.29) --
+	(293.26,308.35) --
+	(337.90,339.45) --
+	(382.54,370.54) --
+	(427.18,401.63) --
+	(471.82,432.72);
+\end{scope}
+\begin{scope}
+\path[clip] (  0.00,  0.00) rectangle (505.89,505.89);
+\definecolor{drawColor}{RGB}{0,0,0}
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] (114.71, 54.00) -- (471.82, 54.00);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] (114.71, 54.00) -- (114.71, 49.50);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] (203.99, 54.00) -- (203.99, 49.50);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] (293.26, 54.00) -- (293.26, 49.50);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] (382.54, 54.00) -- (382.54, 49.50);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] (471.82, 54.00) -- (471.82, 49.50);
+
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (114.71, 37.80) {2};
+
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (203.99, 37.80) {4};
+
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (293.26, 37.80) {6};
+
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (382.54, 37.80) {8};
+
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (471.82, 37.80) {10};
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00, 70.07) -- ( 54.00,471.82);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00, 70.07) -- ( 49.50, 70.07);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00,150.42) -- ( 49.50,150.42);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00,230.77) -- ( 49.50,230.77);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00,311.12) -- ( 49.50,311.12);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00,391.47) -- ( 49.50,391.47);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00,471.82) -- ( 49.50,471.82);
+
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20, 70.07) {0};
+
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,150.42) {2};
+
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,230.77) {4};
+
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,311.12) {6};
+
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,391.47) {8};
+
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,471.82) {10};
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00, 54.00) --
+	(487.89, 54.00) --
+	(487.89,487.89) --
+	( 54.00,487.89) --
+	( 54.00, 54.00);
+\end{scope}
+\begin{scope}
+\path[clip] (  0.00,  0.00) rectangle (505.89,505.89);
+\definecolor{drawColor}{RGB}{0,0,0}
+
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (270.95, 19.80) {year};
+
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 25.20,270.95) {$\ln(n(t))$};
+\end{scope}
+\begin{scope}
+\path[clip] ( 54.00, 54.00) rectangle (487.89,487.89);
+\definecolor{drawColor}{RGB}{255,0,0}
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] (114.71,153.61) --
+	(159.35,172.49) --
+	(203.99,206.65) --
+	(248.63,237.10) --
+	(293.26,268.33) --
+	(337.90,299.39) --
+	(382.54,330.49) --
+	(427.18,361.58) --
+	(471.82,392.67);
+\definecolor{drawColor}{RGB}{0,255,0}
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] (159.35,127.34) --
+	(203.99,146.22) --
+	(248.63,180.38) --
+	(293.26,210.83) --
+	(337.90,242.06) --
+	(382.54,273.12) --
+	(427.18,304.21) --
+	(471.82,335.30);
+\definecolor{drawColor}{RGB}{160,32,240}
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] (203.99, 71.65) --
+	(248.63, 90.53) --
+	(293.26,124.68) --
+	(337.90,155.13) --
+	(382.54,186.36) --
+	(427.18,217.42) --
+	(471.82,248.52);
+\definecolor{drawColor}{RGB}{0,0,255}
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 60.26,479.55) -- ( 72.77,479.55);
+\definecolor{drawColor}{RGB}{255,0,0}
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 60.26,471.20) -- ( 72.77,471.20);
+\definecolor{drawColor}{RGB}{0,255,0}
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 60.26,462.86) -- ( 72.77,462.86);
+\definecolor{drawColor}{RGB}{160,32,240}
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 60.26,454.51) -- ( 72.77,454.51);
+\definecolor{drawColor}{RGB}{0,0,0}
+
+\node[text=drawColor,anchor=base west,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 79.03,476.33) {age class 1 };
+
+\node[text=drawColor,anchor=base west,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 79.03,467.99) {age class 2};
+
+\node[text=drawColor,anchor=base west,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 79.03,459.64) {age class 3};
+
+\node[text=drawColor,anchor=base west,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 79.03,451.30) {age class 4};
+\end{scope}
+\end{tikzpicture}
+
+\end{document}

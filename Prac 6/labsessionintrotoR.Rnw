@@ -1,0 +1,387 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+%\usepackage{bbold}
+\usepackage{tikz}
+%\usepackage{silence}
+\usepackage{mdframed}
+%\WarningFilter{mdframed}{You got a bad break}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{listings}
+\usepackage{color}
+\colorlet{exampcol}{blue!10}
+\usepackage{multicol}
+\usepackage{booktabs}
+
+\title{BIO311: Population Ecology\\ \textit{Practical 6: An introduction to \texttt{R}}}
+\setlength\parindent{0pt}
+
+\author{Koen van Benthem \& Tina Cornioley\\\\
+\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
+
+\date{Spring 2014}
+\setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
+
+%\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%
+
+\begin{document}
+<<ksetup, cache=FALSE, include=FALSE>>=
+opts_chunk$set(dev="tikz",tidy=F,dev.args=list(pointsize=7.5))
+options(width=60)
+@
+
+\maketitle
+\tableofcontents
+\vspace{3cm}
+\begin{mdframed}
+\textit{We do not claim to teach you the most efficient way to use \texttt{R}. If you at some point during the computer practicals encounter a code that you could make more efficient or elegant, please do let us know! We do want to learn from you as well.\\[1.5ex] However, do try to understand exactly what we are doing and how the functions we use work. The best way to learn how functions work is by either using the \texttt{R}-manaul (type \texttt{?functionname}) or by creating dummy data (just make up a small amount of data yourself) and analyse what the function does to this data.}
+\end{mdframed}
+\newpage
+\section{Getting to know \texttt{R}}
+Before exploring the data that you collected in the lab, we recommend you to get familiar with \texttt{R}. Please go over the following tutorial to learn or refresh the basics of \texttt{R}:\\
+
+\texttt{http://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf}
+\vspace{1.5ex}
+
+\textit{Note: in this tutorial the word vector is used for all lists of numbers and the word matrix is used for all arrays of numbers, not only for transformations.}
+
+\section{Dataset preparation}
+Prepare you dataset in excel before importing it into R. Open your rotifer data in excel and create a copy. Never directly modify your original data file. There is always the chance that you make a serious mistake and though loose all or part of your data. Your file must not contain any space (especially check the column names, they should have no space between words) or any special character of the type "\'e" or "\"o". Remove the comments, they are not in a form that can be anylised numerically but keep them in mind when writing your report. Avoid empty cells by filling them with NA if you do not know the value for that cell or zero if appropriate. 
+
+
+Once you have checked your document, save it as a .csv file delimited with ",". Carefully select the folder you save your document into. You will have to set this folder as your working directory later. If you are new to \texttt{R}, the easiest is that you save it in a folder name "Pop\textunderscore Ecol" on your desktop.
+
+\section{Getting data into \texttt{R}}
+\subsection{Step 1: Set the working directory}
+This is the file R will save your data into and open your dataset from. If you work on Windows you have to use double slashes in the path. You must insert your own working directory path.
+
+Making a mistake when typing the directory path from memory is very likely. Instead, you can right-click your file and select "Properties". From here, you can copy and paste the full directory structure (and the file name). Don't forget to add the extra slash.
+<<WD,eval=F>>=
+setwd("C://Desktop//Pop_Ecol")
+@
+\subsection{Step 2: Load your dataset}
+The next step is loading your dataset into \texttt{R}. The line of code below shows how to read your dataset if it is saved as \texttt{'rotifer\textunderscore data.csv'} file seperated with ",". The dataset must be in the working directory you specified above otherwise this command won't work.
+<<DS>>=
+rot<-read.csv("rotifer_data.csv", sep=",", header=T)
+@
+\subsection{Step 3: Check your data}
+\subsubsection{Initial overview}
+The next functions allow you to take a first look at the data you have loaded. If you see anything strange at this stage, you may have to go back to your original document in excel.
+<<CD,eval=F>>=
+head(rot) # Output the first few rows of rot
+tail(rot) # Output the last few rows of rot
+str(rot)  # Describe the structure of rot
+summary(rot) # Calculate basic information for each column in rot
+@
+What happens if you type \texttt{head(rot,10)} instead of \texttt{head(rot)}? Try the same thing for the function \texttt{tail}.
+\subsubsection{Finding typos}
+While typing in the data, a typo is easily made, especially for the columns \texttt{Copper} and \texttt{Population}. For the rest of the analysis it is crucial that the spelling in these columns is consistent. For this, we focus on these specific columns. To access one specific column, we use the notation \texttt{dataframe\$columnname}. Thus, to extract all the values of the \texttt{Population} column, you can use \texttt{rot\$Population}. Now use the command \texttt{table()} to obtain a summary of this data:
+<<typos,eval=FALSE>>=
+table(rot$Population)
+@
+You will notice that the post pollution populations are indicated with either \texttt{Postpollution} or \texttt{Post-pollution}. This will be very inconvenient in the further analysis. Correct this as follows:
+<<typos2,eval=TRUE>>=
+rot$Population[rot$Population=="Post-pollution"]<-"Postpollution"
+@
+What happens here is that we first select the column \texttt{Population} by typing \texttt{rot\$Population}. Next, the square brackets indicate that we are only interested in a part of the contents of that column. The part that we are interested in, are the entries that have the value \texttt{"Post-pollution"}. Precisely these elements are selected by \texttt{rot\$Population[rot\$Population=="Post-pollution"]}. Subsequently these elements are replaced by the properly spelled version by the command \texttt{<-"Postpollution"}. Now we check whether the problem is solved:
+<<typos3,eval=T>>=
+table(rot$Population)
+@
+Repeat these steps now for the \texttt{Copper} column, and correct any typos you encounter in that column.
+\begin{mdframed}
+\textit{Please note that we have included these errors manually, just for practicing purposes.}
+\end{mdframed}
+
+\subsubsection{Average values per type}
+So far we have looked at a set of summary statistics for the \texttt{rot} dataframe. These statistics were however all calculated for the full dataset, regardless of the parameters. In reality we would like to show such statistics per type (that is unique combination of \texttt{Population}, \texttt{Copper} and \texttt{Day}). Below we use the \texttt{aggregate()} function to calculate the mean number of alive juveniles for unique combinations of \texttt{Copper} and \texttt{Population}. Please extend this code to also account for the different days.
+<<agg1,out.width='0.65\\textwidth'>>=
+aggregate(rot$Alive_Juv,by=list(rot$Population,rot$Copper),mean)
+@
+Now repeat this procedure to also calculate the average number of alive adults per \texttt{Population}, \texttt{Copper}-treatment and \texttt{Day}.
+
+Finally adapt the script to also calculate other parameters, such as the median, maximum counts, minimum counts, standard deviation and variance.
+
+\subsection{Step 4: Plot your data}
+Let us have a look at how your rotifer population does over time. For this we use the plot function in R. The first argument is the $x$-axis and the second argument is the $y$-axis (i.e. your variable). At this stage, you may spot some outliers, in which case it can be a good idea to look back at the values you entered in the cell as you may have made a mistake.
+
+We will now plot the total number of living individuals (both juveniles and adults) against the copper concentration. The \texttt{xlab} and \texttt{ylab} options are used for the labels of the axes. The \texttt{main} option is used to set the title of the graph.
+<<ploti,echo=c(-1),out.width='0.5\\textwidth',fig.align='center'>>=
+par(mar=c(6,6,2,2))
+rot$Total<-rot$Alive_Juv+rot$Alive_Adult
+rot_copp<-aggregate(rot$Total,by=list(rot$Copper),mean)
+plot(rot_copp$Group.1,rot_copp$x,
+     xlab="Copper treatment",ylab="Avg population size")
+@
+We see now that the order of the treatments is a bit annoying: the level high comes before the level low. To change this, we need to change the column \texttt{Group.1} in \texttt{rot\textunderscore copp} to the type \texttt{factor}:
+<<ploti2,echo=c(-1),out.width='0.5\\textwidth',fig.align='center'>>=
+par(mar=c(6,6,2,2))
+rot_copp$Group.1<-factor(rot_copp$Group.1,
+                         levels=c("low","medium","high"),
+                         ordered=TRUE)
+
+plot(rot_copp$Group.1,rot_copp$x,main="Total Population",
+     xlab="Copper treatment",ylab="Avg population size")
+
+@
+
+
+The \texttt{par} function allows you to change the graph parameters. The specification \texttt{par(mfrow = c(1,2))} creates a graphic window with two panels next to each other (change the numbers in \texttt{c(1,2)} to create different numbers of panels next and on top of each other). Everytime you use the command \texttt{plot()}, the next panel is used. Use the former code to plot the effect of copper on the mean number of adults and on the mean number of juveniles. Put the two graphs on top of each other. Your result should look as follows:
+<<ploti3,echo=F,out.width='0.75\\textwidth',fig.align='center'>>=
+par(mar=c(6,6,2,2),mfrow=c(2,1))
+
+rot_copp<-aggregate(rot$Alive_Juv,by=list(rot$Copper),mean)
+rot_copp$Group.1<-factor(rot_copp$Group.1,
+                         levels=c("low","medium","high"),
+                         ordered=TRUE)
+plot(rot_copp$Group.1,rot_copp$x,main="Juveniles",
+     xlab="Copper treatment",ylab="Avg number of juveniles")
+rot_copp<-aggregate(rot$Alive_Adult,by=list(rot$Copper),mean)
+rot_copp$Group.1<-factor(rot_copp$Group.1,
+                         levels=c("low","medium","high"),
+                         ordered=TRUE)
+plot(rot_copp$Group.1,rot_copp$x,main="Adults",
+     xlab="Copper treatment",ylab="Avg number of adults")
+
+@
+It would however be a lot more informative to also compare the different populations and see how each of them develops over time. We will focus first on the populations with the low copper treatment. For simplicity we will only look at the total population numbers. Start by making an empty plot with the correct labels then draw the axes in this plot. Later we will put the data in this plot:
+<<gp1,eval=FALSE>>=
+
+plot(0,0,type="n",xlab="Day",
+     ylab="Total population size",
+     main="Low copper treatment",
+     axes=FALSE,xlim=c(1,3),ylim=c(0,30))
+axis(side=1,at=c(1,2,3))
+axis(side=2, at=c(0,5,10,15,20,25,30))
+@
+Now we need to prepare the data that we are interested in. First we use the \texttt{factor()} function in the beginning to make sure that the variable \texttt{Population} will be plot in the correct order:
+<<gp2,eval=T,results='hide'>>=
+rot$Population=factor(rot$Population, 
+                      levels=c('Commercial','Postpollution',
+                        'Recovery','Pollution'), ordered=T)
+@
+To select only the low copper treatment entries, use the function \texttt{subset()} and store this part of the dataset in a new variable \texttt{temp}. Make sure you understand what this function does.
+<<gp3,eval=T,results='hide'>>=
+temp<-subset(rot,Copper=='low')
+@
+Next use \texttt{aggregate()} to calculate the mean number of total individuals alive per day and population. Store this information in a variable named \texttt{Tot\textunderscore mean}. This should give you:
+\begin{center}
+<<gp4,eval=T,echo=F,results='asis'>>=
+library(xtable)
+Tot_mean<-aggregate(temp$Total,by=list(temp$Population,temp$Day),mean)
+print(xtable(Tot_mean, digits=2), 
+      size="footnotesize", #Change size; useful for bigger tables
+      include.rownames=FALSE, #Don't print rownames
+      include.colnames=TRUE, #We create them ourselves
+      floating=FALSE,
+      hline.after=0 #We don't need hline; we use booktabs
+    
+                        )
+@
+\end{center}
+Now we use the command \texttt{lines()} to add a line for the commercial populations to the empty plot:
+<<gp5,eval=T,echo=c(-1,-2,-3,-4),out.width='0.5\\textwidth',fig.align='center'>>=
+par(mar=c(6,6,2,2))
+plot(0,0,type="n",xlab="Day",
+     ylab="Avg population size",main="Low copper treatment",
+     axes=FALSE,xlim=c(1,3),ylim=c(0,30))
+axis(side=1,at=c(1,2,3))
+axis(side=2, at=c(0,5,10,15,20,25,30))
+temp2<-subset(Tot_mean,Group.1=="Commercial")
+lines(temp2$Group.2,temp2$x,col='red',pch=1,type="b")
+@
+Use these methods to also add lines for the other populations.\\
+<<gp6,eval=T,echo=F,out.width='0.5\\textwidth',fig.align='center'>>=
+par(mar=c(6,6,2,2))
+plot(0,0,type="n",xlab="Day",
+     ylab="Avg population size",main="Low copper treatment",
+     axes=FALSE,xlim=c(1,3),ylim=c(0,30))
+axis(side=1,at=c(1,2,3))
+axis(side=2, at=c(0,5,10,15,20,25,30))
+temp2<-subset(Tot_mean,Group.1=="Commercial")
+lines(temp2$Group.2,temp2$x,col='red',pch=1,type="b")
+temp2<-subset(Tot_mean,Group.1=="Postpollution")
+lines(temp2$Group.2,temp2$x,col='blue',pch=1,type="b")
+temp2<-subset(Tot_mean,Group.1=="Recovery")
+lines(temp2$Group.2,temp2$x,col='green',pch=1,type="b")
+temp2<-subset(Tot_mean,Group.1=="Pollution")
+lines(temp2$Group.2,temp2$x,col='orange',pch=1,type="b")
+@
+We are getting closer, but we aren't there yet, now we want to add a legend to the figure. To do so we use the command \texttt{legend()}, with $7$ parameters. Use \texttt{?legend} to find out what each parameter determines (or just play around with the parameters to find that out):
+<<gp7,eval=T,echo=c(13),out.width='0.5\\textwidth',fig.align='center'>>=
+par(mar=c(6,6,2,2))
+plot(0,0,type="n",xlab="Day",
+     ylab="Avg population size",main="Low copper treatment",
+     axes=FALSE,xlim=c(1,3),ylim=c(0,30))
+axis(side=1,at=c(1,2,3))
+axis(side=2, at=c(0,5,10,15,20,25,30))
+temp2<-subset(Tot_mean,Group.1=="Commercial")
+lines(temp2$Group.2,temp2$x,col='red',pch=1,type="b")
+temp2<-subset(Tot_mean,Group.1=="Postpollution")
+lines(temp2$Group.2,temp2$x,col='blue',pch=1,type="b")
+temp2<-subset(Tot_mean,Group.1=="Recovery")
+lines(temp2$Group.2,temp2$x,col='green',pch=1,type="b")
+temp2<-subset(Tot_mean,Group.1=="Pollution")
+lines(temp2$Group.2,temp2$x,col='orange',pch=1,type="b")
+legend(x=1, y=24, col=c("red","blue","green","orange"),
+legend=c("Commercial","Postpollution","Recovery","Pollution"), 
+lty=1, pch=1, bty="n")
+@
+Finally we would like to introduce error bars in this graph. To do so, we first define a function for calculating the standard error. The standard error ($SE$) is defined as the standard deviation ($sd$) divided by the square root of the number of measurements ($N$) that the mean depends on:
+\begin{equation*}
+SE = \frac{\sigma}{\sqrt{N}}.
+\end{equation*}
+We use this property to define a new function that calculates the standard error:
+<<gp8,eval=TRUE>>=
+SE<-function(x) sd(x)/sqrt(length(x))
+@
+If we now call \texttt{SE(x)}, it will return us the standard error of \texttt{x}. We use this function together with \texttt{aggregate} to calculate the standard errors for all our datapoints in the low copper treatment:
+\begin{center}
+<<gp9,eval=T,echo=c(1),results='asis'>>=
+SE_tot<-aggregate(temp$Total,by=list(temp$Population,temp$Day),SE)
+print(xtable(SE_tot, digits=2), 
+      size="footnotesize", #Change size; useful for bigger tables
+      include.rownames=FALSE, #Don't print rownames
+      include.colnames=TRUE, #We create them ourselves
+      floating=FALSE,
+      hline.after=0 #We don't need hline; we use booktabs
+  )
+@
+\end{center}
+Finally we use the function \texttt{arrows()} (use \texttt{?arrows} to understand how this function works or play around with the parameters to see the effects) to add the error bars. For the commercial populations this would work as follows:
+<<gp10,eval=T,echo=c(14,15,16),warning=FALSE>>=
+par(mar=c(6,6,2,2))
+plot(0,0,type="n",xlab="Day",
+     ylab="Total population size",main="Low copper treatment",
+     axes=FALSE,xlim=c(1,3),ylim=c(0,30))
+axis(side=1,at=c(1,2,3))
+axis(side=2, at=c(0,5,10,15,20,25,30))
+temp2<-subset(Tot_mean,Group.1=="Commercial")
+lines(temp2$Group.2,temp2$x,col='red',pch=1,type="b")
+temp2<-subset(Tot_mean,Group.1=="Postpollution")
+lines(temp2$Group.2,temp2$x,col='blue',pch=1,type="b")
+temp2<-subset(Tot_mean,Group.1=="Recovery")
+lines(temp2$Group.2,temp2$x,col='green',pch=1,type="b")
+temp2<-subset(Tot_mean,Group.1=="Pollution")
+lines(temp2$Group.2,temp2$x,col='orange',pch=1,type="b")
+legend(x=1, y=24, col=c("red","blue","green","orange"),legend=c("Commercial","Postpollution","Recovery","Pollution"), lty=1, pch=1, bty="n")
+temp2<-subset(Tot_mean,Group.1=="Commercial")
+temp3<-subset(SE_tot,Group.1=="Commercial")
+arrows(temp3$Group.2,temp2$x-temp3$x,temp3$Group.2,temp2$x+temp3$x,
+       angle=90,length=0.1,col='red',code=3)
+@
+You will notice a warning message about zero-length arrows. What does this mean? Repeat this procedure to also include error bars for the other three lines. Can you now also generate the plots for the other two copper treatments? 
+<<gekkeplot,echo=FALSE,out.width='0.65\\textwidth',fig.align='center',warning=FALSE>>=
+RData<-rot
+RData$Copper=factor(RData$Copper,levels=c('low','medium','high'),ordered=T)
+RData$Population=factor(RData$Population, levels=c('Commercial','Postpollution','Recovery','Pollution'), ordered=T)
+
+# Quickly have some overview over your data in numbers on your console
+RData$Total_all<-RData$Alive_Juv + RData$Alive_Adult
+Tot_mean<-data.frame(aggregate(RData$Total_all ~ RData$Day+ RData$Population + RData$Copper, data=RData, mean))
+# But also want to add the standard errors
+# So calculate them first
+SE<-function(x)sqrt(var(x)/length(x))
+Tot_SE<-data.frame(aggregate(RData$Total_all ~ RData$Day+ RData$Population + RData$Copper, data=RData, SE))
+colnames(Tot_SE)[4]<-"SE"
+together<-merge(Tot_mean,Tot_SE)
+
+#And now the graphs
+par(mar=c(6,6,2,2))
+for(j in levels(together$RData.Copper)){
+  temp<-subset(together,together$RData.Copper==j)
+  plot(0,0,type="n", xlab="Day",ylab="Total population size",xlim=c(1,3),ylim=c(0,26),axes=FALSE, main=paste(j,"copper treatment"))
+  axis(side=1,at=c(1,2,3))
+  axis(side=2, at=c(0,5,10,15,20,25,30))
+  lev<-levels(temp[,2])
+  cols<-c('red','blue','green','orange')
+  syms<-1:4
+  
+  for(i in 1:length(lev)){
+    lines(temp$RData.Day[temp$RData.Population==lev[i]],temp$RData.Total_all[temp$RData.Population==lev[i]],col=cols[i],"b",pch=syms[i])
+    arrows(c(1,2,3),(temp$RData.Total_all[temp$RData.Population==lev[i]]-c(temp$SE[temp$RData.Population==lev[i]])),
+           c(1,2,3),(temp$RData.Total_all[temp$RData.Population==lev[i]]+c(temp$SE[temp$RData.Population==lev[i]])),code=3,angle=90,col=cols[i],length=0.1)
+  }
+  legend(1, 24, col=cols,legend=lev, lty=1, pch=syms,bty="n")
+}
+
+
+@
+\begin{mdframed}
+\textit{The shortcut}\\
+First of all the code can be shortened by using for-loops, can you find two place where introducing a for-loop would make the code shorter? Besides, we are not the first people to deal with this problem: actually the sciplot package does all of this in a more or less automated way:
+<<blabla,out.width='0.6\\textwidth',warning=FALSE,fig.align='center', echo=c(-1)>>=
+par(mar=c(6,6,2,2))
+library(sciplot)
+temp<-subset(rot,Copper='low')
+lineplot.CI(temp$Day,temp$Total,
+            group=temp$Population,fixed=T, ylim=c(0,26),
+            xlab="Day",ylab="Total population size", 
+            main="Low copper treatment")
+@
+\end{mdframed}
+\subsection{Saving your graph}
+If you want to save your graph, write the code in R following the instructions below:
+\begin{enumerate}
+\item Choose a file name. This can be anything, for example, ''Nameyourgraph.jpg''.
+\item Open a jpeg file by typing jpeg(file = ''Nameyourgraph.jpg'').
+\item Use the plot command to make graphs. Because you typed the jpeg command, R will send all graphs to the jpeg file, and the graphic output will not appear on the screen.
+\item Close the jpeg file by typing: \texttt{dev.off()}.
+\end{enumerate}
+\begin{mdframed}
+\textbf{File types for images}\\
+In the example above we have described how to save a graph as a \texttt{jpg}. Saving your graph as a \texttt{jpg} is not always the best way to go. As you may notice the quality of the output is not always as good. You can try to increase the quality of the image by adding the parameters \texttt{width} and \texttt{height} to the \texttt{jpg} command. We will now compare two graphs, each with different numbers for the \texttt{width} and \texttt{height:}. We have cut out the axis labels for comparison purposes.
+
+<<sk1,results='hide'>>=
+x<-1:5
+y<-runif(5)
+jpeg('jpg1.jpg',width=100,height=100)
+par(mar=c(0,0,0,0))
+plot(x,y,type="b")
+dev.off()
+
+jpeg('jpg2.jpg',width=512,height=512)
+par(mar=c(0,0,0,0))
+plot(x,y,type="b")
+dev.off()
+@
+Compare the following two plots:
+\begin{center}
+\includegraphics[width=0.45\textwidth]{jpg1.jpg}
+\includegraphics[width=0.45\textwidth]{jpg2.jpg}
+\end{center}
+Although the plot on the right hand side already has a higher quality, if you zoom in you will still notice that it contains some noise around the lines. Instead you could opt for a \texttt{png} image.
+<<sk2,results='hide'>>=
+
+png('png1.png',width=100,height=100)
+par(mar=c(0,0,0,0))
+plot(x,y,type="b")
+dev.off()
+
+png('png2.png',width=512,height=512)
+par(mar=c(0,0,0,0))
+plot(x,y,type="b")
+dev.off()
+@
+Compare the following two plots:
+\begin{center}
+\includegraphics[width=0.45\textwidth]{png1.png}
+\includegraphics[width=0.45\textwidth]{png2.png}
+\end{center}
+Notice how the noise is now gone. The quality is however still not perfect. You can increase the quality by further increasing the \texttt{height} and \texttt{width} of the image. Alternatively you could also opt for a different file format: \texttt{pdf}: (Note that for this file format height and width can be specified but have a different meaning than for the previous file formats)
+<<sk3,results='hide'>>=
+
+pdf('pdf1.pdf')
+par(mar=c(0,0,0,0))
+plot(x,y,type="b")
+dev.off()
+
+@
+\begin{center}
+\includegraphics[width=0.45\textwidth]{pdf1.pdf}
+\end{center}
+Try to zoom in until you see the pixels: that's right, you can not find them. The \texttt{pdf} format is very high quality, but unfortunately it is difficult (if not impossible) to include it in word documents. You can however use them in \LaTeX documents. \LaTeX is also the program that we used for writing this pactical. If you want to try it without having to install anything and not even having to create an account:\\
+\texttt{www.writelatex.com} \\
+Some more file formats are available for creating pictures, for example \texttt{TIFF} and \texttt{BMP}. Realise how annoying it is if you made the perfect graph but saved it as a low quality file...
+\end{mdframed}
+\end{document}

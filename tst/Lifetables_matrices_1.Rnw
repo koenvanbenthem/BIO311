@@ -1,0 +1,382 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+%\usepackage{bbold}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+%\usepackage{silence}
+\usepackage{mdframed}
+%\WarningFilter{mdframed}{You got a bad break}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{listings}
+\usepackage{color}
+\colorlet{exampcol}{blue!10}
+\usepackage{multicol}
+\usepackage[answerdelayed]{exercise}
+\usepackage{booktabs}
+\usepackage{caption}
+
+\title{BIO311: Population Ecology\\ \textit{Prac 8: Life tables \& Population Matrices}}
+
+\author{Koen van Benthem \& Tina Cornioley\\\\
+\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
+
+\date{Spring 2014}
+\setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
+
+%\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%
+
+\begin{document}
+
+<<setup, cache=FALSE, include=FALSE>>=
+opts_chunk$set(dev="pdf",tidy=F,dev.args=list(pointsize=7.5))
+options(width=60)
+
+@
+
+<<setparameters,echo=FALSE,include=FALSE>>=
+
+@
+\maketitle
+\tableofcontents
+\vspace{3cm}
+\begin{tikzpicture}[x={(-0.9cm,-0.43cm)}, y={(1cm,0cm)}, z={(0cm,1cm)}, scale=1.0,
+    %Option for nice arrows
+    >=stealth, %
+    inner sep=0pt, outer sep=2pt,%
+    axis/.style={thick,->},
+    wave/.style={thick,color=#1,smooth},
+    polaroid/.style={fill=black!60!white, opacity=0.6},
+]
+    % Colors
+    \colorlet{darkgreen}{green!50!black}
+    \colorlet{lightgreen}{green!80!black}
+    \colorlet{darkred}{red!50!black}
+    \colorlet{lightred}{red!80!black}
+
+    % Frame
+    \coordinate (O) at (0, 0, 0);
+    \draw[thick] (-2,0,0) -- (O);
+    \draw[thick] (0,-3,0) -- (O);
+    \draw[green,->] (0,0,0) -- (-1,0,0);
+    \draw[dotted,thick] (-0.5,0.5,0) -- (-1,0,0);
+
+    \draw[polaroid]   (1.5, -1.5,  1.5) -- (-1.5, 1.5,   1.5)  -- (-1.5, 1.5, -1.5) -- (1.5, -1.5, -1.5) -- cycle;
+    
+    \draw[axis] (0,0,0) -- +(2, 0,   0) node [left] {x};
+    \draw[axis] (0,0,0) -- +(0,  3, 0) node [right] {y};
+    \draw[axis] (0,0,-2) -- +(0,  0,   4) node [above] {z};
+    \draw[blue,->] (0,0,0) -- (0,1,0);
+    \draw[dotted,thick] (0,1,0) -- (-0.5,0.5,0);
+
+     %Crystal thin section
+
+
+    %Second polarization
+
+
+\end{tikzpicture}
+\newpage
+\section{Hypothetical Dataset}
+\subsection{Life table}
+In this practical, you will work with life tables. Read carefully the following text and do the exercise at the end of this section. The first part is the description of a hypothetical barn owl population and the second part is brief reminder of life table theory. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.3\textwidth]{Barnowl.jpg}
+\caption{\label{fig:owl}Barn owl, from wikipedia.}
+\end{figure}
+
+\subsubsection{A barn owl population}
+The barn owl (Schleiereule in German) is a common noctural prey bird (see fig. \ref{fig:owl}. In 2010, 10 female chicks were born and were followed over the years. In 2011, 8 of them were still alive. Only 3 females of this cohort reproduced in 2011: one produced 4 female chicks, one produces 3 female chicks and the last one produced 5 female chicks. In 2012 only 4 females were still alive. This time, they each produce 3 female chicks. In 2013, only one individual of the original cohort was still alive and had only one female chick. In 2014, all individuals were dead.   
+
+
+\subsubsection{Standard cohort life table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccccccc}
+$x$ & $S(x)$ & $b(x)$ & $l(x)$ & $g(x)$ & Rep. rate \\\hline
+$0$ &  $10$ & ... & ... & ...&...\\
+$1$ & $8$ & ... & ... & ...&...\\
+$2$ & ... & ... & ... & ...&...\\
+$3$ & ... & ... & ... & ...&...\\
+$4$ & ... & ... & ... & ...&...\\
+\end{tabular}
+\caption{\label{tab:LT}An example of a life table.}
+\end{table}
+
+Table \ref{tab:LT} contains the standard life-table calculation. Below is a description of each column. We purposefully do not provide you with the equations to obtain each value as this you will find yourself in the exercise. 
+\begin{itemize}
+
+\item \textit{The first column} $x$ is the age of the individuals. By convention, the newborn start at age $0$ and are age $1$ at their first birthday. 
+
+\item \textit{The second column} $S(x)$ is the number of individuals of the cohort still alive at age $x$. 
+
+\item \textit{The third column} $b(x)$ is the fecundity schedule (sometimes it is refered to as $m(x)$, \textit{m} for maternity). It is the \textbf{average number of female offspring born per unit of time to a female of a given age}. 
+
+\item \textit{The fourth column} $l(x)$ is the survivorship schedule, not to be confused with the survival probability $g(x)$. It is defined as the \textbf{proportion of the original cohort that survives to a given age}. Or in other words it is the probability that an individual survives from birth to age $x$. 
+
+\item \textit{The fifth column} $g(x)$ is the survival probability. It is different from the survivorship schedule in that it is the \textbf{probability that an individual of age $x$ survives to age $x+1$}. 
+
+\item \textit{The sixth column} Rep. rate is what we call here the reproductive rate. We are in fact interested in the \textbf{net reproductive rate, $R_0$} but to find it, we must find the reproductive rate of each age. The net reproductive rate is defined as the \textbf{mean number of female offspring produced per female individual over their lifetime.} It is the reproductie potential of a female corrected for its mortality.
+\end{itemize}
+
+In addition to the elements of the table, there a few more important properties you can extract from the life table. A general property of the table is, $G$, the generation time. A definition of the generation time is \textbf{the average age of mothers when they give birth}. From the life table, you can also calculate the instantaneous rate of increase, $r$. Remember from Madan's lecture on unstructured population that:
+\begin{equation}
+N_t=N_0e^{rt}
+\end{equation}
+The exact solution of $r$ is given by solving the following equation adapted from the Lotka-Euler equation for $r$:
+\begin{equation}
+1=\sum\limits_{x=0}^k e^{-rx}l(x)b(x)
+\end{equation}
+This equation can only be solved iteratively. Alternatively, an approximation of $r$ is given by:
+\begin{equation}
+r \approx \frac{\ln(R_0)}{G}
+\end{equation}
+
+
+\begin{Exercise}[title=Life Table, label=LT, difficulty=1]
+Write on paper a life table for the hypothetical barn howl population described above. Your life table should be organised like table \ref{tab:LT} and contain the same columns. For each column, write the corresponding equation. 
+
+In addition, find $R_0$, $G$ and the approximation of $r$.
+\end{Exercise}
+\begin{Answer}[ref=LT]
+The column $x$ and $S(x)$ are directly given in the text. 
+\begin{equation}
+b(x)=\frac{n(x)}{S(x)}
+\end{equation}
+where $n(x)$ is the number of female offspring produced by all the females of age $x$. $n(x)=\sum\limits_{i=1}^k{n(i)}$, where $n(i)$ is the number of female offrpsing per female of age $x$ in the cohort and $k$ the number of female age $x$ in the cohort.
+
+\begin{equation}
+l(x)=frac{S(x)}{S(0)}
+\end{equation}
+
+\begin{equation}
+g(x)=frac{S(x+1)}{S(x)}
+\end{equation}
+
+\begin{equation}
+Rep. rate=l(x)b(x)
+\end{equation}
+\begin{equation}
+R_0=\sum\limits_{x=0}^k{l(x)b(x)}
+\end{equation}
+where $k$ is the maximum age. 
+
+\begin{equation}
+G=\frac{\sum\limits_{x=0}^k{l(x)b(x)x}}{\sum\limits_{x=0}^k{l(x)b(x)}}
+\end{equation}
+It may therefore be interesting to add an additional column to the table:
+\begin{equation}
+l(x)b(x)x=l(x)b(x)x
+\end{equation}
+
+<<t1,echo=F,eval=T,results='asis'>>=
+library(xtable)
+
+#The age 
+x<- c(0,1,2,3,4)
+#The survivors
+S<-c(10,8,4,1,0)
+#The fecundtity schedule
+b<-c(0,2,3,1,0)
+#The survivorship Schedule
+l<-S/S[1]
+#The survival probability
+g<-append(S[c(2:5)]/S[c(1:4)],NA)
+#The reproductive rate
+Rep_rat<-l*b
+#l(x)b(x)x
+lbx<-l*b*x
+
+
+lt<-data.frame(x,S,b,l,g,Rep_rat, lbx)
+
+print(xtable(lt, digits=2), 
+      size="footnotesize", #Change size; useful for bigger tables
+      include.rownames=FALSE, #Don't print rownames
+      include.colnames=FALSE, #We create them ourselves
+      floating=FALSE,
+      hline.after=NULL, #We don't need hline; we use booktabs
+      add.to.row = list(pos = list(-1, 
+                                   nrow(lt)),
+                        command = c(paste("\\toprule \n",
+                                          "$x$ & $S(x)$ & $b(x)$ & $l(x)$ & $g(x)$ & Rep. rate & $l(x)b(x)x$ \\\\\n", 
+                                          "\\midrule \n"),
+                                    "\\bottomrule \n")
+                        ))
+@
+
+<<t01,echo=F,eval=T,results='asis'>>=
+#The net reproductive rate
+R0<-sum(Rep_rat)
+cat("\\noindent")
+cat("$R_0=$",R0,"\\\\")
+#The generation time
+G<-(sum(l*b*x))/(sum(l*b))
+cat("$G=$",G,"\\\\")
+#estimated r
+r<-log(R0)/G
+cat("$r=$",r,"\\\\")
+
+@
+
+\end{Answer}
+
+
+\subsection{Age-structured Matrix Analysis}
+In the former section, we have followed the fate of a hypothetical cohort of barn owls. Let us now look at the matrix. We want to know the number of individuals in each age class, thus we now shift from age to age class. Imagine these $10$ female barn owls are the founders of a new population and we do a postbreeding census, in which females are counted each year just after they have bred. Therefore, in year $2010$, there are $10$ of females in age class $1$. In $2011$ there are $8$ in  females in age class $2$ and $16$ females in age class $1$.  In $2012$ there are $4$ females in age class $3$, $13 females$ in age class $2$ and $12$ females produced by the individuals in age class $2$ and $26$ females produced by the females in age class $1$. In $2013$ there is $0$ female in age class $4$, there are $7$ females in age class $3$ and $30$ females in age class $2$. There are in addition $81$ new individuals in age class $1$; $1$ from the females in age class $3$, $19$ from the females in age class $2$ and $61$ from the females in age class $1$.
+
+\begin{Exercise}[title=Age-structured matix, label=ASM, difficulty=1]
+\Question Let us work out the matrix of this barn owl population on paper.
+\subQuestion First, draw the life cycle of the population of barn owls describe above.
+\subQuestion Find the survival probability $P_i$ for each age class $i$, that is the propability of an individual in age class $i$ to age class $i+1$. 
+\subQuestion Find the fertility $F_i$, the average number of offpsring produced by an individual of age class $i$.
+\subQuestion Write the equations to get the number of individuals in each age class at time $t+1$. Your equations should be of the form $n_1(t+1)=F_1n_1(t)$.
+\subQuestion What is the structure of the corresponding Leslie matrix? What is the dimention of your matrix?
+\subQuestion Build the corresponding Leslie matrix of this population.
+\end{Exercise}
+
+\subsubsection{Matrices in R}
+Now that you have find the matrix of this population, let us implement it in R. Set the initial population vector to the founder population (10 individuals in age class $1$). 
+
+<<t2a,echo=F,eval=T, results='hide'>>=
+# Build the Leslie Matrix for the barn owl population
+
+F1<- 1.60
+F2<- 1.50
+F3<- 0.25
+F4<- 0
+
+P1<- 0.80
+P2<- 0.5
+P3<- 0.25
+P4<- 0 
+  
+A<-matrix(c(F1, P1, 0, 0, F2, 0, P2, 0, F3, 0, 0, P3, F4,0,0,P4), nr=4)
+A
+# The initial population vector
+
+n11<- 10
+n12<- 0
+n13<- 0
+n14<- 0
+  
+n0<-c(n11, n12, n13, n14)  
+@
+
+<<t2b,echo=T,eval=F>>=
+# Build the Leslie Matrix for the barn owl population
+
+F1<- #insert your value here
+F2<- #insert your value here
+F3<- #insert your value here
+F4<- #insert your value here
+
+P1<- #insert your value here
+P2<- #insert your value here
+P3<- #insert your value here
+P4<- #insert your value here 
+  
+A<-matrix(c(F1,P1,0,0,F2,0,P2,0,F3,0,0,P3,F4,0,0,P4), nr=4)
+A
+# The initial population vector
+
+n11<- #insert your value here
+n12<- #insert your value here
+n13<- #insert your value here
+n14<- #insert your value here
+  
+n0<-c(n11, n12, n13, n14)  
+@
+
+The next step is to project the population in the future. We have seen in the lecture that
+\begin{equation}
+n(t+1)=n(t)A
+\end{equation}
+To do so, we write the two following functions in R. The sign \%*\% is for matrix multiplication in R.
+<<t2,echo=T,eval=F>>=
+n1<-n0%*%A
+nt2<-A%*%n0
+@
+
+Try run both lines. One is incorrect, why?
+
+Next let us use this matrix to project the population. To do so we use a \texttt{for} loop over a specified time span. We first need to build an empty matrix which will be filled during the loop. The $n$ matrix is a matrix that has the same number of rows that the matrix $A$ and has as many column as the time span we set. Thus each column corresponds to one year. By first setting the time span to 4, check if we get the same population as the one described in the text. Then try different values of time span.
+
+
+  
+
+
+<<t3b,echo=T,eval=F>>=
+tspan <- #insert value                         # time span 
+rows <- dim(A)[1]
+
+# Build some matrices for storing eventual output
+n <- matrix(0,rows,tspan)     # empty matrix 
+
+n[,1] <- c( , , , )           # insert value for the initial 
+                              # population in each age class
+
+# Project population forward and store output
+for (t in 1:(tspan-1)) {
+    n[,t+1] <-A%*% n[,t]      # %*% = matrix multiplication in R
+                                    
+}
+n
+
+@
+
+Let us look at what happens to the 
+
+
+
+
+<<t3a,echo=F,eval=T>>=
+tspan <- 5                         # time span for projections
+rows <- dim(A)[1]
+
+# Build some matrices for storing eventual output
+n <- matrix(0,rows,tspan)     # storage of age-specific abundance
+
+n[,1] <- c(10 ,0,0,0)              # initial population abundance in each age class
+
+# Project population forward and store output; note that
+# %*% in R implies matrix multiplication, and * implies scalar multiplication
+# or element-by-element multiplication of matrix entries.
+for (t in 1:(tspan-1)) {
+    n[,t+1] <-A%*% n[,t]      # %*% = matrix multiplication in R
+                                  
+}
+
+plot(log(n[1,]), type="l", col="blue", ylim=c(0,5), xlab="year", ylab="$ln(n(t))$") #please add slash!
+lines(log(n[2,]), col="red")
+lines(log(n[3,]), col="green")
+lines(log(n[4,]), col="purple")
+legend("topleft",
+       c("age class 1 ","age class 2", "age class 3", "age class 4"), 
+       bty = "n",
+lty=c(1,1,1,1),
+col=c("blue", "red", "green", "purple"))
+
+
+@ 
+
+
+\subsubsection{Asymptotic behaviour}
+
+\subsubsection{Sensitivity analysis}
+
+\subsubsection{Elasticity analysis}
+
+\subsubsection{Transient dynamics}
+
+\subsection{Stage-structured Matrix Analysis}
+
+\subsection{Choice of bin size}
+\section{Rotifer data}
+Constructing matrices for the data from the lab practicals.
+\shipoutAnswer
+\end{document}

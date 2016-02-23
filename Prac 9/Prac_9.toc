@@ -1,0 +1,10 @@
+\contentsline {section}{\numberline {1}Hypothetical Dataset}{2}
+\contentsline {subsection}{\numberline {1.1}Age-structured Matrix Analysis}{2}
+\contentsline {subsubsection}{\numberline {1.1.1}Asymptotic behaviour}{2}
+\contentsline {subsubsection}{\numberline {1.1.2}Sensitivity and elasticity analysis}{5}
+\contentsline {subsubsection}{\numberline {1.1.3}Transient dynamics}{8}
+\contentsline {subsubsection}{\numberline {1.1.4}Reproductive values}{9}
+\contentsline {section}{\numberline {2}Life Table Response Experiment}{13}
+\contentsline {subsection}{\numberline {2.1}One-way fixed designs}{13}
+\contentsline {subsection}{\numberline {2.2}Fixed Factorial Designs (Theory)}{15}
+\contentsline {section}{\numberline {3}Rotifer data analysis}{17}

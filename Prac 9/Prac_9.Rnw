@@ -1,0 +1,1009 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+%\usepackage{bbold}
+\usepackage{tikz}
+%\usepackage{silence}
+\usepackage{mdframed}
+%\WarningFilter{mdframed}{You got a bad break}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{listings}
+\usepackage{color}
+\colorlet{exampcol}{blue!10}
+\usepackage{multicol}
+\usepackage[answerdelayed]{exercise}
+\usepackage{booktabs}
+\usepackage{caption}
+
+\title{BIO311: Population Ecology\\ \textit{Prac 9: Population Matrices \& LTRE}}
+
+\author{Koen van Benthem \& Tina Cornioley\\\\
+\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
+
+\date{Spring 2014}
+\setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
+
+%\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%
+
+\begin{document}
+
+<<setup, cache=FALSE, include=FALSE>>=
+opts_chunk$set(dev="tikz",tidy=F,dev.args=list(pointsize=7.5))
+options(width=60)
+
+@
+
+<<setparameters,echo=FALSE,include=FALSE>>=
+
+@
+\maketitle
+\tableofcontents
+\vspace{3cm}
+\newpage
+\begin{mdframed}
+\textit{The last practical before the Easter break contains important concept for the analysis of the rotifer data. Therefore the beginning of this practical is the same as the ending of the previous practical to make sure that everybody has the time to finish these exercises.}\\[1.5ex]
+\textbf{The completely new material starts at section \ref{Newfrhere}. In the other sections some minor revisions have been made though.}
+\end{mdframed}
+\section{Hypothetical Dataset}
+\subsection{Age-structured Matrix Analysis}
+In the former practical, we have followed the fate of a hypothetical population of barn owls. The life cycle of this popualtion is given below.
+\begin{center}
+\includegraphics[width=0.95\textwidth]{Barn_owl_life_cycle.pdf}
+\end{center}
+For this population we found the following leslie matrix:
+\begin{equation}
+\begin{pmatrix}
+1.60&1.48&0.25&0\\
+0.80&0&0&0\\
+0&0.52&0&0\\
+0&0&0.25&0
+\end{pmatrix}
+\end{equation}
+
+<<t2a,echo=F,eval=T, results='hide'>>=
+# Build the Leslie Matrix for the barn owl population
+
+F1<- 1.60
+F2<- 1.48
+F3<- 0.25
+F4<- 0
+
+P1<- 0.80
+P2<- 0.52
+P3<- 0.25
+P4<- 0 
+  
+A<-matrix(c(F1, P1, 0, 0, F2, 0, P2, 0, F3, 0, 0, P3, F4,0,0,P4), nr=4)
+A
+# The initial population vector
+
+n11<- 10
+n12<- 0
+n13<- 0
+n14<- 0
+  
+n0<-c(n11, n12, n13, n14)  
+@
+
+\subsubsection{Asymptotic behaviour}
+\textit{Asymptotic rate of increase} 
+
+From the matrix, we can find the asymptotic growth rate of that population. For this we need to look at the dominant eigenvalue of the population matrix. Remember from the lecture that the dominant eigenvalue of a population matrix is the long term asymptotic rate of increase, $\lambda$. An eigenvalue of a matrix is a \textbf{scalar that when multiplied by a specific vector, gives the same result as when that vector is multiplied by the matrix}. Mathematically this means:
+\begin{equation}\label{eig}
+\boldsymbol{A} \vec{w}=\lambda \vec{w}
+\end{equation}
+the vector $\vec{w}$ is not any vector but an eigenvector, that is a vector such that equation \ref{eig} holds. We will come back to it later. If you do not feel comfortable with the concept of eigenvectors/matrices, you might want to return to the last exercise of the mathematical tools script.
+
+In \texttt{R} we do not have to just see the eigenvectors, instead they can be found using the \texttt{eigen()} function.
+<<t6,echo=T,eval=T, results='hide'>>=
+eigens.A<-eigen(A)
+eigens.A
+@
+
+Let us for the moment only focus on the first set of outputted values. These values ($\Sexpr{round(eigens.A$values,3)}$) are the eigenvalues of the matrix $\boldsymbol{A}$. A matrix has as many eigenvalues as it has dimensions. The only one we are interested in is the dominant eigenvalue, i.e. the largest eigenvalue. From looking at the eigenvalues, we see that this is the first one. In general the dominant eigenvalue can be found by using the function \texttt{which.max()} that returns the position of the maximum value of an object. Next we extract the value in that position.
+<<t7,echo=T,eval=T, results='hide'>>=
+position<-which.max(eigens.A$values)
+position
+
+lambda2<-eigens.A$values[position]
+lambda2
+@
+Alternatively, $\lambda$ can be found directly by using the \texttt{lambda()} funtion of the \texttt{popbio} package in \texttt{R}. This will give exactly the same result. 
+<<t8,echo=T,eval=T>>=
+library(popbio)
+lambda(A)
+@
+Thus our asymptotic finite rate of increase $\lambda$ is \Sexpr{lambda2}. This is what we expect the population growth rate to look like on the long-term.
+\vspace{0.5 cm}
+
+\noindent\textit{Stable-age distribution} 
+
+In the previous section, we looked at the growth of the whole population. It is also informative to examine what the population structure will look like on the long-term. We already calculated these numbers in the previous practical, let us now plot them. 
+<<t10,echo=T,eval=F>>=
+
+plot(log(n[1,]), type="l", col="blue", ylim=c(0,5),
+     xlab="year", ylab="ln(n(t))") 
+lines(log(n[2,]), col="red")
+lines(log(n[3,]), col="green")
+lines(log(n[4,]), col="purple")
+legend("topright",
+       c("age class 1 ","age class 2", "age class 3", 
+         "age class 4"), 
+       bty = "n",
+lty=c(1,1,1,1),
+col=c("blue", "red", "green", "purple"))
+@ 
+
+<<t3a,echo=F,eval=T>>=
+tspan <- 10                         # time span for projections
+rows <- dim(A)[1]
+
+# Build some matrices for storing eventual output
+n <- matrix(0,rows,tspan)     # storage of age-specific abundance
+
+n[,1] <- c(10 ,0,0,0)              # initial population abundance in each age class
+
+# Project population forward and store output; note that
+# %*% in R implies matrix multiplication, and * implies scalar multiplication
+# or element-by-element multiplication of matrix entries.
+for (t in 1:(tspan-1)) {
+    n[,t+1] <-A%*% n[,t]      # %*% = matrix multiplication in R
+                                  
+}
+Ntot<-colSums (n)
+par(mar=c(6,6,2,2))
+plot(log(n[1,]), type="l", col="blue", ylim=c(0,10), xlab="year", ylab="$\\ln(n(t))$") #please add slash!
+lines(log(n[2,]), col="red")
+lines(log(n[3,]), col="green")
+lines(log(n[4,]), col="purple")
+legend("topleft",
+       c("age class 1 ","age class 2", "age class 3", "age class 4"), 
+       bty = "n",
+lty=c(1,1,1,1),
+col=c("blue", "red", "green", "purple"))
+
+
+@ 
+When reading the graph, keep in mind that the $y$-axis is logarithmic. We see that after five years, the age class trajectories are parallel to each other and growing with a constant rate. If a population is growing with constant birth and death rate, as is the case of our owl population, then the population converges to a stable age distribution. Once a population has reached the stable age distribution, it grows exponentially at the asymptotic finite rate $\lambda$. A population at the stable age distribution always has the same relative number of individuals in each age class every time step. However, the absolute number of indiviuals will change. The stationary age distribution is a special case of stable age distribution where the absolute number of individuals does neither increase nor decrease. The population is not growing. What is the asymptotic growth rate ($\lambda$) of such a stationary population? 
+
+
+The stable age distibution is given by the right eigenvector corresponding to the dominant eigenvalue. Let us now look at the vector elements of the \texttt{eigen} function. The columns of \texttt{eigens.A\$ vector} are the right eigenvectors of the matrix $\boldsymbol{A}$. When applying the matrix to them, it is the same as multiplying them by the corresponding eigenvalues, which are scalars. This means that the length but not the direction of this vector is changed by the matrix. Check this for the eigenvector corresponding to the dominant eigenvalue.
+
+There are as many right eigenvectors as there are eigenvalues. To each eigenvalue one eigenvector corresponds. Its position is the same as the one of the dominant eigenvalue so we can extract it with the following lines of code.
+
+<<t11,echo=T,eval=T, results='hide'>>=
+w<-eigens.A$vector[,position]
+w
+@
+The right eigenvector as such does not give us the proportion found in each age class. This is because in the vector that \texttt{R} returns, the length of the eigenvectors is set to $1$ instead of the sum of its elements (what is the difference between these two? Which is biologically more relevant? Which is mathematically more relevant?). However, to find the proportion of each age class, we want to rescale it (remember that if you find an eigenvector all vectors that point in the same direction are also eigenvectors. If we multiply an eigenvector by a scalar it thus remains an eigenvector.):
+<<t12,echo=T,eval=T, results='hide'>>=
+ssd<-w/sum(w)
+ssd
+@
+Therefore we know now that in the stable age structure a proportion of \Sexpr{round(ssd[1],2)} of the population is in age class 1, \Sexpr{round(ssd[2],2)} in age class 2, \Sexpr{round(ssd[3],2)} in age class 3, and \Sexpr{round(ssd[4],2)} in age class 4.
+
+\subsubsection{Sensitivity and elasticity analysis}
+
+Sensitivities and elasticities of $\lambda$ evaluate the relative importance of each matrix element for the asymptotic growth rate. Sensitivity is the effect of additive change in a matrix element on $\lambda$ and the elasticity is the proportional effect of a proportional change in the parameter to $\lambda$.
+
+
+\vspace{1.5ex}
+\noindent\textit{Sensitivity analysis}
+
+
+The sensitivity tells us how an increase in absolute value of one of the parameters affects $\lambda$. How much does $\lambda$ increase if the fertility of the age class 1 increases by a very small amount (for example 0.01)? Let us play around with the projection matrix and change each element of this matrix by 0.01 one by one to see how if affects $\lambda$ and store these different values of $\lambda$. 
+<<t13,echo=T,eval=F>>=
+# Build the Leslie Matrix for the barn owl population
+
+F11<-    + 0.01 #insert your value here
+F21<- #insert your value here
+F31<- #insert your value here
+F41<- #insert your value here
+
+P11<- #insert your value here
+P21<- #insert your value here
+P31<- #insert your value here
+P41<- #insert your value here 
+  
+A1<-matrix(c(F11,P11,0,0,F21,0,P21,0,F31,0,0,P31,F41,0,0,P41),
+           nr=4)
+A1
+lambdaF1<- lambda(A1)
+@
+
+You can see that by changing the parameter values, the value of $\lambda$ changes. The sensitivity of $\lambda$ to one element of the matrix is given by:
+\begin{equation}\label{aa}
+s_{ij}=\frac{\partial \lambda} {\partial a_{ij}}
+\end{equation}
+Remember the first practical on mathematical tools, the section on the derivatives. Instead of taking the derivative, equation \ref{aa} can be approximated by taking the difference between $\lambda$ of the original matrix and $\lambda$ the modified matrix, and dividing it by the change we apply to the element of the matrix. 
+\begin{itemize}
+\item $\partial \lambda$ \; can be approximated by the difference between the original $\lambda$ \; and the new $\lambda$ (after changing one of the elements).
+\item $\partial a_{ij}$ can be approximated by the difference between the original $a_{ij}$ and the new $a_{ij}$. In our \texttt{R} code, this is 0.01.  
+\end{itemize}
+If the change to the element of the matrix is very small, the sensitivities calucated so will be close to the actual sensitivities. Try to approximate the sensitivities of $\lambda$ to a few of the matrix elements in \texttt{R}. Then compare your results with the actual sensititvities presented in the table below. The sensitivities in the table have been calculated with the function \texttt{sensitivty} from the \texttt{popbio} library. 
+
+<<t14a,echo=F,eval=T, results='hide'>>=
+
+F1<- 1.60
+F2<- 1.48
+F3<- 0.25
+F4<- 0
+
+P1<- 0.80
+P2<- 0.52
+P3<- 0.25
+P4<- 0 
+  
+A<-matrix(c(F1, P1, 0, 0, F2, 0, P2, 0, F3, 0, 0, P3, F4,0,0,P4), nr=4)
+A
+a<-0.01
+Sen<-matrix(NA,4,4)
+lamA<-lambda(A)
+for (i in 1:4){
+  for (j in 1:4){
+  Ap<-A
+  Ap[i,j]<-A[i,j]+a
+  Sen[i,j]<-(lambda(Ap)-lamA)/a
+}
+}
+Sen
+@
+
+<<t14,echo=F,eval=T, results='asis'>>=
+sen<- sensitivity(A)
+library(xtable)
+
+print(xtable(sen, digits=4),
+      size="footnotesize", #Change size; useful for bigger tables
+      include.rownames=FALSE, #Don't print rownames
+      include.colnames=FALSE, #We create them ourselves
+      floating=FALSE,
+      hline.after=NULL, #We don't need hline; we use booktabs
+      add.to.row = list(pos = list(-1, 
+                                   nrow(sen)),
+                        command = c(paste("\n",
+                                          "$n_1$ & $n_2$ & $n_3$ & $n_4$ \\\\\n",
+                                          "\n"),
+                                    "\n")
+                        )
+      )
+@
+
+\begin{mdframed}
+If you want to calculate all sensitivities using the approximation presented above, it is probably best to use a \texttt{for} loop (or actually two, why two?). Do not forget to only change one matrix element at a time. Also investigate how small the change in the matrix element has to be to make sure that the approximation returns reasonable numbers. Change the values of $a$ and compare your sensitivities with the one in the table above. What do you see?
+
+<<t14b,echo=T,eval=F, results='hide'>>=
+a<-0.01
+Sen<-matrix(NA,4,4)
+lamA<-lambda(A)
+for (i in ...){
+  for (j in ...){
+  Ap<-A
+  Ap[i,j]<-... # Create the matrix where only one 
+               # element of the matrix (the element
+               #i,j) is changed at a time.
+  Sen[i,j]<-... # Find the sensitivity to the 
+               # element of the matrix modified in 
+               # Ap one by one from the differences
+               # in lambda over the change in aij. 
+}
+}
+Sen
+
+@
+\end{mdframed}
+
+\vspace{1.5ex}
+
+\noindent\textit{Elasiticity analysis}
+
+
+Elasticities are proportional sensitivities. Before we asked the question: if a matrix element increases by a small amount, how much does $\lambda$ \; increase? Elasticities ask a different question: with what factor does $\lambda$\; change if a matrix element is changed by a certain factor. They thus examine the effect of a proportional change of transition elements on $\lambda$. For example, you may be interested in knowing by how much does $\lambda$\; change if the fertility of age class 2 is increased by 25\%. 
+ 
+The elasticity of $\lambda$\; to a proporitonal change of one element of the matrix is given by:
+\begin{equation}
+e_{i,j}=\frac{a_{i,j}}{\lambda} \frac{\partial \lambda} {\partial a_{i,j}} = \frac{a_{i,j}}{\partial a_{i,j}} \frac{\partial \lambda}{\lambda} = \frac{\frac{\partial \lambda}{\lambda}}{\frac{\partial a_{i,j}}{ a_{i,j}}}
+\end{equation}
+You can thus calculate the elasticities from your approximations of the sensitivities. To do so, focus on the first part of the equation: $e_{i,j}=\frac{a_{i,j}}{\lambda} \frac{\partial \lambda} {\partial a_{i,j}}$.  Compare your values with the values below, which were calculated with the \texttt{elasticity()} function of the \texttt{popbio} package. 
+
+
+<<t15,echo=F,eval=T, results='asis'>>=
+ela<- elasticity(A)
+library(xtable)
+print(xtable(ela, digits=4), 
+      size="footnotesize", #Change size; useful for bigger tables
+      include.rownames=FALSE, #Don't print rownames
+      include.colnames=FALSE, #We create them ourselves
+      floating=FALSE,
+      hline.after=NULL, #We don't need hline; we use booktabs
+      add.to.row = list(pos = list(-1, 
+                                   nrow(ela)),
+                        command = c(paste("\n",
+                                          "$n_1$ & $n_2$ & $n_3$ & $n_4$ \\\\\n",
+                                          "\n"),
+                                    "\n")
+                        )
+      )
+@
+
+\subsubsection{Transient dynamics}
+Most of what we have described above focuses on the asymptotic, (i.e. long-term) behaviour of the system. However, the short-term dynamics can be very different. In nature, a population may never be observed in the asymptotic regime. Transient dynamics focus on short-term responses.   
+
+There are year-to-year variations in growth rate before the asymptotic growth rate is reached. The code below calculates the annual finite growth rates of the barn owl population. 
+<<t16,echo=T,eval=T, results='hide'>>=
+Ntot # the total population size vector.
+     # Each element is the population size
+     # at one time step. As calculated before
+Ntott<-Ntot[2:(length(Ntot)+1)]
+# the total popoluation size at t+1
+
+R<-Ntott/Ntot
+# the annual finite growth rates
+#vector
+
+@
+
+We can plot this in a graph to see how much time it takes this population to reach the asymptotic finite  growth rate. To this plot we add a straight line using the function \texttt{abline} to represent the value of $\lambda$.
+
+<<t17,echo=T,eval=T, results='asis'>>=
+lam<-lambda(A)
+
+plot(R, type="l", col="blue", xlab="year", ylab="growth rate") 
+abline(h=lam, col="red")
+legend("topright",
+       c("annual growth rate","asymptotic growth rate"), 
+       bty = "n",
+lty=c(1,1),
+col=c("blue", "red"))
+
+
+@
+It thus takes approximately five years before the population reaches its asymptotic growth rate.
+
+\subsubsection{Reproductive values}\label{Newfrhere}
+The reproductive value vector represents the contribution of each individual to present and future reproduction. In other words, it gives how much an individual in a given age class contributes to the population on the long-term, including offspring of its offspring. That is: if we have a population and its matrix at time $t=1$, what proportion of individuals at a much later time will be descendants of individuals in age class $1$ at time $t=1$ and how many from individuals in age class $2$ etc. Mathematically, the reproductive value vector is the left eigenvector of the population matrix.
+\begin{equation}
+\vec{v}A=\lambda \vec{v}
+\end{equation}
+Please note that this time the vector is on the left side instead of on the right side of the matrix. This is why this is called a left eigenvector. Multiplication with the vector on the left side of the matrix looks as follows in 2 dimensions:
+\begin{equation}
+\begin{pmatrix} v_1 & v_2 \end{pmatrix} \begin{pmatrix} a_{1,1} & a_{1,2}\\ a_{2,1} & a_{2,2} \end{pmatrix} = \begin{pmatrix} v_1 a_{1,1} + v_2 a_{2,1} & v_1 a_{1,2} + v_2 a_{2,2} \end{pmatrix}
+\end{equation}
+Again, we take the row from the first element (in this case the vector) and multiply its elements by the elements of the first column of the second element (in these case a matrix). Adding up these contributions gives us the value for the first entry of the final vector. Compare this to what you would get if the order of the matrix and the vector would be the other way around.
+
+To get the left eigenvector of a matrix, we need to perform the eigen analysis on the transpose of the projection matrix. (The transpose of a matrix is the matrix we get by exchanging the rows and the columns of that matrix. For example for the matrix $\boldsymbol{B}=\begin{pmatrix}a & b\\ c & d\end{pmatrix}$, $\boldsymbol{B}^T$ is the transpose of matrix $\boldsymbol{B}$ and $\boldsymbol{B}^T=\begin{pmatrix}a & c\\ b & d\end{pmatrix}$). More visually: when you transpose a matrix, you mirror its elements in the diagonal of that matrix. \texttt{t()} is the \texttt{R} function that transposes a matrix. If you do not remember what the function \texttt{eigen} does, reread the subsection \textit{asymptotic rate of increase} or aks \texttt{R} (\texttt{?eigen}).
+
+<<t18,echo=T,eval=T, results='hide'>>=
+At<-t(A)
+eigens.At<-eigen(At)
+eigens.At
+@
+We apply the same proceedure as for the right eigenvector to find the left eigenvector and the eigenvalue. Write the code to extract the eigenvalue and the left eigenvector. Do you notice anything about the eigenvalue? Check that the found dominant left eigenvector is indeed a left eigenvector of the matrix with the dominant eigenvalue as its eigenvalue.\\[1.5ex]
+<<t19,echo=F,eval=T, results='hide'>>=
+position3<-which.max(eigens.At$values)
+lambda3<-eigens.At$values[position3]
+v<-eigens.At$vector[,position3]
+rv<-v/sum(v)
+rv
+@
+\begin{mdframed}
+\textbf{Additional information: Reproductive values more in depth}\\
+If you want to understand the interpretation of the reproductive values more closely, take a look at the following (not too elegant) code:
+<<testcode>>=
+B<-matrix(4*runif(9),nrow=3) # We generate a random matrix
+
+B 
+# We output B, in case you want to repeat the 
+# simulation yourself
+
+eigen(t(B))$vectors[,1]/sum(eigen(t(B))$vectors[,1])
+# We calculate the dominant left eigenvector of this matrix
+# and normalise it with respect to the sum of its elements
+
+# Now we want to investigate what would happen to the 
+# following 3 initial populations:
+# 1) (1,0,0)  2) (0,1,0)  3) (0,0,1)
+
+N1<-rep(NA,3)
+# Create an empty vector for storing the final population
+# size if we start with any of the three initial populations
+for(i in 1:3){
+  N<-rep(0,3)
+  N[i]<-1
+  # Set the initial population vector
+  # the first time it will be (1,0,0)
+  # then (0,1,0) and finally (0,0,1)
+  
+  for(t in 1:40){ 
+    # we project the population for 40 timesteps
+    N<-B%*%N
+  }
+  N1[i]<-sum(N)
+  # We store the total population size after 40 timesteps
+  # in the vector N1
+}
+N1/sum(N1)
+# We output the normalised version of N1, which should be
+# equal to the left eigenvector, do check this!
+@
+You can interpret this as follows: if we for example start with a population $\begin{pmatrix}1\\ 1\\ 1 \end{pmatrix}$, after $40$ years, $\Sexpr{100*round(N1[1]/sum(N1),2)}\% $ of the total population will have originated from the individual that was initially in age class $1$, $\Sexpr{100*round(N1[2]/sum(N1),2)}\% $ from the individual in age class $2$ and the remaining $\Sexpr{100*round(N1[3]/sum(N1),2)}\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population.
+\textit{Please not that since we took completely random numbers to construct the matrix, the matrix is unlikely to have biological relevance. But the concept of course remains the same for more relevant matrices.}\\[1.5ex]
+However, what would happen if the initial population would look as follows: $\begin{pmatrix}2\\ 1\\ 1 \end{pmatrix}$? If we project this initial population in the future we find (the code is omitted this time):
+<<testcode2,echo=FALSE>>=
+
+# We calculate the dominant left eigenvector of this matrix
+# and normalise it with respect to the sum of its elements
+
+# Now we want to investigate what would happen to the 
+# following initial populations:
+# 1) (1,0,0)
+# 2) (0,1,0)
+# 3) (0,0,1)
+
+N1<-rep(NA,3)
+# Create an empty vector for storing the final population
+# size if we start with any of the three initial populations
+for(i in 1:3){
+  
+  N<-rep(0,3)
+  N[i]<-1
+  if(i==1){
+    N[i]<-2
+  }
+  # Set the initial population vector
+  # the first time it will be (1,0,0)
+  # then (0,1,0) and finally (0,0,1)
+  
+  for(t in 1:40){ 
+    # we project the population for 40 timesteps
+    N<-B%*%N
+  }
+  
+  N1[i]<-sum(N)
+  # We store the total population size after 40 timesteps
+  # in the vector N1
+}
+N1/sum(N1)
+# We output the normalised version of N1, which should be
+# equal to the left eigenvector, do check this!
+@
+This means that after $40$ years, $\Sexpr{100*round(N1[1]/sum(N1),2)}\% $ of the total population will have originated from the two individuals that were initially in age class $1$, $\Sexpr{100*round(N1[2]/sum(N1),2)}\% $ from the individual in age class $2$ and the remaining $\Sexpr{100*round(N1[3]/sum(N1),2)}\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population. These numbers do not correspond to the left eigenvector, yet they do relate to the left eigenvalue.
+First we need to realize that if $\Sexpr{100*round(N1[1]/sum(N1),2)}\% $ of the final population originated from the two individuals in age class 1 in the initial population, this means that each of these two individuals is responsible for $\Sexpr{50*round(N1[1]/sum(N1),2)}\% $ of the final population. It is of course fairer to compare these numbers with each other (so after correcting for the number of individuals that we started with):
+\begin{equation*}
+\begin{pmatrix}
+\Sexpr{50*round(N1[1]/sum(N1),2)} \\
+\Sexpr{100*round(N1[2]/sum(N1),2)} \\
+\Sexpr{100*round(N1[3]/sum(N1),2)}
+\end{pmatrix}
+\end{equation*}
+However, now the numbers no longer add up to $100\%$. Since all we care about is the ratio between the different contributions, we can just divide all of them by the sum of the three contributions ($\approx \Sexpr{50*round(N1[1]/sum(N1),2)} +\Sexpr{100*round(N1[2]/sum(N1),2)} + \Sexpr{100*round(N1[3]/sum(N1),2)} $) and multiply the total by $100$ (just to make sure that all the percentages add up to $100$). What we get now is: 
+\begin{equation*}
+\begin{pmatrix}
+\Sexpr{round(50*N1[1]/(0.5*N1[1]+N1[2]+N1[3]),2)} \\
+\Sexpr{round(100*N1[2]/(0.5*N1[1]+N1[2]+N1[3]),2)} \\
+\Sexpr{round(100*N1[3]/(0.5*N1[1]+N1[2]+N1[3]),2)}
+\end{pmatrix}
+\end{equation*}
+This is indeed again the left eigenvector! (Hopefully. Every time we save this document new random numbers are generated, so actually we can only hope that the theory is general enough to work for all random matrices \texttt{B} that are accidentally generated...). We see thus that the left eigenvector actually mainly tell you how many more offspring an individual that starts in a certain age class will have compared to individuals in other age classes on the long term. -- This is indeed a relatively difficult concept, but maybe if you think about it and go over this simulation yourself, it might sink in.
+\end{mdframed}
+\section{Life Table Response Experiment}
+Life table response experiments (LTREs) are used to assess which  differences in vital rates lead to a change in $\lambda$ in an experimental design. The experiment you performed on the rotifers is well suited to be analysed by an LTRE. More information on the LTREs can be find in Caswell (2001) \textit{Matrix population models}, this is also the book that we based the theoretical background of this practical on. 
+\subsection{One-way fixed designs}
+A one-way fixed effect is applied on data with one treatment of several levels. For example, let us examine two populations of yellow-necked mice. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.3\textwidth]{mouse.jpg}
+\caption{\label{fig:mice}yellow-necked mouse, from wikipedia.}
+\end{figure}
+
+This species lives mostly in woodlands and it is suspected that its distribution is limited by altitude. Let us compare a population living in the mountain (population $\boldsymbol{M}$) with a population living in the plain (population $\boldsymbol{P}$) to see if the altitude is a limiting distribution factor. This species can be described by a life-cylce in two stages; juveniles and adults. Thus the matrices describing those populations are given by:
+<<t20,echo=F,eval=T, results='hide'>>=
+P<-matrix(c(0,0.25,2,0.5), nrow=2)
+M<-matrix(c(0,0.2,1.9,0.45), nrow=2)
+
+library(popbio)
+lamP<-lambda(P)
+lamM<-lambda(M)
+lamP
+lamM
+@
+\begin{equation}
+\boldsymbol{P}=\begin{pmatrix}
+\Sexpr{P[1,1]}&\Sexpr{P[1,2]}\\
+\Sexpr{P[2,1]}&\Sexpr{P[2,2]}
+\end{pmatrix}
+\end{equation}
+and
+\begin{equation}
+\boldsymbol{M}=\begin{pmatrix}
+\Sexpr{M[1,1]}&\Sexpr{M[1,2]}\\
+\Sexpr{M[2,1]}&\Sexpr{M[2,2]}
+\end{pmatrix}
+\end{equation}
+Find the asymptotic growth rates of these populations. You can see that they differ. We would now like to investigate which matrix elements contribute the most to the difference in the asymptotic growth rates. For this we describe the asymptotic growth rate of the mountain population matrix, $\boldsymbol{M}$, as a function of the asymptotic growth rate of the plain population matrix, $\boldsymbol{P}$ , our reference population plus a treatment effect:  
+
+\begin{equation}\label{a}
+\lambda^{(M)} \approx \lambda^{(P)}+\sum_{i,j}{(a^{(M)}_{ij}-a^{(P)}_{ij})} \frac{ \partial\lambda^{A}}{\partial a^{A}_{ij}}
+\end{equation}
+Let us work through the right part of this equation together. 
+\begin{itemize}
+\item $\lambda^{(P)}$ is the asymptotic growth rate of the $\boldsymbol{P}$ matrix. 
+\item The term ${(a^{(M)}_{ij}-a^{(P)}_{ij})}$, is the change in the elements of the matrix due to the treatment effect, here the moutain habitat. It tells us how different an element in matrix $\boldsymbol{M}$ is from the element at the same position in matrix $\boldsymbol{P}$.
+\item The last part, $\frac{ \partial\lambda^{A}}{\partial a^{A}_{ij}}$, is the sensitivities of the asymptotic growth rate of a "mid-way" matrix to elements of that "mid-way" matrix. This matrix is the mean between $\boldsymbol{P}$ and $\boldsymbol{M}$ and is thus given by 
+\begin{equation}
+\boldsymbol{A}=\frac{\boldsymbol{M}+\boldsymbol{P}}{2}
+\end{equation}
+The matrix $\boldsymbol{A}$ is used because we need a matrix to compare matrices $\boldsymbol{P}$ and $\boldsymbol{M}$ against. It is possible to use either matrix $\boldsymbol{P}$ or $\boldsymbol{M}$ instead but this would give more weight to the selected matrix. Therefore we use the matrix that lies just in between.
+\item The multiplication of the sensitivities with the summation term defines how much the change in each elements of the matrix due to the treatment affects the asymptotic growth rate. In other word they are the contributions of the $a_{ij}$ to the effect of the habitat on the growth. It is necessary to do this because for example, a large difference between the elements in the same position may in fact have little effect on the growth if the senstitivity for this position is low. 
+\end{itemize}
+
+You may have recognized that equation \ref{a} is a linear equation ($y=b+ax$). This method makes the assumption that the relationship between the matrices is linear and that the slope of this equation is given by $\frac{ \partial\lambda^{A}}{\partial a^{A}_{ij}}$.
+
+
+With equation \ref{a}, find the value of $\lambda^{(\boldsymbol{M})}$ using \texttt{R} and compare it to the value you found earlier. How different are they? More interestingly: which difference in the matrix elements is mainly responsible for this difference? Is it the juvenile survival, the adult survival or the reproductive value?\\[1.5ex]
+
+\textit{Hint} Find the "mid-way" matrix. For the sensitivities, either approximate them yourself or use the \texttt{sensitivity()} function from the \texttt{popbio} package
+<<t21,echo=F,eval=T, results='hide'>>=
+P<-matrix(c(0,0.25,2,0.5), nrow=2)
+M<-matrix(c(0,0.2,1.9,0.45), nrow=2)
+
+#Short cut:
+library(popbio)
+
+A<-(M+P)/2
+lamP<-lambda(P)
+lamM<-lambda(M)
+lamM2<-lamP+sum((M-P)*sensitivity(A))
+
+
+#alternative complete code:
+a<-0.01
+Sen<-matrix(NA,2,2)
+lamA<-lambda(A)
+for (i in 1:2){
+  for (j in 1:2){
+  Ap<-A
+  Ap[i,j]<-A[i,j]+a
+  Sen[i,j]<-(lambda(Ap)-lamA)/a
+}
+}
+Sen
+lamP<-which(eigen(P)$values==max(eigen(P)$values))
+lamP+sum((M-P)*Sen)
+
+
+@
+\subsection{Fixed Factorial Designs (Theory)}
+Factorial LTRE allows the examination of the effects of several treatments and their interactions. This is the case for your rotifer data where you have a "layer" treatment, a "pollution" treatment and a "species" treatment. Not all the combinations were investigated though; the layers "recovery" and "pollution" contained only the species BU whereas the layers "commercial" and "postpollution" contained only species BC. What difficulty would this pose if you want to compare the species to each other? Because of this, we cannot make a full factorial LTRE on the rotifer data, but we will examine subsets of the full dataset.
+
+
+For example let us consider the species BU which has two treatments of the type "layer": the layers "recovery" ($r$) and "pollution" ($p$). For each of these layers it has 3 possible levels for the copper treatment: "low" ($l$), "medium" ($m$) and "high" ($h$). We thus have two factors, one with two levels, the second with three levels.
+
+A factorial LTRE is similar to a one-way LTRE; we want to find which differences in matrix elements between a focal matrix and a reference matrix contribute the most to the difference in $\lambda$ between the two matrices. Let us take the matrix "recovery" and "low" which we call $\boldsymbol{M}^{r,l}$ as the focal matrix, for this we average the rates over all the $6$ replicates that were subject to this treatment ($r,l$). We compare it to the matrix naive to any treatment, which we call $\boldsymbol{M}^{..}$. This matrix is obtained from taking the average rates for all the matrices that we are comparing to each other (that is in this case the average of $\boldsymbol{M}^{r,l}$,$\boldsymbol{M}^{r,m}$,$\boldsymbol{M}^{r,h}$,$\boldsymbol{M}^{p,l}$,$\boldsymbol{M}^{p,m}$ and $\boldsymbol{M}^{p,h}$). Again we are interested in understanding the effect of the different treatments on the asymptotic growth rates.
+\begin{equation}\label{b}
+\lambda^{r,l}=\lambda^{..}+\alpha^{r}+\beta^{l}+(\alpha \beta)^{r,l}
+\end{equation}
+Equation \ref{b} tells us that $\lambda^{r,l}$ can be found from $\lambda^{..}$ plus an effect from the layer "recovery", an effect from the pollution "low" and an interaction between the two treatments.
+
+To isolate the effect of each treatment, we need to look at them separately. So we examine a matrix $\boldsymbol{M}^{r.}$, where the effect of pollution is ignored. The rates of this matrix are calculated as the average of all the matrices with the layer "recovery". 
+\begin{equation}\label{c}
+\alpha^{r}=\sum_{ij}(a^{r.}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{A}}{\partial a^{A}_{ij}}
+\end{equation}
+The structure of equation \ref{c} is the same as the last part of equation \ref{a}. The matrix $\boldsymbol{A}$ is again a "mid-way" matrix between $\boldsymbol{M}^{r.}$ and $\boldsymbol{M}^{..}$. $\alpha^{r}$ tells us how large the effect of the treatment "layer" is on the asymptotic growth rate. If we want to know which matrix elements are responsible for this effect, we need to look at the separate contributions to $\alpha^r$ ($(a^{r.}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{A}}{\partial a^{A}_{ij}}$). Analogously we can also calculate $\alpha^p$.
+
+We do the same for the second factor. We examine a matrix $\boldsymbol{M}^{.l}$, where the effect of the layer is ignored: 
+\begin{equation}\label{d}
+\beta^{l}=\sum_{ij}(a^{.l}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{B}}{\partial a^{B}_{ij}}
+\end{equation}
+For the interaction effect, we apply the same logic. We examine a matrix $\boldsymbol{M}^{rl}$ where both the effects of the layer and the pollution are taken into account so as to capture the effect of the interaction between the two factors. Because we want to isolate the interaction effect, we need to remove the effects of the layer and copper treatment.
+\begin{equation}
+(\alpha \beta)^{rl}=\sum_{ij}(a^{rl}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{C}}{\partial a^{C}_{ij}} -\alpha^{r}-\beta^{l}
+\end{equation}
+So far we have considered only the effect of the layer "recovery" and the pollution "low". Of course this can be extended to all other layers of all treatments. So in general the equations become for $k$ the level of treatment $1$ and $m$ the level of treatment $2$.
+
+\begin{equation}\label{f}
+\lambda^{k,m}=\lambda^{..}+\alpha^{k}+\beta^{m}+(\alpha \beta)^{k,m}
+\end{equation}
+\begin{equation}\label{e}
+\alpha^{k}=\sum_{ij}(a^{k.}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{A}}{\partial a^{A}_{ij}}
+\end{equation}
+\begin{equation}
+\beta^{m}=\sum_{ij}(a^{.m}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{B}}{\partial a^{B}_{ij}}
+\end{equation}
+\begin{equation}
+(\alpha \beta)^{km}=\sum_{ij}(a^{km}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{C}}{\partial a^{C}_{ij}} -\alpha^{k}-\beta^{m}
+\end{equation}
+In these equations:
+\begin{align}
+A &= \frac{\boldsymbol{M^{k.}} + \boldsymbol{M^{..}}}{2} & B &= \frac{\boldsymbol{M^{.m}} + \boldsymbol{M^{..}}}{2} & C &= \frac{\boldsymbol{M^{km}} + \boldsymbol{M^{..}}}{2}
+\end{align}
+LTREs provide additional information to the growth rate as it describes how the different treatments affect the growth rate. In particular, LTRE allow a detailed comparison of the effect of a treatment on growth rate by examining the contribution of each survival and fertility rate to the gorwth rates of populations subjected to different treatment levels. For example, the graph below depicts the contribution of each element of populations under different copper levels to the growth rate. Each bar describes what is the contribution of an element to the growth rate when subjected to a given treatment level. What conclusions can you draw from this graph?
+
+
+
+<<thypgraph,echo=F, eval=T, results='asis',fig.align='center'>>=
+#Copper
+Copper <- matrix(c(0.06, -0.08, -0.007, -0.07, 0.01, 0.04, 0.04, -0.05, 0.01), nrow=3, ncol=3)
+colnames(Copper) <- c("High", "Medium", "Low")
+rownames(Copper) <- c("Pj", "F", "Pa")
+Coppert<-t(Copper)
+
+par(mar=c(6.1, 6.1, 4.1, 5.1), xpd=TRUE)
+barplot(Coppert,xaxt='n', xlab="", ylab="Parameters contribution",ylim=c(-0.1, 0.1), xlim=c(0,14), col=c("brown","orange", "yellow"), beside=TRUE, main="Copper level")
+segments(-1,0, 13,0)
+legend("topleft", 
+     c("High", "Medium", "Low"), fill=c("brown","orange", "yellow"),  bty="n")
+axis(side=1, at=c(3,7,11), labels=c( "Pj", "F", "Pa"), line=1, tick=FALSE)
+
+@
+
+\section{Rotifer data analysis}
+In this section, you will apply the factorial LTRE to the rotifer data to compare the layers "pollution" and "recovery". The second factor is the copper treatment with the levels "low", "high", "medium".
+\begin{enumerate}
+\item Load the file that contains the estimated transition rates in \texttt{R}, do not forget to set the working directory first. 
+\item Because in the lab, you have made several replicates for each treatment combination, you now have a rate per replicate. We are however interested in the average rates per treatment. We want one juvenile survival rate, one adult survival rate and one fertility rate per population, per copper level and per species. For this you can use the \texttt{aggregate()} function that we have seen in practical $6$ and find the mean. Use the function three times seperately, once for each of the rates that we are interested in. Store the results in a variable. Use \texttt{?aggregate} to see how to use the function. You will need to use one special argument: \texttt{na.rm=TRUE}. This is to make sure that when there are $NA$s in the dataset, the function ignores them and still returns a value.
+\item Now you have three separate lists. You want to group them. For this you can adapt the following lines of code. Use the names of the variables that you specified in the previous step.
+<<t23,echo=T, eval=F>>=
+younewdata1<-merge(SurvJuv, SurvAdu, by=c(1,2,3)) 
+#by set the column by which to merge the two elements
+
+younewdata2<-merge(younewdata1, Fertility, by=c(1,2,3))
+@
+You can in addition give a more meaningful name to the columns by using:
+<<t24,echo=T, eval=F>>=
+colnames(younewdata2)<-c("name of col1", 
+"name of col2", "name of col3", 
+"name of col4", "name of col5", "name of col6")
+@
+\item We mentioned that we are only interested at the moment in the layer "Recovery" and "Pollution". Both contained the species BU. Thus, select only the BU species with the \texttt{subset} function that we also used in practical $6$.
+\item Below is a useful function for the LTRE. It allows you to extract a specific matrix per treatment by using \texttt{get\_matrix}. You need to give it the following arguments 1) the dataset from which you want to extract the matrix, 2) the name of the layer that you are interested in (for example "Pollution"), and 3) the name of the copper level (for example "high"). You do not need to understand the details of this code. If you run this code once during your \texttt{R}-session, \texttt{R} will remember it and every time you type \texttt{get\_matrix(data,layer,copper)} it will execute that code.
+<<t26,echo=T, eval=F>>=
+#code for function to extract matrices from the dataset#
+get_matrix<-function(roti,pop,cop){
+  if(!pop %in% c(levels(roti$Population),"mean")){
+    warning("Something went wrong, give the instructors 
+            a cookie and they may help you out:
+            \n------------------------\n ",pop,
+        " is not a valid entry\n------------------------\n")
+    
+    return()
+  }
+  
+  if(!cop %in% c(levels(roti$Copper),"mean")){
+    warning("Something went wrong, give the instructors 
+            a cookie and they may help you out:
+            \n------------------------\n ",cop," 
+            is not a valid entry\n------------------------\n")
+    
+    return()
+  }
+  
+  if(pop=="mean" & cop=="mean"){
+    i<-1:length(roti$Copper)
+  }else if(pop=="mean"){
+    i<-which(roti$Copper==cop)
+  }else if(cop=="mean"){
+    i<-which(roti$Population==pop)
+  }else{
+    i<-which(roti$Population==pop & roti$Copper==cop)  
+  }
+  
+  A<-matrix(c(0, mean(roti$Pj[i]), 
+        mean(roti$F[i]), mean(roti$Pa[i])), nrow=2, ncol=2)
+  return(A)
+  }
+#end of the function#
+@
+\item With the \texttt{get\_matrix} function, extract the matrix for each treatment combinations ($6$ matrices in total). You need to specify the dataset in the first position, in the second position you need to specify the layer and in the third position the copper level.
+\item Get the growth rate $\lambda$ of each of these matrix.
+\item Now we get to the LTRE. Let us isolate the effect of the first treatment which is the layer. This factor has two levels; pollution and recovery. What we need to do is to implement equation \ref{e} in \texttt{R}. Let us find the $\alpha$ for the level "pollution" first; $\alpha^p$. 
+\begin{enumerate}
+\item Find the matrix $\boldsymbol{M}^{..}$. The rates of this matrix are the averages of the rates of all the matrices of the BU species. For this you can use the \texttt{get\_matrix} function.  The second argument concerns the layer, but here we want the mean rate over all the layers, we have written the function such that you can achieve this by typing "mean" as an argument for the layer. The same holds for the third argument.
+\item Next you need the mean pollution matrix, $\boldsymbol{M}^{p.}$. Again, use the \texttt{get\_matrix} function.\\[1.5ex] 
+\textit{small tip} Here you can do a little trick to be able to use the code later on a different subset of your dataset. Before using the \texttt{get\_matrix} function, set a new name to your focal layers like in the code below. Then in \texttt{get\_matrix}, instead of calling for "Pollution", call for \texttt{yourname1}.
+
+<<tpos,echo=T, eval=F>>=
+yourname1<-'Pollution'
+yourname2<-'Recovery'
+
+@
+\item Find the $\lambda$ for this matrix.
+\item Find the "mid-way" matrix between $\boldsymbol{M}^{..}$ and $\boldsymbol{M}^{p.}$. This is the mean matrix between $\boldsymbol{M}^{..}$ and $\boldsymbol{M}^{p.}$.
+\item For equation \ref{e}, you need the summation term and the sensitivity of the "mid-way" matrix. Let us look first at the summation term. You need the difference between the elements of matrix $\boldsymbol{M}^{p.}$ and of matrix $\boldsymbol{M}^{..}$. Thus take $(\boldsymbol{M}^{p.} - \boldsymbol{M}^{..})$. 
+\item To find the sensitivity of the "mid-way" matrix, use the function \texttt{sensitivity} from the package \texttt{popbio} (see subsection \textit{sensitivity}). 
+\item Finally, multiply the substraction matrix by the sensitivity matrix (not a matrix multiplication!) and save this in a matrix.
+\item The sum of this matrix is your $\alpha^p$, the effect of the layer "Pollution" on the asymptotic growth rate. The separate entries of this matrix show how much each element of the population matrices contributes to the difference in $\lambda$ between them.
+\item Store this matrix because the different elements of the matrix are what we are ultimately interested in. Check whether the effect you found indeed explains the difference between $\boldsymbol{M}^{..}$ and $\boldsymbol{M}^{p.}$.
+\end{enumerate}
+\item Repeat the same proceedure to find the second $\alpha$, $\alpha^r$ and store the separate contributions $(a^{k.}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{A}}{\partial a^{A}_{ij}}$. DO the same for the three values for $\beta$ and finally for the interactions. For the separate contribution of the interactions $(a^{km}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{C}}{\partial a^{C}_{ij}}$, do not forget to substract the corresponding contributions from the $\alpha$ and $\beta$. 
+\item Once you have all the contributions of all the treatments, you may want to compare them. A possible graphs is a bar plot representing on the same graph the contribution to each parameter of each level of a factor, see for an example the graph above. If you agree that these sort of graphs are interesting, you can follow the next instructions. Feel free however to follow a different logic to produce the same graphs or to present your results in a different way. We do not claim to provide the most efficient code; any comments on how to improve the code are welcome.
+\begin{enumerate}
+\item Let us first look at the effect of the layer on the rates. One way of doing this is first to transform your matrices into vectors, using the \texttt{as.vector()} function and then combine the vector of each matrix into an array with \texttt{cbind()}. (you can actually ignore the first element of the matrices, the transition from juvenile to juvenile because it is always zero by selecting the vector elements 2 to 4). The columns are the layers and the row the rates. 
+\item You can now use the \texttt{barplot()} command to plot bar graphs. Specify \texttt{beside=TRUE} to see the bars next to each other rather than on top of each other.
+\item You may see that each bar (color) represents a rate although it would be more informative if each bar would be a layer. To correct for this, you can take the transpose of the array by using the function \texttt{t()} (we have seen this earlier this practical) and do the bar plot of the transpose. 
+\item There are a few arguments you may want to use in the \texttt{barplot()} command to improve the visual appearance of the graph such as \texttt{xlab=}, \texttt{ylab=}, \texttt{xlim=c()}, \texttt{ylim=c()}, \texttt{col=c("colorname")}, \texttt{main="yourtitle"}.
+\item Additionally, you may want to specify a legend and an axis. This you can do with the commands \texttt{legend()} and \texttt{axis()}. Look them up in the help section to see how to use them.
+\item Don't forget to save your figures! A detailed description is given at the end of practical 6.
+\end{enumerate}
+\item Repeat all of the steps above for the combinations of the layers "Commercial" \& "Postpollution" and of the layers "Postpollution" \& "Pollution".
+\end{enumerate}
+If you manage to go through all the steps describe above, you should now know the growth rate of your populations, have performed three LTRE analyses on your rotifer data and have plots to include in your report. The interpretation of the results is up to you.
+
+
+\begin{center}
+Good luck!
+\end{center}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.3\textwidth]{Hippocrate.jpg}
+\caption{\label{fig:owl}random picture, from wikipedia.}
+\end{figure}
+
+
+
+<<tReco_vs_Post,echo=T, eval=T>>=
+
+#Open data
+rm(list = ls())
+rot<-read.csv("BIO311_with_rates.csv", sep=",")
+str(rot)
+
+
+#Find the avg rate per treatment
+Pj<-aggregate(rot$Pj, list(rot$Population, rot$Copper, rot$Species), na.rm=TRUE, FUN="mean")
+Pj
+Pa<-aggregate(rot$Pa, list(rot$Population, rot$Copper, rot$Species), na.rm=TRUE, FUN="mean")
+Pa
+F<-aggregate(rot$F, list(rot$Population, rot$Copper, rot$Species), na.rm=TRUE, FUN="mean")
+F
+Surv<-merge(Pj, Pa,  by=c(1,2,3))
+Surv
+
+
+# Merge it into one dataset
+Roti<-merge(Surv, F, by=c(1,2,3))
+
+colnames(Roti)<- c("Population", "Copper", "Species", "Pj", "Pa", "F")
+Roti
+
+#Finding the lambda for each matrix (optional)
+Roti$lambda<-NA
+
+library('popbio')
+for (i in 1:length(Roti$Pj)){
+  M<-matrix(c(0, Roti$Pj[i], Roti$F[i], Roti$Pa[i]), nrow=2, ncol=2)
+    
+  Roti$lambda[i]<-lambda(M)
+}
+ Roti
+
+#----------- code for function to extract matrices from the dataset-----------#
+get_matrix<-function(roti,pop,cop){
+  if(!pop %in% c(levels(roti$Population),"mean")){
+    warning("Something went wrong, give the instructors a cookie and they may help you out:\n------------------------\n ",pop," is not a valid entry\n------------------------\n")
+    
+    return()
+  }
+  
+  if(!cop %in% c(levels(roti$Copper),"mean")){
+    warning("Something went wrong, give the instructors a cookie and they may help you out:\n------------------------\n ",cop," is not a valid entry\n------------------------\n")
+    
+    return()
+  }
+  
+  if(pop=="mean" & cop=="mean"){
+    i<-1:length(roti$Copper)
+  }else if(pop=="mean"){
+    i<-which(roti$Copper==cop)
+  }else if(cop=="mean"){
+    i<-which(roti$Population==pop)
+  }else{
+    i<-which(roti$Population==pop & roti$Copper==cop)  
+  }
+  
+  A<-matrix(c(0, mean(roti$Pj[i]), mean(roti$F[i]), mean(roti$Pa[i])), nrow=2, ncol=2)
+  return(A)
+  }
+#--------------------------end of the function-----------------#
+
+#Get the matrices we are interested in (for Species BC)
+library(popbio)
+a<-'Pollution'
+ash<-'Poll' # Short name for layer a
+b<-'Recovery'
+bsh<-'Rec' # Short name for layer b
+
+Rotisub <- subset(Roti, Roti$Population==a | Roti$Population==b)
+Rotisub
+
+
+#Here let us do the LTRE
+#two factors: population (1) and Copper (2)
+#The average matrix:
+M<-get_matrix(Rotisub, "mean", "mean")
+
+#First the effect of population (1)-> alpha
+Pop1<-get_matrix(Rotisub, a, "mean")
+#Population level 3->Postpollution
+#Population level 1->Pollution 
+     #Pollution
+       #The mid-way matrix 
+A<-((M+Pop1)/2)
+alpha1<-(Pop1-M)*sensitivity(A)
+alpha1
+
+#Recovery
+Pop2<-get_matrix(Rotisub, b, "mean")
+       #The mid-way matrix 
+B<-((M+Pop2)/2)
+alpha2<-(Pop2-M)*sensitivity(B)
+alpha2
+
+#Second the effect of Copper (2)-> beta
+hig<-get_matrix(Rotisub, "mean", "high")
+med<-get_matrix(Rotisub, "mean", "medium")
+low<-get_matrix(Rotisub, "mean", "low")
+#Copper level 1->High
+#Copper leve 2->Medium
+#Copper leve 3->Low
+     #High
+       #The mid-way matrix 
+#for beta:
+C<-((M+hig)/2)
+beta1<-(hig-M)*sensitivity(C)
+beta1
+
+
+  #Medium
+       #The mid-way matrix 
+#for beta:
+D<-((M+med)/2)
+
+beta2<-(med-M)*sensitivity(D)
+beta2
+
+  #Low
+       #The mid-way matrix 
+#for beta:
+E<-((M+low)/2)
+
+beta3<-(low-M)*sensitivity(E)
+beta3
+
+
+#Interactions
+
+#Here let us extract the 6 matrices we need:
+Pop1h<-get_matrix(Rotisub, a, "high")
+Pop1m<-get_matrix(Rotisub, a, "medium")
+Pop1l<-get_matrix(Rotisub, a, "low")
+
+Pop2h<-get_matrix(Rotisub, b, "high")
+Pop2m<-get_matrix(Rotisub, b, "medium")
+Pop2l<-get_matrix(Rotisub, b, "low")
+
+       #The mid-way matrix 
+#for alpha:beta:
+F<-((M+Pop1h)/2)
+
+inter1<-((Pop1h-M)*sensitivity(F))-alpha1-beta1
+inter1
+
+       #The mid-way matrix 
+#for alpha:beta:
+G<-((M+Pop1m)/2)
+#The loop
+
+inter2<-((Pop1m-M)*sensitivity(G))-alpha1-beta2
+inter2
+
+#The mid-way matrix 
+#for alpha:beta:
+H<-((M+Pop1l)/2)
+
+inter3<-((Pop1l-M)*sensitivity(H))-alpha1-beta3
+inter3
+#The mid-way matrix 
+#for alpha:beta:
+
+I<-((M+Pop2h)/2)
+inter4<-((Pop2h-M)*sensitivity(I))-alpha2-beta1
+inter4
+
+#The mid-way matrix 
+#for alpha:beta:
+J<-((M+Pop2m)/2)
+inter5<-((Pop2m-M)*sensitivity(J))-alpha2-beta2
+inter5
+
+#The mid-way matrix 
+#for alpha:beta:
+K<-((M+Pop2l)/2)
+inter6<-((Pop2l-M)*sensitivity(K))-alpha2-beta3
+inter6
+
+
+######### ARRANGING THE DATA FOR PLOTTING ##############
+#Copper
+Copper <- cbind(as.vector(beta1)[2:4], as.vector(beta2)[2:4], as.vector(beta3)[2:4])
+colnames(Copper) <- c("High", "Medium", "Low")
+rownames(Copper) <- c("Pj", "F", "Pa")
+Copper
+Coppert<-t(Copper)
+
+#Layer
+Layer <- cbind(as.vector(alpha1)[2:4], as.vector(alpha2)[2:4])
+colnames(Layer) <- c(a, b)
+rownames(Layer) <- c("Pj", "F", "Pa")
+Layer
+Layert<-t(Layer)
+
+#Interactions
+Interactions <- cbind(as.vector(inter1)[2:4], as.vector(inter2)[2:4], as.vector(inter3)[2:4], as.vector(inter4)[2:4], as.vector(inter5)[2:4], as.vector(inter6)[2:4])
+colnames(Interactions) <- axislabels
+rownames(Interactions) <- c("Pj", "F", "Pa")
+Interactions
+Interactionst<-t(Interactions)
+
+# Plotting
+ymin<-min(c(min(Layer),min(Copper),min(Interactions)))
+
+ymax<-max(c(max(Layer),max(Copper),max(Interactions)))
+
+ylim<-0.03+max(c(ymax,abs(ymin)))
+
+limits<-c(-ylim,ylim)
+
+#graphs
+par(mfrow=c(1,3),mar=c(3,3,3,7))
+
+barplot(Coppert,xaxt='n', xlab="", ylab="Parameters contribution", ylim=limits, xlim=c(0,14), col=c("brown","orange", "yellow"), beside=TRUE, main="Copper level")
+segments(-1,0, 13,0)
+par(mar=c(5.1, 5.1, 4.1, 5.1), xpd=TRUE)
+legend("topleft", 
+     c("High", "Medium", "Low"), fill=c("brown","orange", "yellow"),  bty="n")
+axis(side=1, at=c(3,7,11), labels=c( "Pj", "F", "Pa"), line=1, tick=FALSE)
+
+barplot(Layert,xaxt='n', xlab="", ylab="", ylim=limits, xlim=c(0,14), col=c("blue","lightblue"), beside=TRUE, main="Layer")
+segments(-1,0, 10,0)
+par(mar=c(5.1, 5.1, 4.1, 5.1), xpd=TRUE)
+legend("topleft",
+     c(a,b), fill=c("blue","lightblue"), bty="n")
+axis(side=1, at=c(2,5,8), labels=c( "Pj", "F", "Pa"), line=1, tick=FALSE)
+
+
+
+#Interaction
+#Layer
+axislabels<-c()
+for(i in c(ash,bsh)){
+  for(j in c("H","M","L")){
+    axislabels<-c(axislabels,paste(i,j,sep=""))
+  }
+}
+
+axislabels2<-c()
+for(i in c(ash,bsh)){
+  for(j in c("$+$","$\\pm$","$-$")){
+    axislabels2<-c(axislabels2,paste(i,j,sep="; "))
+  }
+}
+
+
+rainbow(6,start = 0, end = 0.5, alpha = 0.7)
+library("RColorBrewer")
+
+barplot(Interactionst, xaxt='n', xlab="", ylab="", ylim=limits, xlim=c(0,20), col=brewer.pal(6, "Set3") , beside=TRUE, main="Interactions")
+segments(-1,0, 20,0)
+par(mar=c(5.1, 5.1, 4.1, 7.1), xpd=TRUE)
+legend("topleft",  
+     axislabels2, fill=brewer.pal(6, "Set3"), bty="n", ncol=2,text.width=5)
+axis(side=1, at=c(5,12,18), labels=c( "Pj", "F", "Pa"), line=1, tick=FALSE)
+
+@
+
+
+\end{document}

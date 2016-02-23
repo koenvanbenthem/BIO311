@@ -1,0 +1,132 @@
+% Created by tikzDevice version 0.7.0 on 2014-04-14 11:31:41
+% !TEX encoding = UTF-8 Unicode
+\documentclass{article}
+\nonstopmode
+
+\usepackage{tikz}
+
+\usepackage[active,tightpage,psfixbb]{preview}
+
+\PreviewEnvironment{pgfpicture}
+
+\setlength\PreviewBorder{0pt}
+
+\newcommand{\SweaveOpts}[1]{}  % do not interfere with LaTeX
+\newcommand{\SweaveInput}[1]{} % because they are not real TeX commands
+\newcommand{\Sexpr}[1]{}       % will only be parsed by R
+
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+%\usepackage{bbold}
+\usepackage{tikz}
+%\usepackage{silence}
+\usepackage{mdframed}
+%\WarningFilter{mdframed}{You got a bad break}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{listings}
+\usepackage{color}
+\colorlet{exampcol}{blue!10}
+\usepackage{multicol}
+
+\title{BIO311: Population Ecology\\ \textit{Practical 6: An introduction to \texttt{R}}}
+\setlength\parindent{0pt}
+
+\author{Koen van Benthem \& Tina Cornioley\\\\
+\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
+
+\date{Spring 2014}
+\setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
+
+%\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%
+
+
+\begin{document}
+
+\begin{tikzpicture}[x=1pt,y=1pt]
+\definecolor[named]{fillColor}{rgb}{1.00,1.00,1.00}
+\path[use as bounding box,fill=fillColor,fill opacity=0.00] (0,0) rectangle (505.89,505.89);
+\begin{scope}
+\path[clip] ( 36.90, 45.90) rectangle (486.99,468.99);
+\definecolor[named]{drawColor}{rgb}{0.00,0.00,0.00}
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 53.57,453.32) --
+	(157.76,306.13) --
+	(261.94, 61.57) --
+	(366.13,357.53) --
+	(470.32, 89.83);
+\end{scope}
+\begin{scope}
+\path[clip] (  0.00,  0.00) rectangle (505.89,505.89);
+\definecolor[named]{drawColor}{rgb}{0.00,0.00,0.00}
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 53.57, 45.90) -- (470.32, 45.90);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 53.57, 45.90) -- ( 53.57, 41.40);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] (157.76, 45.90) -- (157.76, 41.40);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] (261.94, 45.90) -- (261.94, 41.40);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] (366.13, 45.90) -- (366.13, 41.40);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] (470.32, 45.90) -- (470.32, 41.40);
+
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.60] at ( 53.57, 29.70) {1};
+
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.60] at (157.76, 29.70) {2};
+
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.60] at (261.94, 29.70) {3};
+
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.60] at (366.13, 29.70) {4};
+
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.60] at (470.32, 29.70) {5};
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 36.90, 72.70) -- ( 36.90,413.43);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 36.90, 72.70) -- ( 32.40, 72.70);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 36.90,129.49) -- ( 32.40,129.49);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 36.90,186.28) -- ( 32.40,186.28);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 36.90,243.06) -- ( 32.40,243.06);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 36.90,299.85) -- ( 32.40,299.85);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 36.90,356.64) -- ( 32.40,356.64);
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 36.90,413.43) -- ( 32.40,413.43);
+
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.60] at ( 26.10, 72.70) {0.3};
+
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.60] at ( 26.10,129.49) {0.4};
+
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.60] at ( 26.10,186.28) {0.5};
+
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.60] at ( 26.10,243.06) {0.6};
+
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.60] at ( 26.10,299.85) {0.7};
+
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.60] at ( 26.10,356.64) {0.8};
+
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.60] at ( 26.10,413.43) {0.9};
+
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 36.90, 45.90) --
+	(486.99, 45.90) --
+	(486.99,468.99) --
+	( 36.90,468.99) --
+	( 36.90, 45.90);
+\end{scope}
+\begin{scope}
+\path[clip] (  0.00,  0.00) rectangle (505.89,505.89);
+\definecolor[named]{drawColor}{rgb}{0.00,0.00,0.00}
+
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.60] at (261.94, 11.70) {1:5};
+
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.60] at (  8.10,257.44) {runif(5)};
+\end{scope}
+\end{tikzpicture}
+
+\end{document}

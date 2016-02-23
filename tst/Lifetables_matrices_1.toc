@@ -1,0 +1,13 @@
+\contentsline {section}{\numberline {1}Hypothetical Dataset}{2}
+\contentsline {subsection}{\numberline {1.1}Life table}{2}
+\contentsline {subsubsection}{\numberline {1.1.1}A barn owl population}{2}
+\contentsline {subsubsection}{\numberline {1.1.2}Standard cohort life table}{2}
+\contentsline {subsection}{\numberline {1.2}Age-structured Matrix Analysis}{4}
+\contentsline {subsubsection}{\numberline {1.2.1}Matrices in R}{4}
+\contentsline {subsubsection}{\numberline {1.2.2}Asymptotic behaviour}{7}
+\contentsline {subsubsection}{\numberline {1.2.3}Sensitivity analysis}{7}
+\contentsline {subsubsection}{\numberline {1.2.4}Elasticity analysis}{7}
+\contentsline {subsubsection}{\numberline {1.2.5}Transient dynamics}{7}
+\contentsline {subsection}{\numberline {1.3}Stage-structured Matrix Analysis}{7}
+\contentsline {subsection}{\numberline {1.4}Choice of bin size}{7}
+\contentsline {section}{\numberline {2}Rotifer data}{7}

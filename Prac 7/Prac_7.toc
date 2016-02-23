@@ -1,0 +1,17 @@
+\contentsline {section}{\numberline {1}Discrete Population Growth}{2}
+\contentsline {section}{\numberline {2}Average Growth Rate}{3}
+\contentsline {section}{\numberline {3}Continous Population Growth}{4}
+\contentsline {subsection}{\numberline {3.1}What is the link between continuous and discrete population growth?}{6}
+\contentsline {section}{\numberline {4}Data Fitting}{6}
+\contentsline {subsection}{\numberline {4.1}From the graph}{7}
+\contentsline {subsection}{\numberline {4.2}From the average growth rate}{9}
+\contentsline {section}{\numberline {5}Logistic Growth}{11}
+\contentsline {subsection}{\numberline {5.1}Continuous Logistic Model}{11}
+\contentsline {subsection}{\numberline {5.2}Discrete Logistic Growth Model}{15}
+\contentsline {subsection}{\numberline {5.3}Environmental Stochasticity}{17}
+\contentsline {subsubsection}{\numberline {5.3.1}Random numbers}{17}
+\contentsline {subsubsection}{\numberline {5.3.2}Environmental Stochasticity in the Logistic Growth Model}{19}
+\contentsline {section}{\numberline {6}Demographic Stochasticity}{21}
+\contentsline {section}{\numberline {7}Additional Exercise}{22}
+\contentsline {section}{\numberline {8}Additional information:\\ The continuous logistic growth model}{22}
+\contentsline {section}{\numberline {9}Answers to the \textit {pen \& paper} exercises}{24}

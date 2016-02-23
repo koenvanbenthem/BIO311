@@ -1,0 +1,639 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+%\usepackage{bbold}
+\usepackage{tikz}
+%\usepackage{silence}
+\usepackage{mdframed}
+%\WarningFilter{mdframed}{You got a bad break}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{listings}
+\usepackage{color}
+\colorlet{exampcol}{blue!10}
+\usepackage{multicol}
+\usepackage[answerdelayed]{exercise}
+\usepackage{booktabs}
+\usepackage{caption}
+
+\title{BIO311: Population Ecology\\ \textit{Prac 8: Life tables \& Population Matrices}}
+
+\author{Koen van Benthem \& Tina Cornioley\\\\
+\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
+
+\date{Spring 2014}
+\setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
+
+%\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%
+
+\begin{document}
+
+<<setup, cache=FALSE, include=FALSE>>=
+opts_chunk$set(dev="pdf",tidy=F,dev.args=list(pointsize=7.5))
+options(width=60)
+
+@
+
+<<setparameters,echo=FALSE,include=FALSE>>=
+
+@
+\maketitle
+\tableofcontents
+\vspace{3cm}
+\newpage
+\section{Hypothetical Dataset}
+\subsection{Life table}
+In this practical, you will work with life tables. Read carefully the following text and do the exercise at the end of this section. The first part is the description of a hypothetical barn owl population and the second part is brief reminder of life table theory. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.3\textwidth]{Barnowl.jpg}
+\caption{\label{fig:owl}Barn owl, from wikipedia.}
+\end{figure}
+
+\subsubsection{A barn owl population}
+The barn owl (Schleiereule in German) is a common noctural prey bird (see fig. \ref{fig:owl}). We focus on a cohort of female barn owls that were born in 2010 and who have all died by the beginning of 2014.
+\begin{itemize}
+\item In 2010, 10 female chicks were born and were followed over the years. 
+\item In 2011, 8 of them were still alive. Only 4 females of this cohort reproduced in 2011: two produced 4 female chicks, one produced 3 female chicks and the last one produced 5 female chicks. 
+\item In 2012 only 4 females were still alive. This time, they each produce 3 female chicks. 
+\item In 2013, only one individual of the original cohort was still alive and had only one female chick. 
+\item In 2014, all individuals were dead.
+\end{itemize}
+
+
+\subsubsection{Standard cohort life table}
+
+\begin{table}[h]
+\centering
+\caption{\label{tab:LT}An example of a life table.}
+\begin{tabular}{ccccccc}
+$x$ & $S(x)$ & $b(x)$ & $l(x)$ & $g(x)$ & Rep. rate \\\hline
+$0$ &  $10$ & ... & ... & ...&...\\
+$1$ & $8$ & ... & ... & ...&...\\
+$2$ & ... & ... & ... & ...&...\\
+$3$ & ... & ... & ... & ...&...\\
+$4$ & ... & ... & ... & ...&...\\
+\end{tabular}
+\end{table}
+
+Table \ref{tab:LT} contains the standard life-table calculation. Below is a description of each column. We purposefully do not provide you with the equations to obtain each value, we left this for you to find in the exercise. 
+\begin{itemize}
+
+\item \textit{The first column} $x$ is the age of the individuals. By convention, the newborn start at age $0$ and are age $1$ at their first birthday. 
+
+\item \textit{The second column} $S(x)$ is the number of individuals of the cohort still alive at age $x$. 
+
+\item \textit{The third column} $b(x)$ is the fecundity schedule (sometimes it is refered to as $m(x)$, \textit{m} for maternity). It is the \textbf{average number of female offspring born per unit of time to a female of a given age}. 
+
+\item \textit{The fourth column} $l(x)$ is the survivorship schedule, not to be confused with the survival probability $g(x)$. It is defined as the \textbf{proportion of the original cohort that survives to a given age}. Or in other words it is the probability that an individual survives from birth to age $x$. 
+
+\item \textit{The fifth column} $g(x)$ is the survival probability. It is different from the survivorship schedule in that it is the \textbf{probability that an individual of age $x$ survives to age $x+1$}. 
+
+\item \textit{The sixth column} Rep. rate is what we call the reproductive rate: what is the mean number of offspring that each individual produce at a given age, regardless of whether the individual survives until that age. We are in fact interested in the \textbf{net reproductive rate, $R_0$} but to find it, we must first find the reproductive rate of each age. The net reproductive rate is defined as the \textbf{mean number of female offspring produced per female individual over their lifetime.} It is the reproductie potential of a female corrected for its mortality.
+\end{itemize}
+
+In addition to the elements of the table, there a few more important properties you can extract from the life table. A general property of the table is, $G$, the generation time. A definition of the generation time is \textbf{the average age of mothers when they give birth}. From the life table, you can also calculate the instantaneous rate of increase, $r$. Remember from Madan's lecture on unstructured population that:
+\begin{equation}
+N_t=N_0e^{rt}
+\end{equation}
+The exact solution of $r$ is given by solving the following equation adapted from the Lotka-Euler equation for $r$:
+\begin{equation}
+1=\sum\limits_{x=0}^k e^{-rx}l(x)b(x)
+\end{equation}
+This equation can only be solved iteratively. Alternatively, an approximation of $r$ is given by:
+\begin{equation}
+r \approx \frac{\ln(R_0)}{G}
+\end{equation}
+
+
+\begin{Exercise}[title=Life Table, label=LT, difficulty=1]
+Write on paper a life table for the hypothetical barn howl population described above. Your life table should be organised like table \ref{tab:LT} and contain the same columns. For each column, write the corresponding equation. 
+
+In addition, find $R_0$, $G$ and the approximation of $r$.
+\end{Exercise}
+\begin{Answer}[ref=LT]
+The column $x$ and $S(x)$ are directly given in the text. 
+\begin{equation}
+b(x)=\frac{n(x)}{S(x)}
+\end{equation}
+where $n(x)$ is the number of female offspring produced by all the females of age $x$. $n(x)=\sum\limits_{i=1}^k{n(i)}$, where $n(i)$ is the number of female offspring per female of age $x$ in the cohort and $k$ the number of female age $x$ in the cohort.
+
+\begin{equation}
+l(x)=\frac{S(x)}{S(0)}
+\end{equation}
+
+\begin{equation}
+g(x)=\frac{S(x+1)}{S(x)}
+\end{equation}
+
+\begin{equation}
+Rep. rate=l(x)b(x)
+\end{equation}
+\begin{equation}
+R_0=\sum\limits_{x=0}^k{l(x)b(x)}
+\end{equation}
+where $k$ is the maximum age. 
+
+\begin{equation}
+G=\frac{\sum\limits_{x=0}^k{l(x)b(x)x}}{\sum\limits_{x=0}^k{l(x)b(x)}}
+\end{equation}
+It may therefore be interesting to add an additional column to the table:
+\begin{equation}
+l(x)b(x)x=l(x)b(x)x
+\end{equation}
+<<t1,echo=F,eval=T,results='asis', warning=FALSE>>=
+library(xtable)
+
+#The age 
+x<- c(0,1,2,3,4)
+#The survivors
+S<-c(10,8,4,1,0)
+#The fecundtity schedule
+b<-c(0,2,3,1,0)
+#The survivorship Schedule
+l<-S/S[1]
+#The survival probability
+g<-append(S[c(2:5)]/S[c(1:4)],NA)
+#The reproductive rate
+Rep_rat<-l*b
+#l(x)b(x)x
+lbx<-l*b*x
+
+
+lt<-data.frame(x,S,b,l,g,Rep_rat, lbx)
+
+print(xtable(lt, digits=2), 
+      size="footnotesize", #Change size; useful for bigger tables
+      include.rownames=FALSE, #Don't print rownames
+      include.colnames=FALSE, #We create them ourselves
+      floating=FALSE,
+      hline.after=NULL, #We don't need hline; we use booktabs
+      add.to.row = list(pos = list(-1, 
+                                   nrow(lt)),
+                        command = c(paste("\\toprule \n",
+                                          "$x$ & $S(x)$ & $b(x)$ & $l(x)$ & $g(x)$ & Rep. rate & $l(x)b(x)x$ \\\\\n", 
+                                          "\\midrule \n"),
+                                    "\\bottomrule \n")
+                        ))
+@
+
+<<t01,echo=F,eval=T,results='asis'>>=
+#The net reproductive rate
+R0<-sum(Rep_rat)
+cat("\\noindent")
+cat("$R_0=$",R0,"\\\\")
+#The generation time
+G<-(sum(l*b*x))/(sum(l*b))
+cat("$G=$",G,"\\\\")
+#estimated r
+r<-log(R0)/G
+cat("$r=$",r,"\\\\")
+
+@
+
+\end{Answer}
+
+
+\subsection{Age-structured Matrix Analysis}
+In the former section, we have followed the fate of a hypothetical cohort of barn owls. Let us now look at the transition matrix. We want to know the number of individuals in each age class. Imagine these $10$ female barn owls are the founders of a new population and we do a postbreeding census, in which females are counted each year just after they have bred. 
+\begin{itemize}
+\item In $2010$, there are $10$ females in age class $1$. 
+\item In $2011$ there are $8$ in  females in age class $2$ and $16$ females in age class $1$.  
+\item In $2012$ there are $4$ females in age class $3$, $13$ females in age class $2$ and $12$ females produced by the individuals in age class $2$ and $26$ females produced by the females in age class $1$. 
+\item In $2013$ there is $1$ female in age class $4$, $7$ in age class $3$ and $30$ in age class $2$. There are in addition $81$ new individuals in age class $1$: $1$ from the females in age class $3$, $19$ from the females in age class $2$ and $61$ from the females in age class $1$. The survival rate of the age class 4 is $0$.
+\end{itemize}
+\begin{Exercise}[title=Age-structured matix, label=ASM, difficulty=1]
+\Question Let us work out the matrix of this barn owl population on paper.
+\subQuestion First, draw the life cycle of the population of barn owls describe above.
+\subQuestion Find the survival probability $P_i$ for each age class $i$, that is the probability of an individual in age class $i$ to age class $i+1$. 
+\subQuestion Find the fertility $F_i$, the average number of offpsring produced by an individual of age class $i$.
+\subQuestion Write the equations to get the number of individuals in each age class at time $t+1$. Your equations should be of the form $n_1(t+1)=F_1n_1(t)$.
+\subQuestion What is the structure of the corresponding Leslie matrix? What is the dimension of your matrix?
+\subQuestion Build the corresponding Leslie matrix of this population.
+\end{Exercise}
+\begin{Answer}[ref=ASM]
+\Question 
+\subQuestion
+\begin{center}
+\includegraphics[width=0.95\textwidth]{Barn_owl_life_cycle.pdf}
+\end{center}
+\subQuestion  
+<<tA1,echo=T,eval=T,results='asis'>>=
+#Finding the survival rate of age class 1   
+age1<-c(10, 16, 38) #individuals in age class 1 
+                    # in time t
+age2<-c(8, 13, 30) #individuals in age class 2 
+                #in time t+1 (i.e. the sruviving
+              #individuals from age class 1 in t)
+
+p1<-age2/age1 #yearly survival rate
+
+P1<-mean(p1) # mean of survival rate
+                   #of age class 1, P1
+
+#Finding the survival rate of age class 2   
+  age2<-c(8, 13) #individuals in age class 2 
+                 #in time t
+  age3<-c(4, 7) #individuals in age class 3
+                # in time t+1  
+
+p2<-age3/age2 #yearly fertility rate
+
+P2<-mean(p2) #yearly survival rate
+
+#Finding the survival rate of age class 3 
+P3 <- 1/4     #individuals in age class 4
+              # in time t+1 over the number
+              #of individuals in age class
+            #3 in time t
+
+#Finding the survival rate of age class 4 
+P4 <- 0
+@
+\subQuestion 
+<<tA2,echo=T,eval=T,results='asis'>>=
+#Finding the contribution of age class 1 
+#to the next generation  
+ 
+age1<-c(10, 16, 38) #individuals in age class 1 
+                    # in time t
+offa1<-c(16, 26, 61) #offspring in time t+1 
+                     #produced by age class 1 
+
+f1<-offa1/age1 #yearly fertility rate
+
+F1<-mean(f1) #mean of fertility, F1
+
+#Finding the contribution of age class 2 to 
+#the next generation  
+  age2<-c(8, 13) #individuals in age class 2 
+                 # in time t
+  offa2<-c(12, 19) #offspring in time t+1 
+                  #produced by age class 2 
+
+f2<-offa2/age2 #yearly fertility rate
+
+F2<-mean(f2) #mean of fertility, F2
+
+#Finding the contribution of age class 3 to
+#the next generation  
+F3 <- 1/4 #offspring in t+1 produced by individuals
+          #in age class 3 at t
+
+#F4 is zero
+F4<-0
+@
+\subQuestion 
+\begin{eqnarray}
+n_1(t+1)&=&F_1 n_1(t)+F_2 n_2(t)+F_3 n_3(t)+F_4 n_4(t)\\
+n_2(t+1)&=&P_1 n_1(t)\\
+n_3(t+1)&=&P_2 n_2(t)\\
+n_4(t+1)&=&P_3 n_3(t)
+\end{eqnarray}
+\subQuestion 
+\begin{equation}
+\begin{pmatrix}
+F1&F2&F3&F4\\
+P1&0&0&0\\
+0&P2&0&0\\
+0&0&P3&P4
+\end{pmatrix}
+\end{equation}
+\subQuestion 
+\begin{equation}
+\begin{pmatrix}
+\Sexpr{round(F1,2)}&\Sexpr{round(F2,2)}&\Sexpr{round(F3,2)}&\Sexpr{round(F4,2)} \\
+\Sexpr{round(P1,2)}&0&0&0\\
+0&\Sexpr{round(P2,2)}&0&0\\
+0&0&\Sexpr{round(P3,2)}&\Sexpr{round(P4,2)}
+\end{pmatrix}
+\end{equation}
+
+\end{Answer}
+
+\subsubsection{Matrices in \texttt{R}}
+Now that you have found the matrix of this population, let us implement it in \texttt{R}. Set the initial population vector to the founder population ($10$ individuals in age class $1$). 
+
+<<t2a,echo=F,eval=T, results='hide'>>=
+# Build the Leslie Matrix for the barn owl population
+
+F1<- 1.61
+F2<- 1.48
+F3<- 0.25
+F4<- 0
+
+P1<- 0.80
+P2<- 0.52
+P3<- 0.25
+P4<- 0 
+  
+A<-matrix(c(F1, P1, 0, 0, F2, 0, P2, 0, F3, 0, 0, P3, F4,0,0,P4), nr=4)
+A
+# The initial population vector
+
+n11<- 10
+n12<- 0
+n13<- 0
+n14<- 0
+  
+n0<-c(n11, n12, n13, n14)  
+@
+
+<<t2b,echo=T,eval=F>>=
+# Build the Leslie Matrix for the barn owl population
+
+F1<- #insert your value here
+F2<- #insert your value here
+F3<- #insert your value here
+F4<- #insert your value here
+
+P1<- #insert your value here
+P2<- #insert your value here
+P3<- #insert your value here
+P4<- #insert your value here 
+  
+A<-matrix(c(F1,P1,0,0,F2,0,P2,0,F3,0,0,P3,F4,0,0,P4), 
+          nrow=4,byrow=FALSE)
+A
+# The initial population vector
+
+n11<- #insert your value here
+n12<- #insert your value here
+n13<- #insert your value here
+n14<- #insert your value here
+  
+n0<-c(n11, n12, n13, n14)  
+@
+What happens if you set \texttt{byrow=TRUE} instead?
+
+The next step is to project the population in the future. We have seen in the lecture that
+\begin{equation}
+\vec{n}(t+1)=\boldsymbol{A}\vec{n}(t)
+\end{equation}
+To do so, we write the two following functions in \texttt{R}. The sign \%*\% is for matrix multiplication in \texttt{R}.
+<<t2,echo=T,eval=F>>=
+n1<-n0%*%A
+nt2<-A%*%n0
+@
+Try to run both lines. One is incorrect, which one and why?
+
+Next let us use this matrix to project the population. To do so we use a \texttt{for} loop over a specified time span. We first need to build an empty array with the \texttt{matrix} function where we store the data that we calculate during the loop. We call this array \texttt{n}, it is an array that has the same number of rows that the matrix $\boldsymbol{A}$ and has as many column as the time span we set. Thus each column corresponds to one year. \texttt{n} will look like this:
+\begin{equation*}
+\begin{pmatrix}
+N_{age=1,t=1} & N_{age=1,t=2} & N_{age=1,t=3} & \dots & N_{age=1,t=T} \\
+N_{age=2,t=1} & N_{age=2,t=2} & N_{age=2,t=3} & \dots & N_{age=2,t=T}\\
+N_{age=3,t=1} & N_{age=3,t=2} & N_{age=3,t=3} & \dots & N_{age=3,t=T}\\
+N_{age=4,t=1} & N_{age=4,t=2} & N_{age=4,t=3} & \dots & N_{age=4,t=T}\\
+\end{pmatrix}
+\end{equation*}
+By first setting the time span to $4$, check if we get the same population as the one described in the text. Then try different values of time span. To access column \texttt{5} of this matrix, you can type \texttt{n[,5]}. Also in \texttt{R} the first index specifies the row number and the second one the column number. Because we want to see all rows at the same time, we leave out an index for the row. (\texttt{n[3,5]} would for example only give the entry for age class 3 at time 5.)
+
+Complete the following code to calculate how the population develops over time
+<<t3b,echo=T,eval=F>>=
+tspan <- ... #insert value for time span 
+rows <- ... # insert number of rows
+
+# Build some matrices for storing eventual output
+n <- matrix(0,nrow=rows,ncol=tspan)     # empty matrix 
+
+n[,1] <- c(...,...,...,...)           # insert value for the initial 
+                              # population in each age class
+
+# Project population forward and store output
+for (t in ...){
+    n[,t] <- .....    # %*% = matrix multiplication in R
+                                    
+}
+
+@
+
+The sum of each column is the total population size. We can then plot it.
+
+<<t4,echo=T,eval=F>>=
+Ntot<-colSums(n) # This calculates the sum 
+                 # of all the age classes per time step
+plot(Ntot, type="l", xlab="year", ylab="N(t)")
+
+@
+
+We see that the population is exponentially growing.
+
+\subsubsection{Asymptotic behaviour}
+\textit{Asymptotic rate of increase} 
+
+From the matrix, we can find the asymptotic growth rate of that population. For this we need to look at the dominant eigenvalue of the population matrix. Remember from the lecture that the dominant eigenvalue of a population matrix is the long term asymptotic rate of increase, $\lambda$. An eigenvalue of a matrix is a \textbf{scalar that when multiplied by a specific vector, gives the same result as when that vector is multiplied by ththe concerning matrix}. Mathematically this means:
+\begin{equation}\label{eig}
+\boldsymbol{A} \vec{w}=\lambda \vec{w}
+\end{equation}
+the vector $\vec{w}$ is not any vector but an eigenvector, that is a vector such that equation \ref{eig} holds. We will come back to it later. If you do not feel comfortable with the concept of eigenvectors/matrices, you might want to return to the last exercise of the mathematical tools script.
+
+In \texttt{R} we do not have to just see the eigenvectors, instead they can be found using the \texttt{eigen()} function.
+<<t6,echo=T,eval=T, results='hide'>>=
+eigens.A<-eigen(A)
+eigens.A
+@
+
+Let us focus at the moment only on the first values. The first values returned by the function; \Sexpr{round(eigens.A$values,3)} are the eigenvalues of the matrix $\boldsymbol{A}$. A matrix has as many eigenvalues as it has dimensions. The only one we are interested in is the dominant eigenvalue, i.e. the largest eigenvalue. From looking at the eigenvalues, we can see that it is the first one. However, the dominant eigenvalue can be found by using the function \texttt{which.max()} that returns the position of the maximum value of the object. Then we extract the value in that position.
+<<t7,echo=T,eval=T, results='hide'>>=
+position<-which.max(eigens.A$values)
+position
+
+lambda2<-eigens.A$values[position]
+lambda2
+@
+Alternatively, $\lambda$ can be found directly from the \texttt{lambda} funtion of the \texttt{popbio} package in \texttt{R}, which will give you exactly the same result. 
+<<t8,echo=T,eval=T>>=
+library(popbio)
+lambda(A)
+@
+Thus our asymptotic finite rate of increase $\lambda$ is \Sexpr{lambda2}. So we know what the population growth rate looks like on the long-term.
+\vspace{0.5 cm}
+
+\noindent\textit{Stable-age distribution} 
+
+In the previous section, we looked at the growth of the whole population. It is also informative to examine what the population structure will look like on the long-term. We already calculated these numbers before, let us now plot them. 
+<<t10,echo=T,eval=F>>=
+
+plot(log(n[1,]), type="l", col="blue", ylim=c(0,5),
+     xlab="year", ylab="ln(n(t))") 
+lines(log(n[2,]), col="red")
+lines(log(n[3,]), col="green")
+lines(log(n[4,]), col="purple")
+legend("topright",
+       c("age class 1 ","age class 2", "age class 3", 
+         "age class 4"), 
+       bty = "n",
+lty=c(1,1,1,1),
+col=c("blue", "red", "green", "purple"))
+@ 
+
+<<t3a,echo=F,eval=T>>=
+tspan <- 10                         # time span for projections
+rows <- dim(A)[1]
+
+# Build some matrices for storing eventual output
+n <- matrix(0,rows,tspan)     # storage of age-specific abundance
+
+n[,1] <- c(10 ,0,0,0)              # initial population abundance in each age class
+
+# Project population forward and store output; note that
+# %*% in R implies matrix multiplication, and * implies scalar multiplication
+# or element-by-element multiplication of matrix entries.
+for (t in 1:(tspan-1)) {
+    n[,t+1] <-A%*% n[,t]      # %*% = matrix multiplication in R
+                                  
+}
+Ntot<-colSums (n)
+par(mar=c(6,6,2,2))
+plot(log(n[1,]), type="l", col="blue", ylim=c(0,10), xlab="year", ylab="$\\ln(n(t))$") #please add slash!
+lines(log(n[2,]), col="red")
+lines(log(n[3,]), col="green")
+lines(log(n[4,]), col="purple")
+legend("topleft",
+       c("age class 1 ","age class 2", "age class 3", "age class 4"), 
+       bty = "n",
+lty=c(1,1,1,1),
+col=c("blue", "red", "green", "purple"))
+
+
+@ 
+When reading the graph, keep in mind that the $y$-axis is logarithmic. We see that after five years, the age class trajectories are parallel to each other and growing with a constant rate. If a population is growing with constant birth and death rate, as is the case of our owl population, then the population converges to a stable age distribution. Once a population has reached the stable age distribution, it grows exponentially at the asymptotic finite rate. A population at the stable age distribution always has the same relative number of individuals in each age class every time step. However, the absolute number of indiviuals will change. The stationary age distribution is a special case of stable age distribution where the absolute number of individuals does neither increase nor decrease. The population is not growing. What is the asymptotic growth rate ($\lambda$) of such a stationary population? 
+
+
+The stable age distibution is given by the right eigenvector corresponding to the dominant eigenvalue. Let us now look at the vector elements of the \texttt{eigen} function. The columns of \texttt{eigens.A\$ vector} are the right eigenvectors of the matrix $\boldsymbol{A}$. When applying the matrix to them, it is the same as multiplying them by the corresponding eigenvalues, which are scalars. This means that the length but not the direction of this vector is changed by the matrix. Check this for the eigenvector corresponding to the dominant eigenvalue.
+
+There are as many right eigenvectors as there are eigenvalues. To each eigenvalue one eigenvector corresponds. Its position is the same as the one of the dominant eigenvalue so we can extract it with the following lines of code.
+
+<<t11,echo=T,eval=T, results='hide'>>=
+w<-eigens.A$vector[,position]
+w
+@
+The right eigenvector as such does not give us the proportion found in each age class. This is because the length of the vector is set to $1$ instead of the sum of its elements (what is the difference between these two? Which is biologically more relevant? Which is mathematically more relevant?). However, to find the proportion of each age class, we want to rescale it (remember that if you find an eigenvector all vectors that point in the same direction are also eigenvectors. If we multiply an eigenvector by a scalar it thus remains an eigenvector.):
+<<t12,echo=T,eval=T, results='hide'>>=
+ssd<-w/sum(w)
+ssd
+@
+Therefore we know now that a proportion of \Sexpr{round(ssd[1],2)} of the population is in age class 1, \Sexpr{round(ssd[2],2)} in age class 2, \Sexpr{round(ssd[3],2)} in age class 3, and \Sexpr{round(ssd[4],2)} in age class 4.
+
+\subsubsection{Sensitivity and elasticity analysis}
+\noindent\textit{Sensitivity analysis} 
+Sensitivities and elasticities of $\lambda$ evaluate the relative importance of each matrix element for the asymptotic growth rate. Sensitivity is the effect of additive change in a matrix element on $\lambda$ and the elasticity is the proportional effect of a proportional change in the parameter to $\lambda$.
+
+The sensitivity tells us how an increase in absolute value of one of the parameters affects $\lambda$. How much does $\lambda$ increase if the fertility of the age class 1 increases by a very small amount (for example 0.01)? Let us play around with the projection matrix and change each element of this matrix by 0.01 one by one to see how if affects $\lambda$. 
+<<t13,echo=T,eval=F>>=
+# Build the Leslie Matrix for the barn owl population
+
+F11<-    + 0.01 #insert your value here
+F21<- #insert your value here
+F31<- #insert your value here
+F41<- #insert your value here
+
+P11<- #insert your value here
+P21<- #insert your value here
+P31<- #insert your value here
+P41<- #insert your value here 
+  
+A1<-matrix(c(F11,P11,0,0,F21,0,P21,0,F31,0,0,P31,F41,0,0,P41), nr=4)
+A1
+lambdaF1<- lambda(A1)
+@
+
+The sensitivity of $\lambda$ to one element of the matrix is given by:
+\begin{equation}
+s_{ij}=\frac{\partial \lambda} {\partial a_{ij}}
+\end{equation}
+So the sensitivity can be approximated by taking the difference between the value of $\lambda$ \; of the original matrix and the modified matrix and dividing it by the change we apply to the element of the matrix. 
+\begin{itemize}
+\item $\partial \lambda$ \; can be approximated by the difference between the original $\lambda$ \; and the new $\lambda$.
+\item $\partial a_{ij}$ can be approximated by the difference between the original $a_{ij}$ and the new $a_{ij}$  
+\end{itemize}
+If the change to the element of the matrix is very small, the sensitivities calucated so will be close from the actual sensitivities. Below you can find the actual sensititvities and compare them with the ones you can find using this approximation. If you want to calculate all sensitivities using this approximation, it is probably best to use a \texttt{for} loop (or actually two, why two?). Do not forget to only change one matrix element at a time. Also investigate how small the change in the matrix element has to be to make sure that the approximation returns reasonable numbers.
+
+
+
+<<t14,echo=F,eval=T, results='asis'>>=
+sen<- sensitivity(A)
+
+print(xtable(sen, digits=4),
+      size="footnotesize", #Change size; useful for bigger tables
+      include.rownames=FALSE, #Don't print rownames
+      include.colnames=FALSE, #We create them ourselves
+      floating=FALSE,
+      hline.after=NULL, #We don't need hline; we use booktabs
+      add.to.row = list(pos = list(-1, 
+                                   nrow(sen)),
+                        command = c(paste("\n",
+                                          "$n_1$ & $n_2$ & $n_3$ & $n_4$ \\\\\n",
+                                          "\n"),
+                                    "\n")
+                        )
+      )
+@
+\vspace{1.5ex}
+\noindent\textit{Elasitcity analysis}
+Elasticities are proportional sensitivities. Before we asked the question: if a matrix element increases by a small amount, how much does $\lambda$ \; increase? Elasticities ask a different question: with what factor does $\lambda$\; change if a matrix element is changed by a certain factor. They thus examine the effect of a proportional change of transition elements on $\lambda$. For example, you may be interested in knowing by how much does $\lambda$\; change if the fertility of age class 2 is increased by 25\%. 
+ 
+The elasticity of $\lambda$\; to a proporitonal change of one element of the matrix is given by:
+\begin{equation}
+e_{ij}=\frac{a_{ij}}{\lambda} \frac{\partial \lambda} {\partial a_{ij}}
+\end{equation}
+You can thus calculate them from your approximations of the sensitivities. Compare your values with the values below, which are calculated by the real solution to this problem. 
+
+
+<<t15,echo=F,eval=T, results='asis'>>=
+ela<- elasticity(A)
+print(xtable(ela, digits=4), 
+      size="footnotesize", #Change size; useful for bigger tables
+      include.rownames=FALSE, #Don't print rownames
+      include.colnames=FALSE, #We create them ourselves
+      floating=FALSE,
+      hline.after=NULL, #We don't need hline; we use booktabs
+      add.to.row = list(pos = list(-1, 
+                                   nrow(ela)),
+                        command = c(paste("\n",
+                                          "$n_1$ & $n_2$ & $n_3$ & $n_4$ \\\\\n",
+                                          "\n"),
+                                    "\n")
+                        )
+      )
+@
+\subsubsection{Transient dynamics}
+Most of what we have described above focuses on the asymptotic, (i.e. long-term) behaviour of the system. However, the short-term dynamics can be very different. In nature, a population may never be observed in the asymptotic regime. Transient dynamics focuses on short-term responses.   
+
+There are year-to-year variations in growth rate before the asymptote is reached. The code below calculate the annual finite growth rates of the barn owl population. 
+<<t16,echo=T,eval=T, results='hide'>>=
+Ntot # the total population size vector.
+     # Each element is the population size
+     # at one time step. As calculated before
+Ntott<-Ntot[2:(length(Ntot)+1)]
+# the total popoluation size at t+1
+
+R<-Ntott/Ntot
+# the annual finite growth rates
+#vector
+
+@
+
+We can plot this in a graph to see how much time it takes this population to reach the asymptotic finite  growth rate. For this we first create a vector of the same length as the annual growth rate vector in which all elements contain the value of $\lambda$.
+
+<<t17,echo=T,eval=T, results='asis'>>=
+lam<-lambda(A)
+
+plot(R, type="l", col="blue", xlab="year", ylab="growth rate") 
+abline(h=lam, col="red")
+legend("topright",
+       c("annual growth rate","asymptotic growth rate"), 
+       bty = "n",
+lty=c(1,1),
+col=c("blue", "red"))
+
+
+@
+It thus takes around five years before the population reaches its asymptotic growth rate.
+
+\section{Rotifer data}
+We will discuss this topic in class.
+
+\shipoutAnswer
+\end{document}

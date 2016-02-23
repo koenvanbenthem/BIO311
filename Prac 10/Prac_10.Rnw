@@ -1,0 +1,570 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+%\usepackage{bbold}
+\usepackage{tikz}
+%\usepackage{silence}
+\usepackage{mdframed}
+%\WarningFilter{mdframed}{You got a bad break}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{listings}
+\usepackage{color}
+\colorlet{exampcol}{blue!10}
+\usepackage{multicol}
+\usepackage{booktabs}
+
+\title{BIO311: Population Ecology\\ \textit{Practical 10:\\ Stochasticity in Matrix Models\\ \& \\ Population Viability Analysis.}}
+\setlength\parindent{0pt}
+
+\author{Koen van Benthem \& Tina Cornioley\\\\
+\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
+
+\date{Spring 2014}
+\setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
+
+%\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%
+
+\setlength\parindent{0pt}
+\begin{document}
+\maketitle
+\tableofcontents
+\vspace{3cm}
+
+\newpage
+<<setup, cache=FALSE, include=FALSE>>=
+opts_chunk$set(dev="tikz",tidy=F,dev.args=list(pointsize=7.5))
+options(width=60)
+@
+<<beta,echo=FALSE,eval=T,results='hide',message=FALSE>>=
+library('xtable')
+library('popbio')
+  
+A<-matrix(c(0,0.25,2,0.5), nr=2)
+
+B<-matrix(c(0,0.27,2,0.54), nr=2)
+
+C<-matrix(c(0,0.2,1.8,0.44), nr=2)
+
+@
+\section{Environmental Stochasticity}
+In practical $9$ we investigated the population dynamics for two populations of yellow-necked mice. Here we focus on one of the two populations presented in that practical: the population living on the plain. For this population the Leslie matrix was given by:
+<<alpha1,results='asis',echo=FALSE,message=FALSE>>=
+cat("\\begin{equation*} \\boldsymbol{A}=")
+ print(xtable(A,align=rep("",ncol(A)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+cat("\\end{equation*}")
+@
+It turns out however that the conditions for the population are not the same every year. Measurements have been done (okay, this is what we say, in reality we made up some numbers that give reasonable results in the end...) for three years in a row and the matrices that were found for these years are shown below:
+<<alpha,results='asis',echo=FALSE,message=FALSE>>=
+  
+cat("\\begin{align*}")
+cat("\\boldsymbol{A_1} &=")
+ print(xtable(A,align=rep("",ncol(A)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+cat("& \\boldsymbol{A_2} &=")
+ print(xtable(B,align=rep("",ncol(A)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+cat("& \\boldsymbol{A_3} &=")
+ print(xtable(C,align=rep("",ncol(A)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+
+cat("\\\\ \\lambda &=",lambda(A),"&\\lambda &=",lambda(B),"&\\lambda &=",lambda(C))
+cat("\\end{align*}")
+
+@
+We see that the year that we considered was a relatively average year. The year after the survival rates of the individuals was higher at both stages. In the third year however the population experienced some severe conditions with the survival rates and the fertility rate being lower than in both preceeding years.
+
+We thus have to realise that the transition rates in nature will vary from year to year. This would mean that the Leslie matrix would also look differently every year. Two possibilities of taking this into account when predicting the behaviour of the population are given below:
+\begin{enumerate}
+\item From the matrices we see that the mean fertility rate is $\mu_{F} = \Sexpr{mean(c(A[1,2],B[1,2],C[1,2]))}$ with a standard deviation of $\sigma_{F} = \Sexpr{sd(c(A[1,2],B[1,2],C[1,2]))}$. For the survival rates we find:
+\begin{align*}
+\mu_{S_j} &= \Sexpr{mean(c(A[2,1],B[2,1],C[2,1]))} & \sigma_{S_j} &= \Sexpr{sd(c(A[2,1],B[2,1],C[2,1]))}\\
+\mu_{S_a} &= \Sexpr{mean(c(A[2,2],B[2,2],C[2,2]))} & \sigma_{S_a} &= \Sexpr{sd(c(A[2,2],B[2,2],C[2,2]))}
+\end{align*}
+For every timestep that we project the population in the future, we generate a matrix $\boldsymbol{A}$ with a random fertility rate (drawn from a normal distribution with mean $\mu_F$ and standard deviation $\sigma_F$), a random juvenile survival rate (drawn from a normal distribution with mean $\mu_{S_j}$ and standard deviation $\sigma_{S_j}$) and a random adult survival rate (drawn from a normal distribution with mean $\mu_{S_a}$ and standard deviation $\sigma_{S_a}$). This way we will incorporate the fact that the rates can vary over time.
+\begin{mdframed}
+\textbf{Quick refresher: standard deviation}\\
+The standard deviation describes how much variation there is in the data from the average. A large standard deviation means that the data points deviate a lot from the average whereas a small standard devuation indicates that the data points are close to the average. Mathematically it is defined as:
+\begin{equation*}
+\sigma = \sqrt{\frac{1}{N-1}\sum_{i=1}^{N}{(x_i-\mu)^2}}.
+\end{equation*}
+In this equation $\mu$ is the average value of $x$ (thus $\mu=\frac{1}{N}\sum_{i=1}^{N}{x_i}$) and $N$ is the total number of data points. In \texttt{R} you can use the function \texttt{sd()} to calculate the standard deviation.
+\end{mdframed}
+\item Every timestep we randomly choose one of the measured matrices ($\boldsymbol{A_1,A_2,A_3}$) with equal probabilities. Thereby taking into account the variation in the environment.
+\end{enumerate}
+Which of these approaches do you prefer in this case? And why?
+\subsection{Independent sequences}
+In the rest of this practical, we will explore what happens if we decide to model the dynamics by randomly choosing one of the three matrices each timestep. Assume an initial population of $5$ juveniles and $5$ adults. Create a matrix \texttt{N} to store the numbers that you will calculate. Now use the \texttt{sample()} function to generate a random number every timestep and use this number (using \texttt{if/else}) to decide which matrix is used in a specific timestep. To illustrate the use of \texttt{sample}
+<<simiii>>=
+sample(c(1,2,3,4),1)
+@
+randomly draws $1$ entry out of the vector \texttt{c(1,2,3,4)}. Now use this function to generate one possible prediction of the population dynamics until timestep $50$.
+<<sim_one2,echo=TRUE,eval=FALSE,out.width='0.5\\textwidth',fig.align='center'>>=
+A1<-...
+A2<-...
+A3<-...
+
+timesteps<-... # Total number of timesteps
+
+N<-... # Create matrix to store the calculated values
+N[,1]<-...
+
+for(t in ...){
+
+  test<-..... # Use sample to generate 
+              # a random number (1,2,3)
+  
+  if(test==..){
+    ...
+  }else if(test==...){
+    ...
+  }else{
+    ...
+  }
+}
+Ntot<-colSums(N)  # Calculate total population size
+                  # per timestep
+
+plot(...)
+
+@
+
+<<sim_one,echo=FALSE,out.width='0.5\\textwidth',fig.align='center'>>=
+timesteps<-50
+N<-matrix(NA,ncol=timesteps,nrow=ncol(A))
+N[,1]<-c(5,5)
+for(t in 2:timesteps){
+
+  test<-sample(c(1,2,3),1)
+  
+  if(test==1){
+    N[,t]<-A%*%N[,t-1]
+  }else if(test==2){
+    N[,t]<-B%*%N[,t-1]
+  }else{
+    N[,t]<-C%*%N[,t-1]
+  }
+}
+Ntot<-colSums(N)
+par(mar=c(6,6,2,2))
+plot(1:timesteps,Ntot,xlab="t",ylab="N",type="l")
+
+@
+
+You will probably notice that your result looks different from the result in the graph above. The reason for this is that the outcome depends on random numbers. It is actually not really interesting to see what one prediction tells us. Instead, write a loop that repeats the whole prediction multiple times (for example $200$ times) and plot the results of all these predictions in one graph. For this it is best to start with an empty plot and add the different realisations using the \texttt{lines()} function (see practical 7, page 20 where we used a similar approach for stochasticity in the logistic growth model). In English, what we want to do is:
+
+\begin{enumerate}
+\item Define the number of different simulations (replicates) that you want to perform
+\item Create an empty plot
+\item Run one of the simulations\label{steppie}
+\item Use \texttt{lines()} to add a line with that outcome to the plot. Use the argument \texttt{col} to specify a color for this line. If you want to automatically generate a large number of different colors, take a look at the function \texttt{rainbow()}.
+\item If you have not yet done all the simulations, return to step \ref{steppie}
+\end{enumerate}
+The more lines you draw on one plot, the more complicated the interpretation of the plot becomes. In order to make the interpretation a bit easier, we recommend drawing a line that corresponds to the average behaviour of all the lines. To do so, we create a vector \texttt{TotalN} at the beginning of the code (before the loops) that first contains only zeros:
+<<dlin,eval=FALSE>>=
+TotalN<-rep(0,timesteps)
+@
+at the end of the calculation of each simulation we have the vector \texttt{Ntot} that contains the simulated number of individuals at each time step. (In \texttt{Ntot}, \texttt{tot} refers to the fact that it is both the juveniles and the adults. In \texttt{TotalN}, \texttt{Total} refers to the fact that this vector contains the sum of all the different predictions), we add that line to \texttt{TotalN}:
+<<dlin2,eval=FALSE>>=
+TotalN<-TotalN+Ntot
+@
+Finally, after having calculated all the different predictions, divide \texttt{TotalN} by the number of predictions to obtain the main behaviour. You can add this behaviour to the plot with \texttt{lines()} after the calculations have been finished. Change the \texttt{lwd} parameter to draw a thicker (more visible) line and the colour with \texttt{col=} to be able to distinguish the line. What is the trend of this average line? Is this what you expected based on the initial matrices? 
+
+
+<<sim2,echo=FALSE,eval=FALSE>>=
+reps<-200
+timesteps<-50
+threshold<-2
+plot(0,0,xlim=c(0,timesteps),ylim=c(0,25),xlab="t",ylab="N",type="n")
+N<-matrix(NA,ncol=timesteps,nrow=ncol(A))
+
+extinct<-rep(0,timesteps)
+meanN<-rep(0,timesteps)
+N[,1]<-c(2,2)
+for(rep in 1:reps){
+  for(t in 2:timesteps){
+    tst<-sample(c(1,2,3),1)
+    
+    if(sum(N[,t-1])<threshold){
+      N[,t]<-0
+      extinct[t]<-extinct[t]+1
+    }else if(tst==1){
+      N[,t]<-A%*%N[,t-1]
+    }else if(tst==2){
+      N[,t]<-B%*%N[,t-1]
+    }else{
+      N[,t]<-C%*%N[,t-1]
+    }
+  }
+  Ntot<-colSums(N)
+  lines(1:timesteps,Ntot,col=rainbow(reps)[rep])
+  meanN<-meanN+(1/reps)*Ntot
+}
+lines(1:timesteps,meanN,lwd=6,lty=2,col="black")
+plot(1:timesteps,extinct/reps,type="l")
+@
+
+<<sim,echo=FALSE,eval=FALSE>>=
+reps<-200
+timesteps<-50
+threshold<-2
+plot(0,0,xlim=c(0,timesteps),ylim=c(0,25),xlab="t",ylab="N",type="n")
+N<-matrix(NA,ncol=timesteps,nrow=ncol(A))
+
+extinct<-rep(0,timesteps)
+meanN<-rep(0,timesteps)
+N[,1]<-c(5,5)
+for(rep in 1:reps){
+  for(t in 2:timesteps){
+    tst<-sample(c(1,2,3),1)
+    
+    if(sum(N[,t-1])<threshold){
+      N[,t]<-0
+      extinct[t]<-extinct[t]+1
+    }else if(tst==1){
+      N[,t]<-A%*%N[,t-1]
+    }else if(tst==2){
+      N[,t]<-B%*%N[,t-1]
+    }else{
+      N[,t]<-C%*%N[,t-1]
+    }
+  }
+  Ntot<-colSums(N)
+  lines(1:timesteps,Ntot,col=rainbow(reps)[rep])
+  meanN<-meanN+(1/reps)*Ntot
+}
+lines(1:timesteps,meanN,lwd=6,lty=2,col="black")
+plot(1:timesteps,extinct/reps,type="l")
+@
+\subsection{Temporal environmental correlations}
+So far we have assumed that the chances of applying either matrix ($\boldsymbol{A_1,A_2,A_3}$) is the same. In some cases however, the conditions experienced by a population vary slowly: It is more likely that a population is exposed to similar conditions at the next time step compared to the current time step than to different conditions. In terms of matrices, this means that if at time $t$ matrix $\boldsymbol{A_1}$ is applied, it is more likely that at the next time step the same matrix is applied than that one of the other ones is used. As an example you can think of copper pollution: this pollution is expected to last multiple years, so if there is pollution this year, there will probably still be some pollution next year. Assume for example that matrix $\boldsymbol{A_3}$ describes the dynamics of the population in case of copper pollution and the population experiences this pollution at a time $t$. In this case we expect the copper pollution to still be there at time $t+1$ and therefore we assume that the chance of applying $\boldsymbol{A_3}$ at time step $t+1$ should be larger than the chance of applying one of the other two matrices that describe good conditions.
+
+You will now incorporate this property in the model that you have already developed. The \texttt{sample()} function can be given a parameter \texttt{prob} that specifies the probability of drawing a specific number. Try this by repeatedly performing the following line:
+<<probis,eval=FALSE>>=
+sample(c(1,2,3),1,prob=c(4/7,2/7,1/7))
+@
+Now you can use this property to change the previous simulation to account for temporal autocorrelation. First, before entering the time loop (but after entering the loop that is used for calculating the different predictions), specify a new vector that will hold the probabilities. At this time (the first time point), all the matrices are still equally likely to occur.
+<<aaaa>>=
+probs=c(1/3,1/3,1/3)
+@
+Now adapt your previous code to use these probabilities to draw a new matrix every timestep. Once a matrix has been drawn in a timestep, change the vector \texttt{probs} such that the next timestep there will be a chance of $\frac{5}{7}$ to have the same matrix again and a chance of $\frac{1}{7}$ to have either of the other matrices in the next timestep. In English, what you have to do is:
+
+\begin{enumerate}
+\item Define a \texttt{probs} vector within the first loop but outside of the second. This is the vector that determines which one of the matrix is the first matrix of the time step.
+\item Specifiy the \texttt{prob} argument of the \texttt{sample} function to be the vector \texttt{probs}.
+\item After each \texttt{if/else} statements within the second loop, define a new \texttt{probs} vector which will change the probability of the matrices to be used.
+\end{enumerate}
+How do these predictions differ from the predictions in the non-correlated case? Does this make sense to you?
+<<sim3,eval=FALSE,echo=FALSE>>=
+reps<-200
+timesteps<-50
+threshold<-2
+plot(0,0,xlim=c(0,timesteps),ylim=c(0,25),xlab="t",ylab="N",type="n")
+N<-matrix(NA,ncol=timesteps,nrow=ncol(A))
+
+extinct<-rep(0,timesteps)
+meanN<-rep(0,timesteps)
+N[,1]<-c(5,5)
+
+for(rep in 1:reps){
+  probs<-c(1,1,1)
+  for(t in 2:timesteps){
+    tst<-sample(c(1,2,3),1,prob=probs)
+    if(sum(N[,t-1])<threshold){
+      N[,t]<-0
+      extinct[t]<-extinct[t]+1
+    }else if(tst==1){
+      N[,t]<-A%*%N[,t-1]
+      probs<-c(5,1,1)
+    }else if(tst==2){
+      N[,t]<-B%*%N[,t-1]
+      probs<-c(1,5,1)
+    }else{
+      N[,t]<-C%*%N[,t-1]
+      probs<-c(1,1,5)
+    }
+  }
+  Ntot<-colSums(N)
+  lines(1:timesteps,Ntot,col=rainbow(reps)[rep])
+  meanN<-meanN+(1/reps)*Ntot
+}
+lines(1:timesteps,meanN,lwd=6,lty=2,col="black")
+plot(1:timesteps,extinct/reps,type="l")
+nls(meanN~A*lambda^(1:timesteps),start=c(lambda=1.2,A=5))
+@
+\section{Population Viability Analysis}
+What managers want to know generally is not so much the average prediction, but rather the chance of extinction. What is the chance that this population will go extinct in the next $50$ year? In order to look into this, we first need to define 'extinct': with the matrix models the vectors will never really reach $0$, but they can become really small (say a total population size of $0.001$). We thus need to decide when we call a population extinct. In this case we decide that if the population contains less than $2$ individuals, it basically went extinct. If the population size falls below this threshold, we do not actually multiply the population by the matrix, but we just set the new value of the population vector to be $\begin{pmatrix} 0 \\ 0 \end{pmatrix}$. To make the code easier to adapt, we first define a threshold variable:
+<<aef,eval=FALSE>>=
+threshold<-2
+@
+Now within the second loop and before the other statements, add an \texttt{if} statement to your code to account for this possibility. You want that if the total population size at the former time step is below the threshold, the current population size is set to $0$. 
+
+Finally we would like to keep track of the number of extinctions over time. In order to so, create a vector \texttt{extinct} at the beginning of your code, before entering any loop:
+<<aelf,eval=FALSE>>=
+extinct<-rep(0,timesteps)
+@
+Now adapt your code such that if the population size of a specific prediction at some point in time falls below the threshold, not only the population vector is set to $\begin{pmatrix} 0 \\ 0 \end{pmatrix}$, but also the extinction is counted, that is that in that case:
+<<aeaaaf,eval=FALSE>>=
+extinct[t]<-extinct[t]+1
+@
+At the end, to find the proportion of predictions that has gone extinct, you just have to divide the vector \texttt{extinct} by the number of predictions that it is based on. If this number is large enough, the proportion of extinct predictions is the probability of extinction for that population. Implement this in the code after the loops and plot how the probability of extinction changes over time. What happens if your initial population is smaller? (for example 2 adults and 2 juveniles) What is the difference in extinction probabilities between the case of time correlated environments and time uncorrelated environments? Does this make sense to you?
+
+If you start with a population of 5 adults and 5 juveniles and make 200 simulations, your (average) result should look similar to the following graphs (in time uncorrelated environments):
+\begin{center}
+\begin{tabular}{c c}
+<<simop,echo=FALSE,eval=TRUE,out.width='0.40\\textwidth',results='asis'>>=
+par(mar=c(6,6,2,2))
+reps<-200
+timesteps<-50
+threshold<-2
+plot(0,0,xlim=c(0,timesteps),ylim=c(0,25),xlab="t",ylab="N",type="n")
+N<-matrix(NA,ncol=timesteps,nrow=ncol(A))
+
+extinct<-rep(0,timesteps)
+meanN<-rep(0,timesteps)
+N[,1]<-c(5,5)
+for(rep in 1:reps){
+  for(t in 2:timesteps){
+    tst<-sample(c(1,2,3),1)
+    
+    if(sum(N[,t-1])<threshold){
+      N[,t]<-0
+      extinct[t]<-extinct[t]+1
+    }else if(tst==1){
+      N[,t]<-A%*%N[,t-1]
+    }else if(tst==2){
+      N[,t]<-B%*%N[,t-1]
+    }else{
+      N[,t]<-C%*%N[,t-1]
+    }
+  }
+  Ntot<-colSums(N)
+  lines(1:timesteps,Ntot,col=rainbow(reps)[rep])
+  meanN<-meanN+(1/reps)*Ntot
+}
+lines(1:timesteps,meanN,lwd=6,lty=2,col="black")
+cat(" & ")
+plot(1:timesteps,extinct/reps,type="l",xlab="t",ylab="Extinction probability")
+@
+\end{tabular}
+\end{center}
+\section{Demographic Stochasticity (Demonstration only)}
+A problem that we have not talked about so far is the fact that matrices allow for half individuals. You may for example find that the expected number of juveniles after 10 timesteps equals $2.4$, but what are $0.4$ individuals? We interpret this as an 'average'. It is however also possible to take into account the fact that half an individual can not exist. For this we do not use the matrix framework, but we can use the rates that we also used in the matrix framework.
+
+In this section we will only consider $\boldsymbol{A_1}$. That is: we have juvenile survival of $0.25$, and adult survival of $0.5$ and an average fertility rate of $2$. If we would do the matrix multiplication, we would write for the number of juveniles ($N_j$) and the number of adults ($N_a$):
+\begin{align*}
+N_j(t+1) &= 2\cdot N_a (t)\\
+N_a(t+1) &= 0.25\cdot N_j(t) + 0.5\cdot N_a(t)
+\end{align*}
+This will however give rise to half individuals as well.
+
+In order to get rid of this problem we interpret the juvenile survival rate as follows: the juvenile survival rate is the chance that an individual juvenile survives. We can simulate this in \texttt{R} with the function \texttt{rbinom(n,size,prob)}. This function simulates how many times an event occurs if we make \texttt{size} attempts and the chance of an attempt succeeding is \texttt{prob}. The element \texttt{n} specifies how many simulations of this type we want to have.
+
+For example we have a dice with 6 sides and we want to roll it $100$ times and we want to know how many of these $100$ times the number on the dice is either $1$ or $2$. The chance of rolling either a $1$ or a $2$ is $\frac{1}{6}+\frac{1}{6}=\frac{1}{3}$, so we expect this to happen $33.3333\dots$ times if we roll the dice $100$ times. Let us simulate this in \texttt{R}:
+<<dice1>>=
+rbinom(n=1,size=100,prob=1/3)
+@
+We see that this function indeed returns us an integer number. \texttt{R} has in a sense simulated $100$ dice rolls and counted how many times the outcome was $1$ or $2$. If we let \texttt{R} simulate this experiment multiple times, we will find different outcomes:
+<<dice2>>=
+rbinom(n=10,size=100,prob=1/3)
+@
+However, if we average the outcomes of very many of these simultations, we should find back the expected $33.333\dots$:
+<<dice3>>=
+mean(rbinom(n=10000,size=100,prob=1/3))
+@
+We can now use this function to simulate the number of juveniles and adults that survive as follows:
+(recall that \texttt{N[1,t]} describes the number of juveniles at time t and \texttt{N[2,t]} the number of adults at time t)
+<<dice4,eval=FALSE>>=
+N[2,t]<-rbinom(n=1,size=N[1,t-1],prob=0.25)
+        + rbinom(n=1,size=N[2,t-1],prob=0.5)
+@
+Now all that is left is calculating the amount of offspring that is produced at time t. One way of doing this is by drawing a number from a Poisson distribution with $\lambda=2$. The Poisson distribution is a distribution that is frequently used for count data, but it is beyond the scope of this course to treat it in detail. To draw a number from a Poisson distribution in \texttt{R}, we use the function \texttt{rpois(n,lambda)}. Here \texttt{n} specifies the number of numbers that we want to draw from the distribution and \texttt{lambda} specifies the mean of the distribution. So to draw one number we write:
+<<dice5>>=
+rpois(n=1,lambda=2)
+@
+Let us now check whether the mean value of many numbers drawn from a Poisson distribution is indeed close to 2:
+<<dice6>>=
+mean(rpois(n=10000,lambda=2))
+@
+Finally, let us have a look at which numbers are drawn most frequently when we use a Poisson distribution:
+<<dice7,out.width='0.5\\textwidth',fig.align='center',echo=c(2)>>=
+par(mar=c(6,6,2,2))
+hist(rpois(n=1000,lambda=2),breaks=40)
+@
+This function would thus describe how many offspring each adult produces. If we want to know the total number of offspring produced, we can write:
+<<dice8,eval=FALSE>>=
+N[1,t]<-sum(rpois(N[2,t-1],lambda=2))
+@
+Let us now use this to run one simulation:
+<<dice9,out.width='0.5\\textwidth',fig.align='center',echo=c(-1)>>=
+par(mar=c(6,6,2,2))
+timesteps<-50
+N<-matrix(NA,ncol=timesteps,nrow=2)
+
+N[,1]<-c(5,5)
+for(t in 2:timesteps){
+    N[1,t]<-sum(rpois(N[2,t-1],lambda=2))
+    N[2,t]<-rbinom(n=1,size=N[1,t-1],prob=0.25)
+        + rbinom(n=1,size=N[2,t-1],prob=0.5)
+}
+Ntot<-colSums(N)
+plot(1:timesteps,Ntot,type="l",xlab="t",ylab="N")
+@
+Now we repeat the simulation $200$ times and look at the results (the code is not shown, else the previous exercise would become a bit too easy...)
+\begin{center}
+\begin{tabular}{c c}
+<<dice10,echo=FALSE,out.width='0.5\\textwidth',results='asis'>>=
+par(mar=c(6,6,2,2))
+reps<-200
+timesteps<-50
+
+plot(0,0,xlim=c(0,timesteps),ylim=c(0,25),xlab="t",ylab="N",type="n")
+N<-matrix(NA,ncol=timesteps,nrow=ncol(A))
+
+extinct<-rep(0,timesteps)
+meanN<-rep(0,timesteps)
+N[,1]<-c(5,5)
+for(rep in 1:reps){
+  for(t in 2:timesteps){
+    N[1,t]<-sum(rpois(N[2,t-1],lambda=2))
+    N[2,t]<-rbinom(n=1,size=N[1,t-1],prob=0.25)
+            + rbinom(n=1,size=N[2,t-1],prob=0.5)
+    if(sum(N[,t])<threshold){
+      extinct[t]<-extinct[t]+1
+    }
+  }
+    
+  Ntot<-colSums(N)
+  lines(1:timesteps,Ntot,col=rainbow(reps)[rep])
+  meanN<-meanN+(1/reps)*Ntot  
+}
+
+lines(1:timesteps,meanN,lwd=6,lty=2,col="black")
+cat(" & ")
+plot(1:timesteps,extinct/reps,type="l",xlab="t",ylab="Extinction probability")
+@
+\end{tabular}
+\end{center}
+Only because we took into account demographic stochasticity, we see that the population goes extinct in $\Sexpr{round(100*extinct[timesteps]/reps,2)}\%$ of the simulations. If we compare this to the case where we have just $\boldsymbol{A_1}$ and deterministically apply this matrix every time step:
+<<dice11,echo=c(-1),out.width='0.5\\textwidth',fig.align='center'>>=
+par(mar=c(6,6,2,2))
+A1<-matrix(c(0,0.25,2,0.5), nr=2)
+timesteps<-50
+N<-matrix(NA,ncol=timesteps,nrow=2)
+N[,1]<-c(5,5)
+
+for(t in 2:timesteps){
+   N[,t]<-A1%*%N[,t-1]
+}
+
+Ntot<-colSums(N)
+plot(1:timesteps,Ntot,type="l",xlab="t",ylab="N")
+@
+We see that here as expected (because $\lambda=1$) the population size stabilizes at one single value ($\Sexpr{Ntot[timesteps]}$). 
+
+\vspace{2ex}
+
+This is where the practical ends. If it ends a bit too soon for you and you would like to continue fighting \texttt{R}, think about a model that combines both types of stochasticity: environmental and demographic. Alternatively, do something less biologically relevant, but quite beautiful programming wise: understand (or write) a recursive function. This is a function that calls itself, an example that draws a tree is given below. Finally, you could of course also consider doing a project in our research group. (These options are not mutually exclusive).
+
+\begin{center}
+Ciao!
+\end{center}
+<<rectree,fig.align='center',out.width='0.5\\textwidth',echo=F>>=
+tree<-function(x,y,l,dir,n,nmax){ # We define a function 'tree()'
+  
+  # An important escape argument, leave this out and the function
+  # will run forever:
+  if(n==0){
+    return()
+  }
+  
+  # Picking a colour at random using the rainbow function
+  # (without this the code would also work, there would just be
+  # no colors)
+  colour=rainbow(200,start=0.2,end=0.6,v=0.6)[round(runif(1,1,199))]
+  
+  # Draw a line starting a (x,y) with length 'l' and in direction
+  # (in radials) dir. On top of that, we make the width of the line
+  # depend on how far the branch is from the stem.
+  lines(c(x,x+l*sin(dir)),c(y,y+l*cos(dir)),lwd=20*(n/nmax),col=colour)
+  
+  # Generate a random number that defines how many branches the tree has
+  # at this point in the structure
+  branches<-round(runif(1,2,4))
+  
+  # Now we go over the separate branches
+  for(i in 1:branches){
+    # to make sure not all branches point in the same direction,
+    # we calculate a direction for the branch
+    angle<-dir+(-pi/6)+(pi/3)*(i-1)/(branches-1)
+    
+    # Also, we would like the later branches to be smaller than
+    # the first one:
+    l2<-runif(1,0.7,0.85)*l
+    
+    # And finally the magic of recursion, we draw new branch with the
+    # exact same function: the function 'tree'.
+    tree(x+l*sin(dir),y+l*cos(dir),l2,angle,n-1,nmax)
+  }
+}
+
+# Now, to actually draw the tree, we first make an empty plot
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(0,10),xaxt="n",yaxt="n",ylab="",xlab="")
+
+# And then call the function tree() with the parameters we like
+tree(0,0,2,0,8,8)
+@
+
+<<rectree2,fig.align='center',out.width='0.5\\textwidth',eval=FALSE>>=
+tree<-function(x,y,l,dir,n,nmax){ # We define a function 'tree()'
+  # x,y: start of tree, l: length of first branch, dir: direction
+  # n and nmax: should be the same number: number of levels in the
+  # tree.
+  
+  # An important escape argument, leave this out and the function
+  # will run forever:
+  if(n==0){
+    return()
+  }
+  
+  # Picking a colour at random using the rainbow function
+  # (without this the code would also work, there would just be
+  # no colors)
+  pos<-round(runif(1,1,199))
+  colour=rainbow(200,start=0.2,end=0.6,v=0.6)[pos]
+  
+  # Draw a line starting a (x,y) with length 'l' and in direction
+  # (in radials) dir. On top of that, we make the width of the 
+  # line depend on how far the branch is from the stem.
+  lines(c(x,x+l*sin(dir)),c(y,y+l*cos(dir)),
+        lwd=20*(n/nmax),col=colour)
+  
+  # Generate a random number that defines how many branches the 
+  # tree has at this point in the structure
+  branches<-round(runif(1,2,4))
+  
+  # Now we go over the separate branches
+  for(i in 1:branches){
+    # to make sure not all branches point in the same direction,
+    # we calculate a direction for the branch
+    angle<-dir+(-pi/6)+(pi/3)*(i-1)/(branches-1)
+    
+    # Also, we would like the later branches to be smaller than
+    # the first one:
+    l2<-runif(1,0.7,0.85)*l
+    
+    # And finally the magic of recursion, we draw the new branch
+    # simply by using theexact same function: the function 'tree'.
+    tree(x+l*sin(dir),y+l*cos(dir),l2,angle,n-1,nmax)
+  }
+}
+
+# Now, to actually draw the tree, we first make an empty plot
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(0,10),
+     xaxt="n",yaxt="n",ylab="",xlab="")
+
+# And then call the function tree() with the parameters we like
+tree(0,0,2,0,8,8)
+@
+\end{document}

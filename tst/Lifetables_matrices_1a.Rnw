@@ -1,0 +1,125 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+%\usepackage{bbold}
+\usepackage{tikz}
+%\usepackage{silence}
+\usepackage{mdframed}
+%\WarningFilter{mdframed}{You got a bad break}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{listings}
+\usepackage{color}
+\colorlet{exampcol}{blue!10}
+\usepackage{multicol}
+\usepackage[answerdelayed]{exercise}
+
+\title{BIO311: Population Ecology\\ \textit{Prac 8: Life tables \& Population Matrices}}
+
+\author{Koen van Benthem \& Tina Cornioley\\\\
+\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
+
+\date{Spring 2014}
+\setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
+
+%\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+<<setup, cache=FALSE, include=FALSE>>=
+opts_chunk$set(dev="tikz",tidy=F,dev.args=list(pointsize=7.5))
+options(width=60)
+@
+
+<<setparameters,echo=FALSE,include=FALSE>>=
+
+@
+\maketitle
+\tableofcontents
+\vspace{3cm}
+\newpage
+\section{Online Dataset}
+\subsection{Life table}
+In this practical, you will work with life tables. Read carefully the following text and do the exercise at this end of this section. The first part is the description of a hypothetical barn owl population and the second part is brief reminder of life table theory. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.3\textwidth]{Barnowl.jpg}
+\caption{\label{fig:owl}Barn owl, from wikipedia.}
+\end{figure}
+
+\subsection{A barn owl population}
+The barn owl (Schleiereule in German) is a common noctural prey bird (see fig. \ref{fig:owl}. In 2010, 10 female chicks were born and were followed over the years. In 2011, 8 of them were still alive. Only 3 females of this cohort reproduced in 2011: one produced 4 female chicks, one produces 3 female chicks and the last one produced 5 female chicks. In 2012 only 4 females were still alive. This time, they each produce 3 female chicks. In 2013, only one individual of the original cohort was still alive and had only one female chick. In 2014, all individuals were dead.   
+
+
+\subsection{Standard cohort life table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccccccc}
+$x$ & $S(x)$ & $b(x)$ & $l(x)$ & $g(x)$ & Rep. rate \\\hline
+$0$ &  $10$ & ... & ... & ...&...\\
+$1$ & $8$ & ... & ... & ...&...\\
+$2$ & ... & ... & ... & ...&...\\
+$3$ & ... & ... & ... & ...&...\\
+$4$ & ... & ... & ... & ...&...\\
+\end{tabular}
+\caption{\label{tab:LT}An example of a life table.}
+\end{table}
+
+Table \ref{tab:LT} contains the standard life-table calculation. Below is a description of each column. We purposefully do not provide you with the equations to obtain each value as this you will find yourself in the exercise. 
+\begin{itemize}
+
+\item \textit{The first column} $x$ is the age of the individuals. By convention, the newborn start at age $0$ and are age $1$ at their first birthday. 
+
+\item \textit{The second column} $S(x)$ is the number of individuals of the cohort still alive at age $x$. 
+
+\item \textit{The third column} $b(x)$ is the fecundity schedule (sometimes it is refered to as $m(x)$, \textit{m} for maternity). It is the \textbf{average number of female offspring born per unit of time to a female of a given age}. 
+
+\item \textit{The fourth column} $l(x)$ is the survivorship schedule, not to be confused with the survival probability $g(x)$. It is defined as the \textbf{proportion of the original cohort that survives to a given age}. Or in other words it is the probability that an individual survives from birth to age $x$. 
+
+\item \textit{The fifth column} $g(x)$ is the survival probability. It is different from the survivorship schedule in that it is the \textbf{probability that an individual of age $x$ survives to age $x+1$}. 
+
+\item \textit{The sixth column} Rep. rate is what we call here the reproductive rate. We are in fact interested in the \textbf{net reproductive rate, $R_0$} but to find it, we must find the reproductive rate of each age. The net reproductive rate is defined as the \textbf{mean number of female offspring produced per female individual over their lifetime.} It is the reproductie potential of a female corrected for its mortality.
+\end{itemize}
+
+In addition to the elements of the table, there a few more important properties you can extract from the life table. A general property of the table is, $G$, the generation time. A definition of the generation time is \textbf{the average age of mothers when they give birth}. From the life table, you can also calculate the instantaneous rate of increase, $r$. Remember from Madan's lecture on unstructured population that:
+\begin{equation}
+N_t=N_0e^{rt}
+\end{equation}
+The exact solution of $r$ is given by solving the following equation adapted from the Lotka-Euler equation for $r$:
+\begin{equation}
+1=\sum\limits_{x=0}^k e^{-rx}l(x)b(x)
+\end{equation}
+This equation can only be solved iteratively. Alternatively, an approximation of $r$ is given by:
+\begin{equation}
+r \approx \frac{\ln(R_0)}{G}
+\end{equation}
+
+
+\begin{Exercise}[title=Life Table, label=LT, difficulty=1]
+Write on paper a life table for the hypothetical barn howl population described above. Your life table should be organised like table \ref{tab:LT} and contain the same columns. For each column, write the corresponding equation. 
+
+In addition, find $R_0$, $G$ and the approximation of $r$.
+\end{Exercise}
+\begin{Answer}[ref=TL]
+
+\end{Answer}
+
+
+\subsection{Age-structured Matrix Analysis}
+
+\subsubsection{Asymptotic behaviour}
+
+\subsubsection{Sensitivity analysis}
+
+\subsubsection{Elasticity analysis}
+
+\subsubsection{Transient dynamics}
+
+\subsection{Stage-structured Matrix Analysis}
+
+\subsection{Choice of bin size}
+\section{Rotifer data}
+Constructing matrices for the data from the lab practicals.
+\end{document}

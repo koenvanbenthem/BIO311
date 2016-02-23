@@ -1,0 +1,293 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+%\usepackage{bbold}
+\usepackage{tikz}
+%\usepackage{silence}
+%\WarningFilter{mdframed}{You got a bad break}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{listings}
+\usepackage{color}
+\colorlet{exampcol}{blue!10}
+\usepackage{multicol}
+\usepackage[answerdelayed]{exercise}
+\usepackage{booktabs}
+
+\title{BIO311: Population Ecology\\ \textit{Prac 8: Life tables \& Population Matrices}}
+
+\author{Koen van Benthem \& Tina Cornioley\\\\
+\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
+
+\date{Spring 2014}
+\setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
+
+%\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+\begin{document}
+
+
+
+
+
+\maketitle
+\tableofcontents
+\vspace{3cm}
+\newpage
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(}\hlstr{'popbio'}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: quadprog}}\begin{alltt}
+\hlstd{rot23}\hlkwb{<-}\hlkwd{read.csv}\hlstd{(}\hlstr{"BIO311_with_rates.csv"}\hlstd{,}\hlkwc{sep}\hlstd{=}\hlstr{","}\hlstd{,}\hlkwc{header}\hlstd{=T)}
+\hlstd{rot23}\hlkwb{<-}\hlstd{rot23[,}\hlkwd{c}\hlstd{(}\hlopt{-}\hlnum{1}\hlstd{,}\hlopt{-}\hlnum{3}\hlstd{,}\hlopt{-}\hlnum{6}\hlstd{,}\hlopt{-}\hlnum{7}\hlstd{,}\hlopt{-}\hlnum{8}\hlstd{,}\hlopt{-}\hlnum{9}\hlstd{,}\hlopt{-}\hlnum{10}\hlstd{)]}
+
+\hlstd{temp}\hlkwb{<-}\hlkwd{aggregate}\hlstd{(rot23}\hlopt{$}\hlstd{F,}\hlkwc{by}\hlstd{=}\hlkwd{list}\hlstd{(rot23}\hlopt{$}\hlstd{Population,rot23}\hlopt{$}\hlstd{Copper),}\hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)} \hlkwd{mean}\hlstd{(x,}\hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{))}
+\hlstd{temp}\hlkwb{<-}\hlstd{temp[}\hlkwd{order}\hlstd{(temp}\hlopt{$}\hlstd{Group.1,temp}\hlopt{$}\hlstd{Group.2),]}
+\hlkwd{colnames}\hlstd{(temp)[}\hlnum{3}\hlstd{]}\hlkwb{<-}\hlstr{"R"}
+\hlstd{temp2}\hlkwb{<-}\hlkwd{aggregate}\hlstd{(rot23}\hlopt{$}\hlstd{Pa,}\hlkwc{by}\hlstd{=}\hlkwd{list}\hlstd{(rot23}\hlopt{$}\hlstd{Population,rot23}\hlopt{$}\hlstd{Copper),}\hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)} \hlkwd{mean}\hlstd{(x,}\hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{))}
+\hlkwd{colnames}\hlstd{(temp2)[}\hlnum{3}\hlstd{]}\hlkwb{<-}\hlstr{"Sa"}
+\hlstd{temp3}\hlkwb{<-}\hlkwd{aggregate}\hlstd{(rot23}\hlopt{$}\hlstd{Pj,}\hlkwc{by}\hlstd{=}\hlkwd{list}\hlstd{(rot23}\hlopt{$}\hlstd{Population,rot23}\hlopt{$}\hlstd{Copper),}\hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)} \hlkwd{mean}\hlstd{(x,}\hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{))}
+\hlkwd{colnames}\hlstd{(temp3)[}\hlnum{3}\hlstd{]}\hlkwb{<-}\hlstr{"Sj"}
+\hlstd{roti}\hlkwb{<-}\hlkwd{merge}\hlstd{(temp,temp2,}\hlkwc{by}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{))}
+\hlstd{roti}\hlkwb{<-}\hlkwd{merge}\hlstd{(roti,temp3,}\hlkwc{by}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{))}
+\hlstd{roti}\hlopt{$}\hlstd{lambda}\hlkwb{<-}\hlnum{NA}
+
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{length}\hlstd{(roti}\hlopt{$}\hlstd{Sj))\{}
+\hlstd{A}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,roti}\hlopt{$}\hlstd{Sj[i],roti}\hlopt{$}\hlstd{R[i],roti}\hlopt{$}\hlstd{Sa[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+
+  \hlstd{roti}\hlopt{$}\hlstd{lambda[i]}\hlkwb{<-}\hlkwd{lambda}\hlstd{(A)}
+\hlstd{\}}
+
+\hlstd{rotiR}\hlkwb{<-}\hlkwd{subset}\hlstd{(roti,roti}\hlopt{$}\hlstd{Group.1}\hlopt{==}\hlstr{"Recovery"}\hlstd{)}
+\hlstd{rotiP}\hlkwb{<-}\hlkwd{subset}\hlstd{(roti,roti}\hlopt{$}\hlstd{Group.1}\hlopt{==}\hlstr{"Pollution"}\hlstd{)}
+\hlcom{###### ALPHA : LAYER EFFECT #######}
+\hlstd{Rav}\hlkwb{<-}\hlkwd{mean}\hlstd{(}\hlkwd{c}\hlstd{(}\hlkwd{mean}\hlstd{(rotiR}\hlopt{$}\hlstd{R),}\hlkwd{mean}\hlstd{(rotiP}\hlopt{$}\hlstd{R)))}
+\hlstd{Sjav}\hlkwb{<-}\hlkwd{mean}\hlstd{(}\hlkwd{c}\hlstd{(}\hlkwd{mean}\hlstd{(rotiR}\hlopt{$}\hlstd{Sj),}\hlkwd{mean}\hlstd{(rotiP}\hlopt{$}\hlstd{Sj)))}
+\hlstd{Saav}\hlkwb{<-}\hlkwd{mean}\hlstd{(}\hlkwd{c}\hlstd{(}\hlkwd{mean}\hlstd{(rotiR}\hlopt{$}\hlstd{Sa),}\hlkwd{mean}\hlstd{(rotiP}\hlopt{$}\hlstd{Sa)))}
+\hlstd{Aav}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,Sjav,Rav,Saav),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+
+\hlcom{### 1) Pollution}
+\hlstd{Rav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotiP}\hlopt{$}\hlstd{R)}
+\hlstd{Sjav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotiP}\hlopt{$}\hlstd{Sj)}
+\hlstd{Saav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotiP}\hlopt{$}\hlstd{Sa)}
+\hlstd{AavP}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,Sjav,Rav,Saav),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+
+\hlstd{Midw}\hlkwb{<-}\hlnum{0.5}\hlopt{*}\hlstd{(Aav}\hlopt{+}\hlstd{AavP)}
+
+\hlstd{EffP}\hlkwb{<-}\hlkwd{sensitivity}\hlstd{(Midw)}\hlopt{*}\hlstd{(AavP}\hlopt{-}\hlstd{Aav)}
+
+\hlcom{### 2) Recovery}
+\hlstd{Rav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotiR}\hlopt{$}\hlstd{R)}
+\hlstd{Sjav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotiR}\hlopt{$}\hlstd{Sj)}
+\hlstd{Saav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotiR}\hlopt{$}\hlstd{Sa)}
+\hlstd{AavR}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,Sjav,Rav,Saav),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+
+\hlstd{Midw}\hlkwb{<-}\hlnum{0.5}\hlopt{*}\hlstd{(Aav}\hlopt{+}\hlstd{AavR)}
+
+\hlstd{EffR}\hlkwb{<-}\hlkwd{sensitivity}\hlstd{(Midw)}\hlopt{*}\hlstd{(AavR}\hlopt{-}\hlstd{Aav)}
+
+
+\hlcom{##### BETA: COPPER EFFECT #########}
+\hlstd{roti}\hlkwb{<-}\hlkwd{rbind}\hlstd{(rotiR,rotiP)}
+\hlstd{rotiL}\hlkwb{<-}\hlkwd{subset}\hlstd{(roti,roti}\hlopt{$}\hlstd{Group.2}\hlopt{==}\hlstr{"low"}\hlstd{)}
+\hlstd{rotiH}\hlkwb{<-}\hlkwd{subset}\hlstd{(roti,roti}\hlopt{$}\hlstd{Group.2}\hlopt{==}\hlstr{"high"}\hlstd{)}
+\hlstd{rotiM}\hlkwb{<-}\hlkwd{subset}\hlstd{(roti,roti}\hlopt{$}\hlstd{Group.2}\hlopt{==}\hlstr{"medium"}\hlstd{)}
+
+\hlcom{## High}
+\hlstd{Rav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotiH}\hlopt{$}\hlstd{R)}
+\hlstd{Sjav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotiH}\hlopt{$}\hlstd{Sj)}
+\hlstd{Saav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotiH}\hlopt{$}\hlstd{Sa)}
+\hlstd{AavH}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,Sjav,Rav,Saav),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+
+\hlstd{Midw}\hlkwb{<-}\hlnum{0.5}\hlopt{*}\hlstd{(Aav}\hlopt{+}\hlstd{AavH)}
+
+\hlstd{EffH}\hlkwb{<-}\hlkwd{sensitivity}\hlstd{(Midw)}\hlopt{*}\hlstd{(AavH}\hlopt{-}\hlstd{Aav)}
+
+\hlcom{## Medium}
+\hlstd{Rav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotiM}\hlopt{$}\hlstd{R)}
+\hlstd{Sjav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotiM}\hlopt{$}\hlstd{Sj)}
+\hlstd{Saav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotiM}\hlopt{$}\hlstd{Sa)}
+\hlstd{AavM}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,Sjav,Rav,Saav),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+
+\hlstd{Midw}\hlkwb{<-}\hlnum{0.5}\hlopt{*}\hlstd{(Aav}\hlopt{+}\hlstd{AavM)}
+
+\hlstd{EffM}\hlkwb{<-}\hlkwd{sensitivity}\hlstd{(Midw)}\hlopt{*}\hlstd{(AavM}\hlopt{-}\hlstd{Aav)}
+
+\hlcom{## Low}
+\hlstd{Rav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotiL}\hlopt{$}\hlstd{R)}
+\hlstd{Sjav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotiL}\hlopt{$}\hlstd{Sj)}
+\hlstd{Saav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotiL}\hlopt{$}\hlstd{Sa)}
+\hlstd{AavL}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,Sjav,Rav,Saav),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+
+\hlstd{Midw}\hlkwb{<-}\hlnum{0.5}\hlopt{*}\hlstd{(Aav}\hlopt{+}\hlstd{AavL)}
+
+\hlstd{EffL}\hlkwb{<-}\hlkwd{sensitivity}\hlstd{(Midw)}\hlopt{*}\hlstd{(AavL}\hlopt{-}\hlstd{Aav)}
+
+\hlcom{###### INTERACTIONS.... YAY}
+
+\hlcom{# Poll/Low}
+\hlstd{rotii}\hlkwb{<-}\hlkwd{subset}\hlstd{(roti,(roti}\hlopt{$}\hlstd{Group.1}\hlopt{==}\hlstr{"Pollution"} \hlopt{&} \hlstd{roti}\hlopt{$}\hlstd{Group.2}\hlopt{==}\hlstr{"low"}\hlstd{))}
+\hlstd{Rav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{R)}
+\hlstd{Sjav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{Sj)}
+\hlstd{Saav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{Sa)}
+\hlstd{AavPL}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,Sjav,Rav,Saav),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+
+\hlstd{Midw}\hlkwb{<-}\hlnum{0.5}\hlopt{*}\hlstd{(Aav}\hlopt{+}\hlstd{AavPL)}
+
+\hlstd{EffPL}\hlkwb{<-}\hlkwd{sensitivity}\hlstd{(Midw)}\hlopt{*}\hlstd{(AavPL}\hlopt{-}\hlstd{Aav)}\hlopt{-}\hlstd{EffL}\hlopt{-}\hlstd{EffP}
+\hlstd{EffPL}
+\end{alltt}
+\begin{verbatim}
+##          [,1]     [,2]
+## [1,] 0.000000 -0.03350
+## [2,] 0.002176 -0.05865
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Poll/Med}
+\hlstd{rotii}\hlkwb{<-}\hlkwd{subset}\hlstd{(roti,(roti}\hlopt{$}\hlstd{Group.1}\hlopt{==}\hlstr{"Pollution"} \hlopt{&} \hlstd{roti}\hlopt{$}\hlstd{Group.2}\hlopt{==}\hlstr{"medium"}\hlstd{))}
+\hlstd{Rav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{R)}
+\hlstd{Sjav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{Sj)}
+\hlstd{Saav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{Sa)}
+\hlstd{AavPM}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,Sjav,Rav,Saav),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+
+\hlstd{Midw}\hlkwb{<-}\hlnum{0.5}\hlopt{*}\hlstd{(Aav}\hlopt{+}\hlstd{AavPM)}
+
+\hlstd{EffPM}\hlkwb{<-}\hlkwd{sensitivity}\hlstd{(Midw)}\hlopt{*}\hlstd{(AavPM}\hlopt{-}\hlstd{Aav)}\hlopt{-}\hlstd{EffM}\hlopt{-}\hlstd{EffP}
+\hlstd{EffPM}
+\end{alltt}
+\begin{verbatim}
+##      [,1]    [,2]
+## [1,] 0.00 0.05434
+## [2,] 0.03 0.08829
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Poll/High}
+\hlstd{rotii}\hlkwb{<-}\hlkwd{subset}\hlstd{(roti,(roti}\hlopt{$}\hlstd{Group.1}\hlopt{==}\hlstr{"Pollution"} \hlopt{&} \hlstd{roti}\hlopt{$}\hlstd{Group.2}\hlopt{==}\hlstr{"high"}\hlstd{))}
+\hlstd{Rav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{R)}
+\hlstd{Sjav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{Sj)}
+\hlstd{Saav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{Sa)}
+\hlstd{AavPH}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,Sjav,Rav,Saav),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+
+\hlstd{Midw}\hlkwb{<-}\hlnum{0.5}\hlopt{*}\hlstd{(Aav}\hlopt{+}\hlstd{AavPH)}
+
+\hlstd{EffPH}\hlkwb{<-}\hlkwd{sensitivity}\hlstd{(Midw)}\hlopt{*}\hlstd{(AavPH}\hlopt{-}\hlstd{Aav)}\hlopt{-}\hlstd{EffH}\hlopt{-}\hlstd{EffP}
+\hlstd{EffPH}
+\end{alltt}
+\begin{verbatim}
+##          [,1]     [,2]
+## [1,]  0.00000 -0.04088
+## [2,] -0.02844 -0.02645
+\end{verbatim}
+\begin{alltt}
+\hlcom{# R/L}
+\hlstd{rotii}\hlkwb{<-}\hlkwd{subset}\hlstd{(roti,(roti}\hlopt{$}\hlstd{Group.1}\hlopt{==}\hlstr{"Recovery"} \hlopt{&} \hlstd{roti}\hlopt{$}\hlstd{Group.2}\hlopt{==}\hlstr{"low"}\hlstd{))}
+\hlstd{Rav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{R)}
+\hlstd{Sjav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{Sj)}
+\hlstd{Saav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{Sa)}
+\hlstd{AavRL}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,Sjav,Rav,Saav),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+
+\hlstd{Midw}\hlkwb{<-}\hlnum{0.5}\hlopt{*}\hlstd{(Aav}\hlopt{+}\hlstd{AavRL)}
+
+\hlstd{EffRL}\hlkwb{<-}\hlkwd{sensitivity}\hlstd{(Midw)}\hlopt{*}\hlstd{(AavRL}\hlopt{-}\hlstd{Aav)}\hlopt{-}\hlstd{EffL}\hlopt{-}\hlstd{EffR}
+\hlstd{EffRL}
+\end{alltt}
+\begin{verbatim}
+##           [,1]    [,2]
+## [1,]  0.000000 0.03395
+## [2,] -0.002051 0.06077
+\end{verbatim}
+\begin{alltt}
+\hlcom{# R/M}
+\hlstd{rotii}\hlkwb{<-}\hlkwd{subset}\hlstd{(roti,(roti}\hlopt{$}\hlstd{Group.1}\hlopt{==}\hlstr{"Recovery"} \hlopt{&} \hlstd{roti}\hlopt{$}\hlstd{Group.2}\hlopt{==}\hlstr{"medium"}\hlstd{))}
+\hlstd{Rav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{R)}
+\hlstd{Sjav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{Sj)}
+\hlstd{Saav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{Sa)}
+\hlstd{AavRM}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,Sjav,Rav,Saav),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+
+\hlstd{Midw}\hlkwb{<-}\hlnum{0.5}\hlopt{*}\hlstd{(Aav}\hlopt{+}\hlstd{AavRM)}
+
+\hlstd{EffRM}\hlkwb{<-}\hlkwd{sensitivity}\hlstd{(Midw)}\hlopt{*}\hlstd{(AavRM}\hlopt{-}\hlstd{Aav)}\hlopt{-}\hlstd{EffM}\hlopt{-}\hlstd{EffR}
+\hlstd{EffRM}
+\end{alltt}
+\begin{verbatim}
+##          [,1]     [,2]
+## [1,]  0.00000 -0.05760
+## [2,] -0.02179 -0.09144
+\end{verbatim}
+\begin{alltt}
+\hlcom{# R/H}
+\hlstd{rotii}\hlkwb{<-}\hlkwd{subset}\hlstd{(roti,(roti}\hlopt{$}\hlstd{Group.1}\hlopt{==}\hlstr{"Recovery"} \hlopt{&} \hlstd{roti}\hlopt{$}\hlstd{Group.2}\hlopt{==}\hlstr{"high"}\hlstd{))}
+\hlstd{Rav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{R)}
+\hlstd{Sjav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{Sj)}
+\hlstd{Saav}\hlkwb{<-}\hlkwd{mean}\hlstd{(rotii}\hlopt{$}\hlstd{Sa)}
+\hlstd{AavRH}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,Sjav,Rav,Saav),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+
+\hlstd{Midw}\hlkwb{<-}\hlnum{0.5}\hlopt{*}\hlstd{(Aav}\hlopt{+}\hlstd{AavRH)}
+
+\hlstd{EffRH}\hlkwb{<-}\hlkwd{sensitivity}\hlstd{(Midw)}\hlopt{*}\hlstd{(AavRH}\hlopt{-}\hlstd{Aav)}\hlopt{-}\hlstd{EffH}\hlopt{-}\hlstd{EffR}
+\hlstd{EffRH}
+\end{alltt}
+\begin{verbatim}
+##         [,1]    [,2]
+## [1,] 0.00000 0.04235
+## [2,] 0.02797 0.02575
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\end{document}
