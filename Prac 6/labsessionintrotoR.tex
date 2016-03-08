@@ -82,28 +82,32 @@
 \end{mdframed}
 \newpage
 \section{Getting to know \texttt{R}}
-Before exploring the data that you collected in the lab, we recommend you to get familiar with \texttt{R}. Please go over the following tutorial to learn or refresh the basics of \texttt{R}:\\
+Before exploring the data that you collected in the lab, we recommend you to get familiar with \texttt{R}. Please go over the following tutorial up to and including section 6 to learn or refresh the basics of \texttt{R}:\\
 
 \texttt{http://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf}
 \vspace{1.5ex}
 
 \textit{Note: in this tutorial the word vector is used for all lists of numbers and the word matrix is used for all arrays of numbers, not only for transformations.}
 
+\begin{mdframed}[backgroundcolor=red!40]
+\textbf{In this document you will find both normal text as well as \texttt{R}-code. Copying code from this pdf into \texttt{R} may results in errors. This has to do with the encoding of the file. Instead we recommend to retype the commands.}
+\end{mdframed}
+
 \section{Dataset preparation}
-Prepare you dataset in excel before importing it into R. Open your rotifer data in excel and create a copy. Never directly modify your original data file. There is always the chance that you make a serious mistake and though loose all or part of your data. Your file must not contain any space (especially check the column names, they should have no space between words) or any special character of the type "\'e" or "\"o". Remove the comments, they are not in a form that can be anylised numerically but keep them in mind when writing your report. Avoid empty cells by filling them with NA if you do not know the value for that cell or zero if appropriate. 
+Prepare you dataset in excel before importing it into \texttt{R}. Open your rotifer data in excel and create a copy. Never directly modify your original data file. There is always the chance that you make a serious mistake which results in losing all or part of your data. Your file must not contain any space (especially check the column names, they should have no space between words) or any special character of the type "\'e" or "\"o". Remove the comments, they are not in a form that can be analysed numerically but keep them in mind when writing your report. Avoid empty cells by filling them with \texttt{NA} if you do not know the value for that cell or zero if appropriate. 
 
 
 Once you have checked your document, save it as a .csv file delimited with ",". Carefully select the folder you save your document into. You will have to set this folder as your working directory later. If you are new to \texttt{R}, the easiest is that you save it in a folder name "Pop\textunderscore Ecol" on your desktop.
 
 \section{Getting data into \texttt{R}}
 \subsection{Step 1: Set the working directory}
-This is the file R will save your data into and open your dataset from. If you work on Windows you have to use double slashes in the path. You must insert your own working directory path.
+This is the folder where \texttt{R} will search for files and where it will save your data afterwards. You must insert your own working directory path.
 
-Making a mistake when typing the directory path from memory is very likely. Instead, you can right-click your file and select "Properties". From here, you can copy and paste the full directory structure (and the file name). Don't forget to add the extra slash.
+Making a mistake when typing the directory path from memory is very likely. Instead, you can right-click your file and select "Properties". From here, you can copy and paste the full directory structure (and the file name). 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlkwd{setwd}\hlstd{(}\hlstr{"C://Desktop//Pop_Ecol"}\hlstd{)}
+\hlkwd{setwd}\hlstd{(}\hlstr{"C:/Desktop/Pop_Ecol"}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -194,60 +198,20 @@ Now repeat this procedure to also calculate the average number of alive adults p
 Finally adapt the script to also calculate other parameters, such as the median, maximum counts, minimum counts, standard deviation and variance.
 
 \subsection{Step 4: Plot your data}
-Let us have a look at how your rotifer population does over time. For this we use the plot function in R. The first argument is the $x$-axis and the second argument is the $y$-axis (i.e. your variable). At this stage, you may spot some outliers, in which case it can be a good idea to look back at the values you entered in the cell as you may have made a mistake.
-
-We will now plot the total number of living individuals (both juveniles and adults) against the copper concentration. The \texttt{xlab} and \texttt{ylab} options are used for the labels of the axes. The \texttt{main} option is used to set the title of the graph.
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{rot}\hlopt{$}\hlstd{Total}\hlkwb{<-}\hlstd{rot}\hlopt{$}\hlstd{Alive_Juv}\hlopt{+}\hlstd{rot}\hlopt{$}\hlstd{Alive_Adult}
-\hlstd{rot_copp}\hlkwb{<-}\hlkwd{aggregate}\hlstd{(rot}\hlopt{$}\hlstd{Total,}\hlkwc{by}\hlstd{=}\hlkwd{list}\hlstd{(rot}\hlopt{$}\hlstd{Copper),mean)}
-\hlkwd{plot}\hlstd{(rot_copp}\hlopt{$}\hlstd{Group.1,rot_copp}\hlopt{$}\hlstd{x,}
-     \hlkwc{xlab}\hlstd{=}\hlstr{"Copper treatment"}\hlstd{,}\hlkwc{ylab}\hlstd{=}\hlstr{"Avg population size"}\hlstd{)}
-\end{alltt}
-\end{kframe}
-
-{\centering \includegraphics[width=0.5\textwidth]{figure/ploti-1} 
-
-}
-
-
-
-\end{knitrout}
-We see now that the order of the treatments is a bit annoying: the level high comes before the level low. To change this, we need to change the column \texttt{Group.1} in \texttt{rot\textunderscore copp} to the type \texttt{factor}:
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{rot_copp}\hlopt{$}\hlstd{Group.1}\hlkwb{<-}\hlkwd{factor}\hlstd{(rot_copp}\hlopt{$}\hlstd{Group.1,}
-                         \hlkwc{levels}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"low"}\hlstd{,}\hlstr{"medium"}\hlstd{,}\hlstr{"high"}\hlstd{),}
-                         \hlkwc{ordered}\hlstd{=}\hlnum{TRUE}\hlstd{)}
-
-\hlkwd{plot}\hlstd{(rot_copp}\hlopt{$}\hlstd{Group.1,rot_copp}\hlopt{$}\hlstd{x,}\hlkwc{main}\hlstd{=}\hlstr{"Total Population"}\hlstd{,}
-     \hlkwc{xlab}\hlstd{=}\hlstr{"Copper treatment"}\hlstd{,}\hlkwc{ylab}\hlstd{=}\hlstr{"Avg population size"}\hlstd{)}
-\end{alltt}
-\end{kframe}
-
-{\centering \includegraphics[width=0.5\textwidth]{figure/ploti2-1} 
-
-}
-
-
-
-\end{knitrout}
-
-
-The \texttt{par} function allows you to change the graph parameters. The specification \texttt{par(mfrow = c(1,2))} creates a graphic window with two panels next to each other (change the numbers in \texttt{c(1,2)} to create different numbers of panels next and on top of each other). Everytime you use the command \texttt{plot()}, the next panel is used. Use the former code to plot the effect of copper on the mean number of adults and on the mean number of juveniles. Put the two graphs on top of each other. Your result should look as follows:
+Let us have a look at how your rotifer population does over time. For this we use the \texttt{plot} function in \texttt{R}. The first argument contains the \texttt{x} variables and the second the \texttt{y} variables.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=0.75\textwidth]{figure/ploti3-1} 
+{\centering \includegraphics[width=0.5\textwidth]{figure/aagp5-1} 
 
 }
 
 
 
 \end{knitrout}
-It would however be a lot more informative to also compare the different populations and see how each of them develops over time. We will focus first on the populations with the low copper treatment. For simplicity we will only look at the total population numbers. Start by making an empty plot with the correct labels then draw the axes in this plot. Later we will put the data in this plot:
+However, if we call the function like this, \texttt{R} wil automatically set the axis (the limits and the location of the tick marks). This is okay for quick plots, but for reports you will probably want a bit more control. One way to do so is shown in the following.
+
+We will focus first on the populations with the low copper treatment. For simplicity we will only look at the total population numbers. Start by making an empty plot with the correct labels then draw the axes in this plot. Later we will lines add lines to this plot:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -260,13 +224,15 @@ It would however be a lot more informative to also compare the different populat
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-Now we need to prepare the data that we are interested in. First we use the \texttt{factor()} function in the beginning to make sure that the variable \texttt{Population} will be plot in the correct order:
+Now we need to prepare the data that we are interested in. First we use the \texttt{factor()} function in the beginning to make sure that the variable \texttt{Population} will be plot in the correct order. Furthermore we add a new variable \texttt{Total} that corresponds to the total number of individuals (adults and juveniles).
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{rot}\hlopt{$}\hlstd{Population}\hlkwb{=}\hlkwd{factor}\hlstd{(rot}\hlopt{$}\hlstd{Population,}
                       \hlkwc{levels}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{'Commercial'}\hlstd{,}\hlstr{'Postpollution'}\hlstd{,}
                         \hlstr{'Recovery'}\hlstd{,}\hlstr{'Pollution'}\hlstd{),} \hlkwc{ordered}\hlstd{=T)}
+
+\hlstd{rot}\hlopt{$}\hlstd{Total} \hlkwb{<-} \hlstd{rot}\hlopt{$}\hlstd{Alive_Juv} \hlopt{+} \hlstd{rot}\hlopt{$}\hlstd{Alive_Adult}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -281,7 +247,7 @@ To select only the low copper treatment entries, use the function \texttt{subset
 Next use \texttt{aggregate()} to calculate the mean number of total individuals alive per day and population. Store this information in a variable named \texttt{Tot\textunderscore mean}. This should give you:
 \begin{center}
 % latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Mar  8 15:46:48 2016
+% Tue Mar  8 18:38:49 2016
 {\footnotesize
 \begin{tabular}{lrr}
  Group.1 & Group.2 & x \\ 
@@ -365,7 +331,7 @@ If we now call \texttt{SE(x)}, it will return us the standard error of \texttt{x
 \hlstd{SE_tot}\hlkwb{<-}\hlkwd{aggregate}\hlstd{(temp}\hlopt{$}\hlstd{Total,}\hlkwc{by}\hlstd{=}\hlkwd{list}\hlstd{(temp}\hlopt{$}\hlstd{Population,temp}\hlopt{$}\hlstd{Day),SE)}
 \end{alltt}
 \end{kframe}% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Mar  8 15:46:58 2016
+% Tue Mar  8 18:38:51 2016
 {\footnotesize
 \begin{tabular}{lrr}
  Group.1 & Group.2 & x \\ 
@@ -431,19 +397,20 @@ First of all the code can be shortened by using for-loops, can you find two plac
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{library}\hlstd{(sciplot)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in library(sciplot): there is no package called 'sciplot'}}\begin{alltt}
 \hlstd{temp}\hlkwb{<-}\hlkwd{subset}\hlstd{(rot,}\hlkwc{Copper}\hlstd{=}\hlstr{'low'}\hlstd{)}
 \hlkwd{lineplot.CI}\hlstd{(temp}\hlopt{$}\hlstd{Day,temp}\hlopt{$}\hlstd{Total,}
             \hlkwc{group}\hlstd{=temp}\hlopt{$}\hlstd{Population,}\hlkwc{fixed}\hlstd{=T,} \hlkwc{ylim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{26}\hlstd{),}
             \hlkwc{xlab}\hlstd{=}\hlstr{"Day"}\hlstd{,}\hlkwc{ylab}\hlstd{=}\hlstr{"Total population size"}\hlstd{,}
             \hlkwc{main}\hlstd{=}\hlstr{"Low copper treatment"}\hlstd{)}
 \end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=0.6\textwidth]{figure/blabla-1} 
+
+}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}lineplot.CI"{}}}\end{kframe}
+
 \end{knitrout}
 \end{mdframed}
 \subsection{Saving your graph}
@@ -515,8 +482,8 @@ Notice how the noise is now gone. The quality is however still not perfect. You 
 \begin{center}
 \includegraphics[width=0.45\textwidth]{pdf1.pdf}
 \end{center}
-Try to zoom in until you see the pixels: that's right, you can not find them. The \texttt{pdf} format is very high quality, but unfortunately it is difficult (if not impossible) to include it in word documents. You can however use them in \LaTeX documents. \LaTeX is also the program that we used for writing this pactical. If you want to try it without having to install anything and not even having to create an account:\\
-\texttt{www.writelatex.com} \\
+Try to zoom in until you see the pixels: that's right, you can not find them. The \texttt{pdf} format is very high quality, but unfortunately this adventage is usually lost when you include it in a MS word document. You can however use them with full quality in \LaTeX documents. \LaTeX is also the program that we used for writing this pactical. If you want to try it without having to install anything and not even having to create an account:\\
+\texttt{www.overleaf.com} \\
 Some more file formats are available for creating pictures, for example \texttt{TIFF} and \texttt{BMP}. Realise how annoying it is if you made the perfect graph but saved it as a low quality file...
 \end{mdframed}
 \end{document}

@@ -36,26 +36,30 @@ options(width=60)
 \end{mdframed}
 \newpage
 \section{Getting to know \texttt{R}}
-Before exploring the data that you collected in the lab, we recommend you to get familiar with \texttt{R}. Please go over the following tutorial to learn or refresh the basics of \texttt{R}:\\
+Before exploring the data that you collected in the lab, we recommend you to get familiar with \texttt{R}. Please go over the following tutorial up to and including section 6 to learn or refresh the basics of \texttt{R}:\\
 
 \texttt{http://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf}
 \vspace{1.5ex}
 
 \textit{Note: in this tutorial the word vector is used for all lists of numbers and the word matrix is used for all arrays of numbers, not only for transformations.}
 
+\begin{mdframed}[backgroundcolor=red!40]
+\textbf{In this document you will find both normal text as well as \texttt{R}-code. Copying code from this pdf into \texttt{R} may results in errors. This has to do with the encoding of the file. Instead we recommend to retype the commands.}
+\end{mdframed}
+
 \section{Dataset preparation}
-Prepare you dataset in excel before importing it into R. Open your rotifer data in excel and create a copy. Never directly modify your original data file. There is always the chance that you make a serious mistake and though loose all or part of your data. Your file must not contain any space (especially check the column names, they should have no space between words) or any special character of the type "\'e" or "\"o". Remove the comments, they are not in a form that can be anylised numerically but keep them in mind when writing your report. Avoid empty cells by filling them with NA if you do not know the value for that cell or zero if appropriate. 
+Prepare you dataset in excel before importing it into \texttt{R}. Open your rotifer data in excel and create a copy. Never directly modify your original data file. There is always the chance that you make a serious mistake which results in losing all or part of your data. Your file must not contain any space (especially check the column names, they should have no space between words) or any special character of the type "\'e" or "\"o". Remove the comments, they are not in a form that can be analysed numerically but keep them in mind when writing your report. Avoid empty cells by filling them with \texttt{NA} if you do not know the value for that cell or zero if appropriate. 
 
 
 Once you have checked your document, save it as a .csv file delimited with ",". Carefully select the folder you save your document into. You will have to set this folder as your working directory later. If you are new to \texttt{R}, the easiest is that you save it in a folder name "Pop\textunderscore Ecol" on your desktop.
 
 \section{Getting data into \texttt{R}}
 \subsection{Step 1: Set the working directory}
-This is the file R will save your data into and open your dataset from. If you work on Windows you have to use double slashes in the path. You must insert your own working directory path.
+This is the folder where \texttt{R} will search for files and where it will save your data afterwards. You must insert your own working directory path.
 
-Making a mistake when typing the directory path from memory is very likely. Instead, you can right-click your file and select "Properties". From here, you can copy and paste the full directory structure (and the file name). Don't forget to add the extra slash.
+Making a mistake when typing the directory path from memory is very likely. Instead, you can right-click your file and select "Properties". From here, you can copy and paste the full directory structure (and the file name). 
 <<WD,eval=F>>=
-setwd("C://Desktop//Pop_Ecol")
+setwd("C:/Desktop/Pop_Ecol")
 @
 \subsection{Step 2: Load your dataset}
 The next step is loading your dataset into \texttt{R}. The line of code below shows how to read your dataset if it is saved as \texttt{'rotifer\textunderscore data.csv'} file seperated with ",". The dataset must be in the working directory you specified above otherwise this command won't work.
@@ -100,48 +104,14 @@ Now repeat this procedure to also calculate the average number of alive adults p
 Finally adapt the script to also calculate other parameters, such as the median, maximum counts, minimum counts, standard deviation and variance.
 
 \subsection{Step 4: Plot your data}
-Let us have a look at how your rotifer population does over time. For this we use the plot function in R. The first argument is the $x$-axis and the second argument is the $y$-axis (i.e. your variable). At this stage, you may spot some outliers, in which case it can be a good idea to look back at the values you entered in the cell as you may have made a mistake.
-
-We will now plot the total number of living individuals (both juveniles and adults) against the copper concentration. The \texttt{xlab} and \texttt{ylab} options are used for the labels of the axes. The \texttt{main} option is used to set the title of the graph.
-<<ploti,echo=c(-1),out.width='0.5\\textwidth',fig.align='center'>>=
+Let us have a look at how your rotifer population does over time. For this we use the \texttt{plot} function in \texttt{R}. The first argument contains the \texttt{x} variables and the second the \texttt{y} variables.
+<<aagp5,eval=T,echo=c(-1,-2,-3,-4),out.width='0.5\\textwidth',fig.align='center'>>=
 par(mar=c(6,6,2,2))
-rot$Total<-rot$Alive_Juv+rot$Alive_Adult
-rot_copp<-aggregate(rot$Total,by=list(rot$Copper),mean)
-plot(rot_copp$Group.1,rot_copp$x,
-     xlab="Copper treatment",ylab="Avg population size")
+plot(c(1,2,3,4),c(3,4,2,3))
 @
-We see now that the order of the treatments is a bit annoying: the level high comes before the level low. To change this, we need to change the column \texttt{Group.1} in \texttt{rot\textunderscore copp} to the type \texttt{factor}:
-<<ploti2,echo=c(-1),out.width='0.5\\textwidth',fig.align='center'>>=
-par(mar=c(6,6,2,2))
-rot_copp$Group.1<-factor(rot_copp$Group.1,
-                         levels=c("low","medium","high"),
-                         ordered=TRUE)
+However, if we call the function like this, \texttt{R} wil automatically set the axis (the limits and the location of the tick marks). This is okay for quick plots, but for reports you will probably want a bit more control. One way to do so is shown in the following.
 
-plot(rot_copp$Group.1,rot_copp$x,main="Total Population",
-     xlab="Copper treatment",ylab="Avg population size")
-
-@
-
-
-The \texttt{par} function allows you to change the graph parameters. The specification \texttt{par(mfrow = c(1,2))} creates a graphic window with two panels next to each other (change the numbers in \texttt{c(1,2)} to create different numbers of panels next and on top of each other). Everytime you use the command \texttt{plot()}, the next panel is used. Use the former code to plot the effect of copper on the mean number of adults and on the mean number of juveniles. Put the two graphs on top of each other. Your result should look as follows:
-<<ploti3,echo=F,out.width='0.75\\textwidth',fig.align='center'>>=
-par(mar=c(6,6,2,2),mfrow=c(2,1))
-
-rot_copp<-aggregate(rot$Alive_Juv,by=list(rot$Copper),mean)
-rot_copp$Group.1<-factor(rot_copp$Group.1,
-                         levels=c("low","medium","high"),
-                         ordered=TRUE)
-plot(rot_copp$Group.1,rot_copp$x,main="Juveniles",
-     xlab="Copper treatment",ylab="Avg number of juveniles")
-rot_copp<-aggregate(rot$Alive_Adult,by=list(rot$Copper),mean)
-rot_copp$Group.1<-factor(rot_copp$Group.1,
-                         levels=c("low","medium","high"),
-                         ordered=TRUE)
-plot(rot_copp$Group.1,rot_copp$x,main="Adults",
-     xlab="Copper treatment",ylab="Avg number of adults")
-
-@
-It would however be a lot more informative to also compare the different populations and see how each of them develops over time. We will focus first on the populations with the low copper treatment. For simplicity we will only look at the total population numbers. Start by making an empty plot with the correct labels then draw the axes in this plot. Later we will put the data in this plot:
+We will focus first on the populations with the low copper treatment. For simplicity we will only look at the total population numbers. Start by making an empty plot with the correct labels then draw the axes in this plot. Later we will lines add lines to this plot:
 <<gp1,eval=FALSE>>=
 
 plot(0,0,type="n",xlab="Day",
@@ -151,11 +121,13 @@ plot(0,0,type="n",xlab="Day",
 axis(side=1,at=c(1,2,3))
 axis(side=2, at=c(0,5,10,15,20,25,30))
 @
-Now we need to prepare the data that we are interested in. First we use the \texttt{factor()} function in the beginning to make sure that the variable \texttt{Population} will be plot in the correct order:
+Now we need to prepare the data that we are interested in. First we use the \texttt{factor()} function in the beginning to make sure that the variable \texttt{Population} will be plot in the correct order. Furthermore we add a new variable \texttt{Total} that corresponds to the total number of individuals (adults and juveniles).
 <<gp2,eval=T,results='hide'>>=
 rot$Population=factor(rot$Population, 
                       levels=c('Commercial','Postpollution',
                         'Recovery','Pollution'), ordered=T)
+
+rot$Total <- rot$Alive_Juv + rot$Alive_Adult
 @
 To select only the low copper treatment entries, use the function \texttt{subset()} and store this part of the dataset in a new variable \texttt{temp}. Make sure you understand what this function does.
 <<gp3,eval=T,results='hide'>>=
@@ -377,8 +349,8 @@ dev.off()
 \begin{center}
 \includegraphics[width=0.45\textwidth]{pdf1.pdf}
 \end{center}
-Try to zoom in until you see the pixels: that's right, you can not find them. The \texttt{pdf} format is very high quality, but unfortunately it is difficult (if not impossible) to include it in word documents. You can however use them in \LaTeX documents. \LaTeX is also the program that we used for writing this pactical. If you want to try it without having to install anything and not even having to create an account:\\
-\texttt{www.writelatex.com} \\
+Try to zoom in until you see the pixels: that's right, you can not find them. The \texttt{pdf} format is very high quality, but unfortunately this adventage is usually lost when you include it in a MS word document. You can however use them with full quality in \LaTeX documents. \LaTeX is also the program that we used for writing this pactical. If you want to try it without having to install anything and not even having to create an account:\\
+\texttt{www.overleaf.com} \\
 Some more file formats are available for creating pictures, for example \texttt{TIFF} and \texttt{BMP}. Realise how annoying it is if you made the perfect graph but saved it as a low quality file...
 \end{mdframed}
 \end{document}
