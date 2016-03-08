@@ -53,9 +53,9 @@
 \maketitle
 \tableofcontents
 \begin{mdframed}
-In this document, you will find in the main text the theory describing the essential mathematical tools for the course in population ecology. The theory is followed by exercises which diculty is indicated by stars, $\ast$ . The more stars, the more dicult the exercise is. We expect you to solve the one star exercises whereas the several stars exercises are for the more mathematically inclined among you.
+In this document, you will find in the main text the theory describing the essential mathematical tools for the course in population ecology. The theory is followed by exercises which dificulty is indicated by stars, $\ast$ . The more stars, the more dificult the exercise is. We expect you to solve the one star exercises whereas the several stars exercises are for the more mathematically inclined among you.
 
-In white boxes such as this one, you will nd additional information which will help you understand the main theory but is not essential. In blue boxes, you will nd examples illustrating the theory.
+In white boxes such as this one, you will find additional information which will help you understand the main theory but is not essential. In blue boxes, you will find examples illustrating the theory.
 \end{mdframed}
 \newpage
 \section{Why?}
@@ -204,7 +204,7 @@ f(x)=u(x)+h(x)& &\rightarrow & & f^\prime(x)=u^\prime(x)+h^\prime(x)
 \end{align}
 When a function is multiplied by a constant, for example $c$, then the derivative is the derivative of the function multiplied by the constant.
 \begin{align}
-f(x)=c\cdot u^\prime(x)& &\rightarrow & & f^\prime(x)=c\cdot u^\prime(x)
+f(x)=c\cdot u(x)& &\rightarrow & & f^\prime(x)=c\cdot u^\prime(x)
 \end{align}
 
 %%%%%%% CHAIN RULE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -659,12 +659,12 @@ We are looking for a function $F(x)$, such that $F^\prime(x) = f(x)$. In words, 
 \begin{equation*}
 F(x) = \frac{1}{2} x^2.
 \end{equation*}
-But is $\frac{1}{2} x^2$ really the derivative of $x$? Let us check by applying the general rule of derivatives: 
+But is $x$ really the derivative of $\frac{1}{2} x^2$? Let us check by applying the general rule of derivatives: 
 \begin{eqnarray*}
 F^\prime(x) &=& \frac{1}{2} \cdot 2 x^{(2-1)}\\
 &=&x
 \end{eqnarray*}
-So yes, $\frac{1}{2} x^2$ is the derivative of $x$!
+So yes,  $x$ is the derivative of $\frac{1}{2} x^2$!
 Now we just need to fill in the boundaries ($\left[a,b\right]$)to obtain the area under the curve:
 \begin{equation*}
 A = F(b) - F(a) = \frac{1}{2} b^2 - \frac{1}{2} a^2
@@ -855,7 +855,7 @@ An exponential functions look similar to a power function except that the variab
 \begin{equation}
 f(x+1) = a \cdot f(x).
 \end{equation}
-Therefore exponential functions are used to model system where a the factor of increase is constant.\\ 
+Therefore exponential functions are used to model system where $a$ the factor of increase is constant.\\ 
 \includegraphics[width=0.85\textwidth]{exponential_plot.pdf}\\
 
 
@@ -872,7 +872,7 @@ point}. It follows from this that the integral is also identical to the original
 \begin{align}
 f(x)& = A \cdot e^x & &\rightarrow& &F(x) =  A \cdot e^x  + c
 \end{align}
-Of course for this exponential funciton, the chain rule is still balid:
+Of course for this exponential function, the chain rule is still valid:
 \begin{align}
 f(x)& = A \cdot e^u(x) & &\rightarrow& & f^\prime(x) = u^\prime(x)f^\prime(u) = u^\prime(x)A \cdot e^{ux} 
 \end{align}
