@@ -8,7 +8,8 @@
 \usepackage{mdframed}
 %\WarningFilter{mdframed}{You got a bad break}
 \usepackage[colorinlistoftodos]{todonotes}
-\usepackage{listings}
+%\usepackage{listings}
+\usepackage{listingsutf8}
 \usepackage{color}
 \colorlet{exampcol}{blue!10}
 \usepackage{multicol}
@@ -18,16 +19,12 @@
 
 \title{BIO311: Population Ecology\\ \textit{Prac 9: Population Matrices \& LTRE}}
 
-\author{Koen van Benthem \& Tina Cornioley\\\\
-\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
-
-\date{Spring 2014}
 \setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
 
 %\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%
 
 \begin{document}
-
+\input{../authors}
 <<setup, cache=FALSE, include=FALSE>>=
 opts_chunk$set(dev="tikz",tidy=F,dev.args=list(pointsize=7.5))
 options(width=60)

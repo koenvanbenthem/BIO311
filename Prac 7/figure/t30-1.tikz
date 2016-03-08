@@ -1,4 +1,4 @@
-% Created by tikzDevice version 0.9 on 2016-02-23 12:03:50
+% Created by tikzDevice version 0.9 on 2016-03-08 15:46:01
 % !TEX encoding = UTF-8 Unicode
 \documentclass{article}
 \nonstopmode
@@ -16,26 +16,34 @@
 \newcommand{\Sexpr}[1]{}       % will only be parsed by R
 
 
+\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+%\usepackage{fontspec}
+%\defaultfontfeatures{Mapping=tex-text} % converts LaTeX specials to Unicode
+  %! required fonts
+
 \usepackage{amsmath}
 \usepackage{graphicx}
 %\usepackage{bbold}
 \usepackage{tikz}
 %\usepackage{silence}
 \usepackage{mdframed}
+
 %\WarningFilter{mdframed}{You got a bad break}
 \usepackage[colorinlistoftodos]{todonotes}
-\usepackage{listings}
+%\usepackage{listings}
+%\usepackage{listingsutf8}
 \usepackage{color}
 \colorlet{exampcol}{blue!10}
 \usepackage{multicol}
 \usepackage[answerdelayed]{exercise}
 \title{BIO311: Population Ecology\\ \textit{Practical 7 (Unstructured populations)}}
 
-\author{Koen van Benthem \& Tina Cornioley\\\\
-\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
 
-\date{Spring 2014}
+%\author{Timoth\'ee Bonnet \& Koen van Benthem\\\\
+%\tt{timothee.bonnet@ieu.uzh.ch}\\ \tt{koen.vanbenthem@ieu.uzh.ch}}
+
+%\date{Spring 2016}
 \setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
 
 %\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%

@@ -1,4 +1,4 @@
-% Created by tikzDevice version 0.9 on 2016-02-23 12:01:26
+% Created by tikzDevice version 0.9 on 2016-03-08 15:51:48
 % !TEX encoding = UTF-8 Unicode
 \documentclass{article}
 \nonstopmode
@@ -34,10 +34,6 @@
 \title{BIO311: Population Ecology\\ \textit{Practical 10:\\ Stochasticity in Matrix Models\\ \& \\ Population Viability Analysis.}}
 \setlength\parindent{0pt}
 
-\author{Koen van Benthem \& Tina Cornioley\\\\
-\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
-
-\date{Spring 2014}
 \setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
 
 %\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%

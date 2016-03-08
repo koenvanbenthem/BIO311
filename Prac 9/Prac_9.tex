@@ -57,7 +57,8 @@
 \usepackage{mdframed}
 %\WarningFilter{mdframed}{You got a bad break}
 \usepackage[colorinlistoftodos]{todonotes}
-\usepackage{listings}
+%\usepackage{listings}
+\usepackage{listingsutf8}
 \usepackage{color}
 \colorlet{exampcol}{blue!10}
 \usepackage{multicol}
@@ -67,16 +68,12 @@
 
 \title{BIO311: Population Ecology\\ \textit{Prac 9: Population Matrices \& LTRE}}
 
-\author{Koen van Benthem \& Tina Cornioley\\\\
-\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
-
-\date{Spring 2014}
 \setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
 
 %\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
-
+\input{../authors}
 
 
 
@@ -255,7 +252,7 @@ If the change to the element of the matrix is very small, the sensitivities calu
 
 
 % latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Feb 23 12:02:43 2016
+% Tue Mar  8 15:48:40 2016
 {\footnotesize
 \begin{tabular}{rrrr}
   
@@ -312,7 +309,7 @@ You can thus calculate the elasticities from your approximations of the sensitiv
 
 
 % latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Feb 23 12:02:43 2016
+% Tue Mar  8 15:48:40 2016
 {\footnotesize
 \begin{tabular}{rrrr}
   
@@ -401,10 +398,10 @@ If you want to understand the interpretation of the reproductive values more clo
 \hlstd{B}
 \end{alltt}
 \begin{verbatim}
-##          [,1]     [,2]     [,3]
-## [1,] 1.939894 1.657795 3.731020
-## [2,] 2.315226 3.360205 1.176907
-## [3,] 2.556621 2.080008 2.551491
+##           [,1]      [,2]      [,3]
+## [1,] 2.5763411 0.8963245 1.4282282
+## [2,] 0.2515067 3.5307231 0.6023476
+## [3,] 0.2199782 3.8938637 2.3911846
 \end{verbatim}
 \begin{alltt}
 \hlcom{# We output B, in case you want to repeat the }
@@ -413,7 +410,7 @@ If you want to understand the interpretation of the reproductive values more clo
 \hlkwd{eigen}\hlstd{(}\hlkwd{t}\hlstd{(B))}\hlopt{$}\hlstd{vectors[,}\hlnum{1}\hlstd{]}\hlopt{/}\hlkwd{sum}\hlstd{(}\hlkwd{eigen}\hlstd{(}\hlkwd{t}\hlstd{(B))}\hlopt{$}\hlstd{vectors[,}\hlnum{1}\hlstd{])}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.3200096 0.3329669 0.3470236
+## [1] 0.09505893 0.68595776 0.21898330
 \end{verbatim}
 \begin{alltt}
 \hlcom{# We calculate the dominant left eigenvector of this matrix}
@@ -444,7 +441,7 @@ If you want to understand the interpretation of the reproductive values more clo
 \hlstd{N1}\hlopt{/}\hlkwd{sum}\hlstd{(N1)}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.3200096 0.3329669 0.3470236
+## [1] 0.09505893 0.68595776 0.21898330
 \end{verbatim}
 \begin{alltt}
 \hlcom{# We output the normalised version of N1, which should be}
@@ -452,31 +449,31 @@ If you want to understand the interpretation of the reproductive values more clo
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-You can interpret this as follows: if we for example start with a population $\begin{pmatrix}1\\ 1\\ 1 \end{pmatrix}$, after $40$ years, $32\% $ of the total population will have originated from the individual that was initially in age class $1$, $33\% $ from the individual in age class $2$ and the remaining $35\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population.
+You can interpret this as follows: if we for example start with a population $\begin{pmatrix}1\\ 1\\ 1 \end{pmatrix}$, after $40$ years, $10\% $ of the total population will have originated from the individual that was initially in age class $1$, $69\% $ from the individual in age class $2$ and the remaining $22\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population.
 \textit{Please not that since we took completely random numbers to construct the matrix, the matrix is unlikely to have biological relevance. But the concept of course remains the same for more relevant matrices.}\\[1.5ex]
 However, what would happen if the initial population would look as follows: $\begin{pmatrix}2\\ 1\\ 1 \end{pmatrix}$? If we project this initial population in the future we find (the code is omitted this time):
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-## [1] 0.4848595 0.2522458 0.2628947
+## [1] 0.1736143 0.6264117 0.1999740
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-This means that after $40$ years, $48\% $ of the total population will have originated from the two individuals that were initially in age class $1$, $25\% $ from the individual in age class $2$ and the remaining $26\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population. These numbers do not correspond to the left eigenvector, yet they do relate to the left eigenvalue.
-First we need to realize that if $48\% $ of the final population originated from the two individuals in age class 1 in the initial population, this means that each of these two individuals is responsible for $24\% $ of the final population. It is of course fairer to compare these numbers with each other (so after correcting for the number of individuals that we started with):
+This means that after $40$ years, $17\% $ of the total population will have originated from the two individuals that were initially in age class $1$, $63\% $ from the individual in age class $2$ and the remaining $20\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population. These numbers do not correspond to the left eigenvector, yet they do relate to the left eigenvalue.
+First we need to realize that if $17\% $ of the final population originated from the two individuals in age class 1 in the initial population, this means that each of these two individuals is responsible for $8.5\% $ of the final population. It is of course fairer to compare these numbers with each other (so after correcting for the number of individuals that we started with):
 \begin{equation*}
 \begin{pmatrix}
-24 \\
-25 \\
-26
+8.5 \\
+63 \\
+20
 \end{pmatrix}
 \end{equation*}
-However, now the numbers no longer add up to $100\%$. Since all we care about is the ratio between the different contributions, we can just divide all of them by the sum of the three contributions ($\approx 24 +25 + 26 $) and multiply the total by $100$ (just to make sure that all the percentages add up to $100$). What we get now is: 
+However, now the numbers no longer add up to $100\%$. Since all we care about is the ratio between the different contributions, we can just divide all of them by the sum of the three contributions ($\approx 8.5 +63 + 20 $) and multiply the total by $100$ (just to make sure that all the percentages add up to $100$). What we get now is: 
 \begin{equation*}
 \begin{pmatrix}
-32 \\
-33.3 \\
-34.7
+9.51 \\
+68.6 \\
+21.9
 \end{pmatrix}
 \end{equation*}
 This is indeed again the left eigenvector! (Hopefully. Every time we save this document new random numbers are generated, so actually we can only hope that the theory is general enough to work for all random matrices \texttt{B} that are accidentally generated...). We see thus that the left eigenvector actually mainly tell you how many more offspring an individual that starts in a certain age class will have compared to individuals in other age classes on the long term. -- This is indeed a relatively difficult concept, but maybe if you think about it and go over this simulation yourself, it might sink in.

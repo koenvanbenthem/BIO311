@@ -1,4 +1,4 @@
-% Created by tikzDevice version 0.9 on 2016-02-23 12:02:48
+% Created by tikzDevice version 0.9 on 2016-03-08 15:48:45
 % !TEX encoding = UTF-8 Unicode
 \documentclass{article}
 \nonstopmode
@@ -25,7 +25,8 @@
 \usepackage{mdframed}
 %\WarningFilter{mdframed}{You got a bad break}
 \usepackage[colorinlistoftodos]{todonotes}
-\usepackage{listings}
+%\usepackage{listings}
+\usepackage{listingsutf8}
 \usepackage{color}
 \colorlet{exampcol}{blue!10}
 \usepackage{multicol}
@@ -35,10 +36,6 @@
 
 \title{BIO311: Population Ecology\\ \textit{Prac 9: Population Matrices \& LTRE}}
 
-\author{Koen van Benthem \& Tina Cornioley\\\\
-\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
-
-\date{Spring 2014}
 \setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
 
 %\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%

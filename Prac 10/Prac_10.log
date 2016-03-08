@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  23 FEB 2016 12:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  8 MAR 2016 15:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -975,15 +975,15 @@ LaTeX Info: Redefining \addtolength on input line 81.
 \lst@maxwidth=\dimen200
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
 \c@lstnumber=\count166
 \lst@skipnumbers=\count167
 \lst@framebox=\box60
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.cfg
-File: listings.cfg 2014/09/06 1.5e listings configuration
+File: listings.cfg 2015/06/04 1.6 listings configuration
 ))
-Package: listings 2014/09/06 1.5e (Carsten Heinz)
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2015/03/31 v1.8m multicolumn formatting (FMi)
@@ -1061,18 +1061,18 @@ tim
 (./Prac_10.aux)
 \openout1 = `Prac_10.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
 
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -1262,217 +1262,225 @@ Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
 Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
 )
 \c@lstlisting=\count187
- (./Prac_10.toc)
+
+(../authors.tex)
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 78.
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+(./Prac_10.toc)
 \tf@toc=\write4
 \openout4 = `Prac_10.toc'.
 
  [1
 
-{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-[2]
-Overfull \hbox (20.20305pt too wide) in paragraph at lines 134--135
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
+Overfull \hbox (20.20305pt too wide) in paragraph at lines 132--133
 []\OT1/cmr/m/n/10 Every timestep we ran-domly choose one of the mea-sured ma-tr
 i-ces ($[]$)
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 140.
+Package xcolor Warning: Incompatible color definition on input line 138.
 
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 142.
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 140.
 
-Package xcolor Warning: Incompatible color definition on input line 151.
+Package xcolor Warning: Incompatible color definition on input line 149.
 
-LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 162
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 160
 .
 (/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/omscmtt.fd
 File: omscmtt.fd 
 )
 LaTeX Font Info:    Font shape `OMS/cmtt/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 162.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 160.
 
 [3]
 
-Package xcolor Warning: Incompatible color definition on input line 184.
+Package xcolor Warning: Incompatible color definition on input line 182.
 
-<figure/sim_one-1.pdf, id=32, 505.89pt x 505.89pt>
+<figure/sim_one-1.pdf, id=35, 505.89pt x 505.89pt>
 File: figure/sim_one-1.pdf Graphic file (type pdf)
  <use figure/sim_one-1.pdf>
-Package pdftex.def Info: figure/sim_one-1.pdf used on input line 186.
+Package pdftex.def Info: figure/sim_one-1.pdf used on input line 184.
 (pdftex.def)             Requested size: 172.5pt x 172.50206pt.
 
 [4 <./figure/sim_one-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 205.
+Package xcolor Warning: Incompatible color definition on input line 203.
 
 
-Package xcolor Warning: Incompatible color definition on input line 213.
+Package xcolor Warning: Incompatible color definition on input line 211.
 
 
-Package xcolor Warning: Incompatible color definition on input line 230.
+Package xcolor Warning: Incompatible color definition on input line 228.
 
 [5]
 
-Package xcolor Warning: Incompatible color definition on input line 238.
+Package xcolor Warning: Incompatible color definition on input line 236.
 
 
-Package xcolor Warning: Incompatible color definition on input line 256.
+Package xcolor Warning: Incompatible color definition on input line 254.
 
 [6]
 
-Package xcolor Warning: Incompatible color definition on input line 266.
+Package xcolor Warning: Incompatible color definition on input line 264.
 
 
-Package xcolor Warning: Incompatible color definition on input line 274.
+Package xcolor Warning: Incompatible color definition on input line 272.
 
-<figure/simop-1.pdf, id=48, 505.89pt x 505.89pt>
+<figure/simop-1.pdf, id=51, 505.89pt x 505.89pt>
 File: figure/simop-1.pdf Graphic file (type pdf)
  <use figure/simop-1.pdf>
-Package pdftex.def Info: figure/simop-1.pdf used on input line 286.
+Package pdftex.def Info: figure/simop-1.pdf used on input line 284.
 (pdftex.def)             Requested size: 137.9979pt x 137.99702pt.
 
-<figure/simop-2.pdf, id=49, 505.89pt x 505.89pt>
+<figure/simop-2.pdf, id=52, 505.89pt x 505.89pt>
 File: figure/simop-2.pdf Graphic file (type pdf)
  <use figure/simop-2.pdf>
-Package pdftex.def Info: figure/simop-2.pdf used on input line 288.
+Package pdftex.def Info: figure/simop-2.pdf used on input line 286.
 (pdftex.def)             Requested size: 137.9979pt x 137.99702pt.
 
-Overfull \hbox (22.80457pt too wide) in paragraph at lines 292--292
+Overfull \hbox (22.80457pt too wide) in paragraph at lines 290--290
 []\OT1/cmr/bx/n/14.4 Demographic Stochas-tic-ity (Demon-stra-tion only) 
  []
 
 [7 <./figure/simop-1.pdf> <./figure/simop-2.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 306.
+Package xcolor Warning: Incompatible color definition on input line 304.
 
 
-Package xcolor Warning: Incompatible color definition on input line 317.
+Package xcolor Warning: Incompatible color definition on input line 315.
 
 
-Package xcolor Warning: Incompatible color definition on input line 328.
+Package xcolor Warning: Incompatible color definition on input line 326.
 
 [8]
 
-Package xcolor Warning: Incompatible color definition on input line 340.
+Package xcolor Warning: Incompatible color definition on input line 338.
 
 
-Package xcolor Warning: Incompatible color definition on input line 349.
+Package xcolor Warning: Incompatible color definition on input line 347.
 
 
-Package xcolor Warning: Incompatible color definition on input line 360.
+Package xcolor Warning: Incompatible color definition on input line 358.
 
 
-Package xcolor Warning: Incompatible color definition on input line 371.
+Package xcolor Warning: Incompatible color definition on input line 369.
 
-<figure/dice7-1.pdf, id=65, 505.89pt x 505.89pt>
+<figure/dice7-1.pdf, id=68, 505.89pt x 505.89pt>
 File: figure/dice7-1.pdf Graphic file (type pdf)
  <use figure/dice7-1.pdf>
-Package pdftex.def Info: figure/dice7-1.pdf used on input line 377.
+Package pdftex.def Info: figure/dice7-1.pdf used on input line 375.
 (pdftex.def)             Requested size: 172.5pt x 172.50206pt.
 
 [9]
 
-Package xcolor Warning: Incompatible color definition on input line 386.
+Package xcolor Warning: Incompatible color definition on input line 384.
 
 
-Package xcolor Warning: Incompatible color definition on input line 394.
+Package xcolor Warning: Incompatible color definition on input line 392.
 
-<figure/dice9-1.pdf, id=69, 505.89pt x 505.89pt>
+<figure/dice9-1.pdf, id=72, 505.89pt x 505.89pt>
 File: figure/dice9-1.pdf Graphic file (type pdf)
  <use figure/dice9-1.pdf>
-Package pdftex.def Info: figure/dice9-1.pdf used on input line 410.
+Package pdftex.def Info: figure/dice9-1.pdf used on input line 408.
 (pdftex.def)             Requested size: 172.5pt x 172.50206pt.
 
-[10 <./figure/dice7-1.pdf>] <figure/dice10-1.pdf, id=82, 505.89pt x 505.89pt>
+[10 <./figure/dice7-1.pdf>] <figure/dice10-1.pdf, id=85, 505.89pt x 505.89pt>
 File: figure/dice10-1.pdf Graphic file (type pdf)
 
 <use figure/dice10-1.pdf>
-Package pdftex.def Info: figure/dice10-1.pdf used on input line 421.
+Package pdftex.def Info: figure/dice10-1.pdf used on input line 419.
 (pdftex.def)             Requested size: 172.5pt x 172.50206pt.
- <figure/dice10-2.pdf, id=83, 505.89pt x 505.89pt>
+ <figure/dice10-2.pdf, id=86, 505.89pt x 505.89pt>
 File: figure/dice10-2.pdf Graphic file (type pdf)
 
 <use figure/dice10-2.pdf>
-Package pdftex.def Info: figure/dice10-2.pdf used on input line 423.
+Package pdftex.def Info: figure/dice10-2.pdf used on input line 421.
 (pdftex.def)             Requested size: 172.5pt x 172.50206pt.
 
-Overfull \hbox (24.0pt too wide) in paragraph at lines 419--426
+Overfull \hbox (24.0pt too wide) in paragraph at lines 417--424
  [] 
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 429.
+Package xcolor Warning: Incompatible color definition on input line 427.
 
 [11 <./figure/dice9-1.pdf> <./figure/dice10-1.pdf> <./figure/dice10-2.pdf>]
-<figure/dice11-1.pdf, id=99, 505.89pt x 505.89pt>
+<figure/dice11-1.pdf, id=102, 505.89pt x 505.89pt>
 File: figure/dice11-1.pdf Graphic file (type pdf)
  <use figure/dice11-1.pdf>
-Package pdftex.def Info: figure/dice11-1.pdf used on input line 445.
+Package pdftex.def Info: figure/dice11-1.pdf used on input line 443.
 (pdftex.def)             Requested size: 172.5pt x 172.50206pt.
 
 
-Package xcolor Warning: Incompatible color definition on input line 462.
+Package xcolor Warning: Incompatible color definition on input line 460.
 
-<figure/rectree-1.pdf, id=100, 505.89pt x 505.89pt>
+<figure/rectree-1.pdf, id=103, 505.89pt x 505.89pt>
 File: figure/rectree-1.pdf Graphic file (type pdf)
  <use figure/rectree-1.pdf>
-Package pdftex.def Info: figure/rectree-1.pdf used on input line 464.
+Package pdftex.def Info: figure/rectree-1.pdf used on input line 462.
 (pdftex.def)             Requested size: 172.5pt x 172.50206pt.
 
 
-Package xcolor Warning: Incompatible color definition on input line 473.
+Package xcolor Warning: Incompatible color definition on input line 471.
 
 [12 <./figure/dice11-1.pdf> <./figure/rectree-1.pdf>]
-Overfull \hbox (3.2331pt too wide) in paragraph at lines 477--477
+Overfull \hbox (3.2331pt too wide) in paragraph at lines 475--475
 []  []\OT1/cmtt/m/it/10 # n and nmax: should be the same number: number of leve
 ls in the[][] 
  []
 
 
-Overfull \hbox (3.2331pt too wide) in paragraph at lines 513--513
+Overfull \hbox (3.2331pt too wide) in paragraph at lines 511--511
 []    []\OT1/cmtt/m/it/10 # simply by using theexact same function: the functio
 n ^^Mtree^^M.[][] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 525
+Underfull \vbox (badness 10000) detected at line 523
  []
 
 
-Underfull \vbox (badness 10000) detected at line 525
+Underfull \vbox (badness 10000) detected at line 523
  []
 
 [13] [14] (./Prac_10.aux) ) 
 Here is how much of TeX's memory you used:
- 21951 strings out of 493089
- 425279 string characters out of 6134843
- 456358 words of memory out of 5000000
- 25064 multiletter control sequences out of 15000+600000
- 12324 words of font info for 45 fonts, out of 8000000 for 9000
+ 21983 strings out of 493089
+ 426279 string characters out of 6134843
+ 456255 words of memory out of 5000000
+ 25087 multiletter control sequences out of 15000+600000
+ 13001 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,14n,54p,10438b,328s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmitt10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmmi5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmmi7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmmib10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr17.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
-10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
-2.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10
-.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.
-pfb>
-Output written on Prac_10.pdf (14 pages, 353264 bytes).
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/
+cm-super/cm-super-ts1.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmbx7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmitt10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmmi5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmmi7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmib10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr17.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.
+pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
+fb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pf
+b></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb
+></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></
+usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb>
+Output written on Prac_10.pdf (14 pages, 366660 bytes).
 PDF statistics:
- 169 PDF objects out of 1000 (max. 8388607)
- 125 compressed objects within 2 object streams
+ 182 PDF objects out of 1000 (max. 8388607)
+ 135 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  58 words of extra memory for PDF output out of 10000 (max. 10000000)
 

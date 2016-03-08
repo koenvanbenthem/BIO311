@@ -1,4 +1,4 @@
-% Created by tikzDevice version 0.9 on 2016-02-23 12:01:24
+% Created by tikzDevice version 0.9 on 2016-03-08 15:51:45
 % !TEX encoding = UTF-8 Unicode
 \documentclass{article}
 \nonstopmode
@@ -34,10 +34,6 @@
 \title{BIO311: Population Ecology\\ \textit{Practical 10:\\ Stochasticity in Matrix Models\\ \& \\ Population Viability Analysis.}}
 \setlength\parindent{0pt}
 
-\author{Koen van Benthem \& Tina Cornioley\\\\
-\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
-
-\date{Spring 2014}
 \setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
 
 %\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%
@@ -55,26 +51,26 @@
 
 \path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 70.07, 70.07) --
 	( 78.27, 70.07) --
-	( 86.47,110.25) --
-	( 94.67,138.37) --
-	(102.87,228.76) --
+	( 86.47,116.27) --
+	( 94.67,122.30) --
+	(102.87,226.75) --
 	(111.06,234.79) --
-	(119.26,353.30) --
-	(127.46,349.29) --
-	(135.66,413.57) --
-	(143.86,419.59) --
-	(152.06,451.73) --
+	(119.26,345.27) --
+	(127.46,347.28) --
+	(135.66,417.58) --
+	(143.86,401.51) --
+	(152.06,445.71) --
 	(160.26,445.71) --
 	(168.46,457.76) --
-	(176.66,461.78) --
-	(184.86,465.79) --
-	(193.05,467.80) --
-	(201.25,469.81) --
-	(209.45,467.80) --
-	(217.65,469.81) --
-	(225.85,471.82) --
+	(176.66,457.76) --
+	(184.86,461.78) --
+	(193.05,459.77) --
+	(201.25,467.80) --
+	(209.45,465.79) --
+	(217.65,471.82) --
+	(225.85,467.80) --
 	(234.05,471.82) --
-	(242.25,471.82) --
+	(242.25,469.81) --
 	(250.45,471.82) --
 	(258.65,471.82) --
 	(266.85,471.82) --

@@ -1,37 +1,46 @@
 \documentclass{article}
+\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+%\usepackage{fontspec}
+%\defaultfontfeatures{Mapping=tex-text} % converts LaTeX specials to Unicode
+  %! required fonts
+
 \usepackage{amsmath}
 \usepackage{graphicx}
 %\usepackage{bbold}
 \usepackage{tikz}
 %\usepackage{silence}
 \usepackage{mdframed}
+
 %\WarningFilter{mdframed}{You got a bad break}
 \usepackage[colorinlistoftodos]{todonotes}
-\usepackage{listings}
+%\usepackage{listings}
+%\usepackage{listingsutf8}
 \usepackage{color}
 \colorlet{exampcol}{blue!10}
 \usepackage{multicol}
 \usepackage[answerdelayed]{exercise}
 \title{BIO311: Population Ecology\\ \textit{Practical 7 (Unstructured populations)}}
 
-\author{Koen van Benthem \& Tina Cornioley\\\\
-\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
 
-\date{Spring 2014}
+%\author{Timoth\'ee Bonnet \& Koen van Benthem\\\\
+%\tt{timothee.bonnet@ieu.uzh.ch}\\ \tt{koen.vanbenthem@ieu.uzh.ch}}
+
+%\date{Spring 2016}
 \setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
 
 %\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%
 \setlength\parindent{0pt}
 \begin{document}
+\input{../authors}
 \maketitle
 \tableofcontents
-\vspace{3cm}
+
 
 \newpage
 <<setup, cache=FALSE, include=FALSE>>=
 opts_chunk$set(dev="tikz",tidy=F,dev.args=list(pointsize=7.5))
-options(width=60)
+options(width=60)#,tikzDefaultEngine= 'xetex')
 @
 
 \section{Discrete Population Growth}
@@ -46,7 +55,7 @@ The botanical garden created a new pond in $2009$ and introduced one plant of po
 
 Let us look at the evolution of population size over time. First we define the values of our different parameters.
 <<tpoppolt,echo=T,eval=F>>=
-N0<- 1
+N0 <- 1
 lambda <- 3
 t<-0:4
 @

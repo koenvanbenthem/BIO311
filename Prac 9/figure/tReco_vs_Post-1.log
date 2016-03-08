@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  23 FEB 2016 12:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  8 MAR 2016 15:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -951,6 +951,9 @@ LaTeX Info: Redefining \addtolength on input line 81.
 )
 \c@@todonotes@numberoftodonotes=\count160
 )
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/listingsutf8.sty
+Package: listingsutf8 2011/11/10 v1.2 Allow UTF-8 in listings input (HO)
+
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.sty
 \lst@mode=\count161
 \lst@gtempboxa=\box61
@@ -966,16 +969,23 @@ LaTeX Info: Redefining \addtolength on input line 81.
 \lst@maxwidth=\dimen197
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
 \c@lstnumber=\count167
 \lst@skipnumbers=\count168
 \lst@framebox=\box62
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.cfg
-File: listings.cfg 2014/09/06 1.5e listings configuration
+File: listings.cfg 2015/06/04 1.6 listings configuration
 ))
-Package: listings 2014/09/06 1.5e (Carsten Heinz)
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
 
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/stringenc.sty
+Package: stringenc 2011/12/02 v1.10 Convert strings between diff. encodings (HO
+)
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/pdfescape.sty
+Package: pdfescape 2011/11/25 v1.13 Implements pdfTeX's escape features (HO)
+)))
 (/usr/local/texlive/2015/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2015/03/31 v1.8m multicolumn formatting (FMi)
 \c@tracingmulticols=\count169
@@ -1109,22 +1119,22 @@ Package caption3 Info: TeX engine: e-TeX on input line 57.
 \c@ContinuedFloat=\count198
 Package caption Info: listings package is loaded.
 )
-No file tReco_vs_Post-1.aux.
+(./tReco_vs_Post-1.aux)
 \openout1 = `tReco_vs_Post-1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-ABD: EveryShipout initializing macros
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+ ABD: EveryShipout initializing macros
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count199
@@ -1160,7 +1170,7 @@ Preview: PDFoutput 1
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 
-Overfull \hbox (160.89pt too wide) in paragraph at lines 380--380
+Overfull \hbox (160.89pt too wide) in paragraph at lines 377--377
 [][] 
  []
 
@@ -1169,10 +1179,10 @@ Preview: Tightpage 0 0 0 0
 Non-PDF special ignored!
 Non-PDF special ignored!] (./tReco_vs_Post-1.aux) ) 
 Here is how much of TeX's memory you used:
- 23003 strings out of 493089
- 446261 string characters out of 6134843
- 477372 words of memory out of 5000000
- 26164 multiletter control sequences out of 15000+600000
+ 23206 strings out of 493089
+ 449737 string characters out of 6134843
+ 482065 words of memory out of 5000000
+ 26356 multiletter control sequences out of 15000+600000
  4402 words of font info for 17 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,7n,92p,10447b,643s stack positions out of 5000i,500n,10000p,200000b,80000s

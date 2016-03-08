@@ -48,35 +48,44 @@
 \newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
 
 \usepackage{alltt}
+\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+%\usepackage{fontspec}
+%\defaultfontfeatures{Mapping=tex-text} % converts LaTeX specials to Unicode
+  %! required fonts
+
 \usepackage{amsmath}
 \usepackage{graphicx}
 %\usepackage{bbold}
 \usepackage{tikz}
 %\usepackage{silence}
 \usepackage{mdframed}
+
 %\WarningFilter{mdframed}{You got a bad break}
 \usepackage[colorinlistoftodos]{todonotes}
-\usepackage{listings}
+%\usepackage{listings}
+%\usepackage{listingsutf8}
 \usepackage{color}
 \colorlet{exampcol}{blue!10}
 \usepackage{multicol}
 \usepackage[answerdelayed]{exercise}
 \title{BIO311: Population Ecology\\ \textit{Practical 7 (Unstructured populations)}}
 
-\author{Koen van Benthem \& Tina Cornioley\\\\
-\tt{koen.vanbenthem@ieu.uzh.ch}\\ \tt{tina.cornioley@ieu.uzh.ch}}
 
-\date{Spring 2014}
+%\author{Timoth\'ee Bonnet \& Koen van Benthem\\\\
+%\tt{timothee.bonnet@ieu.uzh.ch}\\ \tt{koen.vanbenthem@ieu.uzh.ch}}
+
+%\date{Spring 2016}
 \setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
 
 %\renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%
 \setlength\parindent{0pt}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
+\input{../authors}
 \maketitle
 \tableofcontents
-\vspace{3cm}
+
 
 \newpage
 
@@ -95,7 +104,7 @@ Let us look at the evolution of population size over time. First we define the v
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{N0}\hlkwb{<-} \hlnum{1}
+\hlstd{N0} \hlkwb{<-} \hlnum{1}
 \hlstd{lambda} \hlkwb{<-} \hlnum{3}
 \hlstd{t}\hlkwb{<-}\hlnum{0}\hlopt{:}\hlnum{4}
 \end{alltt}
@@ -772,8 +781,8 @@ In order to incorporate this, we need random numbers. In \texttt{R} functions ar
 \hlkwd{runif}\hlstd{(}\hlnum{7}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.01831023 0.16261204 0.67154628 0.82630163 0.77673929
-## [6] 0.06306122 0.81848570
+## [1] 0.81439892 0.14194290 0.41305154 0.85570984 0.31290106
+## [6] 0.01226735 0.93431607
 \end{verbatim}
 \begin{alltt}
 \hlkwd{hist}\hlstd{(}\hlkwd{runif}\hlstd{(}\hlnum{10000}\hlstd{),}\hlkwc{n}\hlstd{=}\hlnum{20}\hlstd{,}\hlkwc{main}\hlstd{=}\hlstr{""}\hlstd{,}
