@@ -1,4 +1,4 @@
-% Created by tikzDevice version 0.9 on 2016-03-08 15:46:01
+% Created by tikzDevice version 0.9 on 2016-03-09 17:58:27
 % !TEX encoding = UTF-8 Unicode
 \documentclass{article}
 \nonstopmode
@@ -18,9 +18,6 @@
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-%\usepackage{fontspec}
-%\defaultfontfeatures{Mapping=tex-text} % converts LaTeX specials to Unicode
-  %! required fonts
 
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -31,7 +28,7 @@
 
 %\WarningFilter{mdframed}{You got a bad break}
 \usepackage[colorinlistoftodos]{todonotes}
-%\usepackage{listings}
+\usepackage{listings}
 %\usepackage{listingsutf8}
 \usepackage{color}
 \colorlet{exampcol}{blue!10}
@@ -260,71 +257,6 @@
 \end{scope}
 \begin{scope}
 \path[clip] ( 36.90, 45.90) rectangle (486.99,468.99);
-\definecolor{drawColor}{RGB}{0,0,0}
-
-\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 53.57, 68.80) --
-	( 60.29, 69.24) --
-	( 67.01, 69.69) --
-	( 73.74, 70.18) --
-	( 80.46, 70.69) --
-	( 87.18, 71.23) --
-	( 93.90, 71.80) --
-	(100.62, 72.41) --
-	(107.34, 73.05) --
-	(114.07, 73.73) --
-	(120.79, 74.45) --
-	(127.51, 75.21) --
-	(134.23, 76.01) --
-	(140.95, 76.86) --
-	(147.67, 77.76) --
-	(154.40, 78.71) --
-	(161.12, 79.71) --
-	(167.84, 80.78) --
-	(174.56, 81.90) --
-	(181.28, 83.09) --
-	(188.01, 84.35) --
-	(194.73, 85.68) --
-	(201.45, 87.09) --
-	(208.17, 88.58) --
-	(214.89, 90.16) --
-	(221.61, 91.82) --
-	(228.34, 93.59) --
-	(235.06, 95.45) --
-	(241.78, 97.43) --
-	(248.50, 99.52) --
-	(255.22,101.72) --
-	(261.94,104.06) --
-	(268.67,106.53) --
-	(275.39,109.15) --
-	(282.11,111.91) --
-	(288.83,114.84) --
-	(295.55,117.93) --
-	(302.28,121.21) --
-	(309.00,124.67) --
-	(315.72,128.34) --
-	(322.44,132.21) --
-	(329.16,136.31) --
-	(335.88,140.65) --
-	(342.61,145.24) --
-	(349.33,150.09) --
-	(356.05,155.22) --
-	(362.77,160.65) --
-	(369.49,166.40) --
-	(376.22,172.48) --
-	(382.94,178.90) --
-	(389.66,185.70) --
-	(396.38,192.90) --
-	(403.10,200.51) --
-	(409.82,208.56) --
-	(416.55,217.07) --
-	(423.27,226.08) --
-	(429.99,235.61) --
-	(436.71,245.69) --
-	(443.43,256.35) --
-	(450.15,267.63) --
-	(456.88,279.56) --
-	(463.60,292.18) --
-	(470.32,305.54);
 \definecolor{drawColor}{RGB}{255,0,0}
 
 \path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 53.57, 81.64) --

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  8 MAR 2016 15:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  9 MAR 2016 17:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -958,31 +958,54 @@ LaTeX Info: Redefining \addtolength on input line 81.
 )
 \c@@todonotes@numberoftodonotes=\count160
 )
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count161
+\lst@gtempboxa=\box61
+\lst@token=\toks37
+\lst@length=\count162
+\lst@currlwidth=\dimen194
+\lst@column=\count163
+\lst@pos=\count164
+\lst@lostspace=\dimen195
+\lst@width=\dimen196
+\lst@newlines=\count165
+\lst@lineno=\count166
+\lst@maxwidth=\dimen197
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+\c@lstnumber=\count167
+\lst@skipnumbers=\count168
+\lst@framebox=\box62
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2015/06/04 1.6 listings configuration
+))
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
+
 (/usr/local/texlive/2015/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2015/03/31 v1.8m multicolumn formatting (FMi)
-\c@tracingmulticols=\count161
-\mult@box=\box61
-\multicol@leftmargin=\dimen194
-\c@unbalance=\count162
-\c@collectmore=\count163
-\doublecol@number=\count164
-\multicoltolerance=\count165
-\multicolpretolerance=\count166
-\full@width=\dimen195
-\page@free=\dimen196
-\premulticols=\dimen197
-\postmulticols=\dimen198
+\c@tracingmulticols=\count169
+\mult@box=\box63
+\multicol@leftmargin=\dimen198
+\c@unbalance=\count170
+\c@collectmore=\count171
+\doublecol@number=\count172
+\multicoltolerance=\count173
+\multicolpretolerance=\count174
+\full@width=\dimen199
+\page@free=\dimen200
+\premulticols=\dimen201
+\postmulticols=\dimen202
 \multicolsep=\skip122
 \multicolbaselineskip=\skip123
-\partial@page=\box62
-\last@line=\box63
-\maxbalancingoverflow=\dimen199
-\mult@rightbox=\box64
-\mult@grightbox=\box65
-\mult@gfirstbox=\box66
-\mult@firstbox=\box67
-\@tempa=\box68
-\@tempa=\box69
+\partial@page=\box64
+\last@line=\box65
+\maxbalancingoverflow=\dimen203
+\mult@rightbox=\box66
+\mult@grightbox=\box67
+\mult@gfirstbox=\box68
+\mult@firstbox=\box69
 \@tempa=\box70
 \@tempa=\box71
 \@tempa=\box72
@@ -998,14 +1021,16 @@ Package: multicol 2015/03/31 v1.8m multicolumn formatting (FMi)
 \@tempa=\box82
 \@tempa=\box83
 \@tempa=\box84
-\c@columnbadness=\count167
-\c@finalcolumnbadness=\count168
-\last@try=\dimen200
-\multicolovershoot=\dimen201
-\multicolundershoot=\dimen202
-\mult@nat@firstbox=\box85
-\colbreak@box=\box86
-\mc@col@check@num=\count169
+\@tempa=\box85
+\@tempa=\box86
+\c@columnbadness=\count175
+\c@finalcolumnbadness=\count176
+\last@try=\dimen204
+\multicolovershoot=\dimen205
+\multicolundershoot=\dimen206
+\mult@nat@firstbox=\box87
+\colbreak@box=\box88
+\mc@col@check@num=\count177
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/exercise/exercise.sty
 Package: exercise 2014/10/20 v1.6 Exercise package (P.Pichaureau)
@@ -1028,28 +1053,28 @@ Package: exercise 2014/10/20 v1.6 Exercise package (P.Pichaureau)
 \QuestionIndent=\skip140
 \subQuestionIndent=\skip141
 \subsubQuestionIndent=\skip142
-\c@Exercise=\count170
-\c@Answer=\count171
-\c@ExePart=\count172
-\c@Question=\count173
-\c@subQuestion=\count174
-\c@subsubQuestion=\count175
-\c@savedQuestion=\count176
-\c@savedsubQuestion=\count177
-\c@savedsubsubQuestion=\count178
-\@QuestionLevel=\count179
-\@Exercisebox=\box87
-\all@Exercisebox=\box88
-\temp@Exercisebox=\box89
-\all@Answerbox=\box90
-\temp@Answerbox=\box91
-\ExerciseDifficulty=\count180
-\QuestionDifficulty=\count181
-\subQuestionDifficulty=\count182
-\subsubQuestionDifficulty=\count183
-\ExePartDifficulty=\count184
-\@Answerbox=\box92
-\colonnesLevel=\count185
+\c@Exercise=\count178
+\c@Answer=\count179
+\c@ExePart=\count180
+\c@Question=\count181
+\c@subQuestion=\count182
+\c@subsubQuestion=\count183
+\c@savedQuestion=\count184
+\c@savedsubQuestion=\count185
+\c@savedsubsubQuestion=\count186
+\@QuestionLevel=\count187
+\@Exercisebox=\box89
+\all@Exercisebox=\box90
+\temp@Exercisebox=\box91
+\all@Answerbox=\box92
+\temp@Answerbox=\box93
+\ExerciseDifficulty=\count188
+\QuestionDifficulty=\count189
+\subQuestionDifficulty=\count190
+\subsubQuestionDifficulty=\count191
+\ExePartDifficulty=\count192
+\@Answerbox=\box94
+\colonnesLevel=\count193
 \tempskipa=\skip143
 \tempskipb=\skip144
 \@savedmathindent=\skip145
@@ -1057,32 +1082,32 @@ Package: exercise 2014/10/20 v1.6 Exercise package (P.Pichaureau)
 (./k22-1.aux)
 \openout1 = `k22-1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
  ABD: EveryShipout initializing macros
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count186
-\scratchdimen=\dimen203
-\scratchbox=\box93
-\nofMPsegments=\count187
-\nofMParguments=\count188
-\everyMPshowfont=\toks37
-\MPscratchCnt=\count189
-\MPscratchDim=\dimen204
-\MPnumerator=\count190
-\makeMPintoPDFobject=\count191
-\everyMPtoPDFconversion=\toks38
+\scratchcounter=\count194
+\scratchdimen=\dimen207
+\scratchbox=\box95
+\nofMPsegments=\count195
+\nofMParguments=\count196
+\everyMPshowfont=\toks38
+\MPscratchCnt=\count197
+\MPscratchDim=\dimen208
+\MPnumerator=\count198
+\makeMPintoPDFobject=\count199
+\everyMPtoPDFconversion=\toks39
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
@@ -1100,9 +1125,10 @@ e
 ))
 Preview: Fontsize 10pt
 Preview: PDFoutput 1
-\AtBeginShipoutBox=\box94
+\AtBeginShipoutBox=\box96
+\c@lstlisting=\count200
 
-Overfull \hbox (160.89pt too wide) in paragraph at lines 3182--3182
+Overfull \hbox (160.89pt too wide) in paragraph at lines 3179--3179
 [][] 
  []
 
@@ -1111,13 +1137,13 @@ Preview: Tightpage 0 0 0 0
 Non-PDF special ignored!
 Non-PDF special ignored!] (./k22-1.aux) ) 
 Here is how much of TeX's memory you used:
- 23123 strings out of 493089
- 458695 string characters out of 6134843
- 512581 words of memory out of 5000000
- 26300 multiletter control sequences out of 15000+600000
+ 24459 strings out of 493089
+ 477683 string characters out of 6134843
+ 533118 words of memory out of 5000000
+ 27624 multiletter control sequences out of 15000+600000
  4403 words of font info for 15 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,7n,54p,10395b,632s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,7n,54p,10395b,634s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fo
 nts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2015/texmf-dist/font
 s/type1/public/cm-super/sfrm1000.pfb>
