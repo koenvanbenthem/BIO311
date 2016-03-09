@@ -8,4 +8,4 @@
 \contentsline {subsubsection}{\numberline {3.3.2}Finding typos}{3}
 \contentsline {subsubsection}{\numberline {3.3.3}Average values per type}{4}
 \contentsline {subsection}{\numberline {3.4}Step 4: Plot your data}{5}
-\contentsline {subsection}{\numberline {3.5}Saving your graph}{12}
+\contentsline {subsection}{\numberline {3.5}Saving your graph}{11}

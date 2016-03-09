@@ -116,7 +116,7 @@ The next step is loading your dataset into \texttt{R}. The line of code below sh
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{rot}\hlkwb{<-}\hlkwd{read.csv}\hlstd{(}\hlstr{"rotifer_data.csv"}\hlstd{,} \hlkwc{sep}\hlstd{=}\hlstr{","}\hlstd{,} \hlkwc{header}\hlstd{=T)}
+\hlstd{rot} \hlkwb{<-} \hlkwd{read.csv}\hlstd{(}\hlstr{"rotifer_data.csv"}\hlstd{,} \hlkwc{sep}\hlstd{=}\hlstr{","}\hlstd{,} \hlkwc{header}\hlstd{=T)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -147,7 +147,7 @@ You will notice that the post pollution populations are indicated with either \t
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{rot}\hlopt{$}\hlstd{Population[rot}\hlopt{$}\hlstd{Population}\hlopt{==}\hlstr{"Post-pollution"}\hlstd{]}\hlkwb{<-}\hlstr{"Postpollution"}
+\hlstd{rot}\hlopt{$}\hlstd{Population[rot}\hlopt{$}\hlstd{Population}\hlopt{==}\hlstr{"Post-pollution"}\hlstd{]} \hlkwb{<-} \hlstr{"Postpollution"}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -174,7 +174,7 @@ So far we have looked at a set of summary statistics for the \texttt{rot} datafr
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlkwd{aggregate}\hlstd{(rot}\hlopt{$}\hlstd{Alive_Juv,}\hlkwc{by}\hlstd{=}\hlkwd{list}\hlstd{(rot}\hlopt{$}\hlstd{Population,rot}\hlopt{$}\hlstd{Copper),mean)}
+\hlkwd{aggregate}\hlstd{(rot}\hlopt{$}\hlstd{Alive_Juv,}\hlkwc{by}\hlstd{=}\hlkwd{list}\hlstd{(rot}\hlopt{$}\hlstd{Population, rot}\hlopt{$}\hlstd{Copper), mean)}
 \end{alltt}
 \begin{verbatim}
 ##          Group.1 Group.2        x
@@ -215,12 +215,12 @@ We will focus first on the populations with the low copper treatment. For simpli
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlkwd{plot}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlkwc{type}\hlstd{=}\hlstr{"n"}\hlstd{,}\hlkwc{xlab}\hlstd{=}\hlstr{"Day"}\hlstd{,}
+\hlkwd{plot}\hlstd{(}\hlnum{0}\hlstd{,} \hlnum{0}\hlstd{,} \hlkwc{type}\hlstd{=}\hlstr{"n"}\hlstd{,} \hlkwc{xlab}\hlstd{=}\hlstr{"Day"}\hlstd{,}
      \hlkwc{ylab}\hlstd{=}\hlstr{"Total population size"}\hlstd{,}
      \hlkwc{main}\hlstd{=}\hlstr{"Low copper treatment"}\hlstd{,}
-     \hlkwc{axes}\hlstd{=}\hlnum{FALSE}\hlstd{,}\hlkwc{xlim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{3}\hlstd{),}\hlkwc{ylim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{30}\hlstd{))}
-\hlkwd{axis}\hlstd{(}\hlkwc{side}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{at}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{3}\hlstd{))}
-\hlkwd{axis}\hlstd{(}\hlkwc{side}\hlstd{=}\hlnum{2}\hlstd{,} \hlkwc{at}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{5}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{15}\hlstd{,}\hlnum{20}\hlstd{,}\hlnum{25}\hlstd{,}\hlnum{30}\hlstd{))}
+     \hlkwc{axes}\hlstd{=}\hlnum{FALSE}\hlstd{,} \hlkwc{xlim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{3}\hlstd{),} \hlkwc{ylim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,} \hlnum{30}\hlstd{))}
+\hlkwd{axis}\hlstd{(}\hlkwc{side}\hlstd{=}\hlnum{1}\hlstd{,} \hlkwc{at}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{2}\hlstd{,} \hlnum{3}\hlstd{))}
+\hlkwd{axis}\hlstd{(}\hlkwc{side}\hlstd{=}\hlnum{2}\hlstd{,} \hlkwc{at}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,} \hlnum{5}\hlstd{,} \hlnum{10}\hlstd{,} \hlnum{15}\hlstd{,} \hlnum{20}\hlstd{,} \hlnum{25}\hlstd{,} \hlnum{30}\hlstd{))}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -228,9 +228,9 @@ Now we need to prepare the data that we are interested in. First we use the \tex
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{rot}\hlopt{$}\hlstd{Population}\hlkwb{=}\hlkwd{factor}\hlstd{(rot}\hlopt{$}\hlstd{Population,}
-                      \hlkwc{levels}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{'Commercial'}\hlstd{,}\hlstr{'Postpollution'}\hlstd{,}
-                        \hlstr{'Recovery'}\hlstd{,}\hlstr{'Pollution'}\hlstd{),} \hlkwc{ordered}\hlstd{=T)}
+\hlstd{rot}\hlopt{$}\hlstd{Population} \hlkwb{<-} \hlkwd{factor}\hlstd{(rot}\hlopt{$}\hlstd{Population,}
+                      \hlkwc{levels}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{'Commercial'}\hlstd{,} \hlstr{'Postpollution'}\hlstd{,}
+                        \hlstr{'Recovery'}\hlstd{,} \hlstr{'Pollution'}\hlstd{),} \hlkwc{ordered}\hlstd{=T)}
 
 \hlstd{rot}\hlopt{$}\hlstd{Total} \hlkwb{<-} \hlstd{rot}\hlopt{$}\hlstd{Alive_Juv} \hlopt{+} \hlstd{rot}\hlopt{$}\hlstd{Alive_Adult}
 \end{alltt}
@@ -240,14 +240,14 @@ To select only the low copper treatment entries, use the function \texttt{subset
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{temp}\hlkwb{<-}\hlkwd{subset}\hlstd{(rot,Copper}\hlopt{==}\hlstr{'low'}\hlstd{)}
+\hlstd{temp} \hlkwb{<-} \hlkwd{subset}\hlstd{(rot, Copper}\hlopt{==}\hlstr{'low'}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 Next use \texttt{aggregate()} to calculate the mean number of total individuals alive per day and population. Store this information in a variable named \texttt{Tot\textunderscore mean}. This should give you:
 \begin{center}
 % latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Mar  8 18:38:49 2016
+% Wed Mar  9 13:56:16 2016
 {\footnotesize
 \begin{tabular}{lrr}
  Group.1 & Group.2 & x \\ 
@@ -272,8 +272,8 @@ Now we use the command \texttt{lines()} to add a line for the commercial populat
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{temp2}\hlkwb{<-}\hlkwd{subset}\hlstd{(Tot_mean,Group.1}\hlopt{==}\hlstr{"Commercial"}\hlstd{)}
-\hlkwd{lines}\hlstd{(temp2}\hlopt{$}\hlstd{Group.2,temp2}\hlopt{$}\hlstd{x,}\hlkwc{col}\hlstd{=}\hlstr{'red'}\hlstd{,}\hlkwc{pch}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{type}\hlstd{=}\hlstr{"b"}\hlstd{)}
+\hlstd{temp2} \hlkwb{<-} \hlkwd{subset}\hlstd{(Tot_mean, Group.1}\hlopt{==}\hlstr{"Commercial"}\hlstd{)}
+\hlkwd{lines}\hlstd{(temp2}\hlopt{$}\hlstd{Group.2, temp2}\hlopt{$}\hlstd{x,} \hlkwc{col}\hlstd{=}\hlstr{'red'}\hlstd{,} \hlkwc{pch}\hlstd{=}\hlnum{1}\hlstd{,} \hlkwc{type}\hlstd{=}\hlstr{"b"}\hlstd{)}
 \end{alltt}
 \end{kframe}
 
@@ -300,7 +300,7 @@ We are getting closer, but we aren't there yet, now we want to add a legend to t
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{legend}\hlstd{(}\hlkwc{x}\hlstd{=}\hlnum{1}\hlstd{,} \hlkwc{y}\hlstd{=}\hlnum{24}\hlstd{,} \hlkwc{col}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"red"}\hlstd{,}\hlstr{"blue"}\hlstd{,}\hlstr{"green"}\hlstd{,}\hlstr{"orange"}\hlstd{),}
-\hlkwc{legend}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"Commercial"}\hlstd{,}\hlstr{"Postpollution"}\hlstd{,}\hlstr{"Recovery"}\hlstd{,}\hlstr{"Pollution"}\hlstd{),}
+\hlkwc{legend}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"Commercial"}\hlstd{,} \hlstr{"Postpollution"}\hlstd{,} \hlstr{"Recovery"}\hlstd{,} \hlstr{"Pollution"}\hlstd{),}
 \hlkwc{lty}\hlstd{=}\hlnum{1}\hlstd{,} \hlkwc{pch}\hlstd{=}\hlnum{1}\hlstd{,} \hlkwc{bty}\hlstd{=}\hlstr{"n"}\hlstd{)}
 \end{alltt}
 \end{kframe}
@@ -320,18 +320,90 @@ We use this property to define a new function that calculates the standard error
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{SE}\hlkwb{<-}\hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)} \hlkwd{sd}\hlstd{(x)}\hlopt{/}\hlkwd{sqrt}\hlstd{(}\hlkwd{length}\hlstd{(x))}
+\hlstd{SE} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)\{}
+  \hlkwd{return}\hlstd{(}\hlkwd{sd}\hlstd{(x)} \hlopt{/} \hlkwd{sqrt}\hlstd{(}\hlkwd{length}\hlstd{(x)))}
+\hlstd{\}}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
+\begin{mdframed}
+\textbf{Extra: Functions} so far we have worked with variables that represent a value or set of values, for example \texttt{rot} is a variable that we have defined that contains our data. A function is in a sense a variable that does not contain values, but instead contains a set of tasks. When you call a variable, \texttt{R} will show the value of that variable. When you call a function, \texttt{R} will perform the set of tasks in that function.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{x_sq} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)\{}
+  \hlkwd{return}\hlstd{(x}\hlopt{^}\hlnum{2}\hlstd{)}
+\hlstd{\}}
+\hlkwd{x_sq}\hlstd{(}\hlnum{3}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 9
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Here we have first defined a function (\texttt{x\textunderscore sq}) that takes one input variable (\texttt{x}). This function returns the squared value of the input and we can call it by using \texttt{x\textunderscore sq(x)}. Similarly we can also make a function that adds up two numbers and returns the squared sum:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{x_y_sq} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,}\hlkwc{y}\hlstd{)\{}
+  \hlstd{ans} \hlkwb{<-} \hlstd{x} \hlopt{+} \hlstd{y}
+  \hlkwd{return}\hlstd{(ans}\hlopt{^}\hlnum{2}\hlstd{)}
+\hlstd{\}}
+\hlkwd{x_y_sq}\hlstd{(}\hlnum{3}\hlstd{,} \hlnum{4}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 49
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+One important thing to realise is that things that happen in a function, usually stay in a function (there are ways around this, but in general it is good practice to keep it that way). This means that the tasks in the function are performed in their own 'world' and as soon as the function is executed, the changes are gone.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{x_y_sq} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,}\hlkwc{y}\hlstd{)\{}
+  \hlstd{ans} \hlkwb{<-} \hlstd{x} \hlopt{+} \hlstd{y}
+  \hlkwd{return}\hlstd{(ans}\hlopt{^}\hlnum{2}\hlstd{)}
+\hlstd{\}}
+\hlkwd{x_y_sq}\hlstd{(}\hlnum{3}\hlstd{,} \hlnum{4}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 49
+\end{verbatim}
+\begin{alltt}
+\hlstd{ans}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'ans' not found}}\end{kframe}
+\end{knitrout}
+We now get an error, because \texttt{ans} only exists in the function and is deleted as soon as the function is completed. 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{ans} \hlkwb{<-} \hlnum{4}
+\hlstd{x_y_sq} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,}\hlkwc{y}\hlstd{)\{}
+  \hlstd{ans} \hlkwb{<-} \hlstd{x} \hlopt{+} \hlstd{y}
+  \hlkwd{return}\hlstd{(ans}\hlopt{^}\hlnum{2}\hlstd{)}
+\hlstd{\}}
+\hlkwd{x_y_sq}\hlstd{(}\hlnum{3}\hlstd{,} \hlnum{4}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 49
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+What will now be the value of \texttt{ans}?
+
+We have seen that we can not access the version of \texttt{ans} that 'lives' inside the function anymore, once the function has run. If you change anything in a function, you best return these changes to \texttt{R} at the end of the function using \texttt{return()}. Please note that when a function executes \texttt{return(x)}, \texttt{x} is given back to \texttt{R} and anything that comes after it will not be executed.
+\end{mdframed}
 If we now call \texttt{SE(x)}, it will return us the standard error of \texttt{x}. We use this function together with \texttt{aggregate} to calculate the standard errors for all our datapoints in the low copper treatment:
 \begin{center}
 \begin{kframe}
 \begin{alltt}
-\hlstd{SE_tot}\hlkwb{<-}\hlkwd{aggregate}\hlstd{(temp}\hlopt{$}\hlstd{Total,}\hlkwc{by}\hlstd{=}\hlkwd{list}\hlstd{(temp}\hlopt{$}\hlstd{Population,temp}\hlopt{$}\hlstd{Day),SE)}
+\hlstd{SE_tot} \hlkwb{<-} \hlkwd{aggregate}\hlstd{(temp}\hlopt{$}\hlstd{Total,} \hlkwc{by}\hlstd{=}\hlkwd{list}\hlstd{(temp}\hlopt{$}\hlstd{Population, temp}\hlopt{$}\hlstd{Day), SE)}
 \end{alltt}
 \end{kframe}% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Mar  8 18:38:51 2016
+% Wed Mar  9 13:56:18 2016
 {\footnotesize
 \begin{tabular}{lrr}
  Group.1 & Group.2 & x \\ 
@@ -356,43 +428,20 @@ Finally we use the function \texttt{arrows()} (use \texttt{?arrows} to understan
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{temp2}\hlkwb{<-}\hlkwd{subset}\hlstd{(Tot_mean,Group.1}\hlopt{==}\hlstr{"Commercial"}\hlstd{)}
-\hlstd{temp3}\hlkwb{<-}\hlkwd{subset}\hlstd{(SE_tot,Group.1}\hlopt{==}\hlstr{"Commercial"}\hlstd{)}
-\hlkwd{arrows}\hlstd{(temp3}\hlopt{$}\hlstd{Group.2,temp2}\hlopt{$}\hlstd{x}\hlopt{-}\hlstd{temp3}\hlopt{$}\hlstd{x,temp3}\hlopt{$}\hlstd{Group.2,temp2}\hlopt{$}\hlstd{x}\hlopt{+}\hlstd{temp3}\hlopt{$}\hlstd{x,}
-       \hlkwc{angle}\hlstd{=}\hlnum{90}\hlstd{,}\hlkwc{length}\hlstd{=}\hlnum{0.1}\hlstd{,}\hlkwc{col}\hlstd{=}\hlstr{'red'}\hlstd{,}\hlkwc{code}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlstd{temp2} \hlkwb{<-} \hlkwd{subset}\hlstd{(Tot_mean, Group.1}\hlopt{==}\hlstr{"Commercial"}\hlstd{)}
+\hlstd{temp3} \hlkwb{<-} \hlkwd{subset}\hlstd{(SE_tot, Group.1}\hlopt{==}\hlstr{"Commercial"}\hlstd{)}
+\hlkwd{arrows}\hlstd{(temp3}\hlopt{$}\hlstd{Group.2, temp2}\hlopt{$}\hlstd{x}\hlopt{-}\hlstd{temp3}\hlopt{$}\hlstd{x, temp3}\hlopt{$}\hlstd{Group.2, temp2}\hlopt{$}\hlstd{x}\hlopt{+}\hlstd{temp3}\hlopt{$}\hlstd{x,}
+       \hlkwc{angle}\hlstd{=}\hlnum{90}\hlstd{,} \hlkwc{length}\hlstd{=}\hlnum{0.1}\hlstd{,} \hlkwc{col}\hlstd{=}\hlstr{'red'}\hlstd{,} \hlkwc{code}\hlstd{=}\hlnum{3}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \includegraphics[width=\maxwidth]{figure/gp10-1} 
 
 \end{knitrout}
-You will notice a warning message about zero-length arrows. What does this mean? Repeat this procedure to also include error bars for the other three lines. Can you now also generate the plots for the other two copper treatments? 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+You will notice a warning message about zero-length arrows. What does this mean? Repeat this procedure to also include error bars for the other three lines. Can you now also generate the plots for the other two copper treatments?
 
-{\centering \includegraphics[width=0.65\textwidth]{figure/gekkeplot-1} 
-
-}
-
-
-
-
-{\centering \includegraphics[width=0.65\textwidth]{figure/gekkeplot-2} 
-
-}
-
-
-
-
-{\centering \includegraphics[width=0.65\textwidth]{figure/gekkeplot-3} 
-
-}
-
-
-
-\end{knitrout}
 \begin{mdframed}
 \textit{The shortcut}\\
-First of all the code can be shortened by using for-loops, can you find two place where introducing a for-loop would make the code shorter? Besides, we are not the first people to deal with this problem: actually the sciplot package does all of this in a more or less automated way:
+First of all the code can be shortened by using for-loops, can you find two place where introducing a for-loop would make the code shorter? Alternatively, you could also write functions for parts of the code that you use frequently. We are not the first people to deal with this problem and the sciplot package already contains such a function:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -412,6 +461,7 @@ First of all the code can be shortened by using for-loops, can you find two plac
 
 
 \end{knitrout}
+Using functions from packages such as the one above is a great way to increase your coding speed: there are a lot of things that you don't have to type yourself anymore. This also comes with a cost however: you will generally have less flexibility, you don't know which steps happen behing the scenes and you depend on the coding skills of the people that wrote the package.
 \end{mdframed}
 \subsection{Saving your graph}
 If you want to save your graph, write the code in R following the instructions below:
