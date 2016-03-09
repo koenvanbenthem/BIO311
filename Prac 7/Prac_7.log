@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  8 MAR 2016 15:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  9 MAR 2016 17:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -967,31 +967,54 @@ LaTeX Info: Redefining \addtolength on input line 81.
 )
 \c@@todonotes@numberoftodonotes=\count159
 )
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count160
+\lst@gtempboxa=\box59
+\lst@token=\toks36
+\lst@length=\count161
+\lst@currlwidth=\dimen197
+\lst@column=\count162
+\lst@pos=\count163
+\lst@lostspace=\dimen198
+\lst@width=\dimen199
+\lst@newlines=\count164
+\lst@lineno=\count165
+\lst@maxwidth=\dimen200
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+\c@lstnumber=\count166
+\lst@skipnumbers=\count167
+\lst@framebox=\box60
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2015/06/04 1.6 listings configuration
+))
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
+
 (/usr/local/texlive/2015/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2015/03/31 v1.8m multicolumn formatting (FMi)
-\c@tracingmulticols=\count160
-\mult@box=\box59
-\multicol@leftmargin=\dimen197
-\c@unbalance=\count161
-\c@collectmore=\count162
-\doublecol@number=\count163
-\multicoltolerance=\count164
-\multicolpretolerance=\count165
-\full@width=\dimen198
-\page@free=\dimen199
-\premulticols=\dimen200
-\postmulticols=\dimen201
+\c@tracingmulticols=\count168
+\mult@box=\box61
+\multicol@leftmargin=\dimen201
+\c@unbalance=\count169
+\c@collectmore=\count170
+\doublecol@number=\count171
+\multicoltolerance=\count172
+\multicolpretolerance=\count173
+\full@width=\dimen202
+\page@free=\dimen203
+\premulticols=\dimen204
+\postmulticols=\dimen205
 \multicolsep=\skip123
 \multicolbaselineskip=\skip124
-\partial@page=\box60
-\last@line=\box61
-\maxbalancingoverflow=\dimen202
-\mult@rightbox=\box62
-\mult@grightbox=\box63
-\mult@gfirstbox=\box64
-\mult@firstbox=\box65
-\@tempa=\box66
-\@tempa=\box67
+\partial@page=\box62
+\last@line=\box63
+\maxbalancingoverflow=\dimen206
+\mult@rightbox=\box64
+\mult@grightbox=\box65
+\mult@gfirstbox=\box66
+\mult@firstbox=\box67
 \@tempa=\box68
 \@tempa=\box69
 \@tempa=\box70
@@ -1007,14 +1030,16 @@ Package: multicol 2015/03/31 v1.8m multicolumn formatting (FMi)
 \@tempa=\box80
 \@tempa=\box81
 \@tempa=\box82
-\c@columnbadness=\count166
-\c@finalcolumnbadness=\count167
-\last@try=\dimen203
-\multicolovershoot=\dimen204
-\multicolundershoot=\dimen205
-\mult@nat@firstbox=\box83
-\colbreak@box=\box84
-\mc@col@check@num=\count168
+\@tempa=\box83
+\@tempa=\box84
+\c@columnbadness=\count174
+\c@finalcolumnbadness=\count175
+\last@try=\dimen207
+\multicolovershoot=\dimen208
+\multicolundershoot=\dimen209
+\mult@nat@firstbox=\box85
+\colbreak@box=\box86
+\mc@col@check@num=\count176
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/exercise/exercise.sty
 Package: exercise 2014/10/20 v1.6 Exercise package (P.Pichaureau)
@@ -1037,28 +1062,28 @@ Package: exercise 2014/10/20 v1.6 Exercise package (P.Pichaureau)
 \QuestionIndent=\skip141
 \subQuestionIndent=\skip142
 \subsubQuestionIndent=\skip143
-\c@Exercise=\count169
-\c@Answer=\count170
-\c@ExePart=\count171
-\c@Question=\count172
-\c@subQuestion=\count173
-\c@subsubQuestion=\count174
-\c@savedQuestion=\count175
-\c@savedsubQuestion=\count176
-\c@savedsubsubQuestion=\count177
-\@QuestionLevel=\count178
-\@Exercisebox=\box85
-\all@Exercisebox=\box86
-\temp@Exercisebox=\box87
-\all@Answerbox=\box88
-\temp@Answerbox=\box89
-\ExerciseDifficulty=\count179
-\QuestionDifficulty=\count180
-\subQuestionDifficulty=\count181
-\subsubQuestionDifficulty=\count182
-\ExePartDifficulty=\count183
-\@Answerbox=\box90
-\colonnesLevel=\count184
+\c@Exercise=\count177
+\c@Answer=\count178
+\c@ExePart=\count179
+\c@Question=\count180
+\c@subQuestion=\count181
+\c@subsubQuestion=\count182
+\c@savedQuestion=\count183
+\c@savedsubQuestion=\count184
+\c@savedsubsubQuestion=\count185
+\@QuestionLevel=\count186
+\@Exercisebox=\box87
+\all@Exercisebox=\box88
+\temp@Exercisebox=\box89
+\all@Answerbox=\box90
+\temp@Answerbox=\box91
+\ExerciseDifficulty=\count187
+\QuestionDifficulty=\count188
+\subQuestionDifficulty=\count189
+\subsubQuestionDifficulty=\count190
+\ExePartDifficulty=\count191
+\@Answerbox=\box92
+\colonnesLevel=\count192
 \tempskipa=\skip144
 \tempskipb=\skip145
 \@savedmathindent=\skip146
@@ -1225,38 +1250,38 @@ Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
 )) (./Prac_7.aux)
 \openout1 = `Prac_7.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 84.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 84.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 81.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 81.
  (/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 84.
+LaTeX Font Info:    ... okay on input line 81.
 
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count185
-\scratchdimen=\dimen206
-\scratchbox=\box91
-\nofMPsegments=\count186
-\nofMParguments=\count187
-\everyMPshowfont=\toks36
-\MPscratchCnt=\count188
-\MPscratchDim=\dimen207
-\MPnumerator=\count189
-\makeMPintoPDFobject=\count190
-\everyMPtoPDFconversion=\toks37
+\scratchcounter=\count193
+\scratchdimen=\dimen210
+\scratchbox=\box93
+\nofMPsegments=\count194
+\nofMParguments=\count195
+\everyMPshowfont=\toks37
+\MPscratchCnt=\count196
+\MPscratchDim=\dimen211
+\MPnumerator=\count197
+\makeMPintoPDFobject=\count198
+\everyMPtoPDFconversion=\toks38
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
@@ -1273,9 +1298,10 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 ABD: EveryShipout initializing macros
-\AtBeginShipoutBox=\box92
+\AtBeginShipoutBox=\box94
+\c@lstlisting=\count199
  (../authors.tex)
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 86.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 83.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
@@ -1290,116 +1316,125 @@ File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 <Nuphar_pumilum2.jpg, id=20, 1310.496pt x 982.872pt>
 File: Nuphar_pumilum2.jpg Graphic file (type jpg)
  <use Nuphar_pumilum2.jpg>
-Package pdftex.def Info: Nuphar_pumilum2.jpg used on input line 99.
+Package pdftex.def Info: Nuphar_pumilum2.jpg used on input line 96.
 (pdftex.def)             Requested size: 224.2479pt x 168.18083pt.
 
 
-Package xcolor Warning: Incompatible color definition on input line 105.
+Package xcolor Warning: Incompatible color definition on input line 102.
 
 
-Package xcolor Warning: Incompatible color definition on input line 116.
+Package xcolor Warning: Incompatible color definition on input line 112.
 
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 119.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 115.
 [2 <./Nuphar_pumilum2.jpg>] <crocodile.jpg, id=31, 803.0pt x 534.99875pt>
 File: crocodile.jpg Graphic file (type jpg)
 
 <use crocodile.jpg>
-Package pdftex.def Info: crocodile.jpg used on input line 138.
+Package pdftex.def Info: crocodile.jpg used on input line 132.
 (pdftex.def)             Requested size: 172.5pt x 114.92451pt.
 
 
-Package xcolor Warning: Incompatible color definition on input line 143.
+Package xcolor Warning: Incompatible color definition on input line 137.
 
 
-Package xcolor Warning: Incompatible color definition on input line 155.
+Package xcolor Warning: Incompatible color definition on input line 149.
 
 [3 <./crocodile.jpg>] <Rabbit.jpg, id=35, 47.88013pt x 59.87515pt>
 File: Rabbit.jpg Graphic file (type jpg)
 
 <use Rabbit.jpg>
-Package pdftex.def Info: Rabbit.jpg used on input line 211.
+Package pdftex.def Info: Rabbit.jpg used on input line 205.
 (pdftex.def)             Requested size: 172.5pt x 215.73668pt.
  [4]
 
-Package xcolor Warning: Incompatible color definition on input line 219.
+Package xcolor Warning: Incompatible color definition on input line 213.
 
 
-Package xcolor Warning: Incompatible color definition on input line 227.
+Package xcolor Warning: Incompatible color definition on input line 221.
 
 
-Package xcolor Warning: Incompatible color definition on input line 238.
+Package xcolor Warning: Incompatible color definition on input line 232.
 
 [5 <./Rabbit.jpg>]
 
-Package xcolor Warning: Incompatible color definition on input line 275.
+Package xcolor Warning: Incompatible color definition on input line 269.
 
 
-Overfull \hbox (3.0539pt too wide) in paragraph at lines 322--324
-[]\T1/cmtt/m/n/10 Database. http://www.sw.ic.ac.uk/cpb/cpb/gpdd.html \T1/cmr/m/
-n/10 and was pub-lished
+Overfull \hbox (38.15643pt too wide) in paragraph at lines 314--316
+\T1/cmtt/m/n/10 Biology, Imperial College (1999) The Global Population Dynamics
+ Database.
  []
 
 [6] <Beaver.jpg, id=50, 578.16pt x 384.4764pt>
 File: Beaver.jpg Graphic file (type jpg)
  <use Beaver.jpg>
-Package pdftex.def Info: Beaver.jpg used on input line 325.
+Package pdftex.def Info: Beaver.jpg used on input line 317.
 (pdftex.def)             Requested size: 181.58322pt x 120.7521pt.
 
 <Alberta.jpg, id=51, 321.2pt x 240.9pt>
 File: Alberta.jpg Graphic file (type jpg)
  <use Alberta.jpg>
-Package pdftex.def Info: Alberta.jpg used on input line 325.
+Package pdftex.def Info: Alberta.jpg used on input line 317.
 (pdftex.def)             Requested size: 161.0015pt x 120.7521pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 324.
 
 
 Package xcolor Warning: Incompatible color definition on input line 332.
 
 
-Package xcolor Warning: Incompatible color definition on input line 340.
+Package xcolor Warning: Incompatible color definition on input line 344.
 
 
-Package xcolor Warning: Incompatible color definition on input line 352.
-
-
-Package xcolor Warning: Incompatible color definition on input line 365.
+Package xcolor Warning: Incompatible color definition on input line 355.
 
 [7 <./Beaver.jpg> <./Alberta.jpg>]
 
-Package xcolor Warning: Incompatible color definition on input line 374.
+Package xcolor Warning: Incompatible color definition on input line 364.
 
 
-Package xcolor Warning: Incompatible color definition on input line 383.
+Package xcolor Warning: Incompatible color definition on input line 373.
+
+
+Package xcolor Warning: Incompatible color definition on input line 395.
 
 
 Package xcolor Warning: Incompatible color definition on input line 401.
 
 
-Package xcolor Warning: Incompatible color definition on input line 409.
+Overfull \hbox (6.66412pt too wide) in paragraph at lines 401--401
+[]\T1/cmtt/m/n/10 ## Error in eval(expr, envir, enclos): '...' used in an incor
+rect
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 405.
+
+
+Package xcolor Warning: Incompatible color definition on input line 423.
 
 [8]
 
-Package xcolor Warning: Incompatible color definition on input line 427.
+Package xcolor Warning: Incompatible color definition on input line 441.
 
 
-Package xcolor Warning: Incompatible color definition on input line 446.
+Package xcolor Warning: Incompatible color definition on input line 463.
 
 
-Package xcolor Warning: Incompatible color definition on input line 468.
+Package xcolor Warning: Incompatible color definition on input line 481.
 
-
-Package xcolor Warning: Incompatible color definition on input line 486.
-
-LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 493
+LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 488
 .
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/ts1cmtt.fd
 File: ts1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 
-Package xcolor Warning: Incompatible color definition on input line 500.
+Package xcolor Warning: Incompatible color definition on input line 495.
 
 [9]
-Overfull \hbox (6.66412pt too wide) in paragraph at lines 506--506
+Overfull \hbox (6.66412pt too wide) in paragraph at lines 501--501
 [][]\T1/cmtt/m/n/10 Beasub[][]$[][]sim[][]<-[][]exp[][]( reg2[][]$[][]coef[[[][
 ]1[][]]])[][]*[][]exp[][]( reg2[][]$[][]coef[[[][]2[][]]][][]*[][](Beasub[][]$[
 ][]Year))[][] 
@@ -1408,147 +1443,147 @@ Overfull \hbox (6.66412pt too wide) in paragraph at lines 506--506
 <figure/t30-1.pdf, id=64, 505.89pt x 505.89pt>
 File: figure/t30-1.pdf Graphic file (type pdf)
  <use figure/t30-1.pdf>
-Package pdftex.def Info: figure/t30-1.pdf used on input line 537.
+Package pdftex.def Info: figure/t30-1.pdf used on input line 532.
 (pdftex.def)             Requested size: 224.2479pt x 224.25192pt.
  [10]
 
-Package xcolor Warning: Incompatible color definition on input line 553.
+Package xcolor Warning: Incompatible color definition on input line 548.
 
 <figure/k1-1.pdf, id=68, 505.89pt x 505.89pt>
 File: figure/k1-1.pdf Graphic file (type pdf)
  <use figure/k1-1.pdf>
-Package pdftex.def Info: figure/k1-1.pdf used on input line 555.
+Package pdftex.def Info: figure/k1-1.pdf used on input line 550.
 (pdftex.def)             Requested size: 241.49895pt x 241.50444pt.
  [11 <./figure/t30-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 564.
+Package xcolor Warning: Incompatible color definition on input line 559.
 
 
-Package xcolor Warning: Incompatible color definition on input line 587.
+Package xcolor Warning: Incompatible color definition on input line 582.
 
 [12 <./figure/k1-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 596.
+Package xcolor Warning: Incompatible color definition on input line 591.
 
 
-Package xcolor Warning: Incompatible color definition on input line 613.
+Package xcolor Warning: Incompatible color definition on input line 608.
 
 
-Package xcolor Warning: Incompatible color definition on input line 625.
+Package xcolor Warning: Incompatible color definition on input line 620.
 
 <figure/k9-1.pdf, id=94, 505.89pt x 505.89pt>
 File: figure/k9-1.pdf Graphic file (type pdf)
  <use figure/k9-1.pdf>
-Package pdftex.def Info: figure/k9-1.pdf used on input line 630.
+Package pdftex.def Info: figure/k9-1.pdf used on input line 625.
 (pdftex.def)             Requested size: 345.0pt x 345.00414pt.
  [13]
 
-Package xcolor Warning: Incompatible color definition on input line 635.
+Package xcolor Warning: Incompatible color definition on input line 630.
 
 [14 <./figure/k9-1.pdf>]
-Overfull \hbox (29.34854pt too wide) in paragraph at lines 681--681
+Overfull \hbox (29.34854pt too wide) in paragraph at lines 676--676
 [] 
  []
 
 <Pond_lily.jpg, id=106, 803.0pt x 602.25pt>
 File: Pond_lily.jpg Graphic file (type jpg)
  <use Pond_lily.jpg>
-Package pdftex.def Info: Pond_lily.jpg used on input line 694.
+Package pdftex.def Info: Pond_lily.jpg used on input line 689.
 (pdftex.def)             Requested size: 224.2479pt x 168.18774pt.
 
 
-Package xcolor Warning: Incompatible color definition on input line 700.
+Package xcolor Warning: Incompatible color definition on input line 695.
 
 [15 <./Pond_lily.jpg>]
 
-Package xcolor Warning: Incompatible color definition on input line 714.
+Package xcolor Warning: Incompatible color definition on input line 710.
 
 
-Package xcolor Warning: Incompatible color definition on input line 731.
+Package xcolor Warning: Incompatible color definition on input line 727.
 
 
-Package xcolor Warning: Incompatible color definition on input line 744.
+Package xcolor Warning: Incompatible color definition on input line 740.
 
 
-Package xcolor Warning: Incompatible color definition on input line 755.
+Package xcolor Warning: Incompatible color definition on input line 751.
 
 [16] <figure/k18-1.pdf, id=113, 505.89pt x 505.89pt>
 File: figure/k18-1.pdf Graphic file (type pdf)
  <use figure/k18-1.pdf>
-Package pdftex.def Info: figure/k18-1.pdf used on input line 764.
+Package pdftex.def Info: figure/k18-1.pdf used on input line 760.
 (pdftex.def)             Requested size: 224.2479pt x 224.25192pt.
 
 
-Package xcolor Warning: Incompatible color definition on input line 779.
+Package xcolor Warning: Incompatible color definition on input line 775.
 
 [17 <./figure/k18-1.pdf>] <figure/k19-1.pdf, id=121, 505.89pt x 505.89pt>
 File: figure/k19-1.pdf Graphic file (type pdf)
 
 <use figure/k19-1.pdf>
-Package pdftex.def Info: figure/k19-1.pdf used on input line 793.
+Package pdftex.def Info: figure/k19-1.pdf used on input line 789.
 (pdftex.def)             Requested size: 172.5pt x 172.50206pt.
 
 
-Package xcolor Warning: Incompatible color definition on input line 802.
+Package xcolor Warning: Incompatible color definition on input line 798.
 
 [18 <./figure/k19-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 836.
+Package xcolor Warning: Incompatible color definition on input line 832.
 
 <figure/k21-1.pdf, id=137, 505.89pt x 505.89pt>
 File: figure/k21-1.pdf Graphic file (type pdf)
  <use figure/k21-1.pdf>
-Package pdftex.def Info: figure/k21-1.pdf used on input line 838.
+Package pdftex.def Info: figure/k21-1.pdf used on input line 834.
 (pdftex.def)             Requested size: 224.2479pt x 224.25192pt.
 
 
-Package xcolor Warning: Incompatible color definition on input line 847.
+Package xcolor Warning: Incompatible color definition on input line 843.
 
 <figure/k22-1.pdf, id=138, 505.89pt x 505.89pt>
 File: figure/k22-1.pdf Graphic file (type pdf)
  <use figure/k22-1.pdf>
-Package pdftex.def Info: figure/k22-1.pdf used on input line 849.
+Package pdftex.def Info: figure/k22-1.pdf used on input line 845.
 (pdftex.def)             Requested size: 224.2479pt x 224.25192pt.
  [19 <./figure/k21-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 858.
+Package xcolor Warning: Incompatible color definition on input line 854.
 
 [20 <./figure/k22-1.pdf>] <Bear.jpg, id=154, 803.0pt x 602.25pt>
 File: Bear.jpg Graphic file (type jpg)
 
 <use Bear.jpg>
-Package pdftex.def Info: Bear.jpg used on input line 898.
+Package pdftex.def Info: Bear.jpg used on input line 894.
 (pdftex.def)             Requested size: 224.2479pt x 168.18774pt.
 
 
-Package xcolor Warning: Incompatible color definition on input line 904.
+Package xcolor Warning: Incompatible color definition on input line 900.
 
 
-Package xcolor Warning: Incompatible color definition on input line 917.
+Package xcolor Warning: Incompatible color definition on input line 913.
 
 [21 <./Bear.jpg>]
 
-Package xcolor Warning: Incompatible color definition on input line 943.
+Package xcolor Warning: Incompatible color definition on input line 939.
 
 
-Package xcolor Warning: Incompatible color definition on input line 956.
+Package xcolor Warning: Incompatible color definition on input line 952.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 968--969
+Underfull \hbox (badness 10000) in paragraph at lines 965--966
 
  []
 
 [22] [23]
-Underfull \hbox (badness 10000) in paragraph at lines 1053--1054
+Underfull \hbox (badness 10000) in paragraph at lines 1050--1051
 
  []
 
 [24] [25] [26] (./Prac_7.aux) ) 
 Here is how much of TeX's memory you used:
- 21091 strings out of 493089
- 414821 string characters out of 6134843
- 457170 words of memory out of 5000000
- 24189 multiletter control sequences out of 15000+600000
+ 22424 strings out of 493089
+ 433765 string characters out of 6134843
+ 477419 words of memory out of 5000000
+ 25510 multiletter control sequences out of 15000+600000
  21274 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,12n,54p,10395b,295s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1579,7 +1614,7 @@ texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/te
 xlive/2015/texmf-dist/fonts/type1/public/cm-super/sfti1728.pfb></usr/local/texl
 ive/2015/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texliv
 e/2015/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on Prac_7.pdf (26 pages, 2908702 bytes).
+Output written on Prac_7.pdf (26 pages, 2908487 bytes).
 PDF statistics:
  255 PDF objects out of 1000 (max. 8388607)
  186 compressed objects within 2 object streams

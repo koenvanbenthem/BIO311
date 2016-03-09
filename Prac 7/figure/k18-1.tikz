@@ -1,4 +1,4 @@
-% Created by tikzDevice version 0.9 on 2016-03-08 15:46:03
+% Created by tikzDevice version 0.9 on 2016-03-09 17:58:29
 % !TEX encoding = UTF-8 Unicode
 \documentclass{article}
 \nonstopmode
@@ -18,9 +18,6 @@
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-%\usepackage{fontspec}
-%\defaultfontfeatures{Mapping=tex-text} % converts LaTeX specials to Unicode
-  %! required fonts
 
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -31,7 +28,7 @@
 
 %\WarningFilter{mdframed}{You got a bad break}
 \usepackage[colorinlistoftodos]{todonotes}
-%\usepackage{listings}
+\usepackage{listings}
 %\usepackage{listingsutf8}
 \usepackage{color}
 \colorlet{exampcol}{blue!10}

@@ -50,9 +50,6 @@
 \usepackage{alltt}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-%\usepackage{fontspec}
-%\defaultfontfeatures{Mapping=tex-text} % converts LaTeX specials to Unicode
-  %! required fonts
 
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -63,7 +60,7 @@
 
 %\WarningFilter{mdframed}{You got a bad break}
 \usepackage[colorinlistoftodos]{todonotes}
-%\usepackage{listings}
+\usepackage{listings}
 %\usepackage{listingsutf8}
 \usepackage{color}
 \colorlet{exampcol}{blue!10}
@@ -91,7 +88,7 @@
 
 
 \section{Discrete Population Growth}
-The botanical garden created a new pond in $2009$ and introduced one plant of pond-lily. This population produces offspring each spring and grows at a discret growth factor $\lambda$ of $3$, $N_t=N_0\lambda ^t$ : after the first year, there were three individuals; $3=1 \cdot (3)^1$, by the second year the botanical garden had six more and in 2013, the total population size was $81$.
+The botanical garden created a new pond in $2009$ and introduced one plant of pond-lily. This population produces offspring each spring and grows with a discrete growth factor $\lambda$ of $3$, $N_t=N_0\lambda ^t$ : after the first year, there were three individuals; $3=1 \cdot (3)^1$, by the second year the botanical garden had six more and in 2013, the total population size was $81$.
 
 \vspace{1.5ex}
 
@@ -106,17 +103,16 @@ Let us look at the evolution of population size over time. First we define the v
 \begin{alltt}
 \hlstd{N0} \hlkwb{<-} \hlnum{1}
 \hlstd{lambda} \hlkwb{<-} \hlnum{3}
-\hlstd{t}\hlkwb{<-}\hlnum{0}\hlopt{:}\hlnum{4}
+\hlstd{t} \hlkwb{<-} \hlnum{0}\hlopt{:}\hlnum{4}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-Then we get the population size over time and we plot this in a graph. The code \texttt{axis} sets the label below the x-axis to be $2009$, $2010$, $2011$, $2012$, $2013$. The \textasciicircum  \; sign means \textquotedblleft
-raise at the power\textquotedblright.
+Now, we get the population size over time and we plot this in a graph. The code \texttt{axis} sets the label below the x-axis to be $2009$, $2010$, $2011$, $2012$, $2013$. The \textasciicircum  \; sign means \textquotedblleft raise at the power\textquotedblright.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{Nt}\hlkwb{<-}\hlstd{N0}\hlopt{*}\hlstd{(lambda)}\hlopt{^}\hlstd{t}
-\hlkwd{plot}\hlstd{(t, Nt,}\hlkwc{xlab}\hlstd{=}\hlstr{"time"}\hlstd{,} \hlkwc{ylab}\hlstd{=}\hlstr{"N"}\hlstd{,} \hlkwc{xaxt} \hlstd{=} \hlstr{"n"}\hlstd{)}
+\hlstd{Nt} \hlkwb{<-} \hlstd{N0}\hlopt{*}\hlstd{(lambda)}\hlopt{^}\hlstd{t}
+\hlkwd{plot}\hlstd{(t, Nt,} \hlkwc{xlab}\hlstd{=}\hlstr{"time"}\hlstd{,} \hlkwc{ylab}\hlstd{=}\hlstr{"N"}\hlstd{,} \hlkwc{xaxt} \hlstd{=} \hlstr{"n"}\hlstd{)}
 \hlkwd{axis}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwc{at}\hlstd{=}\hlnum{0}\hlopt{:}\hlnum{4}\hlstd{,} \hlkwc{labels}\hlstd{=}\hlnum{2009}\hlopt{:}\hlnum{2013}\hlstd{)}
 \end{alltt}
 \end{kframe}
@@ -124,15 +120,13 @@ raise at the power\textquotedblright.
 Change the initial population size to $100$. What happens if $\lambda<1$ and $\lambda=1$? Remember that $\lambda$ can only be a positive number. Try plotting $\lambda<0$ and explain why the behaviour in this graph is not very likely to occur in reality. 
 
 
- \textit{Hint} Use \texttt{par(mfrow)} function from the previous lab to see all your graphs in the same window. If you do not remember how to use this function, type ?\texttt{par} for help. 
-
-
+ \textit{Hint} Use \texttt{par(mfrow=...)} to see all your graphs in the same window. If you do not remember how to use this function, type ?\texttt{par} for help. 
 
 The botanical garden is curious to know how this pond-lily will do $10$ years from now. Change the time parameter in the former code to project the population in the future. 
 
 \section{Average Growth Rate}
 
-In nature, population growth rates between different year are rarely identical. Let us examine a hypothetical population of crocodile in Egypte. The annual growth rate ($R$) of that population has varies from year to year. For example between 2009 and 2013; $R_{2009}=1$, $R_{2010}=0.9$, $R_{2011}=0.7$, $R_{2012}=1.4$. In that case, to get the finite growth rate, we need to take the average over the years. 
+In nature, population growth rates between different year are rarely identical. Let us examine a hypothetical population of crocodiles in Egypte. The annual growth rate ($R$) of that population has varies from year to year. For example between 2009 and 2013; $R_{2009}=1$, $R_{2010}=0.9$, $R_{2011}=0.7$, $R_{2012}=1.4$. In that case, to get the finite growth rate, we need to take the average over the years. 
 \vspace{1.5ex}
 \begin{center}
 \includegraphics[width=0.5\textwidth]{crocodile.jpg}
@@ -142,34 +136,34 @@ In nature, population growth rates between different year are rarely identical. 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{R}\hlkwb{<-}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{0.9}\hlstd{,} \hlnum{0.7}\hlstd{,} \hlnum{1.4}\hlstd{)}
-\hlstd{Rari}\hlkwb{<-}\hlkwd{sum}\hlstd{(R)}\hlopt{/}\hlnum{4}
+\hlstd{R} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{0.9}\hlstd{,} \hlnum{0.7}\hlstd{,} \hlnum{1.4}\hlstd{)}
+\hlstd{Rari} \hlkwb{<-} \hlkwd{sum}\hlstd{(R)} \hlopt{/} \hlnum{4}
 \hlstd{Rari}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 
-\noindent The Arithmetic average here is 1 so you would expect a population with this growth rate to remain constant. But let us check what is happenning:
+\noindent The Arithmetic average here is 1 so you would expect a population with this growth rate to remain constant. Check what is happenning:
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{R2009}\hlkwb{<-}\hlnum{1}
-\hlstd{N0}\hlkwb{<-}\hlnum{100}
-\hlstd{N1}\hlkwb{<-}\hlstd{R2009}\hlopt{*}\hlstd{N0}
+\hlstd{N2009}\hlkwb{<-}\hlnum{100}
+\hlstd{N2010}\hlkwb{<-}\hlstd{R2009}\hlopt{*}\hlstd{N2009}
 
 \hlstd{R2010}\hlkwb{<-}\hlnum{0.9}
-\hlstd{N2}\hlkwb{<-}\hlstd{R2010}\hlopt{*}\hlstd{N1}
+\hlstd{N2011}\hlkwb{<-}\hlstd{R2010}\hlopt{*}\hlstd{N2010}
 
 \hlstd{R2011}\hlkwb{<-}\hlnum{0.7}
-\hlstd{N3}\hlkwb{<-}\hlstd{R2011}\hlopt{*}\hlstd{N2}
+\hlstd{N2012}\hlkwb{<-}\hlstd{R2011}\hlopt{*}\hlstd{N2011}
 
 \hlstd{R2012}\hlkwb{<-}\hlnum{1.4}
-\hlstd{N4}\hlkwb{<-}\hlstd{R2012}\hlopt{*}\hlstd{N3}
+\hlstd{N2013}\hlkwb{<-}\hlstd{R2012}\hlopt{*}\hlstd{N2012}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-\noindent What is the population size in 2010, 2011, 2012 and 2013? Is your population constant as you would expect from a population with a growth rate of 1?
+\noindent What is the population size in 2010, 2011, 2012 and 2013? Is your population constant on the long term as you would expect from a population with a growth rate of 1?
 
 \noindent There is obviously something wrong with the arithmetic average. This is because with $\lambda$ we are multiplying the R with each other: $N_4=R_{2009} \cdot R_{2010} \cdot R_{2011} \cdot R_{2012} \cdot N_0$. Instead of the arithmetic average, we need a average such that
 \begin{equation}
@@ -191,13 +185,13 @@ Which can be simplified as
 \begin{equation}
 \bar R=\sqrt[t]{\frac{N_{t}}{N_{0}}}.
 \end{equation}
-where $t$ is the last time step.
+where $t$ is the last time step. Calculate the geometric mean, does this value make more sens than the arithmetric mean that we calculated before? 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%% CONT. GROWTH
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Continous Population Growth}
-So far, we looked at discrete population growth. This type of growth is suitable for describing the growth of populations which reproduce punctually, for example during one annual breeding period. To describe the growth of population such as bacteria, or humans, a continuous growth model is more appropriate. Instead of having a population punctually increasing with time, the population now is constantly growing by an infinitesimally small change in population size. The change in population size over time is thus a constant ($r$) times the population size:
+So far, we looked at discrete population growth. This type of growth is suitable for describing the growth of populations which reproduce punctually, for example during one annual breeding period. To describe the growth of population such as bacteria, or humans, a continuous growth model is more appropriate. Instead of having a population punctually increasing with time, the population is constantly growing by an infinitesimally small change in population size. The change in population size over time is thus a constant ($r$) times the population size:
 \begin{equation}
 \frac{dN}{dt} = r\cdot N
 \end{equation}
@@ -218,7 +212,7 @@ To project this population with equation \ref{eqdiff}, we need the function \tex
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlkwd{exp}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{))}
+\hlkwd{exp}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{2}\hlstd{))}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -226,10 +220,10 @@ The next step is to set the initial values of the UK rabbit population and write
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{N0}\hlkwb{<-} \hlcom{#insert initial value here}
-\hlstd{r}\hlkwb{<-}  \hlcom{#insert instantaneous rate of increase here }
-\hlstd{t}\hlkwb{<-}\hlnum{0}\hlopt{:}\hlnum{10}
-\hlstd{Nt}\hlkwb{<-}\hlstd{N0}\hlopt{*}\hlkwd{exp}\hlstd{(r}\hlopt{*}\hlstd{t)}
+\hlstd{N0} \hlkwb{<-} \hlcom{#insert initial value here}
+\hlstd{r} \hlkwb{<-}  \hlcom{#insert instantaneous rate of increase here }
+\hlstd{t} \hlkwb{<-} \hlnum{0}\hlopt{:}\hlnum{10}
+\hlstd{Nt} \hlkwb{<-} \hlstd{...}\hlopt{*}\hlkwd{exp}\hlstd{(...)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -283,7 +277,7 @@ You can use \texttt{R} as a calculator to find the value of $t_{double}$ from th
 Even before a full year has passed, the population has already double in size.
 \end{Answer}
 
-\subsection{What is the link between continuous and discrete population growth?}
+\subsection{The link between continuous and discrete population growth}
 Both the continuous and the discrete population growth describe the population size in the future, but what is the link between them?
 Let us state each equation again:
 
@@ -311,15 +305,13 @@ Solving for $\lambda$ we get:
 \lambda =e^{r}
 \end{equation}
 
-This means that if you have $\lambda$, the finite rate of increase, you can get $r$ the instantaneous growth rate.
+This means that if you have $\lambda$, the finite rate of increase, you can calculate the instantaneous growth rate ($r$).
 
 \section{Data Fitting}
 So far, we have worked on simulated data. In this section we will work on real biological data. We will extract key population growth parameters and plot the data assuming 1) density-independence, 2) unlimited resources, 3) no environmental stochasticity and 4) no demographic stochasticity. The data you collected in the lab on the rotifer is not well suited for the type of population model that we covered during this practical.
 
 
-Instead, we will examine the variation of a beaver population from Alberta, Canada from 1919 to 1981. The data is from \texttt{NERC Centre for Population Biology, Imperial College (1999) The Global Population Dynamics} 
-
-\texttt{Database. http://www.sw.ic.ac.uk/cpb/cpb/gpdd.html} and was published in \textit{Furbearer harvests in North America, 1600-1984} by Novak, M., Obbard, M., Jones, J., Newman, R., Booth, A., Satterthwaite, A. \& Linscombe, G. in 1987.  
+Instead, we will examine the variation of a beaver population from Alberta, Canada from 1919 to 1981. The data is from \texttt{NERC Centre for Population Biology, Imperial College (1999) The Global Population Dynamics Database. http://www.sw.ic.ac.uk/cpb/cpb/gpdd.html} and was published in \textit{Furbearer harvests in North America, 1600-1984} by Novak, M., Obbard, M., Jones, J., Newman, R., Booth, A., Satterthwaite, A. \& Linscombe, G. in 1987.  
 \vspace{1.5ex}
 \begin{center}
 \includegraphics[height=0.35\textwidth]{Beaver.jpg}\includegraphics[height=0.35\textwidth]{Alberta.jpg}
@@ -331,7 +323,7 @@ First you need to take the \texttt{beaver\textunderscore pop.cvs} file and put i
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlkwd{setwd}\hlstd{(}\hlstr{"C://Desktop//Pop_Ecol"}\hlstd{)}
+\hlkwd{setwd}\hlstd{(}\hlstr{"C:/Desktop/Pop_Ecol"}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -339,7 +331,7 @@ First you need to take the \texttt{beaver\textunderscore pop.cvs} file and put i
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{Bea}\hlkwb{<-}\hlkwd{read.csv}\hlstd{(}\hlstr{"beaver_pop.csv"}\hlstd{,} \hlkwc{sep}\hlstd{=}\hlstr{";"}\hlstd{,} \hlkwc{header}\hlstd{=T)}
+\hlstd{Bea} \hlkwb{<-} \hlkwd{read.csv}\hlstd{(}\hlstr{"beaver_pop.csv"}\hlstd{,} \hlkwc{sep}\hlstd{=}\hlstr{";"}\hlstd{,} \hlkwc{header}\hlstd{=T)}
 \hlkwd{head}\hlstd{(Bea)}
 \hlkwd{str}\hlstd{(Bea)}
 \end{alltt}
@@ -352,15 +344,13 @@ The next step is to plot your data. Try to play around with the value of \texttt
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{options}\hlstd{(}\hlkwc{scipen}\hlstd{=}\hlnum{10}\hlstd{)}
-\hlkwd{plot}\hlstd{(Bea}\hlopt{$}\hlstd{Year,Bea}\hlopt{$}\hlstd{Population,} \hlkwc{xlab}\hlstd{=}\hlstr{"year"}\hlstd{,} \hlkwc{ylab}\hlstd{=}\hlstr{"N"}\hlstd{)}
+\hlkwd{plot}\hlstd{(Bea}\hlopt{$}\hlstd{Year, Bea}\hlopt{$}\hlstd{Population,} \hlkwc{xlab}\hlstd{=}\hlstr{"year"}\hlstd{,} \hlkwc{ylab}\hlstd{=}\hlstr{"N"}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 It looks like this population may be decribed by an exponential function! 
 \subsection{From the graph}
-Let us try to find back the population parameters from the graph. To do so, we plot the natural logarithm of the population to see if there may be a linear relationship.
-
-
+Let us try to find correct model parameters from the graph. To do so, we plot the natural logarithm of the population to see if there may be a linear relationship.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -373,7 +363,7 @@ Remember that the straight line of the plot of the natural logarithm of the popu
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{reg1} \hlkwb{<-} \hlkwd{lm}\hlstd{(}\hlkwd{log}\hlstd{(Bea}\hlopt{$}\hlstd{Population)}\hlopt{~}\hlstd{Bea}\hlopt{$}\hlstd{Year)}
+\hlstd{reg1} \hlkwb{<-} \hlkwd{lm}\hlstd{(}\hlkwd{log}\hlstd{(Bea}\hlopt{$}\hlstd{Population)} \hlopt{~} \hlstd{Bea}\hlopt{$}\hlstd{Year)}
 \hlstd{reg1} \hlcom{# Use this to take a look at reg1}
 \end{alltt}
 \end{kframe}
@@ -386,23 +376,29 @@ And then we add the regression line on the graph.
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-By running \texttt{reg1}, you see the outcome of the regression line. You get two coefficients; the intercept ($b$) and the slope ($a$, the value below \texttt{Bea\$Year}). These are the two values we want to find our exponential growth equation for this population. Why is that? This is because we have now an equation of the form $\ln(N)=at+b$. Solving for N, we need to take the exponential on both sides of the equation which gives us $N=e^{at+b}$. This can also be writen as $N=e^b\cdot e^{at}$. If we compare this to equation \ref{eqdiff}, we see that $e^b$ should be $N_0$ (the value of $N$ at $t=0$) and $a$ should equal $r$.
+By running \texttt{reg1}, you see the outcome of the regression line. You get two coefficients; the intercept ($b$) and the slope ($a$, the value below \texttt{Bea\$Year}). These are the two values we want to find our exponential growth equation for this population.We have now an equation of the form 
+\begin{equation}
+\ln(N)=at+b
+\end{equation}
+Solving for N, we need to take the exponential on both sides of the equation which gives us $N=e^{at+b}$. This can also be writen as $N=e^b\cdot e^{at}$. Compare this to equation \ref{eqdiff}, and find $N_0$ and $r$.
 
-Why is the initial population size for this equation not $5685$, the population size in 1919? Because in the linear regression function, we stated that the initial year is year 0, and not 1919, the year at which the first data point for this population has been collected. So in fact our intercept gives us the size of this population in year 0.
+Why is the initial population size for this equation not close to $5685$, the population size in 1919? 
+%Because in the linear regression function, we stated that the initial year is year 0, and not 1919, the year at which the first data point for this population has been collected. So in fact our intercept gives us the size of this population in the year 0.
 
 So we have found the values of the function:
 \begin{equation}
 N_t=N_{0}e^{rt}
 \end{equation}
 
-
-Let us now find the population size that would be predicted by the intercept and the slope we extracted from the linear regression. Try to understand what the command \texttt{reg1\$coef[[1]]} does. 
+Let us now find the population size that would be predicted by the intercept and the slope we extracted from the linear regression. For this, use the commands \texttt{reg1\$coef[[1]]} and \texttt{reg1\$coef[[2]]}. 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{Bea}\hlopt{$}\hlstd{sim}\hlkwb{<-}\hlkwd{exp}\hlstd{( reg1}\hlopt{$}\hlstd{coef[[}\hlnum{1}\hlstd{]])}\hlopt{*}\hlkwd{exp}\hlstd{( reg1}\hlopt{$}\hlstd{coef[[}\hlnum{2}\hlstd{]]}\hlopt{*}\hlstd{(Bea}\hlopt{$}\hlstd{Year))}
+\hlstd{Bea}\hlopt{$}\hlstd{sim} \hlkwb{<-} \hlstd{...} \hlopt{*} \hlkwd{exp}\hlstd{(...} \hlopt{*} \hlstd{(Bea}\hlopt{$}\hlstd{Year))}
 \end{alltt}
-\end{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): '...' used in an incorrect context}}\end{kframe}
 \end{knitrout}
 And plot it on the same graph as the original population. 
 \begin{knitrout}
@@ -413,10 +409,10 @@ And plot it on the same graph as the original population.
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-The fit is actually not bad at all. 
+The fit is actually not bad at all!
 
 \begin{Exercise}[title=fitting data from graph, label=fd, difficulty=2]
-As an exercise, write down on a piece of paper the exponential growth equation of this beaver population with the parameter values. Knowing the relationship between the finite rate of increase $\lambda$ and the instantenous growth rate $r$, find $\lambda$ and write the discrete population growth equation. 
+As an exercise, write down the exponential growth equation of this beaver population with the parameter values. Knowing the relationship between the finite rate of increase $\lambda$ and the instantenous growth rate $r$, find $\lambda$ and write the discrete population growth equation down. 
 
 Show your equations to one of the instructors.
 \end{Exercise}
@@ -437,18 +433,17 @@ $N_t=e^{\ensuremath{-100.248}}\cdot e^{0.056t}$
 $\lambda=1.058$
 
 $N_t=e^{\ensuremath{-100.248}}\cdot 1.058^t$
-
 \end{Answer}
-\subsection{From the average growth rate}
+\subsection{More about the average growth rate}
 
-An alternative to find the function describing the growth of this population is to go from the average growth rate which we will call $R$. In the section \textit{Average growth rate}, we showed that the average growth rate is given by $R=\sqrt[t]{\frac{N_t}{N_0}}$. The code \texttt{length} gives the number of elements of the object it is applied to. We take the length of our population variable $-1$ because among $n$ points, there is always $n-1$ transitions. Run separately the different parts of the code below to find out what they do.
+An alternative to find the function describing the growth of this population is to go from the average growth rate which we will call $R$. In the section \textit{Average growth rate}, we showed that the average growth rate is given by $R=\sqrt[t]{\frac{N_t}{N_0}}$. The code \texttt{length} gives the number of elements of the object it is applied to. We take the length of our population variable $-1$ because among $n$ points, there are always $n-1$ transitions. Run separately the different parts of the code below to find out what they do.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{N0}\hlkwb{<-}\hlstd{Bea}\hlopt{$}\hlstd{Population[}\hlnum{1}\hlstd{]}
-\hlstd{Nt}\hlkwb{<-}\hlstd{Bea}\hlopt{$}\hlstd{Population[}\hlkwd{length}\hlstd{(Bea}\hlopt{$}\hlstd{Population)]}
+\hlstd{N0} \hlkwb{<-} \hlstd{Bea}\hlopt{$}\hlstd{Population[}\hlnum{1}\hlstd{]}
+\hlstd{Nt} \hlkwb{<-} \hlstd{Bea}\hlopt{$}\hlstd{Population[}\hlkwd{length}\hlstd{(Bea}\hlopt{$}\hlstd{Population)]}
 
-\hlstd{lambda}\hlkwb{<-}\hlstd{(Nt}\hlopt{/}\hlstd{N0)}\hlopt{^}\hlstd{(}\hlnum{1}\hlopt{/}\hlstd{(}\hlkwd{length}\hlstd{(Bea}\hlopt{$}\hlstd{Population)}\hlopt{-}\hlnum{1}\hlstd{))}
+\hlstd{lambda} \hlkwb{<-} \hlstd{(Nt} \hlopt{/} \hlstd{N0)} \hlopt{^} \hlstd{(}\hlnum{1} \hlopt{/} \hlstd{(}\hlkwd{length}\hlstd{(Bea}\hlopt{$}\hlstd{Population)} \hlopt{-} \hlnum{1}\hlstd{))}
 \hlstd{lambda}
 \end{alltt}
 \end{kframe}
@@ -495,7 +490,7 @@ Let us compare the two curves we got with the different value of $\lambda$. For 
 \end{kframe}
 \end{knitrout}
 
-You can see that the two curves are not identical. This is because of the method we used to estimate $\lambda$. The curve from the linear regression is a fit. The average distance between the data points and the line is minimized. You can see that the curve neither starts nor ends at one of the data points. However the curve obtained from the average growth rate is a mean and does starts at the first data point and ends on the last data point of the serie. To convince you of this, let us repeat both analyses on a subset of the dataset where the last three points are excluded. 
+You can see that the two curves are not identical. This is because of the methods we used to estimate $\lambda$. The curve from the linear regression is a fit. The average distance between the data points and the line is minimized. You can see that the curve neither starts nor ends at one of the data points. However the curve obtained from the average growth rate is a mean and does starts at the first data point and ends on the last data point of the serie. To convince you of this, let us repeat both analyses on a subset of the dataset where the last three points are excluded. 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -541,7 +536,7 @@ You can see that the two curves are not identical. This is because of the method
 
 
 \end{knitrout}
-When the last three points have been removed, the last point is of a particularily low value. You can see in this case that the $\lambda$ from the average growth rate causes the projected population to be far from the actual population trajectory because the curve goes through both the first and the last point. In contrast, the two curves issued from the projections from the $\lambda$ from the linear regressions are not very different from each other. The last and first data points have much less influence on their behaviour. 
+When the last three points have been removed, the last point is a particularily low value. You can see in this case that the $\lambda$ from the average growth rate causes the projected population to be far from the actual population trajectory because the curve goes through both the first and the last point. In contrast, the two curves issued from the projections from the $\lambda$ from the linear regressions are not very different from each other. The last and first data points have much less influence on their behaviour. 
 
 
 
@@ -612,10 +607,10 @@ Now we will calculate the values of $N$ at these times. To do so we need the fun
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{K}\hlkwb{<-}     \hlcom{# Input your value of K here}
-\hlstd{rmax}\hlkwb{<-}  \hlcom{# Input the value of rmax here}
-\hlstd{N0}\hlkwb{<-}\hlnum{300}
-\hlstd{N}\hlkwb{<-}\hlstd{K}\hlopt{/}\hlstd{(}\hlnum{1}\hlopt{+}\hlstd{((K}\hlopt{-}\hlstd{N0)}\hlopt{/}\hlstd{N0)}\hlopt{*}\hlkwd{exp}\hlstd{(}\hlopt{-}\hlstd{rmax}\hlopt{*}\hlstd{time))}
+\hlstd{K} \hlkwb{<-}     \hlcom{# Input your value of K here}
+\hlstd{rmax} \hlkwb{<-}  \hlcom{# Input the value of rmax here}
+\hlstd{N0} \hlkwb{<-} \hlnum{300}
+\hlstd{N} \hlkwb{<-} \hlstd{K} \hlopt{/} \hlstd{(}\hlnum{1} \hlopt{+} \hlstd{((K} \hlopt{-} \hlstd{N0)} \hlopt{/} \hlstd{N0)} \hlopt{*} \hlkwd{exp}\hlstd{(}\hlopt{-}\hlstd{rmax} \hlopt{*} \hlstd{time))}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -624,7 +619,7 @@ Now we plot the behaviour of $N$ against time:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlkwd{plot}\hlstd{(time,N,}\hlkwc{ylab}\hlstd{=}\hlstr{"N"}\hlstd{,}\hlkwc{xlab}\hlstd{=}\hlstr{"t"}\hlstd{,}\hlkwc{type}\hlstd{=}\hlstr{"l"}\hlstd{,}\hlkwc{ylim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{200}\hlstd{,}\hlnum{500}\hlstd{))}
+\hlkwd{plot}\hlstd{(time, N,} \hlkwc{ylab}\hlstd{=}\hlstr{"N"}\hlstd{,} \hlkwc{xlab}\hlstd{=}\hlstr{"t"}\hlstd{,} \hlkwc{type}\hlstd{=}\hlstr{"l"}\hlstd{,} \hlkwc{ylim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{200}\hlstd{,}\hlnum{500}\hlstd{))}
 \end{alltt}
 \end{kframe}
 \includegraphics[width=\maxwidth]{figure/k9-1} 
@@ -640,11 +635,11 @@ Now change one of the parameters ($K,r_{max},N0$) and calculate the new values f
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-Now change $r_{max}$ and $K$ and see how they influence the behaviour of the population. \textbf{If you want to compare the changed situation to the original one, do not forget to set $N_0$ back at its original value.} What do the different parameters ($N_0,r_{max}, K$) determine? What happens if $K<N_0$? And what do you see if $N_0 < \frac{K}{2}$? \textit{Make sure to adjust the parameter} \texttt{ylim} \textit{in your plot if necessary.}
+Now change $r_{max}$ and $K$ and see how they influence the behaviour of the population. \textbf{If you want to compare the changed situation to the original one, do not forget to set $N_0$ back at its original value. You may consider writing a function that returns N.} What do the different parameters ($N_0,r_{max}, K$) determine? What happens if $K<N_0$? And what do you see if $N_0 < \frac{K}{2}$? \textit{Make sure to adjust the parameter} \texttt{ylim} \textit{in your plot if necessary.}
 
 We conclude this exercise on continuous logistic growth with a \textit{pen \& paper} exercise:
 \begin{Exercise}[title=Logistic Growth,label=kloge1,difficulty=2]
-\noindent In the lecture Madan talked about density dependent population growth. He showed that if the growth rate of the population depends linearly on the number of individuals, the following equation holds:
+\noindent In the lecture Arpat talked about density dependent population growth. He showed that if the growth rate of the population depends linearly on the number of individuals, the following equation holds:
 \begin{equation}
 \frac{dN}{dt} = r_{max} N \left( 1-\frac{N}{K}\right).
 \label{keq1}
@@ -699,14 +694,15 @@ Let us consider again the pond-lily example. The botanical garden decided to cre
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{N1}\hlkwb{<-}\hlnum{300}
-\hlstd{rd}\hlkwb{<-}\hlnum{0.2}
-\hlstd{K}\hlkwb{<-}\hlnum{400}
+\hlstd{N1} \hlkwb{<-} \hlnum{300}
+\hlstd{rd} \hlkwb{<-} \hlnum{0.2}
+\hlstd{K} \hlkwb{<-} \hlnum{400}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 Now from these numbers, calculate the population size at $t=2$ (that is, we want to calculate $N_2$). Now also calculate $N_3$ and $N_4$. The answers are shown below, so you can check them:\\
-$N_2 =  315.3813 $\\$N_3 =  329.0112 $\\$N_4 =  340.899 $
+$N_2 =  315.4 $\\$N_3 =  329 $\\$N_4 =  340.9 $
+
 If we want to know what the population size is at $t=100$, it is a bit inconvenient to manually calculate $N_2$ up to $N_{100}$ manually. So let's try to automatize that calculation. First we create a vector \texttt{N} with only zeros, in the end we will put the values of $N_1$ up to and including $N_{100}$ in this vector. Now create a vector with $100$ entries where every entry is zero. For this use the function \texttt{rep()}, if you do not know how this function works, use \texttt{?rep} to obtain more information on the function
 
 Verify that the vector indeed has the desired length and that it contains zeros: 
@@ -730,7 +726,7 @@ We already know the population size at the first position, so we can fill in the
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{N[}\hlnum{1}\hlstd{]}\hlkwb{<-}\hlnum{300}
+\hlstd{N[}\hlnum{1}\hlstd{]} \hlkwb{<-} \hlnum{300}
 
 \hlkwd{head}\hlstd{(N)}
 \end{alltt}
@@ -744,7 +740,7 @@ Now we need to calculate the other entries of \texttt{N}, to do so we use a \tex
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{2}\hlopt{:}\hlstd{..)\{}
-  \hlstd{N[i]}\hlkwb{<-}\hlstd{N[i}\hlopt{-}\hlstd{..]}\hlopt{*}\hlkwd{exp}\hlstd{(....)}
+  \hlstd{N[i]} \hlkwb{<-} \hlstd{N[i}\hlopt{-}\hlstd{..]} \hlopt{*} \hlkwd{exp}\hlstd{(....)}
 \hlstd{\}}
 \end{alltt}
 \end{kframe}
@@ -781,8 +777,8 @@ In order to incorporate this, we need random numbers. In \texttt{R} functions ar
 \hlkwd{runif}\hlstd{(}\hlnum{7}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.81439892 0.14194290 0.41305154 0.85570984 0.31290106
-## [6] 0.01226735 0.93431607
+## [1] 0.92412566 0.19732202 0.03742861 0.41902651 0.12370917
+## [6] 0.33651646 0.41878251
 \end{verbatim}
 \begin{alltt}
 \hlkwd{hist}\hlstd{(}\hlkwd{runif}\hlstd{(}\hlnum{10000}\hlstd{),}\hlkwc{n}\hlstd{=}\hlnum{20}\hlstd{,}\hlkwc{main}\hlstd{=}\hlstr{""}\hlstd{,}
@@ -903,7 +899,7 @@ First we take a look at the individual. So how do we decide whether it survives 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{a}\hlkwb{<-}\hlkwd{runif}\hlstd{(}\hlnum{1}\hlstd{)}
+\hlstd{a} \hlkwb{<-} \hlkwd{runif}\hlstd{(}\hlnum{1}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
 ## 0.7186776
@@ -916,50 +912,51 @@ We do not have $1$ individual, but we have $10$ individuals, so we need $10$ ran
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{a}\hlkwb{<-}\hlkwd{runif}\hlstd{(}\hlnum{10}\hlstd{)}
+\hlstd{a} \hlkwb{<-} \hlkwd{runif}\hlstd{(}\hlnum{10}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
 ##  [1] 0.02316389 0.90885056 0.71608529 0.23073700 0.74916228
 ##  [6] 0.88252136 0.67751503 0.38407123 0.79324897 0.45452743
 \end{verbatim}
 \begin{alltt}
-\hlstd{a}\hlopt{<}\hlnum{0.6}
+\hlstd{a} \hlopt{<} \hlnum{0.6}
 \end{alltt}
 \begin{verbatim}
 ##  [1]  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE
 ## [10]  TRUE
 \end{verbatim}
 \begin{alltt}
-\hlkwd{sum}\hlstd{(a}\hlopt{<}\hlnum{0.6}\hlstd{)}
+\hlkwd{sum}\hlstd{(a} \hlopt{<} \hlnum{0.6}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
 ## [1] 4
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-Here we have used that \texttt{sum(a<0.6)} counts the number of times that \texttt{a<0.6} contains the value \texttt{TRUE}.
+Here we have used that \texttt{sum(a < 0.6)} counts the number of times that \texttt{a < 0.6} contains the value \texttt{TRUE}.
 The proportion of surviving individuals is thus not $0.6$, but instead:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlkwd{sum}\hlstd{(a}\hlopt{<}\hlnum{0.6}\hlstd{)}\hlopt{/}\hlnum{10}
+\hlkwd{sum}\hlstd{(a} \hlopt{<} \hlnum{0.6}\hlstd{)} \hlopt{/} \hlnum{10}
 \end{alltt}
 \begin{verbatim}
 ## [1] 0.4
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-Note that the reason for this is not that the chances of survival are different, over time, but instead that this year more individuals were unlucky and as a result of that died
+Note that the reason for this is not that the chances of survival are different, over time, but instead that this year more individuals were unlucky and as a result of that died. Hence, this is demographic stochasticity and not environmental stochasticity.
 
 To summarise this code, we can find the proportion of surviving individuals as follows:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlkwd{sum}\hlstd{(}\hlkwd{runif}\hlstd{(}\hlnum{10}\hlstd{)}\hlopt{<}\hlnum{0.6}\hlstd{)}\hlopt{/}\hlnum{10}
+\hlkwd{sum}\hlstd{(} \hlkwd{runif}\hlstd{(}\hlnum{10}\hlstd{)} \hlopt{<} \hlnum{0.6}\hlstd{)} \hlopt{/} \hlnum{10}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-What happens to this proportion when the number of individuals increases? (assume that the chance of survival remains constant) .
+What happens to this proportion when the number of individuals increases? (assume that the chance of survival remains constant).
+
 \section{Additional Exercise}
 \textbf{This exercise is extra!\\}
 In case you finish the exercises fast and don't want to go home yet: can you adapt the discrete logistic growth model to incorporate a delayed density effect? (try it first without the stochasticity, then you can include the stochasticity on $r$ and $K$.)
