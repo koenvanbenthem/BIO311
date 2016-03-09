@@ -64,7 +64,7 @@ setwd("C:/Desktop/Pop_Ecol")
 \subsection{Step 2: Load your dataset}
 The next step is loading your dataset into \texttt{R}. The line of code below shows how to read your dataset if it is saved as \texttt{'rotifer\textunderscore data.csv'} file seperated with ",". The dataset must be in the working directory you specified above otherwise this command won't work.
 <<DS>>=
-rot<-read.csv("rotifer_data.csv", sep=",", header=T)
+rot <- read.csv("rotifer_data.csv", sep=",", header=T)
 @
 \subsection{Step 3: Check your data}
 \subsubsection{Initial overview}
@@ -83,7 +83,7 @@ table(rot$Population)
 @
 You will notice that the post pollution populations are indicated with either \texttt{Postpollution} or \texttt{Post-pollution}. This will be very inconvenient in the further analysis. Correct this as follows:
 <<typos2,eval=TRUE>>=
-rot$Population[rot$Population=="Post-pollution"]<-"Postpollution"
+rot$Population[rot$Population=="Post-pollution"] <- "Postpollution"
 @
 What happens here is that we first select the column \texttt{Population} by typing \texttt{rot\$Population}. Next, the square brackets indicate that we are only interested in a part of the contents of that column. The part that we are interested in, are the entries that have the value \texttt{"Post-pollution"}. Precisely these elements are selected by \texttt{rot\$Population[rot\$Population=="Post-pollution"]}. Subsequently these elements are replaced by the properly spelled version by the command \texttt{<-"Postpollution"}. Now we check whether the problem is solved:
 <<typos3,eval=T>>=
@@ -97,7 +97,7 @@ Repeat these steps now for the \texttt{Copper} column, and correct any typos you
 \subsubsection{Average values per type}
 So far we have looked at a set of summary statistics for the \texttt{rot} dataframe. These statistics were however all calculated for the full dataset, regardless of the parameters. In reality we would like to show such statistics per type (that is unique combination of \texttt{Population}, \texttt{Copper} and \texttt{Day}). Below we use the \texttt{aggregate()} function to calculate the mean number of alive juveniles for unique combinations of \texttt{Copper} and \texttt{Population}. Please extend this code to also account for the different days.
 <<agg1,out.width='0.65\\textwidth'>>=
-aggregate(rot$Alive_Juv,by=list(rot$Population,rot$Copper),mean)
+aggregate(rot$Alive_Juv,by=list(rot$Population, rot$Copper), mean)
 @
 Now repeat this procedure to also calculate the average number of alive adults per \texttt{Population}, \texttt{Copper}-treatment and \texttt{Day}.
 
@@ -114,50 +114,49 @@ However, if we call the function like this, \texttt{R} wil automatically set the
 We will focus first on the populations with the low copper treatment. For simplicity we will only look at the total population numbers. Start by making an empty plot with the correct labels then draw the axes in this plot. Later we will lines add lines to this plot:
 <<gp1,eval=FALSE>>=
 
-plot(0,0,type="n",xlab="Day",
+plot(0, 0, type="n", xlab="Day",
      ylab="Total population size",
      main="Low copper treatment",
-     axes=FALSE,xlim=c(1,3),ylim=c(0,30))
-axis(side=1,at=c(1,2,3))
-axis(side=2, at=c(0,5,10,15,20,25,30))
+     axes=FALSE, xlim=c(1, 3), ylim=c(0, 30))
+axis(side=1, at=c(1, 2, 3))
+axis(side=2, at=c(0, 5, 10, 15, 20, 25, 30))
 @
 Now we need to prepare the data that we are interested in. First we use the \texttt{factor()} function in the beginning to make sure that the variable \texttt{Population} will be plot in the correct order. Furthermore we add a new variable \texttt{Total} that corresponds to the total number of individuals (adults and juveniles).
 <<gp2,eval=T,results='hide'>>=
-rot$Population=factor(rot$Population, 
-                      levels=c('Commercial','Postpollution',
-                        'Recovery','Pollution'), ordered=T)
+rot$Population <- factor(rot$Population, 
+                      levels=c('Commercial', 'Postpollution',
+                        'Recovery', 'Pollution'), ordered=T)
 
 rot$Total <- rot$Alive_Juv + rot$Alive_Adult
 @
 To select only the low copper treatment entries, use the function \texttt{subset()} and store this part of the dataset in a new variable \texttt{temp}. Make sure you understand what this function does.
 <<gp3,eval=T,results='hide'>>=
-temp<-subset(rot,Copper=='low')
+temp <- subset(rot, Copper=='low')
 @
 Next use \texttt{aggregate()} to calculate the mean number of total individuals alive per day and population. Store this information in a variable named \texttt{Tot\textunderscore mean}. This should give you:
 \begin{center}
 <<gp4,eval=T,echo=F,results='asis'>>=
 library(xtable)
-Tot_mean<-aggregate(temp$Total,by=list(temp$Population,temp$Day),mean)
+Tot_mean <- aggregate(temp$Total, by=list(temp$Population, temp$Day), mean)
 print(xtable(Tot_mean, digits=2), 
-      size="footnotesize", #Change size; useful for bigger tables
-      include.rownames=FALSE, #Don't print rownames
-      include.colnames=TRUE, #We create them ourselves
+      size="footnotesize",  #Change size; useful for bigger tables
+      include.rownames=FALSE,  #Don't print rownames
+      include.colnames=TRUE,  #We create them ourselves
       floating=FALSE,
-      hline.after=0 #We don't need hline; we use booktabs
-    
-                        )
+      hline.after=0  #We don't need hline; we use booktabs
+      )
 @
 \end{center}
 Now we use the command \texttt{lines()} to add a line for the commercial populations to the empty plot:
 <<gp5,eval=T,echo=c(-1,-2,-3,-4),out.width='0.5\\textwidth',fig.align='center'>>=
 par(mar=c(6,6,2,2))
-plot(0,0,type="n",xlab="Day",
-     ylab="Avg population size",main="Low copper treatment",
-     axes=FALSE,xlim=c(1,3),ylim=c(0,30))
-axis(side=1,at=c(1,2,3))
-axis(side=2, at=c(0,5,10,15,20,25,30))
-temp2<-subset(Tot_mean,Group.1=="Commercial")
-lines(temp2$Group.2,temp2$x,col='red',pch=1,type="b")
+plot(0, 0, type="n", xlab="Day",
+     ylab="Avg population size", main="Low copper treatment",
+     axes=FALSE, xlim=c(1, 3), ylim=c(0, 30))
+axis(side=1, at=c(1, 2, 3))
+axis(side=2, at=c(0, 5, 10, 15, 20, 25, 30))
+temp2 <- subset(Tot_mean, Group.1=="Commercial")
+lines(temp2$Group.2, temp2$x, col='red', pch=1, type="b")
 @
 Use these methods to also add lines for the other populations.\\
 <<gp6,eval=T,echo=F,out.width='0.5\\textwidth',fig.align='center'>>=
@@ -193,7 +192,7 @@ lines(temp2$Group.2,temp2$x,col='green',pch=1,type="b")
 temp2<-subset(Tot_mean,Group.1=="Pollution")
 lines(temp2$Group.2,temp2$x,col='orange',pch=1,type="b")
 legend(x=1, y=24, col=c("red","blue","green","orange"),
-legend=c("Commercial","Postpollution","Recovery","Pollution"), 
+legend=c("Commercial", "Postpollution", "Recovery", "Pollution"), 
 lty=1, pch=1, bty="n")
 @
 Finally we would like to introduce error bars in this graph. To do so, we first define a function for calculating the standard error. The standard error ($SE$) is defined as the standard deviation ($sd$) divided by the square root of the number of measurements ($N$) that the mean depends on:
@@ -202,12 +201,52 @@ SE = \frac{\sigma}{\sqrt{N}}.
 \end{equation*}
 We use this property to define a new function that calculates the standard error:
 <<gp8,eval=TRUE>>=
-SE<-function(x) sd(x)/sqrt(length(x))
+SE <- function(x){
+  return(sd(x) / sqrt(length(x)))
+}
 @
+\begin{mdframed}
+\textbf{Extra: Functions} so far we have worked with variables that represent a value or set of values, for example \texttt{rot} is a variable that we have defined that contains our data. A function is in a sense a variable that does not contain values, but instead contains a set of tasks. When you call a variable, \texttt{R} will show the value of that variable. When you call a function, \texttt{R} will perform the set of tasks in that function.
+<<fnc1>>=
+x_sq <- function(x){
+  return(x^2)
+}
+x_sq(3)
+@
+Here we have first defined a function (\texttt{x\textunderscore sq}) that takes one input variable (\texttt{x}). This function returns the squared value of the input and we can call it by using \texttt{x\textunderscore sq(x)}. Similarly we can also make a function that adds up two numbers and returns the squared sum:
+<<fnc2>>=
+x_y_sq <- function(x,y){
+  ans <- x + y
+  return(ans^2)
+}
+x_y_sq(3, 4)
+@
+One important thing to realise is that things that happen in a function, usually stay in a function (there are ways around this, but in general it is good practice to keep it that way). This means that the tasks in the function are performed in their own 'world' and as soon as the function is executed, the changes are gone.
+<<fnc3>>=
+x_y_sq <- function(x,y){
+  ans <- x + y
+  return(ans^2)
+}
+x_y_sq(3, 4)
+ans
+@
+We now get an error, because \texttt{ans} only exists in the function and is deleted as soon as the function is completed. 
+<<fnc4>>=
+ans <- 4
+x_y_sq <- function(x,y){
+  ans <- x + y
+  return(ans^2)
+}
+x_y_sq(3, 4)
+@
+What will now be the value of \texttt{ans}?
+
+We have seen that we can not access the version of \texttt{ans} that 'lives' inside the function anymore, once the function has run. If you change anything in a function, you best return these changes to \texttt{R} at the end of the function using \texttt{return()}. Please note that when a function executes \texttt{return(x)}, \texttt{x} is given back to \texttt{R} and anything that comes after it will not be executed.
+\end{mdframed}
 If we now call \texttt{SE(x)}, it will return us the standard error of \texttt{x}. We use this function together with \texttt{aggregate} to calculate the standard errors for all our datapoints in the low copper treatment:
 \begin{center}
 <<gp9,eval=T,echo=c(1),results='asis'>>=
-SE_tot<-aggregate(temp$Total,by=list(temp$Population,temp$Day),SE)
+SE_tot <- aggregate(temp$Total, by=list(temp$Population, temp$Day), SE)
 print(xtable(SE_tot, digits=2), 
       size="footnotesize", #Change size; useful for bigger tables
       include.rownames=FALSE, #Don't print rownames
@@ -234,13 +273,13 @@ lines(temp2$Group.2,temp2$x,col='green',pch=1,type="b")
 temp2<-subset(Tot_mean,Group.1=="Pollution")
 lines(temp2$Group.2,temp2$x,col='orange',pch=1,type="b")
 legend(x=1, y=24, col=c("red","blue","green","orange"),legend=c("Commercial","Postpollution","Recovery","Pollution"), lty=1, pch=1, bty="n")
-temp2<-subset(Tot_mean,Group.1=="Commercial")
-temp3<-subset(SE_tot,Group.1=="Commercial")
-arrows(temp3$Group.2,temp2$x-temp3$x,temp3$Group.2,temp2$x+temp3$x,
-       angle=90,length=0.1,col='red',code=3)
+temp2 <- subset(Tot_mean, Group.1=="Commercial")
+temp3 <- subset(SE_tot, Group.1=="Commercial")
+arrows(temp3$Group.2, temp2$x-temp3$x, temp3$Group.2, temp2$x+temp3$x,
+       angle=90, length=0.1, col='red', code=3)
 @
-You will notice a warning message about zero-length arrows. What does this mean? Repeat this procedure to also include error bars for the other three lines. Can you now also generate the plots for the other two copper treatments? 
-<<gekkeplot,echo=FALSE,out.width='0.65\\textwidth',fig.align='center',warning=FALSE>>=
+You will notice a warning message about zero-length arrows. What does this mean? Repeat this procedure to also include error bars for the other three lines. Can you now also generate the plots for the other two copper treatments?
+<<gekkeplot,echo=FALSE,eval=FALSE,out.width='0.65\\textwidth',fig.align='center',warning=FALSE>>=
 RData<-rot
 RData$Copper=factor(RData$Copper,levels=c('low','medium','high'),ordered=T)
 RData$Population=factor(RData$Population, levels=c('Commercial','Postpollution','Recovery','Pollution'), ordered=T)
@@ -278,7 +317,7 @@ for(j in levels(together$RData.Copper)){
 @
 \begin{mdframed}
 \textit{The shortcut}\\
-First of all the code can be shortened by using for-loops, can you find two place where introducing a for-loop would make the code shorter? Besides, we are not the first people to deal with this problem: actually the sciplot package does all of this in a more or less automated way:
+First of all the code can be shortened by using for-loops, can you find two place where introducing a for-loop would make the code shorter? Alternatively, you could also write functions for parts of the code that you use frequently. We are not the first people to deal with this problem and the sciplot package already contains such a function:
 <<blabla,out.width='0.6\\textwidth',warning=FALSE,fig.align='center', echo=c(-1)>>=
 par(mar=c(6,6,2,2))
 library(sciplot)
@@ -288,6 +327,7 @@ lineplot.CI(temp$Day,temp$Total,
             xlab="Day",ylab="Total population size", 
             main="Low copper treatment")
 @
+Using functions from packages such as the one above is a great way to increase your coding speed: there are a lot of things that you don't have to type yourself anymore. This also comes with a cost however: you will generally have less flexibility, you don't know which steps happen behing the scenes and you depend on the coding skills of the people that wrote the package.
 \end{mdframed}
 \subsection{Saving your graph}
 If you want to save your graph, write the code in R following the instructions below:

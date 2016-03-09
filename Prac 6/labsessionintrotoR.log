@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  8 MAR 2016 18:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  9 MAR 2016 13:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1320,11 +1320,23 @@ Overfull \hbox (2.19247pt too wide) in paragraph at lines 138--140
 Package xcolor Warning: Incompatible color definition on input line 148.
 
 
+Overfull \hbox (6.74693pt too wide) in paragraph at lines 150--150
+[][]\OT1/cmtt/m/n/10 rot[][]$[][]Population[rot[][]$[][]Population[][]==[][]"Po
+st-pollution"[][]][] []<-[] []"Postpollution"[][] 
+ []
+
+
 Package xcolor Warning: Incompatible color definition on input line 156.
 
 [3]
 
 Package xcolor Warning: Incompatible color definition on input line 175.
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 177--177
+[][]\OT1/cmtt/m/n/10 aggregate[][](rot[][]$[][]Alive_Juv,[][]by[][]=[][]list[][
+](rot[][]$[][]Population, rot[][]$[][]Copper), mean)[][] 
+ []
 
 
 Package xcolor Warning: Incompatible color definition on input line 203.
@@ -1376,143 +1388,150 @@ Package pdftex.def Info: figure/gp7-1.pdf used on input line 308.
 Package xcolor Warning: Incompatible color definition on input line 321.
 
 [7 <./figure/gp6-1.pdf> <./figure/gp7-1.pdf>]
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 323
+.
 
-Package xcolor Warning: Incompatible color definition on input line 329.
+(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/omscmtt.fd
+File: omscmtt.fd 
+)
+LaTeX Font Info:    Font shape `OMS/cmtt/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 323.
 
 
-Overfull \hbox (1.49698pt too wide) in paragraph at lines 331--331
-[][]\OT1/cmtt/m/n/10 SE_tot[][]<-[][]aggregate[][](temp[][]$[][]Total,[][]by[][
-]=[][]list[][](temp[][]$[][]Population,temp[][]$[][]Day),SE)[][] 
+Package xcolor Warning: Incompatible color definition on input line 332.
+
+
+Package xcolor Warning: Incompatible color definition on input line 346.
+
+
+Package xcolor Warning: Incompatible color definition on input line 361.
+
+
+Package xcolor Warning: Incompatible color definition on input line 377.
+
+
+Overfull \hbox (1.29715pt too wide) in paragraph at lines 377--377
+[]\OT1/cmtt/m/n/10 ## Error in eval(expr, envir, enclos): object 'ans' not foun
+d[] 
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 333.
-
-
-Package xcolor Warning: Incompatible color definition on input line 333.
-
-
-Package xcolor Warning: Incompatible color definition on input line 357.
-
-
-Overfull \hbox (6.74693pt too wide) in paragraph at lines 361--361
-[][]\OT1/cmtt/m/n/10 arrows[][](temp3[][]$[][]Group.2,temp2[][]$[][]x[][]-[][]t
-emp3[][]$[][]x,temp3[][]$[][]Group.2,temp2[][]$[][]x[][]+[][]temp3[][]$[][]x,[]
-[] 
- []
-
-<figure/gp10-1.pdf, id=77, 505.89pt x 505.89pt>
-File: figure/gp10-1.pdf Graphic file (type pdf)
- <use figure/gp10-1.pdf>
-Package pdftex.def Info: figure/gp10-1.pdf used on input line 365.
-(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+Package xcolor Warning: Incompatible color definition on input line 381.
 
 [8]
 
-Package xcolor Warning: Incompatible color definition on input line 370.
+Package xcolor Warning: Incompatible color definition on input line 401.
 
-<figure/gekkeplot-1.pdf, id=81, 505.89pt x 505.89pt>
-File: figure/gekkeplot-1.pdf Graphic file (type pdf)
 
-<use figure/gekkeplot-1.pdf>
-Package pdftex.def Info: figure/gekkeplot-1.pdf used on input line 372.
-(pdftex.def)             Requested size: 224.2479pt x 224.25192pt.
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 403--403
+[][]\OT1/cmtt/m/n/10 SE_tot[] []<-[] []aggregate[][](temp[][]$[][]Total,[] []by
+[][]=[][]list[][](temp[][]$[][]Population, temp[][]$[][]Day), SE)[][] 
+ []
 
-<figure/gekkeplot-2.pdf, id=82, 505.89pt x 505.89pt> [9 <./figure/gp10-1.pdf>]
-File: figure/gekkeplot-2.pdf Graphic file (type pdf)
 
-<use figure/gekkeplot-2.pdf>
-Package pdftex.def Info: figure/gekkeplot-2.pdf used on input line 379.
-(pdftex.def)             Requested size: 224.2479pt x 224.25192pt.
+Package xcolor Warning: Incompatible color definition on input line 405.
 
-<figure/gekkeplot-3.pdf, id=93, 505.89pt x 505.89pt>
-File: figure/gekkeplot-3.pdf Graphic file (type pdf)
 
-<use figure/gekkeplot-3.pdf>
-Package pdftex.def Info: figure/gekkeplot-3.pdf used on input line 386.
-(pdftex.def)             Requested size: 224.2479pt x 224.25192pt.
- [10 <./figure/gekkeplot-1.pdf> <./figure/gekkeplot-2.pdf>]
+Package xcolor Warning: Incompatible color definition on input line 405.
 
-Package xcolor Warning: Incompatible color definition on input line 397.
-
-<figure/blabla-1.pdf, id=111, 505.89pt x 505.89pt>
-File: figure/blabla-1.pdf Graphic file (type pdf)
- <use figure/blabla-1.pdf>
-Package pdftex.def Info: figure/blabla-1.pdf used on input line 408.
-(pdftex.def)             Requested size: 194.52197pt x 194.52509pt.
-
-[11 <./figure/gekkeplot-3.pdf>]
 
 Package xcolor Warning: Incompatible color definition on input line 429.
 
-<jpg1.jpg, id=122, 100.375pt x 100.375pt>
+[9]
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 433--433
+[][]\OT1/cmtt/m/n/10 arrows[][](temp3[][]$[][]Group.2, temp2[][]$[][]x[][]-[][]
+temp3[][]$[][]x, temp3[][]$[][]Group.2, temp2[][]$[][]x[][]+[][]temp3[][]$[][]x
+,[][] 
+ []
+
+<figure/gp10-1.pdf, id=83, 505.89pt x 505.89pt>
+File: figure/gp10-1.pdf Graphic file (type pdf)
+ <use figure/gp10-1.pdf>
+Package pdftex.def Info: figure/gp10-1.pdf used on input line 437.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+
+
+Package xcolor Warning: Incompatible color definition on input line 446.
+
+<figure/blabla-1.pdf, id=84, 505.89pt x 505.89pt>
+File: figure/blabla-1.pdf Graphic file (type pdf)
+ <use figure/blabla-1.pdf>
+Package pdftex.def Info: figure/blabla-1.pdf used on input line 457.
+(pdftex.def)             Requested size: 194.52197pt x 194.52509pt.
+
+[10 <./figure/gp10-1.pdf>] [11 <./figure/blabla-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 479.
+
+<jpg1.jpg, id=105, 100.375pt x 100.375pt>
 File: jpg1.jpg Graphic file (type jpg)
  <use jpg1.jpg>
-Package pdftex.def Info: jpg1.jpg used on input line 447.
+Package pdftex.def Info: jpg1.jpg used on input line 497.
 (pdftex.def)             Requested size: 145.889pt x 145.91064pt.
 
-<jpg2.jpg, id=123, 513.92pt x 513.92pt>
+<jpg2.jpg, id=106, 513.92pt x 513.92pt>
 File: jpg2.jpg Graphic file (type jpg)
  <use jpg2.jpg>
-Package pdftex.def Info: jpg2.jpg used on input line 448.
+Package pdftex.def Info: jpg2.jpg used on input line 498.
 (pdftex.def)             Requested size: 145.889pt x 145.88843pt.
 
 
-Package xcolor Warning: Incompatible color definition on input line 452.
+Package xcolor Warning: Incompatible color definition on input line 502.
 
-<png1.png, id=124, 100.375pt x 100.375pt>
+<png1.png, id=107, 100.375pt x 100.375pt>
 File: png1.png Graphic file (type png)
  <use png1.png>
-Package pdftex.def Info: png1.png used on input line 468.
+Package pdftex.def Info: png1.png used on input line 518.
 (pdftex.def)             Requested size: 145.889pt x 145.91064pt.
 
-<png2.png, id=126, 513.92pt x 513.92pt>
+<png2.png, id=109, 513.92pt x 513.92pt>
 File: png2.png Graphic file (type png)
  <use png2.png>
-Package pdftex.def Info: png2.png used on input line 469.
+Package pdftex.def Info: png2.png used on input line 519.
 (pdftex.def)             Requested size: 145.889pt x 145.88843pt.
 
 
-Package xcolor Warning: Incompatible color definition on input line 473.
+Package xcolor Warning: Incompatible color definition on input line 523.
 
-<pdf1.pdf, id=127, 505.89pt x 505.89pt>
+<pdf1.pdf, id=110, 505.89pt x 505.89pt>
 File: pdf1.pdf Graphic file (type pdf)
  <use pdf1.pdf>
-Package pdftex.def Info: pdf1.pdf used on input line 483.
+Package pdftex.def Info: pdf1.pdf used on input line 533.
 (pdftex.def)             Requested size: 145.889pt x 145.8861pt.
- [12 <./figure/blabla-1.pdf>] [13 <./jpg1.jpg> <./jpg2.jpg>] [14 <./png1.png> <
-./png2.png> <./pdf1.pdf>] [15] (./labsessionintrotoR.aux) ) 
+ [12 <./jpg1.jpg> <./jpg2.jpg>] [13 <./png1.png> <./png2.png>] [14 <./pdf1.pdf>
+]
+(./labsessionintrotoR.aux) ) 
 Here is how much of TeX's memory you used:
- 21996 strings out of 493089
- 426703 string characters out of 6134843
- 465405 words of memory out of 5000000
- 25101 multiletter control sequences out of 15000+600000
+ 22000 strings out of 493089
+ 426766 string characters out of 6134843
+ 461788 words of memory out of 5000000
+ 25104 multiletter control sequences out of 15000+600000
  11532 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,11n,54p,10449b,376s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/
-2015/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2
-015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/20
-15/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/201
-5/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/201
-5/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2015/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2015/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2015/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2015/texmf-dist/font
-s/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2015/texmf-dist/fonts
-/type1/public/cm-super/sfrm0600.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
-ype1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2015/texmf-dist/fonts/typ
-e1/public/cm-super/sftt1000.pfb>
-Output written on labsessionintrotoR.pdf (15 pages, 259483 bytes).
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips
+/cm-super/cm-super-ts1.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr17.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mti10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+ti12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
+t10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt
+12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfrm0600
+.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfrm0800.p
+fb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb
+>
+Output written on labsessionintrotoR.pdf (14 pages, 261015 bytes).
 PDF statistics:
- 208 PDF objects out of 1000 (max. 8388607)
- 155 compressed objects within 2 object streams
+ 181 PDF objects out of 1000 (max. 8388607)
+ 132 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 83 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 68 words of extra memory for PDF output out of 10000 (max. 10000000)
 
