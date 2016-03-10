@@ -3,3 +3,4 @@
 \contentsline {subsection}{\numberline {1.2}Temporal environmental correlations}{5}
 \contentsline {section}{\numberline {2}Population Viability Analysis}{6}
 \contentsline {section}{\numberline {3}Demographic Stochasticity (Demonstration only)}{8}
+\contentsline {section}{\numberline {4}Metapopulation dynamics}{12}
