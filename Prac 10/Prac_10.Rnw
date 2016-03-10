@@ -463,6 +463,8 @@ We see that here as expected (because $\lambda=1$) the population size stabilize
 
 \section{Metapopulation dynamics}
 
+So far we have considered only populations in isolation of each other. For instance, in practical 9 we have compared two populations of yellow-necked mice, but have assumed that they were not exchanging migrants. More in general, in all matrix models so far, we have completely ignored the fact that new individuals appear in a population not only because of birth, but also because of immigration. Likewise, death is not the only factor removing individuals from a population, permanent emigration does the job as effectively. 
+
 <<MPD1,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
 # Metapopulation Model (Hunter & Caswell, 2005 - Ecological Modelling)
 
