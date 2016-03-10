@@ -1,4 +1,4 @@
-% Created by tikzDevice version 0.9 on 2016-03-10 16:15:36
+% Created by tikzDevice version 0.10.1 on 2016-03-10 21:35:53
 % !TEX encoding = UTF-8 Unicode
 \documentclass{article}
 \nonstopmode
@@ -50,16 +50,16 @@
 \definecolor{drawColor}{RGB}{0,0,0}
 
 \path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 70.07,471.82) --
-	( 78.27,351.30) --
-	( 86.47,110.25) --
-	( 94.67,150.42) --
-	(102.87, 70.07) --
-	(111.06, 70.07) --
-	(119.26, 70.07) --
-	(127.46, 70.07) --
-	(135.66, 70.07) --
-	(143.86, 70.07) --
-	(152.06, 70.07) --
+	( 78.27,431.65) --
+	( 86.47,311.12) --
+	( 94.67,230.77) --
+	(102.87,270.95) --
+	(111.06,270.95) --
+	(119.26,351.30) --
+	(127.46,150.42) --
+	(135.66,230.77) --
+	(143.86,150.42) --
+	(152.06,150.42) --
 	(160.26, 70.07) --
 	(168.46, 70.07) --
 	(176.66, 70.07) --
@@ -118,17 +118,17 @@
 
 \path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] (471.82, 54.00) -- (471.82, 49.50);
 
-\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 61.87, 37.80) {0};
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 61.87, 37.80) {0};
 
-\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (143.86, 37.80) {10};
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (143.86, 37.80) {10};
 
-\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (225.85, 37.80) {20};
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (225.85, 37.80) {20};
 
-\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (307.84, 37.80) {30};
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (307.84, 37.80) {30};
 
-\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (389.83, 37.80) {40};
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (389.83, 37.80) {40};
 
-\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (471.82, 37.80) {50};
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (471.82, 37.80) {50};
 
 \path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00, 70.07) -- ( 54.00,471.82);
 
@@ -144,17 +144,17 @@
 
 \path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00,471.82) -- ( 49.50,471.82);
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20, 70.07) {0};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 43.20, 70.07) {0};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,150.42) {2};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 43.20,150.42) {2};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,230.77) {4};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 43.20,230.77) {4};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,311.12) {6};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 43.20,311.12) {6};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,391.47) {8};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 43.20,391.47) {8};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,471.82) {10};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 43.20,471.82) {10};
 
 \path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00, 54.00) --
 	(487.89, 54.00) --
@@ -166,9 +166,9 @@
 \path[clip] (  0.00,  0.00) rectangle (505.89,505.89);
 \definecolor{drawColor}{RGB}{0,0,0}
 
-\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (270.95, 19.80) {t};
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (270.95, 19.80) {t};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 25.20,270.95) {N};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 25.20,270.95) {N};
 \end{scope}
 \end{tikzpicture}
 

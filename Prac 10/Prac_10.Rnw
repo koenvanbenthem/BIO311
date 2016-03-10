@@ -464,30 +464,27 @@ We see that here as expected (because $\lambda=1$) the population size stabilize
 \section{Metapopulation dynamics}
 
 So far we have considered only populations in isolation of each other. For instance, in practical 9 we have compared two populations of yellow-necked mice, but have assumed that they were not exchanging migrants. More in general, in all matrix models so far, we have completely ignored the fact that new individuals appear in a population not only because of birth, but also because of immigration. Likewise, death is not the only factor removing individuals from a population, permanent emigration does the job as effectively. 
+<<MPD0,message=FALSE,echo=FALSE>>=
+Mp1<-matrix(c(0,0.19,0.72,0.77),2,2,byrow=T) 
+Mp2<-matrix(c(0,0.32,0.72,0.77),2,2,byrow=T) 
+@
 
-<<MPD1,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
-# Metapopulation Model (Hunter & Caswell, 2005 - Ecological Modelling)
+Let us consider two populations of 
+<<MPD1,echo=FALSE,results='asis',message=FALSE>>=
+cat("\\begin{align*}")
+cat("\\boldsymbol{A_1} &=")
+ print(xtable(Mp1,align=rep("",ncol(Mp1)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+cat("& \\boldsymbol{A_2} &=")
+ print(xtable(Mp1,align=rep("",ncol(Mp1)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
 
-rm(list=ls(all=TRUE))
-library(popbio)
+cat("\\\\ \\lambda &=",lambda(Mp1),"&\\lambda &=",lambda(Mp2))
+cat("\\end{align*}")
+@
 
-
-# Peregrine example (Wootton & Bell 1992)
-
-
-# Enter demography B{1,2,..,s} and movement M{1,2,..,p} matrices
-
-# Demography
-
-B1<-matrix(c(0,0.26,0.72,0.77),2,2,byrow=T)    # for patch 1
-B1 #check
-eigen.analysis(B1) # basic asymptotic analysis including population growth rate (lambda) and sensitivity matrix
-
-B2<-matrix(c(0,0.19,0.72,0.77),2,2,byrow=T)	   # for patch 2
-B2  #check
-eigen.analysis(B2) # basic asymptotic analysis
-
-
+Migration
+<<MPD2,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
 # Movement
 
 M1<-matrix(c(0.73,0.27,0.50,0.50),2,2,byrow=T)  # for juveniles
@@ -500,7 +497,14 @@ M2 #check
 s=nrow(B1) # number of stages
 
 p=nrow(M1) # number of patches
+@
 
+Simulation approach
+<<MPD3,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
+@
+
+Asymptotic approach
+<<MPD4,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
 
 # Create the block diagonal matrix of demographic projection matrices
 
@@ -511,9 +515,6 @@ B[1:2,1:2]<-B1
 B[3:4,3:4]<-B2
 
 B #check what it looks like
-
-
-# Create M, the block diagonal matrix of movement matrices
 
 M=matrix(0,p*s,p*s)
 
@@ -542,9 +543,17 @@ A2<- B %*% t(P) %*% M %*% P  # %*% is the matrix multiplication
 A3<- M %*% P %*% B %*% t(P)  # %*% is the matrix multiplication
 A4<- P %*% B %*% t(P) %*% M  # %*% is the matrix multiplication
 
-A #check what it looks like
+@
 
-eigen.analysis(A) # Check local and metapoulation growth rates an have a look at the sensitivity matrix
+
+<<MPD5,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
+
+
+# Create M, the block diagonal matrix of movement matrices
+
+A1 #check what it looks like
+
+eigen.analysis(A1) # Check local and metapoulation growth rates an have a look at the sensitivity matrix
 lambda <- eigen.analysis(A)$lambda1 # how does the metapoulation growth rate compare to local growth rates?
 
 
@@ -571,10 +580,6 @@ Msens=P %*% t(B) %*% Asens %*% t(P) # movement sensitivities
 # You'll realize that interpreting Movement sensitivities is rather difficult. A better approach would be to estimate the lower-level sensitivities for the dispersal rate, d (see H&C 2005)
 
 -1 * Msens[1,1] + 1 * Msens[1,2] + 1 * Msens[2,1] - 1 * Msens[2,2]
-
-
-
-
 
 
 ###############################################################
