@@ -1,4 +1,4 @@
-% Created by tikzDevice version 0.9 on 2016-03-08 15:51:45
+% Created by tikzDevice version 0.9 on 2016-03-10 16:15:41
 % !TEX encoding = UTF-8 Unicode
 \documentclass{article}
 \nonstopmode
@@ -31,7 +31,7 @@
 \usepackage{multicol}
 \usepackage{booktabs}
 
-\title{BIO311: Population Ecology\\ \textit{Practical 10:\\ Stochasticity in Matrix Models\\ \& \\ Population Viability Analysis.}}
+\title{BIO311: Population Ecology\\ \textit{Practical 10:\\ Stochasticity in Matrix Models\\ Population Viability Analysis\\ \& Metapopulation Dynamics.}}
 \setlength\parindent{0pt}
 
 \setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
@@ -51,26 +51,26 @@
 
 \path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 70.07, 70.07) --
 	( 78.27, 70.07) --
-	( 86.47,116.27) --
-	( 94.67,122.30) --
-	(102.87,226.75) --
-	(111.06,234.79) --
-	(119.26,345.27) --
-	(127.46,347.28) --
-	(135.66,417.58) --
-	(143.86,401.51) --
-	(152.06,445.71) --
-	(160.26,445.71) --
-	(168.46,457.76) --
-	(176.66,457.76) --
-	(184.86,461.78) --
-	(193.05,459.77) --
-	(201.25,467.80) --
-	(209.45,465.79) --
+	( 86.47,114.26) --
+	( 94.67,136.36) --
+	(102.87,250.86) --
+	(111.06,244.83) --
+	(119.26,349.29) --
+	(127.46,349.29) --
+	(135.66,409.55) --
+	(143.86,399.51) --
+	(152.06,441.69) --
+	(160.26,447.71) --
+	(168.46,451.73) --
+	(176.66,459.77) --
+	(184.86,467.80) --
+	(193.05,465.79) --
+	(201.25,471.82) --
+	(209.45,471.82) --
 	(217.65,471.82) --
-	(225.85,467.80) --
+	(225.85,471.82) --
 	(234.05,471.82) --
-	(242.25,469.81) --
+	(242.25,471.82) --
 	(250.45,471.82) --
 	(258.65,471.82) --
 	(266.85,471.82) --

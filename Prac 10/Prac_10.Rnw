@@ -14,7 +14,7 @@
 \usepackage{multicol}
 \usepackage{booktabs}
 
-\title{BIO311: Population Ecology\\ \textit{Practical 10:\\ Stochasticity in Matrix Models\\ \& \\ Population Viability Analysis.}}
+\title{BIO311: Population Ecology\\ \textit{Practical 10:\\ Stochasticity in Matrix Models\\ Population Viability Analysis\\ \& Metapopulation Dynamics.}}
 \setlength\parindent{0pt}
 
 \setcounter{tocdepth}{1} % Determines the depth of the table of contents;; 0:chapters, 1: chapters and sections, 2: chapters,sections and subsections
@@ -461,6 +461,214 @@ plot(1:timesteps,Ntot,type="l",xlab="t",ylab="N")
 @
 We see that here as expected (because $\lambda=1$) the population size stabilizes at one single value ($\Sexpr{Ntot[timesteps]}$). 
 
+\section{Metapopulation dynamics}
+
+So far we have considered only populations in isolation of each other. For instance, in practical 9 we have compared two populations of yellow-necked mice, but have assumed that they were not exchanging migrants. More in general, in all matrix models so far, we have completely ignored the fact that new individuals appear in a population not only because of birth, but also because of immigration. Likewise, death is not the only factor removing individuals from a population, permanent emigration does the job as effectively. 
+
+<<MPD1,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
+# Metapopulation Model (Hunter & Caswell, 2005 - Ecological Modelling)
+
+rm(list=ls(all=TRUE))
+library(popbio)
+
+
+# Peregrine example (Wootton & Bell 1992)
+
+
+# Enter demography B{1,2,..,s} and movement M{1,2,..,p} matrices
+
+# Demography
+
+B1<-matrix(c(0,0.26,0.72,0.77),2,2,byrow=T)    # for patch 1
+B1 #check
+eigen.analysis(B1) # basic asymptotic analysis including population growth rate (lambda) and sensitivity matrix
+
+B2<-matrix(c(0,0.19,0.72,0.77),2,2,byrow=T)	   # for patch 2
+B2  #check
+eigen.analysis(B2) # basic asymptotic analysis
+
+
+# Movement
+
+M1<-matrix(c(0.73,0.27,0.50,0.50),2,2,byrow=T)  # for juveniles
+M1 #check
+
+M2<-matrix(c(0.5,0.5,0.2,.8),2,2,byrow=T) # for adults
+M2 #check
+
+
+s=nrow(B1) # number of stages
+
+p=nrow(M1) # number of patches
+
+
+# Create the block diagonal matrix of demographic projection matrices
+
+B<-matrix(0,p*s,p*s)
+
+B[1:2,1:2]<-B1
+
+B[3:4,3:4]<-B2
+
+B #check what it looks like
+
+
+# Create M, the block diagonal matrix of movement matrices
+
+M=matrix(0,p*s,p*s)
+
+M[1:2,1:2]<-M1
+
+M[3:4,3:4]<-M2
+
+M #check what it looks like
+
+
+# create P, the vec-permutation matrix based on number of stages and patches
+
+P<-matrix(0,s*p,s*p)
+for (i in 1:s){
+	for (j in 1:p){
+		E=matrix(0,s,p)
+        E[i,j]<-1
+        P<-P+E%x%t(E) # %x% is the Kronecker product
+        }}
+
+
+# create the Metapopulation Projection Matrix, A
+
+A1<- t(P) %*% M %*% P %*% B  # %*% is the matrix multiplication
+A2<- B %*% t(P) %*% M %*% P  # %*% is the matrix multiplication
+A3<- M %*% P %*% B %*% t(P)  # %*% is the matrix multiplication
+A4<- P %*% B %*% t(P) %*% M  # %*% is the matrix multiplication
+
+A #check what it looks like
+
+eigen.analysis(A) # Check local and metapoulation growth rates an have a look at the sensitivity matrix
+lambda <- eigen.analysis(A)$lambda1 # how does the metapoulation growth rate compare to local growth rates?
+
+
+## Sensitivity & elasticity of metapopulation growth rate to demography and dispersal
+
+Asens1<-eigen.analysis(A1)$sensitivities # the A sensitivity matrix
+Asens2<-eigen.analysis(A2)$sensitivities # the A sensitivity matrix
+Asens3<-eigen.analysis(A3)$sensitivities # the A sensitivity matrix
+Asens4<-eigen.analysis(A4)$sensitivities # the A sensitivity matrix
+
+Bsens1<-t(P) %*% t(M) %*% P %*% Asens1 # demography sensitivities
+Bsens2<-Asens2 %*% t(P) %*% t(M) %*% P # demography sensitivities
+Bsens3<-t(P) %*% t(M) %*% Asens3 %*% P # demography sensitivities
+Bsens4<-t(P) %*% Asens4 %*% t(M) %*% P # demography sensitivities
+
+Belas<-B * Bsens / lambda  # demography elasticities
+
+sum(Belas[1:2,1:2]) # contribution from patch 1 to metapopulation growth rate 
+sum(Belas[3:4,3:4]) # contribution from patch 2 to metapopulation growth rate 
+
+
+Msens=P %*% t(B) %*% Asens %*% t(P) # movement sensitivities
+
+# You'll realize that interpreting Movement sensitivities is rather difficult. A better approach would be to estimate the lower-level sensitivities for the dispersal rate, d (see H&C 2005)
+
+-1 * Msens[1,1] + 1 * Msens[1,2] + 1 * Msens[2,1] - 1 * Msens[2,2]
+
+
+
+
+
+
+###############################################################
+
+
+# Gull example (Lebreton, 1966)
+
+rm(list=ls(all=TRUE))
+
+B1<-matrix(c(0,0.096,0.160,0.224,0.320,0.80,0,0,0,0,0,0.82,0,0,0,0,0,0.82,0,0,0,0,0,0.82,0.82),5,5,byrow=T)    # for patch 1
+
+B2<-matrix(c(0,0.1,0.160,0.20,0.20,0.80,0,0,0,0,0,0.82,0,0,0,0,0,0.82,0,0,0,0,0,0.82,0.82),5,5,byrow=T) # for patch 2
+
+M1<-matrix(c(0.75,0.375,0.25,0.625),2,2,byrow=T)  # for the first age class
+
+M5<-M4<-M3<-M2<-matrix(c(1,0,0,1),2,2,byrow=T) # for the rest
+
+
+# This time, dispersal takes place before demography, and assume that population vector is arranged by stages
+
+# Using a similar approach to the Gull example above, try to estimate the relative contribution of each patch to the metapopulation growth rate (demographic elasticities).
+
+@
+
+<<>>=
+#############################################
+
+s=nrow(B1) # number of stages
+
+p=nrow(M1) # number of patches
+
+
+# Create the block diagonal matrix of demographic projection matrices
+
+B<-matrix(0,p*s,p*s)
+
+B[1:5,1:5]<-B1
+
+B[6:10,6:10]<-B2
+
+B #check
+
+
+# Create M, the block diagonal matrix of movement matrices
+
+M=matrix(0,p*s,p*s)
+
+M[1:2,1:2]<-M1
+
+M[3:4,3:4]<-M2
+M[5:6,5:6]<-M3
+M[7:8,7:8]<-M4
+M[9:10,9:10]<-M5
+
+M #check
+
+
+# create P, the vec-permutation matrix
+
+P<-matrix(0,s*p,s*p)
+for (i in 1:s){
+	for (j in 1:p){
+		E=matrix(0,s,p)
+        E[i,j]<-1
+        P<-P+E%x%t(E) # %x% is the Kronecker product
+        }}
+
+
+# create the Metapopulation Projection Matrix, A
+
+A<- P %*% B %*% t(P) %*% M
+A #check what it looks like
+
+eigen.analysis(A) # Check local and metapoulation growth rates an have a look at the sensitivity matrix
+lambda <- eigen.analysis(A)$lambda1
+
+## A sensitivity & elasticity
+
+analysis<-eigen.analysis(A)
+
+Asens<-analysis$sensitivities # the A sensitivity matrix
+
+Bsens<-t(P) %*% Asens %*% t(M) %*% P    # demography sensitivities
+
+Belas<-B * Bsens / lambda  # demography elasticities
+
+sum(Belas[1:5,1:5])   # contribution from patch 1 to metapopulation growth rate 
+sum(Belas[6:10,6:10]) # contribution from patch 2 to metapopulation growth rate
+
+Msens=P %*% t(B) %*% t(P) %*% Asens # movement sensitivities
+
+Melas=M * Msens / lambda  # movement elasticities
+
+@
 \vspace{2ex}
 
 This is where the practical ends. If it ends a bit too soon for you and you would like to continue fighting \texttt{R}, think about a model that combines both types of stochasticity: environmental and demographic. Alternatively, do something less biologically relevant, but quite beautiful programming wise: understand (or write) a recursive function. This is a function that calls itself, an example that draws a tree is given below. Finally, you could of course also consider doing a project in our research group. (These options are not mutually exclusive).
