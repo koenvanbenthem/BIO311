@@ -1,2 +1,5 @@
 *.log
 Intro/Mathematical tools.synctex.gz
+*.log
+Intro/Mathematical tools.pdf
+*.gz
