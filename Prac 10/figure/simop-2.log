@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.11.23)  10 MAR 2016 15:46
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.11.23)  10 MAR 2016 16:15
 entering extended mode
 **simop-2.tikz
 ("C:\Users\Thimothee Admin\Documents\GitHub\BIO311\Prac 10\figure\simop-2.tikz"
@@ -1093,7 +1093,7 @@ Preview: PDFoutput 1
 \AtBeginShipoutBox=\box90
 \c@lstlisting=\count189
 
-Overfull \hbox (160.89pt too wide) in paragraph at lines 181--181
+Overfull \hbox (160.89pt too wide) in paragraph at lines 177--177
 [][] 
  []
 
@@ -1104,15 +1104,15 @@ Non-PDF special ignored!]
 ("C:\Users\Thimothee Admin\Documents\GitHub\BIO311\Prac 10\figure\simop-2.aux")
  ) 
 Here is how much of TeX's memory you used:
- 21387 strings out of 493921
- 417320 string characters out of 3147251
+ 21392 strings out of 493921
+ 417419 string characters out of 3147251
  441000 words of memory out of 3000000
- 24373 multiletter control sequences out of 15000+200000
+ 24378 multiletter control sequences out of 15000+200000
  3640 words of font info for 14 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  55i,7n,54p,10439b,626s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on simop-2.pdf (1 page, 16021 bytes).
+Output written on simop-2.pdf (1 page, 16007 bytes).
 PDF statistics:
  13 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
