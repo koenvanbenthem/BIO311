@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.11.23)  10 MAR 2016 15:46
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.11.23)  10 MAR 2016 16:15
 entering extended mode
 **sim_one-1.tikz
 
@@ -1108,7 +1108,7 @@ Non-PDF special ignored!]
 ") ) 
 Here is how much of TeX's memory you used:
  21421 strings out of 493921
- 418014 string characters out of 3147251
+ 418005 string characters out of 3147251
  441002 words of memory out of 3000000
  24407 multiletter control sequences out of 15000+200000
  3640 words of font info for 14 fonts, out of 3000000 for 9000
@@ -1116,7 +1116,7 @@ Here is how much of TeX's memory you used:
  55i,7n,54p,10441b,626s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb
 >
-Output written on sim_one-1.pdf (1 page, 12790 bytes).
+Output written on sim_one-1.pdf (1 page, 12776 bytes).
 PDF statistics:
  13 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

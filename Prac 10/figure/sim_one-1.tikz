@@ -1,4 +1,4 @@
-% Created by tikzDevice version 0.9 on 2016-03-10 15:45:56
+% Created by tikzDevice version 0.9 on 2016-03-10 16:15:22
 % !TEX encoding = UTF-8 Unicode
 \documentclass{article}
 \nonstopmode
@@ -49,56 +49,56 @@
 \path[clip] ( 54.00, 54.00) rectangle (487.89,487.89);
 \definecolor{drawColor}{RGB}{0,0,0}
 
-\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 70.07,306.41) --
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 70.07,388.45) --
 	( 78.27,471.82) --
-	( 86.47,428.41) --
-	( 94.67,411.25) --
-	(102.87,314.78) --
-	(111.06,327.44) --
-	(119.26,354.95) --
-	(127.46,364.38) --
-	(135.66,372.06) --
-	(143.86,334.17) --
-	(152.06,322.15) --
-	(160.26,362.57) --
-	(168.46,377.91) --
-	(176.66,395.07) --
-	(184.86,386.49) --
-	(193.05,403.85) --
-	(201.25,421.30) --
-	(209.45,350.59) --
-	(217.65,285.53) --
-	(225.85,287.43) --
-	(234.05,258.44) --
-	(242.25,247.58) --
-	(250.45,281.41) --
-	(258.65,293.81) --
-	(266.85,259.27) --
-	(275.04,250.58) --
-	(283.24,229.39) --
-	(291.44,208.56) --
-	(299.64,218.97) --
-	(307.84,213.77) --
-	(316.04,178.24) --
-	(324.24,175.00) --
-	(332.44,198.91) --
-	(340.64,210.07) --
-	(348.84,229.01) --
-	(357.03,195.96) --
-	(365.23,148.27) --
-	(373.43,115.38) --
-	(381.63,115.00) --
-	(389.83, 99.55) --
-	(398.03, 87.90) --
-	(406.23, 93.72) --
-	(414.43, 96.01) --
-	(422.63,105.25) --
-	(430.83,100.63) --
-	(439.02,102.94) --
-	(447.22, 77.30) --
-	(455.42, 76.39) --
-	(463.62, 91.15) --
-	(471.82, 70.07);
+	( 86.47,349.34) --
+	( 94.67,325.46) --
+	(102.87,270.86) --
+	(111.06,269.48) --
+	(119.26,238.90) --
+	(127.46,230.80) --
+	(135.66,207.92) --
+	(143.86,204.71) --
+	(152.06,192.20) --
+	(160.26,185.82) --
+	(168.46,176.20) --
+	(176.66,165.31) --
+	(184.86,170.76) --
+	(193.05,172.31) --
+	(201.25,184.50) --
+	(209.45,191.92) --
+	(217.65,175.17) --
+	(225.85,171.55) --
+	(234.05,161.62) --
+	(242.25,156.11) --
+	(250.45,170.82) --
+	(258.65,152.05) --
+	(266.85,150.68) --
+	(275.04,158.88) --
+	(283.24,137.24) --
+	(291.44,137.94) --
+	(299.64,144.35) --
+	(307.84,141.15) --
+	(316.04,126.80) --
+	(324.24,122.15) --
+	(332.44,110.74) --
+	(340.64, 94.59) --
+	(348.84, 95.75) --
+	(357.03, 88.97) --
+	(365.23, 86.73) --
+	(373.43, 94.12) --
+	(381.63, 96.90) --
+	(389.83, 89.25) --
+	(398.03, 76.05) --
+	(406.23, 75.42) --
+	(414.43, 75.74) --
+	(422.63, 75.58) --
+	(430.83, 75.66) --
+	(439.02, 77.38) --
+	(447.22, 71.65) --
+	(455.42, 70.07) --
+	(463.62, 75.77) --
+	(471.82, 76.22);
 \end{scope}
 \begin{scope}
 \path[clip] (  0.00,  0.00) rectangle (505.89,505.89);
@@ -130,31 +130,31 @@
 
 \node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (471.82, 37.80) {50};
 
-\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00, 61.37) -- ( 54.00,469.78);
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00, 85.27) -- ( 54.00,464.24);
 
-\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00, 61.37) -- ( 49.50, 61.37);
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00, 85.27) -- ( 49.50, 85.27);
 
-\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00,143.05) -- ( 49.50,143.05);
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00,161.07) -- ( 49.50,161.07);
 
-\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00,224.73) -- ( 49.50,224.73);
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00,236.86) -- ( 49.50,236.86);
 
-\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00,306.41) -- ( 49.50,306.41);
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00,312.65) -- ( 49.50,312.65);
 
-\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00,388.10) -- ( 49.50,388.10);
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00,388.45) -- ( 49.50,388.45);
 
-\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00,469.78) -- ( 49.50,469.78);
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00,464.24) -- ( 49.50,464.24);
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20, 61.37) {4};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20, 85.27) {2};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,143.05) {6};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,161.07) {4};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,224.73) {8};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,236.86) {6};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,306.41) {10};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,312.65) {8};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,388.10) {12};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,388.45) {10};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,469.78) {14};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 43.20,464.24) {12};
 
 \path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 54.00, 54.00) --
 	(487.89, 54.00) --
