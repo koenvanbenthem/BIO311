@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.11.23)  10 MAR 2016 16:15
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.11.23)  11 MAR 2016 13:53
 entering extended mode
 **simop-1.tikz
 ("C:\Users\Thimothee Admin\Documents\GitHub\BIO311\Prac 10\figure\simop-1.tikz"
@@ -1104,15 +1104,15 @@ Non-PDF special ignored!]
 ("C:\Users\Thimothee Admin\Documents\GitHub\BIO311\Prac 10\figure\simop-1.aux")
  ) 
 Here is how much of TeX's memory you used:
- 28061 strings out of 493921
- 550770 string characters out of 3147251
- 731638 words of memory out of 3000000
- 31047 multiletter control sequences out of 15000+200000
+ 27956 strings out of 493921
+ 548665 string characters out of 3147251
+ 731512 words of memory out of 3000000
+ 30942 multiletter control sequences out of 15000+200000
  3640 words of font info for 14 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  55i,7n,54p,10439b,626s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on simop-1.pdf (1 page, 69534 bytes).
+Output written on simop-1.pdf (1 page, 69057 bytes).
 PDF statistics:
  13 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

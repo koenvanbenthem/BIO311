@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.11.23)  10 MAR 2016 16:15
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.11.23)  11 MAR 2016 13:53
 entering extended mode
 **dice7-1.tikz
 ("C:\Users\Thimothee Admin\Documents\GitHub\BIO311\Prac 10\figure\dice7-1.tikz"
@@ -1093,7 +1093,7 @@ Preview: PDFoutput 1
 \AtBeginShipoutBox=\box90
 \c@lstlisting=\count189
 
-Overfull \hbox (160.89pt too wide) in paragraph at lines 194--194
+Overfull \hbox (160.89pt too wide) in paragraph at lines 222--222
 [][] 
  []
 
@@ -1104,16 +1104,16 @@ Non-PDF special ignored!]
 ("C:\Users\Thimothee Admin\Documents\GitHub\BIO311\Prac 10\figure\dice7-1.aux")
  ) 
 Here is how much of TeX's memory you used:
- 21372 strings out of 493921
- 416988 string characters out of 3147251
- 441000 words of memory out of 3000000
- 24357 multiletter control sequences out of 15000+200000
+ 21385 strings out of 493921
+ 417246 string characters out of 3147251
+ 442000 words of memory out of 3000000
+ 24370 multiletter control sequences out of 15000+200000
  3948 words of font info for 15 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  55i,7n,54p,10439b,626s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on dice7-1.pdf (1 page, 31469 bytes).
+Output written on dice7-1.pdf (1 page, 31946 bytes).
 PDF statistics:
  17 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

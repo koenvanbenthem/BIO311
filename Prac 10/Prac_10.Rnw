@@ -465,42 +465,65 @@ We see that here as expected (because $\lambda=1$) the population size stabilize
 
 So far we have considered only populations in isolation of each other. For instance, in practical 9 we have compared two populations of yellow-necked mice, but have assumed that they were not exchanging migrants. More in general, in all matrix models so far, we have completely ignored the fact that new individuals appear in a population not only because of birth, but also because of immigration. Likewise, death is not the only factor removing individuals from a population, permanent emigration does the job as effectively. 
 
-<<MPD1,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
-# Metapopulation Model (Hunter & Caswell, 2005 - Ecological Modelling)
+<<MPD0,message=FALSE,echo=FALSE>>=
+B1<-matrix(c(0,0.25,0.72,0.77),2,2,byrow=T) 
+B2<-matrix(c(0,0.32,0.74,0.79),2,2,byrow=T) 
+M1<-matrix(c(0.73,0.27,0.50,0.50),2,2,byrow=T) 
+M2<-matrix(c(0.5,0.5,0.2,.8),2,2,byrow=T)
+@
 
-rm(list=ls(all=TRUE))
-library(popbio)
+\begin{figure}
+\includegraphics[width=0.95\textwidth]{peregrine}
+\caption{\label{fig:peregrine}One of these birds is a peregrine falcon in a dive attack, the other birds are starlings and in trouble. Populations of peregrine falcons, and many other bird species, have declined during the 20th century in North America and Europe, in particular as a result of the massive use of the insecticide dichlorodiphenyltrichloroethane. DDT, which causes eggshell thinning, has been banned from these regions but is still used in tropical regions. Picture by Rob Palmer.}
+\end{figure}
+
+Let us consider two populations of peregrine falcons. 
+The demography of the two populations is summarized by the Leslie matrices $A_1$ and $A_2$ and by the associated asymptotic growth rates:
+<<MPD1,echo=FALSE,results='asis',message=FALSE>>=
+cat("\\begin{align*}")
+cat("\\boldsymbol{B_1} &=")
+ print(xtable(B1,align=rep("",ncol(B1)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+cat("& \\boldsymbol{B_2} &=")
+ print(xtable(B2,align=rep("",ncol(B1)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+
+cat("\\\\ \\lambda &=",lambda(B1),"&\\lambda &=",lambda(B2))
+cat("\\end{align*}")
+@
+One of the populations seem to be in good shape, while the other one is likely to be declining (but remember that stochasticity can make predictions based on asymptotic behaviour unreliable). Let us assume that the differences between the two populations is due to the massive use of DDT as an insecticide around population $B_1$, while population $B_2$ is located in a remote mountain area with less human influence.
+
+These two populations are not ecologically isolated, however, and they exchange a number of migrants, both juveniles and adults every year. 
 
 
-# Peregrine example (Wootton & Bell 1992)
+
+Migration
+<<MPD2,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
+cat("\\begin{align*}")
+cat("\\boldsymbol{B_1} &=")
+ print(xtable(B1,align=rep("",ncol(B1)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+cat("& \\boldsymbol{B_2} &=")
+ print(xtable(B2,align=rep("",ncol(B1)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+
+cat("\\\\ \\lambda &=",lambda(B1),"&\\lambda &=",lambda(B2))
+cat("\\end{align*}")
 
 
-# Enter demography B{1,2,..,s} and movement M{1,2,..,p} matrices
-
-# Demography
-
-B1<-matrix(c(0,0.26,0.72,0.77),2,2,byrow=T)    # for patch 1
-B1 #check
-eigen.analysis(B1) # basic asymptotic analysis including population growth rate (lambda) and sensitivity matrix
-
-B2<-matrix(c(0,0.19,0.72,0.77),2,2,byrow=T)	   # for patch 2
-B2  #check
-eigen.analysis(B2) # basic asymptotic analysis
-
-
-# Movement
-
-M1<-matrix(c(0.73,0.27,0.50,0.50),2,2,byrow=T)  # for juveniles
-M1 #check
-
-M2<-matrix(c(0.5,0.5,0.2,.8),2,2,byrow=T) # for adults
-M2 #check
 
 
 s=nrow(B1) # number of stages
 
 p=nrow(M1) # number of patches
+@
 
+Simulation approach
+<<MPD3,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
+@
+
+Asymptotic approach
+<<MPD4,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
 
 # Create the block diagonal matrix of demographic projection matrices
 
@@ -511,9 +534,6 @@ B[1:2,1:2]<-B1
 B[3:4,3:4]<-B2
 
 B #check what it looks like
-
-
-# Create M, the block diagonal matrix of movement matrices
 
 M=matrix(0,p*s,p*s)
 
@@ -542,9 +562,17 @@ A2<- B %*% t(P) %*% M %*% P  # %*% is the matrix multiplication
 A3<- M %*% P %*% B %*% t(P)  # %*% is the matrix multiplication
 A4<- P %*% B %*% t(P) %*% M  # %*% is the matrix multiplication
 
-A #check what it looks like
+@
 
-eigen.analysis(A) # Check local and metapoulation growth rates an have a look at the sensitivity matrix
+
+<<MPD5,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
+
+
+# Create M, the block diagonal matrix of movement matrices
+
+A1 #check what it looks like
+
+eigen.analysis(A1) # Check local and metapoulation growth rates an have a look at the sensitivity matrix
 lambda <- eigen.analysis(A)$lambda1 # how does the metapoulation growth rate compare to local growth rates?
 
 
@@ -571,10 +599,6 @@ Msens=P %*% t(B) %*% Asens %*% t(P) # movement sensitivities
 # You'll realize that interpreting Movement sensitivities is rather difficult. A better approach would be to estimate the lower-level sensitivities for the dispersal rate, d (see H&C 2005)
 
 -1 * Msens[1,1] + 1 * Msens[1,2] + 1 * Msens[2,1] - 1 * Msens[2,2]
-
-
-
-
 
 
 ###############################################################
