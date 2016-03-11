@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.11.23)  11 MAR 2016 15:02
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.11.23)  11 MAR 2016 15:26
 entering extended mode
 **rectree-1.tikz
 
@@ -1096,7 +1096,7 @@ Preview: PDFoutput 1
 \AtBeginShipoutBox=\box90
 \c@lstlisting=\count189
 
-Overfull \hbox (160.89pt too wide) in paragraph at lines 18016--18016
+Overfull \hbox (160.89pt too wide) in paragraph at lines 20368--20368
 [][] 
  []
 
@@ -1107,15 +1107,15 @@ Non-PDF special ignored!]
 ("C:\Users\Thimothee Admin\Documents\GitHub\BIO311\Prac 10\figure\rectree-1.aux
 ") ) 
 Here is how much of TeX's memory you used:
- 27817 strings out of 493921
- 545968 string characters out of 3147251
- 961026 words of memory out of 3000000
- 30804 multiletter control sequences out of 15000+200000
+ 28682 strings out of 493921
+ 563268 string characters out of 3147251
+ 1030213 words of memory out of 3000000
+ 31669 multiletter control sequences out of 15000+200000
  3640 words of font info for 14 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  55i,2n,54p,10441b,480s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on rectree-1.pdf (1 page, 70312 bytes).
+Output written on rectree-1.pdf (1 page, 79272 bytes).
 PDF statistics:
  9 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

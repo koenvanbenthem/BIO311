@@ -468,8 +468,8 @@ So far we have considered only populations in isolation of each other. For insta
 <<MPD0,message=FALSE,echo=FALSE>>=
 B1 <- matrix(c(0,0.25,0.72,0.77),2,2,byrow=T) 
 B2 <- matrix(c(0,0.32,0.74,0.79),2,2,byrow=T) 
-Mj <- matrix(c(0.73,0.27,0.50,0.50),2,2,byrow=T) 
-Ma <- matrix(c(0.5,0.5,0.2,.8),2,2,byrow=T)
+Mj <- matrix(c(0.73,0.5,0.27,0.50),2,2,byrow=T) 
+Ma <- matrix(c(0.5,0.2,0.5,.8),2,2,byrow=T)
 
 s <- nrow(B1) # number of stages
 p <- nrow(Mj) # number of patches
@@ -480,6 +480,14 @@ B[3:4,3:4] <- B2
 M <- matrix(0,p*s,p*s)
 M[1:2,1:2] <- Mj
 M[3:4,3:4] <- Ma
+
+P<-matrix(0,s*p,s*p)
+for (i in 1:s){
+	for (j in 1:p){
+		E=matrix(0,s,p)
+        E[i,j]<-1
+        P<-P+E%x%t(E) # %x% is the Kronecker product
+        }}
 @
 
 \begin{figure}
@@ -533,9 +541,11 @@ cat("\\end{align*}")
 
 What is the proportion of adults migrating from population 2 to population 1? (dumb question, just to check)\\
 
-Now, modify the matrix $\boldsymbol{B}$ so that it contains the migration rates. \\
-What are the two assumptions you had to make to do so? % ratio of population sizes + timing of reproduction VS. migration
+Modify the matrix $\boldsymbol{B}$ so that it contains the migration rates. \\
+What are the two (at least) assumptions you had to make to do so? % ratio of population sizes + timing of reproduction VS. migration
 
+
+mm <- matrix(c(0.73,0.5,0.5,0.8),4,4,byrow=TRUE)
 
 We also define a matrix $\boldsymbol{M}$ summarizing the migration rates:
 <<MPD3,echo=FALSE,results='asis',message=FALSE>>=
@@ -546,27 +556,29 @@ print(xtable(M,align=rep("",ncol(M)+1)), floating=FALSE, tabular.environment="pm
 cat("\\end{align*}")
 @
 
+During the lectures, you have seen how to combine these two matrices efficiently using a vec-permutation matrix, \boldsymbol{P}.
 
 
+A mathematical efficient way to write this matrix is: 
+\begin{align*}
+\boldsymbol{P} = \sum\limits_{i=1}^s  \sum\limits_{j=1}^p \boldsymbol{E_{ij}} \bigotimes \boldsymbol{E_{ij}}^T\text{, }
+\end{align*}
+where $s$ and $p$ are the dimensions of the two square matrices to be combined, $\bigotimes$ is the Kronecker product (google it if you don't know it, it's nothing difficult) and where $\boldsymbol{E_{ij}}$ is a matrix of dimension $s\times p$ containing a $1$ on the $i^{th}$ line of the $j^{th}$ column, and $0$ elsewhere. 
+For instance, for $s=p=2$, $\boldsymbol{E_{1,2}} = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}$.
+Can you write a code that calculate \boldsymbol{P}?
 
-<<MPD4,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
-
-# Create the block diagonal matrix of demographic projection matrices
-
-
-
-
-# create P, the vec-permutation matrix based on number of stages and patches
-
+<<MPD4,echo=FALSE,results='asis',message=FALSE>>=
 P<-matrix(0,s*p,s*p)
 for (i in 1:s){
 	for (j in 1:p){
 		E=matrix(0,s,p)
         E[i,j]<-1
-        P<-P+E%x%t(E) # %x% is the Kronecker product
+        P<-P+t(E)%x%(E) # %x% is the Kronecker product
         }}
+@
 
 
+<<MPD3,echo=FALSE,results='asis',message=FALSE>>=
 # create the Metapopulation Projection Matrix, A
 
 A1<- t(P) %*% M %*% P %*% B  # %*% is the matrix multiplication

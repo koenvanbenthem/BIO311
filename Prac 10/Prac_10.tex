@@ -85,7 +85,7 @@
 \section{Environmental Stochasticity}
 In practical $9$ we investigated the population dynamics for two populations of yellow-necked mice. Here we focus on one of the two populations presented in that practical: the population living on the plain. For this population the Leslie matrix was given by:
 \begin{equation*} \boldsymbol{A}=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Fri Mar 11 15:02:27 2016
+% Fri Mar 11 15:26:27 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.25 & 0.50 \\ 
@@ -93,19 +93,19 @@ In practical $9$ we investigated the population dynamics for two populations of 
 \end{equation*}
 It turns out however that the conditions for the population are not the same every year. Measurements have been done (okay, this is what we say, in reality we made up some numbers that give reasonable results in the end...) for three years in a row and the matrices that were found for these years are shown below:
 \begin{align*}\boldsymbol{A_1} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Fri Mar 11 15:02:27 2016
+% Fri Mar 11 15:26:27 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.25 & 0.50 \\ 
   \end{pmatrix}
 & \boldsymbol{A_2} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Fri Mar 11 15:02:27 2016
+% Fri Mar 11 15:26:27 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.27 & 0.54 \\ 
   \end{pmatrix}
 & \boldsymbol{A_3} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Fri Mar 11 15:02:27 2016
+% Fri Mar 11 15:26:27 2016
 \begin{pmatrix}{}
   0.00 & 1.80 \\ 
   0.20 & 0.44 \\ 
@@ -140,7 +140,7 @@ In the rest of this practical, we will explore what happens if we decide to mode
 \hlkwd{sample}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{3}\hlstd{,}\hlnum{4}\hlstd{),}\hlnum{1}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 2
+## [1] 1
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -306,7 +306,7 @@ For example we have a dice with 6 sides and we want to roll it $100$ times and w
 \hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 28
+## [1] 33
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -317,7 +317,7 @@ We see that this function indeed returns us an integer number. \texttt{R} has in
 \hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-##  [1] 27 37 33 31 30 29 34 29 33 33
+##  [1] 29 36 34 29 31 31 37 29 22 36
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -328,7 +328,7 @@ However, if we average the outcomes of very many of these simulations, we should
 \hlkwd{mean}\hlstd{(}\hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10000}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{))}
 \end{alltt}
 \begin{verbatim}
-## [1] 33.2695
+## [1] 33.3894
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -360,7 +360,7 @@ Let us now check whether the mean value of many numbers drawn from a Poisson dis
 \hlkwd{mean}\hlstd{(}\hlkwd{rpois}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10000}\hlstd{,}\hlkwc{lambda}\hlstd{=}\hlnum{2}\hlstd{))}
 \end{alltt}
 \begin{verbatim}
-## [1] 1.9931
+## [1] 1.993
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -457,19 +457,19 @@ So far we have considered only populations in isolation of each other. For insta
 
 \begin{figure}
 \includegraphics[width=0.95\textwidth]{peregrine}
-\caption{\label{fig:peregrine}One of these birds is a peregrine falcon in a dive attack, the other birds are starlings and in trouble. Populations of peregrine falcons, and many other bird species, have declined during the 20th century in North America and Europe, in particular as a result of the massive use of the insecticide dichlorodiphenyltrichloroethane. DDT, which causes eggshell thinning, has been banned from these regions but is still used in tropical regions. Picture by Rob Palmer.}
+\caption{\label{fig:peregrine}One of these birds is a peregrine falcon in a dive attack. The other birds are starlings and are in trouble. Populations of peregrine falcons, and other bird species, have declined during the 20th century in North America and Europe as a result of the massive use of the insecticide dichlorodiphenyltrichloroethane. DDT, which causes eggshell thinning, has now been banned from these regions but is still used in tropical regions to fight malaria. Picture by Rob Palmer.}
 \end{figure}
 
 Let us consider two populations of peregrine falcons. 
 The demography of the two populations is summarized by the Leslie matrices $\boldsymbol{B_1}$ and $\boldsymbol{B_2}$ and by the associated asymptotic growth rates:
 \begin{align*}\boldsymbol{B_1} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Fri Mar 11 15:02:41 2016
+% Fri Mar 11 15:26:43 2016
 \begin{pmatrix}{}
   0.00 & 0.25 \\ 
   0.72 & 0.77 \\ 
   \end{pmatrix}
 & \boldsymbol{B_2} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Fri Mar 11 15:02:41 2016
+% Fri Mar 11 15:26:43 2016
 \begin{pmatrix}{}
   0.00 & 0.32 \\ 
   0.74 & 0.79 \\ 
@@ -479,7 +479,7 @@ One of the populations seem to be in good shape, while the other one is likely t
 
 For convenience, we can write these two matrices into a single matrix, $\boldsymbol{B}$, of dimension $4\times 4$:
 \begin{align*}\boldsymbol{B} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Fri Mar 11 15:02:41 2016
+% Fri Mar 11 15:26:43 2016
 \begin{pmatrix}{}
   0.00 & 0.25 & 0.00 & 0.00 \\ 
   0.72 & 0.77 & 0.00 & 0.00 \\ 
@@ -492,7 +492,7 @@ These two populations are not ecologically isolated, however, and they exchange 
 Migration rates vary depending on age, and are not symmetrical. Thus, $73\%$ of juveniles born in the population 1 stay there (and therefor $27\%$ emigrate to population 2), while $50\%$ of juveniles born in population 2 stay there ($27\%$ emmigrate). 
 These rates are summarized in the matrix $\boldsymbol{M_j}$:
 \begin{align*}\boldsymbol{M_j} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Fri Mar 11 15:02:41 2016
+% Fri Mar 11 15:26:43 2016
 \begin{pmatrix}{}
   0.73 & 0.27 \\ 
   0.50 & 0.50 \\ 
@@ -500,7 +500,7 @@ These rates are summarized in the matrix $\boldsymbol{M_j}$:
 \end{align*}
 Similarly, migration rates for adults are summarized in matrix $\boldsymbol{M_a}$:
 \begin{align*}\boldsymbol{M_a} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Fri Mar 11 15:02:41 2016
+% Fri Mar 11 15:26:43 2016
 \begin{pmatrix}{}
   0.50 & 0.50 \\ 
   0.20 & 0.80 \\ 
@@ -509,13 +509,13 @@ Similarly, migration rates for adults are summarized in matrix $\boldsymbol{M_a}
 
 What is the proportion of adults migrating from population 2 to population 1? (dumb question, just to check)\\
 
-Now, modify the matrix $\boldsymbol{B}$ so that it contains the migration rates. \\
-What are the two assumptions you had to make to do so? % ratio of population sizes + timing of reproduction VS. migration
+Modify the matrix $\boldsymbol{B}$ so that it contains the migration rates. \\
+What are the two (at least) assumptions you had to make to do so? % ratio of population sizes + timing of reproduction VS. migration
 
 
 We also define a matrix $\boldsymbol{M}$ summarizing the migration rates:
 \begin{align*}\boldsymbol{M} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Fri Mar 11 15:02:41 2016
+% Fri Mar 11 15:26:43 2016
 \begin{pmatrix}{}
   0.73 & 0.27 & 0.00 & 0.00 \\ 
   0.50 & 0.50 & 0.00 & 0.00 \\ 
@@ -524,8 +524,13 @@ We also define a matrix $\boldsymbol{M}$ summarizing the migration rates:
   \end{pmatrix}
 \end{align*}
 
+During the lectures, you have seen how to combine these two matrices efficiently using a vec-permutation matrix, \boldsymbol{P}, such as: 
 
-
+\begin{align*}
+\boldsymbol{P} = \sum\limits_{i=1}^s  \sum\limits_{j=1}^p \boldsymbol{E_{ij}} \bigotimes \boldsymbol{E_{ij}}^T\text{, }
+\end{align*}
+where $s$ and $p$ are the dimensions of the two square matrices to be combined and where $\boldsymbol{E_{ij}}$ is a matrix of dimention $s\times p$ containing a $1$ on the $i^{th}$ line of the $j^{th}$ column, and $0$ elsewhere. 
+For instance, for $s=p=2$, $\boldsymbol{E_{1,2}} = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}$
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
