@@ -464,34 +464,53 @@ We see that here as expected (because $\lambda=1$) the population size stabilize
 \section{Metapopulation dynamics}
 
 So far we have considered only populations in isolation of each other. For instance, in practical 9 we have compared two populations of yellow-necked mice, but have assumed that they were not exchanging migrants. More in general, in all matrix models so far, we have completely ignored the fact that new individuals appear in a population not only because of birth, but also because of immigration. Likewise, death is not the only factor removing individuals from a population, permanent emigration does the job as effectively. 
+
 <<MPD0,message=FALSE,echo=FALSE>>=
-Mp1<-matrix(c(0,0.19,0.72,0.77),2,2,byrow=T) 
-Mp2<-matrix(c(0,0.32,0.72,0.77),2,2,byrow=T) 
+B1<-matrix(c(0,0.25,0.72,0.77),2,2,byrow=T) 
+B2<-matrix(c(0,0.32,0.74,0.79),2,2,byrow=T) 
+M1<-matrix(c(0.73,0.27,0.50,0.50),2,2,byrow=T) 
+M2<-matrix(c(0.5,0.5,0.2,.8),2,2,byrow=T)
 @
 
-Let us consider two populations of 
+\begin{figure}
+\includegraphics[width=0.95\textwidth]{peregrine}
+\caption{\label{fig:peregrine}One of these birds is a peregrine falcon in a dive attack, the other birds are starlings and in trouble. Populations of peregrine falcons, and many other bird species, have declined during the 20th century in North America and Europe, in particular as a result of the massive use of the insecticide dichlorodiphenyltrichloroethane. DDT, which causes eggshell thinning, has been banned from these regions but is still used in tropical regions. Picture by Rob Palmer.}
+\end{figure}
+
+Let us consider two populations of peregrine falcons. 
+The demography of the two populations is summarized by the Leslie matrices $A_1$ and $A_2$ and by the associated asymptotic growth rates:
 <<MPD1,echo=FALSE,results='asis',message=FALSE>>=
 cat("\\begin{align*}")
-cat("\\boldsymbol{A_1} &=")
- print(xtable(Mp1,align=rep("",ncol(Mp1)+1)), floating=FALSE, tabular.environment="pmatrix", 
+cat("\\boldsymbol{B_1} &=")
+ print(xtable(B1,align=rep("",ncol(B1)+1)), floating=FALSE, tabular.environment="pmatrix", 
  hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
-cat("& \\boldsymbol{A_2} &=")
- print(xtable(Mp1,align=rep("",ncol(Mp1)+1)), floating=FALSE, tabular.environment="pmatrix", 
+cat("& \\boldsymbol{B_2} &=")
+ print(xtable(B2,align=rep("",ncol(B1)+1)), floating=FALSE, tabular.environment="pmatrix", 
  hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
 
-cat("\\\\ \\lambda &=",lambda(Mp1),"&\\lambda &=",lambda(Mp2))
+cat("\\\\ \\lambda &=",lambda(B1),"&\\lambda &=",lambda(B2))
 cat("\\end{align*}")
 @
+One of the populations seem to be in good shape, while the other one is likely to be declining (but remember that stochasticity can make predictions based on asymptotic behaviour unreliable). Let us assume that the differences between the two populations is due to the massive use of DDT as an insecticide around population $B_1$, while population $B_2$ is located in a remote mountain area with less human influence.
+
+These two populations are not ecologically isolated, however, and they exchange a number of migrants, both juveniles and adults every year. 
+
+
 
 Migration
 <<MPD2,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
-# Movement
+cat("\\begin{align*}")
+cat("\\boldsymbol{B_1} &=")
+ print(xtable(B1,align=rep("",ncol(B1)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+cat("& \\boldsymbol{B_2} &=")
+ print(xtable(B2,align=rep("",ncol(B1)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
 
-M1<-matrix(c(0.73,0.27,0.50,0.50),2,2,byrow=T)  # for juveniles
-M1 #check
+cat("\\\\ \\lambda &=",lambda(B1),"&\\lambda &=",lambda(B2))
+cat("\\end{align*}")
 
-M2<-matrix(c(0.5,0.5,0.2,.8),2,2,byrow=T) # for adults
-M2 #check
+
 
 
 s=nrow(B1) # number of stages

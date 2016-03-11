@@ -84,28 +84,28 @@
 
 \section{Environmental Stochasticity}
 In practical $9$ we investigated the population dynamics for two populations of yellow-necked mice. Here we focus on one of the two populations presented in that practical: the population living on the plain. For this population the Leslie matrix was given by:
-\begin{equation*} \boldsymbol{A}=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Thu Mar 10 21:35:47 2016
+\begin{equation*} \boldsymbol{A}=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Fri Mar 11 13:53:34 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.25 & 0.50 \\ 
   \end{pmatrix}
 \end{equation*}
 It turns out however that the conditions for the population are not the same every year. Measurements have been done (okay, this is what we say, in reality we made up some numbers that give reasonable results in the end...) for three years in a row and the matrices that were found for these years are shown below:
-\begin{align*}\boldsymbol{A_1} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Thu Mar 10 21:35:47 2016
+\begin{align*}\boldsymbol{A_1} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Fri Mar 11 13:53:34 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.25 & 0.50 \\ 
   \end{pmatrix}
-& \boldsymbol{A_2} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Thu Mar 10 21:35:47 2016
+& \boldsymbol{A_2} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Fri Mar 11 13:53:34 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.27 & 0.54 \\ 
   \end{pmatrix}
-& \boldsymbol{A_3} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Thu Mar 10 21:35:47 2016
+& \boldsymbol{A_3} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Fri Mar 11 13:53:34 2016
 \begin{pmatrix}{}
   0.00 & 1.80 \\ 
   0.20 & 0.44 \\ 
@@ -140,7 +140,7 @@ In the rest of this practical, we will explore what happens if we decide to mode
 \hlkwd{sample}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{3}\hlstd{,}\hlnum{4}\hlstd{),}\hlnum{1}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 3
+## [1] 1
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -306,7 +306,7 @@ For example we have a dice with 6 sides and we want to roll it $100$ times and w
 \hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 32
+## [1] 27
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -317,7 +317,7 @@ We see that this function indeed returns us an integer number. \texttt{R} has in
 \hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-##  [1] 32 35 30 33 35 35 23 41 38 33
+##  [1] 40 41 31 27 28 35 27 37 29 40
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -328,7 +328,7 @@ However, if we average the outcomes of very many of these simultations, we shoul
 \hlkwd{mean}\hlstd{(}\hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10000}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{))}
 \end{alltt}
 \begin{verbatim}
-## [1] 33.2788
+## [1] 33.4221
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -349,7 +349,7 @@ Now all that is left is calculating the amount of offspring that is produced at 
 \hlkwd{rpois}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{lambda}\hlstd{=}\hlnum{2}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 1
+## [1] 4
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -360,7 +360,7 @@ Let us now check whether the mean value of many numbers drawn from a Poisson dis
 \hlkwd{mean}\hlstd{(}\hlkwd{rpois}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10000}\hlstd{,}\hlkwc{lambda}\hlstd{=}\hlnum{2}\hlstd{))}
 \end{alltt}
 \begin{verbatim}
-## [1] 1.9929
+## [1] 2.0003
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -454,20 +454,32 @@ We see that here as expected (because $\lambda=1$) the population size stabilize
 So far we have considered only populations in isolation of each other. For instance, in practical 9 we have compared two populations of yellow-necked mice, but have assumed that they were not exchanging migrants. More in general, in all matrix models so far, we have completely ignored the fact that new individuals appear in a population not only because of birth, but also because of immigration. Likewise, death is not the only factor removing individuals from a population, permanent emigration does the job as effectively. 
 
 
-Let us consider two populations of 
-\begin{align*}\boldsymbol{A_1} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Thu Mar 10 21:36:00 2016
+
+\begin{figure}
+\includegraphics[width=0.95\textwidth]{peregrine}
+\caption{\label{fig:peregrine}One of these birds is a peregrine falcon in a dive attack, the other birds are starlings and in trouble. Populations of peregrine falcons, and many other bird species, have declined during the 20th century in North America and Europe, in particular as a result of the massive use of the insecticide dichlorodiphenyltrichloroethane. DDT, which causes eggshell thinning, has been banned from these regions but is still used in tropical regions. Picture by Rob Palmer.}
+\end{figure}
+
+Let us consider two populations of peregrine falcons. 
+The demography of the two populations is summarized by the Leslie matrices $A_1$ and $A_2$ and by the associated asymptotic growth rates:
+\begin{align*}\boldsymbol{B_1} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Fri Mar 11 13:53:58 2016
 \begin{pmatrix}{}
-  0.00 & 0.19 \\ 
+  0.00 & 0.25 \\ 
   0.72 & 0.77 \\ 
   \end{pmatrix}
-& \boldsymbol{A_2} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Thu Mar 10 21:36:00 2016
+& \boldsymbol{B_2} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Fri Mar 11 13:53:58 2016
 \begin{pmatrix}{}
-  0.00 & 0.19 \\ 
-  0.72 & 0.77 \\ 
+  0.00 & 0.32 \\ 
+  0.74 & 0.79 \\ 
   \end{pmatrix}
-\\ \lambda &= 0.9188773 &\lambda &= 1.000325\end{align*}
+\\ \lambda &= 0.9579092 &\lambda &= 1.021758\end{align*}
+One of the populations seem to be in good shape, while the other one is likely to be declining (but remember that stochasticity can make predictions based on asymptotic behaviour unreliable). Let us assume that the differences between the two populations is due to the massive use of DDT as an insecticide around population $B_1$, while population $B_2$ is located in a remote mountain area with less human influence.
+
+These two populations are not ecologically isolated, however, and they exchange a number of migrants, both juveniles and adults every year. 
+
+
 
 Migration
 \begin{knitrout}
@@ -494,10 +506,7 @@ Migration
 \end{verbatim}
 \begin{alltt}
 \hlstd{s}\hlkwb{=}\hlkwd{nrow}\hlstd{(B1)} \hlcom{# number of stages}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in nrow(B1): objet 'B1' introuvable}}\begin{alltt}
 \hlstd{p}\hlkwb{=}\hlkwd{nrow}\hlstd{(M1)} \hlcom{# number of patches}
 \end{alltt}
 \end{kframe}
@@ -513,87 +522,56 @@ Asymptotic approach
 \hlcom{# Create the block diagonal matrix of demographic projection matrices}
 
 \hlstd{B}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,p}\hlopt{*}\hlstd{s,p}\hlopt{*}\hlstd{s)}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in matrix(0, p * s, p * s): objet 's' introuvable}}\begin{alltt}
 \hlstd{B[}\hlnum{1}\hlopt{:}\hlnum{2}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{2}\hlstd{]}\hlkwb{<-}\hlstd{B1}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'B1' introuvable}}\begin{alltt}
 \hlstd{B[}\hlnum{3}\hlopt{:}\hlnum{4}\hlstd{,}\hlnum{3}\hlopt{:}\hlnum{4}\hlstd{]}\hlkwb{<-}\hlstd{B2}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'B2' introuvable}}\begin{alltt}
 \hlstd{B} \hlcom{#check what it looks like}
 \end{alltt}
 \begin{verbatim}
-##      [,1] [,2]
-## [1,] 0.00 2.00
-## [2,] 0.27 0.54
+##      [,1] [,2] [,3] [,4]
+## [1,] 0.00 0.25 0.00 0.00
+## [2,] 0.72 0.77 0.00 0.00
+## [3,] 0.00 0.00 0.00 0.32
+## [4,] 0.00 0.00 0.74 0.79
 \end{verbatim}
 \begin{alltt}
 \hlstd{M}\hlkwb{=}\hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,p}\hlopt{*}\hlstd{s,p}\hlopt{*}\hlstd{s)}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in matrix(0, p * s, p * s): objet 's' introuvable}}\begin{alltt}
 \hlstd{M[}\hlnum{1}\hlopt{:}\hlnum{2}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{2}\hlstd{]}\hlkwb{<-}\hlstd{M1}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in M[1:2, 1:2] <- M1: objet 'M' introuvable}}\begin{alltt}
 \hlstd{M[}\hlnum{3}\hlopt{:}\hlnum{4}\hlstd{,}\hlnum{3}\hlopt{:}\hlnum{4}\hlstd{]}\hlkwb{<-}\hlstd{M2}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in M[3:4, 3:4] <- M2: objet 'M' introuvable}}\begin{alltt}
 \hlstd{M} \hlcom{#check what it looks like}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'M' introuvable}}\begin{alltt}
+\begin{verbatim}
+##      [,1] [,2] [,3] [,4]
+## [1,] 0.73 0.27  0.0  0.0
+## [2,] 0.50 0.50  0.0  0.0
+## [3,] 0.00 0.00  0.5  0.5
+## [4,] 0.00 0.00  0.2  0.8
+\end{verbatim}
+\begin{alltt}
 \hlcom{# create P, the vec-permutation matrix based on number of stages and patches}
 
 \hlstd{P}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,s}\hlopt{*}\hlstd{p,s}\hlopt{*}\hlstd{p)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in matrix(0, s * p, s * p): objet 's' introuvable}}\begin{alltt}
 \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{s)\{}
         \hlkwa{for} \hlstd{(j} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{p)\{}
                 \hlstd{E}\hlkwb{=}\hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,s,p)}
         \hlstd{E[i,j]}\hlkwb{<-}\hlnum{1}
         \hlstd{P}\hlkwb{<-}\hlstd{P}\hlopt{+}\hlstd{E}\hlopt{%x%}\hlkwd{t}\hlstd{(E)} \hlcom{# %x% is the Kronecker product}
         \hlstd{\}\}}
-\end{alltt}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 's' introuvable}}\begin{alltt}
 \hlcom{# create the Metapopulation Projection Matrix, A}
 
 \hlstd{A1}\hlkwb{<-} \hlkwd{t}\hlstd{(P)} \hlopt{%*%} \hlstd{M} \hlopt{%*%} \hlstd{P} \hlopt{%*%} \hlstd{B}  \hlcom{# %*% is the matrix multiplication}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in t(P): objet 'P' introuvable}}\begin{alltt}
 \hlstd{A2}\hlkwb{<-} \hlstd{B} \hlopt{%*%} \hlkwd{t}\hlstd{(P)} \hlopt{%*%} \hlstd{M} \hlopt{%*%} \hlstd{P}  \hlcom{# %*% is the matrix multiplication}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in t(P): objet 'P' introuvable}}\begin{alltt}
 \hlstd{A3}\hlkwb{<-} \hlstd{M} \hlopt{%*%} \hlstd{P} \hlopt{%*%} \hlstd{B} \hlopt{%*%} \hlkwd{t}\hlstd{(P)}  \hlcom{# %*% is the matrix multiplication}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'M' introuvable}}\begin{alltt}
 \hlstd{A4}\hlkwb{<-} \hlstd{P} \hlopt{%*%} \hlstd{B} \hlopt{%*%} \hlkwd{t}\hlstd{(P)} \hlopt{%*%} \hlstd{M}  \hlcom{# %*% is the matrix multiplication}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'P' introuvable}}\end{kframe}
+\end{kframe}
 \end{knitrout}
 
 
@@ -605,35 +583,41 @@ Asymptotic approach
 \hlstd{A1} \hlcom{#check what it looks like}
 \end{alltt}
 \begin{verbatim}
-##      [,1] [,2]
-## [1,] 0.00  2.0
-## [2,] 0.25  0.5
+##       [,1]   [,2]  [,3]   [,4]
+## [1,] 0.000 0.1825 0.000 0.0864
+## [2,] 0.360 0.3850 0.370 0.3950
+## [3,] 0.000 0.1250 0.000 0.1600
+## [4,] 0.144 0.1540 0.592 0.6320
 \end{verbatim}
 \begin{alltt}
 \hlkwd{eigen.analysis}\hlstd{(A1)} \hlcom{# Check local and metapoulation growth rates an have a look at the sensitivity matrix}
 \end{alltt}
 \begin{verbatim}
 ## $lambda1
-## [1] 1
+## [1] 0.9914106
 ## 
 ## $stable.stage
-## [1] 0.6666667 0.3333333
+## [1] 0.1057359 0.3879402 0.1124745 0.3938494
 ## 
 ## $sensitivities
-##          [,1]      [,2]
-## [1,] 0.000000 0.1666667
-## [2,] 1.333333 0.6666667
+##            [,1]      [,2]       [,3]      [,4]
+## [1,] 0.00000000 0.1797919 0.00000000 0.1825306
+## [2,] 0.07608703 0.2791599 0.08093612 0.2834122
+## [3,] 0.00000000 0.4265926 0.00000000 0.4330906
+## [4,] 0.14716212 0.5399311 0.15654089 0.5481556
 ## 
 ## $elasticities
-##           [,1]      [,2]
-## [1,] 0.0000000 0.3333333
-## [2,] 0.3333333 0.3333333
+##            [,1]       [,2]       [,3]       [,4]
+## [1,] 0.00000000 0.03309631 0.00000000 0.01590728
+## [2,] 0.02762864 0.10840770 0.03020581 0.11291770
+## [3,] 0.00000000 0.05378606 0.00000000 0.06989486
+## [4,] 0.02137494 0.08386979 0.09347510 0.34943581
 ## 
 ## $repro.value
-## [1] 1 4
+## [1] 1.000000 1.552683 2.372701 3.003089
 ## 
 ## $damping.ratio
-## [1] 2
+## [1] 3.51128
 \end{verbatim}
 \begin{alltt}
 \hlstd{lambda} \hlkwb{<-} \hlkwd{eigen.analysis}\hlstd{(A)}\hlopt{$}\hlstd{lambda1} \hlcom{# how does the metapoulation growth rate compare to local growth rates?}
@@ -643,67 +627,41 @@ Asymptotic approach
 
 \hlstd{Asens1}\hlkwb{<-}\hlkwd{eigen.analysis}\hlstd{(A1)}\hlopt{$}\hlstd{sensitivities} \hlcom{# the A sensitivity matrix}
 \hlstd{Asens2}\hlkwb{<-}\hlkwd{eigen.analysis}\hlstd{(A2)}\hlopt{$}\hlstd{sensitivities} \hlcom{# the A sensitivity matrix}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in as.matrix(x): objet 'A2' introuvable}}\begin{alltt}
 \hlstd{Asens3}\hlkwb{<-}\hlkwd{eigen.analysis}\hlstd{(A3)}\hlopt{$}\hlstd{sensitivities} \hlcom{# the A sensitivity matrix}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in as.matrix(x): objet 'A3' introuvable}}\begin{alltt}
 \hlstd{Asens4}\hlkwb{<-}\hlkwd{eigen.analysis}\hlstd{(A4)}\hlopt{$}\hlstd{sensitivities} \hlcom{# the A sensitivity matrix}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in as.matrix(x): objet 'A4' introuvable}}\begin{alltt}
 \hlstd{Bsens1}\hlkwb{<-}\hlkwd{t}\hlstd{(P)} \hlopt{%*%} \hlkwd{t}\hlstd{(M)} \hlopt{%*%} \hlstd{P} \hlopt{%*%} \hlstd{Asens1} \hlcom{# demography sensitivities}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in t(P): objet 'P' introuvable}}\begin{alltt}
 \hlstd{Bsens2}\hlkwb{<-}\hlstd{Asens2} \hlopt{%*%} \hlkwd{t}\hlstd{(P)} \hlopt{%*%} \hlkwd{t}\hlstd{(M)} \hlopt{%*%} \hlstd{P} \hlcom{# demography sensitivities}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'Asens2' introuvable}}\begin{alltt}
 \hlstd{Bsens3}\hlkwb{<-}\hlkwd{t}\hlstd{(P)} \hlopt{%*%} \hlkwd{t}\hlstd{(M)} \hlopt{%*%} \hlstd{Asens3} \hlopt{%*%} \hlstd{P} \hlcom{# demography sensitivities}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in t(P): objet 'P' introuvable}}\begin{alltt}
 \hlstd{Bsens4}\hlkwb{<-}\hlkwd{t}\hlstd{(P)} \hlopt{%*%} \hlstd{Asens4} \hlopt{%*%} \hlkwd{t}\hlstd{(M)} \hlopt{%*%} \hlstd{P} \hlcom{# demography sensitivities}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in t(P): objet 'P' introuvable}}\begin{alltt}
 \hlstd{Belas}\hlkwb{<-}\hlstd{B} \hlopt{*} \hlstd{Bsens} \hlopt{/} \hlstd{lambda}  \hlcom{# demography elasticities}
 \end{alltt}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'Bsens' introuvable}}\begin{alltt}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Bsens' not found}}\begin{alltt}
 \hlkwd{sum}\hlstd{(Belas[}\hlnum{1}\hlopt{:}\hlnum{2}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{2}\hlstd{])} \hlcom{# contribution from patch 1 to metapopulation growth rate }
 \end{alltt}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'Belas' introuvable}}\begin{alltt}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Belas' not found}}\begin{alltt}
 \hlkwd{sum}\hlstd{(Belas[}\hlnum{3}\hlopt{:}\hlnum{4}\hlstd{,}\hlnum{3}\hlopt{:}\hlnum{4}\hlstd{])} \hlcom{# contribution from patch 2 to metapopulation growth rate }
 \end{alltt}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'Belas' introuvable}}\begin{alltt}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Belas' not found}}\begin{alltt}
 \hlstd{Msens}\hlkwb{=}\hlstd{P} \hlopt{%*%} \hlkwd{t}\hlstd{(B)} \hlopt{%*%} \hlstd{Asens} \hlopt{%*%} \hlkwd{t}\hlstd{(P)} \hlcom{# movement sensitivities}
 \end{alltt}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'P' introuvable}}\begin{alltt}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Asens' not found}}\begin{alltt}
 \hlcom{# You'll realize that interpreting Movement sensitivities is rather difficult. A better approach would be to estimate the lower-level sensitivities for the dispersal rate, d (see H&C 2005)}
 
 \hlopt{-}\hlnum{1} \hlopt{*} \hlstd{Msens[}\hlnum{1}\hlstd{,}\hlnum{1}\hlstd{]} \hlopt{+} \hlnum{1} \hlopt{*} \hlstd{Msens[}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{]} \hlopt{+} \hlnum{1} \hlopt{*} \hlstd{Msens[}\hlnum{2}\hlstd{,}\hlnum{1}\hlstd{]} \hlopt{-} \hlnum{1} \hlopt{*} \hlstd{Msens[}\hlnum{2}\hlstd{,}\hlnum{2}\hlstd{]}
 \end{alltt}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'Msens' introuvable}}\begin{alltt}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Msens' not found}}\begin{alltt}
 \hlcom{###############################################################}
 
 
