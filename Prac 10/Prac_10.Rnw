@@ -71,7 +71,7 @@ cat("\\\\ \\lambda &=",lambda(A),"&\\lambda &=",lambda(B),"&\\lambda &=",lambda(
 cat("\\end{align*}")
 
 @
-We see that the year that we considered was a relatively average year. The year after the survival rates of the individuals was higher at both stages. In the third year however the population experienced some severe conditions with the survival rates and the fertility rate being lower than in both preceeding years.
+We see that the year that we considered was a relatively average year. The year after the survival rates of the individuals was higher at both stages. In the third year however the population experienced some severe conditions with the survival rates and the fertility rate being lower than in both preceding years.
 
 We thus have to realise that the transition rates in nature will vary from year to year. This would mean that the Leslie matrix would also look differently every year. Two possibilities of taking this into account when predicting the behaviour of the population are given below:
 \begin{enumerate}
@@ -80,24 +80,24 @@ We thus have to realise that the transition rates in nature will vary from year 
 \mu_{S_j} &= \Sexpr{mean(c(A[2,1],B[2,1],C[2,1]))} & \sigma_{S_j} &= \Sexpr{sd(c(A[2,1],B[2,1],C[2,1]))}\\
 \mu_{S_a} &= \Sexpr{mean(c(A[2,2],B[2,2],C[2,2]))} & \sigma_{S_a} &= \Sexpr{sd(c(A[2,2],B[2,2],C[2,2]))}
 \end{align*}
-For every timestep that we project the population in the future, we generate a matrix $\boldsymbol{A}$ with a random fertility rate (drawn from a normal distribution with mean $\mu_F$ and standard deviation $\sigma_F$), a random juvenile survival rate (drawn from a normal distribution with mean $\mu_{S_j}$ and standard deviation $\sigma_{S_j}$) and a random adult survival rate (drawn from a normal distribution with mean $\mu_{S_a}$ and standard deviation $\sigma_{S_a}$). This way we will incorporate the fact that the rates can vary over time.
+For every time step that we project the population in the future, we generate a matrix $\boldsymbol{A}$ with a random fertility rate (drawn from a normal distribution with mean $\mu_F$ and standard deviation $\sigma_F$), a random juvenile survival rate (drawn from a normal distribution with mean $\mu_{S_j}$ and standard deviation $\sigma_{S_j}$) and a random adult survival rate (drawn from a normal distribution with mean $\mu_{S_a}$ and standard deviation $\sigma_{S_a}$). This way we will incorporate the fact that the rates can vary over time.
 \begin{mdframed}
 \textbf{Quick refresher: standard deviation}\\
-The standard deviation describes how much variation there is in the data from the average. A large standard deviation means that the data points deviate a lot from the average whereas a small standard devuation indicates that the data points are close to the average. Mathematically it is defined as:
+The standard deviation describes how much variation there is in the data from the average. A large standard deviation means that the data points deviate a lot from the average whereas a small standard deviation indicates that the data points are close to the average. Mathematically it is defined as:
 \begin{equation*}
 \sigma = \sqrt{\frac{1}{N-1}\sum_{i=1}^{N}{(x_i-\mu)^2}}.
 \end{equation*}
 In this equation $\mu$ is the average value of $x$ (thus $\mu=\frac{1}{N}\sum_{i=1}^{N}{x_i}$) and $N$ is the total number of data points. In \texttt{R} you can use the function \texttt{sd()} to calculate the standard deviation.
 \end{mdframed}
-\item Every timestep we randomly choose one of the measured matrices ($\boldsymbol{A_1,A_2,A_3}$) with equal probabilities. Thereby taking into account the variation in the environment.
+\item Every time step we randomly choose one of the measured matrices ($\boldsymbol{A_1,A_2,A_3}$) with equal probabilities. Thereby taking into account the variation in the environment.
 \end{enumerate}
 Which of these approaches do you prefer in this case? And why?
 \subsection{Independent sequences}
-In the rest of this practical, we will explore what happens if we decide to model the dynamics by randomly choosing one of the three matrices each timestep. Assume an initial population of $5$ juveniles and $5$ adults. Create a matrix \texttt{N} to store the numbers that you will calculate. Now use the \texttt{sample()} function to generate a random number every timestep and use this number (using \texttt{if/else}) to decide which matrix is used in a specific timestep. To illustrate the use of \texttt{sample}
+In the rest of this practical, we will explore what happens if we decide to model the dynamics by randomly choosing one of the three matrices each time step. Assume an initial population of $5$ juveniles and $5$ adults. Create a matrix \texttt{N} to store the numbers that you will calculate. Now use the \texttt{sample()} function to generate a random number every time step and use this number (using \texttt{if/else}) to decide which matrix is used in a specific time step. To illustrate the use of \texttt{sample}
 <<simiii>>=
 sample(c(1,2,3,4),1)
 @
-randomly draws $1$ entry out of the vector \texttt{c(1,2,3,4)}. Now use this function to generate one possible prediction of the population dynamics until timestep $50$.
+randomly draws $1$ entry out of the vector \texttt{c(1,2,3,4)}. Now use this function to generate one possible prediction of the population dynamics until time step $50$.
 <<sim_one2,echo=TRUE,eval=FALSE,out.width='0.5\\textwidth',fig.align='center'>>=
 A1<-...
 A2<-...
@@ -242,15 +242,15 @@ You will now incorporate this property in the model that you have already develo
 <<probis,eval=FALSE>>=
 sample(c(1,2,3),1,prob=c(4/7,2/7,1/7))
 @
-Now you can use this property to change the previous simulation to account for temporal autocorrelation. First, before entering the time loop (but after entering the loop that is used for calculating the different predictions), specify a new vector that will hold the probabilities. At this time (the first time point), all the matrices are still equally likely to occur.
+Now you can use this property to change the previous simulation to account for temporal auto-correlation. First, before entering the time loop (but after entering the loop that is used for calculating the different predictions), specify a new vector that will hold the probabilities. At this time (the first time point), all the matrices are still equally likely to occur.
 <<aaaa>>=
 probs=c(1/3,1/3,1/3)
 @
-Now adapt your previous code to use these probabilities to draw a new matrix every timestep. Once a matrix has been drawn in a timestep, change the vector \texttt{probs} such that the next timestep there will be a chance of $\frac{5}{7}$ to have the same matrix again and a chance of $\frac{1}{7}$ to have either of the other matrices in the next timestep. In English, what you have to do is:
+Now adapt your previous code to use these probabilities to draw a new matrix every time step. Once a matrix has been drawn in a time step, change the vector \texttt{probs} such that the next time step there will be a chance of $\frac{5}{7}$ to have the same matrix again and a chance of $\frac{1}{7}$ to have either of the other matrices in the next time step. In English, what you have to do is:
 
 \begin{enumerate}
 \item Define a \texttt{probs} vector within the first loop but outside of the second. This is the vector that determines which one of the matrix is the first matrix of the time step.
-\item Specifiy the \texttt{prob} argument of the \texttt{sample} function to be the vector \texttt{probs}.
+\item Specify the \texttt{prob} argument of the \texttt{sample} function to be the vector \texttt{probs}.
 \item After each \texttt{if/else} statements within the second loop, define a new \texttt{probs} vector which will change the probability of the matrices to be used.
 \end{enumerate}
 How do these predictions differ from the predictions in the non-correlated case? Does this make sense to you?
@@ -348,7 +348,7 @@ plot(1:timesteps,extinct/reps,type="l",xlab="t",ylab="Extinction probability")
 \end{tabular}
 \end{center}
 \section{Demographic Stochasticity (Demonstration only)}
-A problem that we have not talked about so far is the fact that matrices allow for half individuals. You may for example find that the expected number of juveniles after 10 timesteps equals $2.4$, but what are $0.4$ individuals? We interpret this as an 'average'. It is however also possible to take into account the fact that half an individual can not exist. For this we do not use the matrix framework, but we can use the rates that we also used in the matrix framework.
+A problem that we have not talked about so far is the fact that matrices allow for half individuals. You may for example find that the expected number of juveniles after 10 time steps equals $2.4$, but what are $0.4$ individuals? We interpret this as an 'average'. It is however also possible to take into account the fact that half an individual can not exist. For this we do not use the matrix framework, but we can use the rates that we also used in the matrix framework.
 
 In this section we will only consider $\boldsymbol{A_1}$. That is: we have juvenile survival of $0.25$, and adult survival of $0.5$ and an average fertility rate of $2$. If we would do the matrix multiplication, we would write for the number of juveniles ($N_j$) and the number of adults ($N_a$):
 \begin{align*}
@@ -367,7 +367,7 @@ We see that this function indeed returns us an integer number. \texttt{R} has in
 <<dice2>>=
 rbinom(n=10,size=100,prob=1/3)
 @
-However, if we average the outcomes of very many of these simultations, we should find back the expected $33.333\dots$:
+However, if we average the outcomes of very many of these simulations, we should find back the expected $33.333\dots$:
 <<dice3>>=
 mean(rbinom(n=10000,size=100,prob=1/3))
 @
@@ -466,19 +466,37 @@ We see that here as expected (because $\lambda=1$) the population size stabilize
 So far we have considered only populations in isolation of each other. For instance, in practical 9 we have compared two populations of yellow-necked mice, but have assumed that they were not exchanging migrants. More in general, in all matrix models so far, we have completely ignored the fact that new individuals appear in a population not only because of birth, but also because of immigration. Likewise, death is not the only factor removing individuals from a population, permanent emigration does the job as effectively. 
 
 <<MPD0,message=FALSE,echo=FALSE>>=
-B1<-matrix(c(0,0.25,0.72,0.77),2,2,byrow=T) 
-B2<-matrix(c(0,0.32,0.74,0.79),2,2,byrow=T) 
-M1<-matrix(c(0.73,0.27,0.50,0.50),2,2,byrow=T) 
-M2<-matrix(c(0.5,0.5,0.2,.8),2,2,byrow=T)
+B1 <- matrix(c(0,0.25,0.72,0.77),2,2,byrow=T) 
+B2 <- matrix(c(0,0.32,0.74,0.79),2,2,byrow=T) 
+Mj <- matrix(c(0.73,0.5,0.27,0.50),2,2,byrow=T) 
+Ma <- matrix(c(0.5,0.2,0.5,.8),2,2,byrow=T)
+
+s <- nrow(B1) # number of stages
+p <- nrow(Mj) # number of patches
+B <- matrix(0,p*s,p*s)
+B[1:2,1:2] <- B1
+B[3:4,3:4] <- B2
+
+M <- matrix(0,p*s,p*s)
+M[1:2,1:2] <- Mj
+M[3:4,3:4] <- Ma
+
+P<-matrix(0,s*p,s*p)
+for (i in 1:s){
+	for (j in 1:p){
+		E=matrix(0,s,p)
+        E[i,j]<-1
+        P<-P+E%x%t(E) # %x% is the Kronecker product
+        }}
 @
 
 \begin{figure}
 \includegraphics[width=0.95\textwidth]{peregrine}
-\caption{\label{fig:peregrine}One of these birds is a peregrine falcon in a dive attack, the other birds are starlings and in trouble. Populations of peregrine falcons, and many other bird species, have declined during the 20th century in North America and Europe, in particular as a result of the massive use of the insecticide dichlorodiphenyltrichloroethane. DDT, which causes eggshell thinning, has been banned from these regions but is still used in tropical regions. Picture by Rob Palmer.}
+\caption{\label{fig:peregrine}One of these birds is a peregrine falcon in a dive attack. The other birds are starlings and are in trouble. Populations of peregrine falcons, and other bird species, have declined during the 20th century in North America and Europe as a result of the massive use of the insecticide dichlorodiphenyltrichloroethane. DDT, which causes eggshell thinning, has now been banned from these regions but is still used in tropical regions to fight malaria. Picture by Rob Palmer.}
 \end{figure}
 
 Let us consider two populations of peregrine falcons. 
-The demography of the two populations is summarized by the Leslie matrices $A_1$ and $A_2$ and by the associated asymptotic growth rates:
+The demography of the two populations is summarized by the Leslie matrices $\boldsymbol{B_1}$ and $\boldsymbol{B_2}$ and by the associated asymptotic growth rates:
 <<MPD1,echo=FALSE,results='asis',message=FALSE>>=
 cat("\\begin{align*}")
 cat("\\boldsymbol{B_1} &=")
@@ -491,70 +509,76 @@ cat("& \\boldsymbol{B_2} &=")
 cat("\\\\ \\lambda &=",lambda(B1),"&\\lambda &=",lambda(B2))
 cat("\\end{align*}")
 @
-One of the populations seem to be in good shape, while the other one is likely to be declining (but remember that stochasticity can make predictions based on asymptotic behaviour unreliable). Let us assume that the differences between the two populations is due to the massive use of DDT as an insecticide around population $B_1$, while population $B_2$ is located in a remote mountain area with less human influence.
+One of the populations seem to be in good shape, while the other one is likely to be declining (but remember that stochasticity can make predictions based on asymptotic behaviour unreliable). Let us assume that the differences between the two populations is due to the massive use of DDT as an insecticide around population 1, while population 2 is located in a remote mountain area with less human influence.
+
+For convenience, we can write these two matrices into a single matrix, $\boldsymbol{B}$, of dimension $4\times 4$:
+<<MPD1b,echo=FALSE,results='asis',message=FALSE>>=
+cat("\\begin{align*}")
+cat("\\boldsymbol{B} &=")
+print(xtable(B,align=rep("",ncol(B)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+cat("\\end{align*}")
+@
 
 These two populations are not ecologically isolated, however, and they exchange a number of migrants, both juveniles and adults every year. 
-
-
-
-Migration
-<<MPD2,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
+Migration rates vary depending on age, and are not symmetrical. Thus, $\Sexpr{100*Mj[1,1]}\%$ of juveniles born in the population 1 stay there (and therefor $\Sexpr{100*Mj[1,2]}\%$ emigrate to population 2), while $\Sexpr{100*Mj[2,2]}\%$ of juveniles born in population 2 stay there ($\Sexpr{100*Mj[1,2]}\%$ emmigrate). 
+These rates are summarized in the matrix $\boldsymbol{M_j}$:
+<<MPD2,echo=FALSE,results='asis',message=FALSE>>=
 cat("\\begin{align*}")
-cat("\\boldsymbol{B_1} &=")
- print(xtable(B1,align=rep("",ncol(B1)+1)), floating=FALSE, tabular.environment="pmatrix", 
+cat("\\boldsymbol{M_j} &=")
+ print(xtable(Mj,align=rep("",ncol(Mj)+1)), floating=FALSE, tabular.environment="pmatrix", 
  hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
-cat("& \\boldsymbol{B_2} &=")
- print(xtable(B2,align=rep("",ncol(B1)+1)), floating=FALSE, tabular.environment="pmatrix", 
- hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
-
-cat("\\\\ \\lambda &=",lambda(B1),"&\\lambda &=",lambda(B2))
 cat("\\end{align*}")
-
-
-
-
-s=nrow(B1) # number of stages
-
-p=nrow(M1) # number of patches
+@
+Similarly, migration rates for adults are summarized in matrix $\boldsymbol{M_a}$:
+<<MPD2b,echo=FALSE,results='asis',message=FALSE>>=
+cat("\\begin{align*}")
+cat("\\boldsymbol{M_a} &=")
+ print(xtable(Ma,align=rep("",ncol(Ma)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+cat("\\end{align*}")
 @
 
-Simulation approach
-<<MPD3,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
+We also define a matrix $\boldsymbol{M}$ summarizing the migration rates:
+<<MPD3,echo=FALSE,results='asis',message=FALSE>>=
+cat("\\begin{align*}")
+cat("\\boldsymbol{M} &=")
+print(xtable(M,align=rep("",ncol(M)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+cat("\\end{align*}")
 @
 
-Asymptotic approach
-<<MPD4,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
 
-# Create the block diagonal matrix of demographic projection matrices
+What is the proportion of adults migrating from population 2 to population 1? (dumb question, just to check)\\
 
-B<-matrix(0,p*s,p*s)
+We would like to modify the matrix $\boldsymbol{B}$ so that it contains the migration rates. \\
+What are the two assumptions you have to make before you can start? 
+(hints: one is about population size, and one about timing)% even ratio of population sizes + timing of reproduction VS. migration
 
-B[1:2,1:2]<-B1
+This task is not absolutely trivial because $\boldsymbol{M}$ is organized by age, while $\boldsymbol{B}$ is organized by site. 
 
-B[3:4,3:4]<-B2
+During the lectures, you have seen how one can use matrix algebra to efficiently obtain this meta-population matrix, using a vec-permutation matrix, \boldsymbol{P}.
 
-B #check what it looks like
+\boldsymbol{P} can be defined as:
+\begin{align*}
+\boldsymbol{P} = \sum\limits_{i=1}^s  \sum\limits_{j=1}^p \boldsymbol{E_{ij}} \bigotimes \boldsymbol{E_{ij}}^T\text{, }
+\end{align*}
+where $s$ and $p$ are the dimensions of the two square matrices to be combined, $\bigotimes$ is the Kronecker product (google it if you don't know it, it's nothing difficult) and where $\boldsymbol{E_{ij}}$ is a matrix of dimension $s\times p$ containing a $1$ on the $i^{th}$ line of the $j^{th}$ column, and $0$ elsewhere. 
+For instance, for $s=p=2$, $\boldsymbol{E_{1,2}} = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}$.
+Can you write a code that calculates \boldsymbol{P}?
 
-M=matrix(0,p*s,p*s)
-
-M[1:2,1:2]<-M1
-
-M[3:4,3:4]<-M2
-
-M #check what it looks like
-
-
-# create P, the vec-permutation matrix based on number of stages and patches
-
+<<MPD4,echo=FALSE,results='asis',message=FALSE>>=
 P<-matrix(0,s*p,s*p)
 for (i in 1:s){
 	for (j in 1:p){
 		E=matrix(0,s,p)
         E[i,j]<-1
-        P<-P+E%x%t(E) # %x% is the Kronecker product
+        P<-P+t(E)%x%(E) # %x% is the Kronecker product
         }}
+@
 
 
+<<MPD4b,echo=FALSE,results='asis',message=FALSE>>=
 # create the Metapopulation Projection Matrix, A
 
 A1<- t(P) %*% M %*% P %*% B  # %*% is the matrix multiplication
