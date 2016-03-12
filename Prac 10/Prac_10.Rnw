@@ -539,14 +539,6 @@ cat("\\boldsymbol{M_a} &=")
 cat("\\end{align*}")
 @
 
-What is the proportion of adults migrating from population 2 to population 1? (dumb question, just to check)\\
-
-Modify the matrix $\boldsymbol{B}$ so that it contains the migration rates. \\
-What are the two (at least) assumptions you had to make to do so? % ratio of population sizes + timing of reproduction VS. migration
-
-
-mm <- matrix(c(0.73,0.5,0.5,0.8),4,4,byrow=TRUE)
-
 We also define a matrix $\boldsymbol{M}$ summarizing the migration rates:
 <<MPD3,echo=FALSE,results='asis',message=FALSE>>=
 cat("\\begin{align*}")
@@ -556,16 +548,24 @@ print(xtable(M,align=rep("",ncol(M)+1)), floating=FALSE, tabular.environment="pm
 cat("\\end{align*}")
 @
 
-During the lectures, you have seen how to combine these two matrices efficiently using a vec-permutation matrix, \boldsymbol{P}.
 
+What is the proportion of adults migrating from population 2 to population 1? (dumb question, just to check)\\
 
-A mathematical efficient way to write this matrix is: 
+We would like to modify the matrix $\boldsymbol{B}$ so that it contains the migration rates. \\
+What are the two assumptions you have to make before you can start? 
+(hints: one is about population size, and one about timing)% even ratio of population sizes + timing of reproduction VS. migration
+
+This task is not absolutely trivial because $\boldsymbol{M}$ is organized by age, while $\boldsymbol{B}$ is organized by site. 
+
+During the lectures, you have seen how one can use matrix algebra to efficiently obtain this meta-population matrix, using a vec-permutation matrix, \boldsymbol{P}.
+
+\boldsymbol{P} can be defined as:
 \begin{align*}
 \boldsymbol{P} = \sum\limits_{i=1}^s  \sum\limits_{j=1}^p \boldsymbol{E_{ij}} \bigotimes \boldsymbol{E_{ij}}^T\text{, }
 \end{align*}
 where $s$ and $p$ are the dimensions of the two square matrices to be combined, $\bigotimes$ is the Kronecker product (google it if you don't know it, it's nothing difficult) and where $\boldsymbol{E_{ij}}$ is a matrix of dimension $s\times p$ containing a $1$ on the $i^{th}$ line of the $j^{th}$ column, and $0$ elsewhere. 
 For instance, for $s=p=2$, $\boldsymbol{E_{1,2}} = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}$.
-Can you write a code that calculate \boldsymbol{P}?
+Can you write a code that calculates \boldsymbol{P}?
 
 <<MPD4,echo=FALSE,results='asis',message=FALSE>>=
 P<-matrix(0,s*p,s*p)
@@ -578,7 +578,7 @@ for (i in 1:s){
 @
 
 
-<<MPD3,echo=FALSE,results='asis',message=FALSE>>=
+<<MPD4b,echo=FALSE,results='asis',message=FALSE>>=
 # create the Metapopulation Projection Matrix, A
 
 A1<- t(P) %*% M %*% P %*% B  # %*% is the matrix multiplication
