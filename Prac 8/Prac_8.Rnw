@@ -39,7 +39,7 @@ options(width=60)
 \newpage
 \section{Hypothetical Dataset}
 \subsection{Life table}
-In this practical, you will work with life tables. Read carefully the following text and do the exercise at the end of this section. The first part is the description of a hypothetical barn owl population and the second part is brief reminder of life table theory. 
+In this practical, you will work with life tables. Read the following text carefullyand do the exercise at the end of this section. The first part is the description of a hypothetical barn owl population and the second part is brief reminder of life table theory. 
 
 \begin{figure}[h]
 \centering
