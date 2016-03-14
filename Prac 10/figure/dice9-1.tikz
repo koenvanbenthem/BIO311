@@ -1,4 +1,4 @@
-% Created by tikzDevice version 0.9 on 2016-03-14 13:11:19
+% Created by tikzDevice version 0.9 on 2016-03-14 13:21:40
 % !TEX encoding = UTF-8 Unicode
 \documentclass{article}
 \nonstopmode
@@ -52,9 +52,9 @@
 \path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 70.07,404.86) --
 	( 78.27,471.82) --
 	( 86.47,337.90) --
-	( 94.67,103.55) --
-	(102.87, 70.07) --
-	(111.06, 70.07) --
+	( 94.67,404.86) --
+	(102.87,203.99) --
+	(111.06,304.42) --
 	(119.26, 70.07) --
 	(127.46, 70.07) --
 	(135.66, 70.07) --
