@@ -555,9 +555,33 @@ We would like to modify the matrix $\boldsymbol{B}$ so that it contains the migr
 What are the two assumptions you have to make before you can start? 
 (hints: one is about population size, and one about timing)% even ratio of population sizes + timing of reproduction VS. migration
 
-This task is not absolutely trivial because $\boldsymbol{M}$ is organized by age, while $\boldsymbol{B}$ is organized by site. 
+This task is not absolutely trivial to do mathematically because $\boldsymbol{M}$ is organized by age, while $\boldsymbol{B}$ is organized by site. 
+Nevertheless, by thinking carefully, you can find what should be the elements of the matrix one by one. We just need to understand how the matrix is organized.
+You can visualize four compartments in \boldsymbol{A}:
+\begin{align*}
+\boldsymbol{A}=
+\begin{pmatrix}
+\boldsymbol{\color{red}{A_1}} & \boldsymbol{\color{orange}{A_2}} \\
+\boldsymbol{\color{blue}{A_3}} & \boldsymbol{\color{purple}{A_4}}
+\end{pmatrix}
+=\begin{pmatrix}
+  \color{red}{a_{11}} & \color{red}{a_{12}} & \color{orange}{a_{13}} & \color{orange}{a_{14}}\\
+  \color{red}{a_{21}} & \color{red}{a_{22}} & \color{orange}{a_{23}} & \color{orange}{a_{24}}\\
+  \color{blue}{a_{31}} & \color{blue}{a_{32}} & \color{purple}{a_{33}} & \color{purple}{a_{34}}\\
+  \color{blue}{a_{41}} & \color{blue}{a_{42}} & \color{purple}{a_{43}} & \color{purple}{a_{44}}\\
+\end{pmatrix}
+\end{align*}
+In {\color{red}{red}}, the sub-matrix $\boldsymbol{\color{red}{A_1}}$ contains the contribution of the population $1$ to itself, that is, the fertility ($f_1$) and survival ($\phi_{j1}$ & $\phi_{a1}$) rates, corrected for emigration out of $1$ ($d_1$). Within $\boldsymbol{\color{red}{A_1}}$, $\color{red}{a_{11}}$ is the contribution of the juvenile age class to itself, within population $1$. Clearly this is zero, for juveniles do not reproduce. $\color{red}{a_{21}}$ is the contribution of juveniles to adults, within population $1$, and is the product of juvenile survival by the proportion of non-migrating adults (not the proportion of non-migrating juveniles, because of the order of sequence of life-history events we assume). 
+What are $\color{red}{a_{12}}$ and $\color{red}{a_{22}}$?
 
-During the lectures, you have seen how one can use matrix algebra to efficiently obtain this meta-population matrix, using a vec-permutation matrix, \boldsymbol{P}.
+
+Let's now look at the rest of our matrix $\boldsymbol{A}$. The sub-matrix $\boldsymbol{\color{orange}{A_2}}$ represents the contributions of the population $2$ to the population $1$, that is, the fertility ($f_2$) and survival ($\phi_{j2}$ & $\phi_{a2}$) rates within population $2$, multiplied by the rate of emigration out of $2$ ($d_2$). 
+
+You should now be able to guess the rest and write $\boldsymbol{A}$ completely, using symbols $f$ (fertility), $\phi$ (survival) and $d$ (emigration), and indexes $1$ (population $1$), $2$ (population $2$), $j$ (juvenile) and $a$ (adult).
+Do it, and the proceed to the numerical application.\\
+
+
+During the lectures, you have seen how one can use matrix algebra, instead of biological thinking (as you just did), to efficiently obtain this meta-population matrix $\boldsymbol{A}$, using a vec-permutation matrix, \boldsymbol{P}.
 
 \boldsymbol{P} can be defined as:
 \begin{align*}

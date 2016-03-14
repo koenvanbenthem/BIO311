@@ -84,28 +84,28 @@
 
 \section{Environmental Stochasticity}
 In practical $9$ we investigated the population dynamics for two populations of yellow-necked mice. Here we focus on one of the two populations presented in that practical: the population living on the plain. For this population the Leslie matrix was given by:
-\begin{equation*} \boldsymbol{A}=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:41 2016
+\begin{equation*} \boldsymbol{A}=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 13:11:12 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.25 & 0.50 \\ 
   \end{pmatrix}
 \end{equation*}
 It turns out however that the conditions for the population are not the same every year. Measurements have been done (okay, this is what we say, in reality we made up some numbers that give reasonable results in the end...) for three years in a row and the matrices that were found for these years are shown below:
-\begin{align*}\boldsymbol{A_1} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:41 2016
+\begin{align*}\boldsymbol{A_1} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 13:11:12 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.25 & 0.50 \\ 
   \end{pmatrix}
-& \boldsymbol{A_2} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:41 2016
+& \boldsymbol{A_2} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 13:11:12 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.27 & 0.54 \\ 
   \end{pmatrix}
-& \boldsymbol{A_3} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:41 2016
+& \boldsymbol{A_3} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 13:11:12 2016
 \begin{pmatrix}{}
   0.00 & 1.80 \\ 
   0.20 & 0.44 \\ 
@@ -306,7 +306,7 @@ For example we have a dice with 6 sides and we want to roll it $100$ times and w
 \hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 27
+## [1] 31
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -317,7 +317,7 @@ We see that this function indeed returns us an integer number. \texttt{R} has in
 \hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-##  [1] 26 27 35 36 36 32 34 29 39 32
+##  [1] 33 27 32 41 27 30 34 36 30 29
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -328,7 +328,7 @@ However, if we average the outcomes of very many of these simulations, we should
 \hlkwd{mean}\hlstd{(}\hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10000}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{))}
 \end{alltt}
 \begin{verbatim}
-## [1] 33.246
+## [1] 33.3449
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -349,7 +349,7 @@ Now all that is left is calculating the amount of offspring that is produced at 
 \hlkwd{rpois}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{lambda}\hlstd{=}\hlnum{2}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 0
+## [1] 1
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -360,7 +360,7 @@ Let us now check whether the mean value of many numbers drawn from a Poisson dis
 \hlkwd{mean}\hlstd{(}\hlkwd{rpois}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10000}\hlstd{,}\hlkwc{lambda}\hlstd{=}\hlnum{2}\hlstd{))}
 \end{alltt}
 \begin{verbatim}
-## [1] 1.9786
+## [1] 2.0237
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -462,14 +462,14 @@ So far we have considered only populations in isolation of each other. For insta
 
 Let us consider two populations of peregrine falcons. 
 The demography of the two populations is summarized by the Leslie matrices $\boldsymbol{B_1}$ and $\boldsymbol{B_2}$ and by the associated asymptotic growth rates:
-\begin{align*}\boldsymbol{B_1} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:57 2016
+\begin{align*}\boldsymbol{B_1} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 13:11:26 2016
 \begin{pmatrix}{}
   0.00 & 0.25 \\ 
   0.72 & 0.77 \\ 
   \end{pmatrix}
-& \boldsymbol{B_2} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:57 2016
+& \boldsymbol{B_2} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 13:11:26 2016
 \begin{pmatrix}{}
   0.00 & 0.32 \\ 
   0.74 & 0.79 \\ 
@@ -478,8 +478,8 @@ The demography of the two populations is summarized by the Leslie matrices $\bol
 One of the populations seem to be in good shape, while the other one is likely to be declining (but remember that stochasticity can make predictions based on asymptotic behaviour unreliable). Let us assume that the differences between the two populations is due to the massive use of DDT as an insecticide around population 1, while population 2 is located in a remote mountain area with less human influence.
 
 For convenience, we can write these two matrices into a single matrix, $\boldsymbol{B}$, of dimension $4\times 4$:
-\begin{align*}\boldsymbol{B} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:57 2016
+\begin{align*}\boldsymbol{B} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 13:11:26 2016
 \begin{pmatrix}{}
   0.00 & 0.25 & 0.00 & 0.00 \\ 
   0.72 & 0.77 & 0.00 & 0.00 \\ 
@@ -491,16 +491,16 @@ For convenience, we can write these two matrices into a single matrix, $\boldsym
 These two populations are not ecologically isolated, however, and they exchange a number of migrants, both juveniles and adults every year. 
 Migration rates vary depending on age, and are not symmetrical. Thus, $73\%$ of juveniles born in the population 1 stay there (and therefor $50\%$ emigrate to population 2), while $50\%$ of juveniles born in population 2 stay there ($50\%$ emmigrate). 
 These rates are summarized in the matrix $\boldsymbol{M_j}$:
-\begin{align*}\boldsymbol{M_j} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:58 2016
+\begin{align*}\boldsymbol{M_j} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 13:11:26 2016
 \begin{pmatrix}{}
   0.73 & 0.50 \\ 
   0.27 & 0.50 \\ 
   \end{pmatrix}
 \end{align*}
 Similarly, migration rates for adults are summarized in matrix $\boldsymbol{M_a}$:
-\begin{align*}\boldsymbol{M_a} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:58 2016
+\begin{align*}\boldsymbol{M_a} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 13:11:26 2016
 \begin{pmatrix}{}
   0.50 & 0.20 \\ 
   0.50 & 0.80 \\ 
@@ -508,8 +508,8 @@ Similarly, migration rates for adults are summarized in matrix $\boldsymbol{M_a}
 \end{align*}
 
 We also define a matrix $\boldsymbol{M}$ summarizing the migration rates:
-\begin{align*}\boldsymbol{M} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:58 2016
+\begin{align*}\boldsymbol{M} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 13:11:26 2016
 \begin{pmatrix}{}
   0.73 & 0.50 & 0.00 & 0.00 \\ 
   0.27 & 0.50 & 0.00 & 0.00 \\ 
@@ -525,9 +525,33 @@ We would like to modify the matrix $\boldsymbol{B}$ so that it contains the migr
 What are the two assumptions you have to make before you can start? 
 (hints: one is about population size, and one about timing)% even ratio of population sizes + timing of reproduction VS. migration
 
-This task is not absolutely trivial because $\boldsymbol{M}$ is organized by age, while $\boldsymbol{B}$ is organized by site. 
+This task is not absolutely trivial to do mathematically because $\boldsymbol{M}$ is organized by age, while $\boldsymbol{B}$ is organized by site. 
+Nevertheless, by thinking carefully, you can find what should be the elements of the matrix one by one. We just need to understand how the matrix is organized.
+You can visualize four compartments in \boldsymbol{A}:
+\begin{align*}
+\boldsymbol{A}=
+\begin{pmatrix}
+\boldsymbol{\color{red}{A_1}} & \boldsymbol{\color{orange}{A_2}} \\
+\boldsymbol{\color{blue}{A_3}} & \boldsymbol{\color{purple}{A_4}}
+\end{pmatrix}
+=\begin{pmatrix}
+  \color{red}{a_{11}} & \color{red}{a_{12}} & \color{orange}{a_{13}} & \color{orange}{a_{14}}\\
+  \color{red}{a_{21}} & \color{red}{a_{22}} & \color{orange}{a_{23}} & \color{orange}{a_{24}}\\
+  \color{blue}{a_{31}} & \color{blue}{a_{32}} & \color{purple}{a_{33}} & \color{purple}{a_{34}}\\
+  \color{blue}{a_{41}} & \color{blue}{a_{42}} & \color{purple}{a_{43}} & \color{purple}{a_{44}}\\
+\end{pmatrix}
+\end{align*}
+In {\color{red}{red}}, the sub-matrix $\boldsymbol{\color{red}{A_1}}$ contains the contribution of the population $1$ to itself, that is, the fertility ($f_1$) and survival ($\phi_{j1}$ & $\phi_{a1}$) rates, corrected for emigration out of $1$ ($d_1$). Within $\boldsymbol{\color{red}{A_1}}$, $\color{red}{a_{11}}$ is the contribution of the juvenile age class to itself, within population $1$. Clearly this is zero, for juveniles do not reproduce. $\color{red}{a_{21}}$ is the contribution of juveniles to adults, within population $1$, and is the product of juvenile survival by the proportion of non-migrating adults (not the proportion of non-migrating juveniles, because of the order of sequence of life-history events we assume). 
+What are $\color{red}{a_{12}}$ and $\color{red}{a_{22}}$?
 
-During the lectures, you have seen how one can use matrix algebra to efficiently obtain this meta-population matrix, using a vec-permutation matrix, \boldsymbol{P}.
+
+Let's now look at the rest of our matrix $\boldsymbol{A}$. The sub-matrix $\boldsymbol{\color{orange}{A_2}}$ represents the contributions of the population $2$ to the population $1$, that is, the fertility ($f_2$) and survival ($\phi_{j2}$ & $\phi_{a2}$) rates within population $2$, multiplied by the rate of emigration out of $2$ ($d_2$). 
+
+You should now be able to guess the rest and write $\boldsymbol{A}$ completely, using symbols $f$ (fertility), $\phi$ (survival) and $d$ (emigration), and indexes $1$ (population $1$), $2$ (population $2$), $j$ (juvenile) and $a$ (adult).
+Do it, and the proceed to the numerical application.\\
+
+
+During the lectures, you have seen how one can use matrix algebra, instead of biological thinking (as you just did), to efficiently obtain this meta-population matrix $\boldsymbol{A}$, using a vec-permutation matrix, \boldsymbol{P}.
 
 \boldsymbol{P} can be defined as:
 \begin{align*}
@@ -607,29 +631,29 @@ Can you write a code that calculates \boldsymbol{P}?
 \end{alltt}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'Bsens' introuvable}}\begin{alltt}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Bsens' not found}}\begin{alltt}
 \hlkwd{sum}\hlstd{(Belas[}\hlnum{1}\hlopt{:}\hlnum{2}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{2}\hlstd{])} \hlcom{# contribution from patch 1 to metapopulation growth rate }
 \end{alltt}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'Belas' introuvable}}\begin{alltt}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Belas' not found}}\begin{alltt}
 \hlkwd{sum}\hlstd{(Belas[}\hlnum{3}\hlopt{:}\hlnum{4}\hlstd{,}\hlnum{3}\hlopt{:}\hlnum{4}\hlstd{])} \hlcom{# contribution from patch 2 to metapopulation growth rate }
 \end{alltt}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'Belas' introuvable}}\begin{alltt}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Belas' not found}}\begin{alltt}
 \hlstd{Msens}\hlkwb{=}\hlstd{P} \hlopt{%*%} \hlkwd{t}\hlstd{(B)} \hlopt{%*%} \hlstd{Asens} \hlopt{%*%} \hlkwd{t}\hlstd{(P)} \hlcom{# movement sensitivities}
 \end{alltt}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'Asens' introuvable}}\begin{alltt}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Asens' not found}}\begin{alltt}
 \hlcom{# You'll realize that interpreting Movement sensitivities is rather difficult. A better approach would be to estimate the lower-level sensitivities for the dispersal rate, d (see H&C 2005)}
 
 \hlopt{-}\hlnum{1} \hlopt{*} \hlstd{Msens[}\hlnum{1}\hlstd{,}\hlnum{1}\hlstd{]} \hlopt{+} \hlnum{1} \hlopt{*} \hlstd{Msens[}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{]} \hlopt{+} \hlnum{1} \hlopt{*} \hlstd{Msens[}\hlnum{2}\hlstd{,}\hlnum{1}\hlstd{]} \hlopt{-} \hlnum{1} \hlopt{*} \hlstd{Msens[}\hlnum{2}\hlstd{,}\hlnum{2}\hlstd{]}
 \end{alltt}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'Msens' introuvable}}\begin{alltt}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Msens' not found}}\begin{alltt}
 \hlcom{###############################################################}
 
 
