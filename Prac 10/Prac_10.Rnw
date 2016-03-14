@@ -481,13 +481,17 @@ M <- matrix(0,p*s,p*s)
 M[1:2,1:2] <- Mj
 M[3:4,3:4] <- Ma
 
-P<-matrix(0,s*p,s*p)
-for (i in 1:s){
-	for (j in 1:p){
+P <- matrix(0,s*p,s*p)
+for (i in 1:s)
+  {
+	for (j in 1:p)
+	  {
 		E=matrix(0,s,p)
         E[i,j]<-1
         P<-P+E%x%t(E) # %x% is the Kronecker product
-        }}
+	  }
+  }
+A <- t(P)%*% M %*% P %*% B
 @
 
 \begin{figure}
@@ -553,11 +557,35 @@ What is the proportion of adults migrating from population 2 to population 1? (d
 
 We would like to modify the matrix $\boldsymbol{B}$ so that it contains the migration rates. \\
 What are the two assumptions you have to make before you can start? 
-(hints: one is about population size, and one about timing)% even ratio of population sizes + timing of reproduction VS. migration
+(hints: one is about population size, and one about timing)\\% even ratio of population sizes + timing of reproduction VS. migration
 
-This task is not absolutely trivial because $\boldsymbol{M}$ is organized by age, while $\boldsymbol{B}$ is organized by site. 
 
-During the lectures, you have seen how one can use matrix algebra to efficiently obtain this meta-population matrix, using a vec-permutation matrix, \boldsymbol{P}.
+This task is not absolutely trivial to do mathematically because $\boldsymbol{M}$ is organized by age, while $\boldsymbol{B}$ is organized by site. 
+Nevertheless, by thinking carefully, you can find what should be the elements of the matrix one by one. We just need to understand how the matrix is organized.
+You can visualize four compartments in \boldsymbol{A}:
+\begin{align*}
+\boldsymbol{A}=
+\begin{pmatrix}
+\boldsymbol{\color{red}{A_1}} & \boldsymbol{\color{orange}{A_2}} \\
+\boldsymbol{\color{blue}{A_3}} & \boldsymbol{\color{purple}{A_4}}
+\end{pmatrix}
+=\begin{pmatrix}
+  \color{red}{a_{11}} & \color{red}{a_{12}} & \color{orange}{a_{13}} & \color{orange}{a_{14}}\\
+  \color{red}{a_{21}} & \color{red}{a_{22}} & \color{orange}{a_{23}} & \color{orange}{a_{24}}\\
+  \color{blue}{a_{31}} & \color{blue}{a_{32}} & \color{purple}{a_{33}} & \color{purple}{a_{34}}\\
+  \color{blue}{a_{41}} & \color{blue}{a_{42}} & \color{purple}{a_{43}} & \color{purple}{a_{44}}\\
+\end{pmatrix}
+\end{align*}
+In {\color{red}{red}}, the sub-matrix $\boldsymbol{\color{red}{A_1}}$ contains the contribution of the population $1$ to itself, that is, the fertility ($f_1$) and survival ($\phi_{j1}$ & $\phi_{a1}$) rates, corrected for emigration out of $1$ ($d_1$). Within $\boldsymbol{\color{red}{A_1}}$, $\color{red}{a_{11}}$ is the contribution of the juvenile age class to itself, within population $1$. Clearly this is zero, for juveniles do not reproduce. $\color{red}{a_{21}}$ is the contribution of juveniles to adults, within population $1$, and is the product of juvenile survival by the proportion of non-migrating adults (not the proportion of non-migrating juveniles, because of the order of sequence of life-history events we assume). 
+What are $\color{red}{a_{12}}$ and $\color{red}{a_{22}}$?\\
+
+Let's now look at the rest of our matrix $\boldsymbol{A}$. The sub-matrix $\boldsymbol{\color{orange}{A_2}}$ represents the contributions of the population $2$ to the population $1$, that is, the fertility ($f_2$) and survival ($\phi_{j2}$ & $\phi_{a2}$) rates within population $2$, multiplied by the rate of emigration out of $2$ ($d_2$).
+
+You should now be able to guess the rest and write $\boldsymbol{A}$ completely, using symbols $f$ (fertility), $\phi$ (survival) and $d$ (emigration), and indexes $1$ (population $1$), $2$ (population $2$), $j$ (juvenile) and $a$ (adult).
+Do it, and the proceed to the numerical application.\\
+
+
+During the lectures, you have seen how one can use matrix algebra, instead of biological thinking (as you just did), to efficiently obtain this meta-population matrix $\boldsymbol{A}$, using a vec-permutation matrix, \boldsymbol{P}.
 
 \boldsymbol{P} can be defined as:
 \begin{align*}
@@ -577,149 +605,93 @@ for (i in 1:s){
         }}
 @
 
+From the lecture, you know that
+\begin{align*}
+\boldsymbol{A} = \boldsymbol{P^T}\boldsymbol{M}\boldsymbol{P}\boldsymbol{B} \text{,}
+\end{align*}
+where $\boldsymbol{P^T}$ is the transposition of \boldsymbol{P}. 
+Using the English language (and not maths), describe what this formula means: What is $\boldsymbol{B}$? What means the product of $\boldsymbol{P}$ and $\boldsymbol{B}$, and so on.\\
 
-<<MPD4b,echo=FALSE,results='asis',message=FALSE>>=
-# create the Metapopulation Projection Matrix, A
+Now write a code that applies this formula to compute $\boldsymbol{A}$. You will need to know how to multiply matrices in \texttt{R}, and you might want to know how to transpose matrices (although here it is useless because $\boldsymbol{P^T}=\boldsymbol{P}$).\\
 
-A1<- t(P) %*% M %*% P %*% B  # %*% is the matrix multiplication
-A2<- B %*% t(P) %*% M %*% P  # %*% is the matrix multiplication
-A3<- M %*% P %*% B %*% t(P)  # %*% is the matrix multiplication
-A4<- P %*% B %*% t(P) %*% M  # %*% is the matrix multiplication
-
-@
-
-
-<<MPD5,echo=TRUE,out.width='0.5\\textwidth',fig.align='center'>>=
+Compute the asymptotic growth rate of $\boldsymbol{A}$. How does it compare to the local asymptotic growth rates? To their mean?\\
 
 
-# Create M, the block diagonal matrix of movement matrices
+Let us consider another hypothetical meta-population, consisting of three very different populations. 
 
-A1 #check what it looks like
+<<MPD6,message=FALSE,echo=FALSE>>=
+B1 <- matrix(c(0,2,0.1,0.2),2,2,byrow=T) 
+B2 <- matrix(c(0,0.2,0.8,0.2),2,2,byrow=T) 
+B3 <- matrix(c(0,0.2,0.1,0.8),2,2,byrow=T) 
+Mj <- matrix(c(0.1,0.05,0.05,0.85,0.9,0.05,0.05,0.05,0.9),3,3,byrow=T) 
+Ma <- matrix(c(0.8,0.85,0.75,0.1,0.1,0.05,0.10,0.05,0.2),3,3,byrow=T)
 
-eigen.analysis(A1) # Check local and metapoulation growth rates an have a look at the sensitivity matrix
-lambda <- eigen.analysis(A)$lambda1 # how does the metapoulation growth rate compare to local growth rates?
+s <- nrow(B1) # number of stages
+p <- nrow(Mj) # number of patches
+B <- matrix(0,p*s,p*s)
+B[1:2,1:2] <- B1
+B[3:4,3:4] <- B2
+B[5:6,5:6] <- B3
 
+M <- matrix(0,p*s,p*s)
+M[1:3,1:3] <- Mj
+M[4:6,4:6] <- Ma
 
-## Sensitivity & elasticity of metapopulation growth rate to demography and dispersal
-
-Asens1<-eigen.analysis(A1)$sensitivities # the A sensitivity matrix
-Asens2<-eigen.analysis(A2)$sensitivities # the A sensitivity matrix
-Asens3<-eigen.analysis(A3)$sensitivities # the A sensitivity matrix
-Asens4<-eigen.analysis(A4)$sensitivities # the A sensitivity matrix
-
-Bsens1<-t(P) %*% t(M) %*% P %*% Asens1 # demography sensitivities
-Bsens2<-Asens2 %*% t(P) %*% t(M) %*% P # demography sensitivities
-Bsens3<-t(P) %*% t(M) %*% Asens3 %*% P # demography sensitivities
-Bsens4<-t(P) %*% Asens4 %*% t(M) %*% P # demography sensitivities
-
-Belas<-B * Bsens / lambda  # demography elasticities
-
-sum(Belas[1:2,1:2]) # contribution from patch 1 to metapopulation growth rate 
-sum(Belas[3:4,3:4]) # contribution from patch 2 to metapopulation growth rate 
-
-
-Msens=P %*% t(B) %*% Asens %*% t(P) # movement sensitivities
-
-# You'll realize that interpreting Movement sensitivities is rather difficult. A better approach would be to estimate the lower-level sensitivities for the dispersal rate, d (see H&C 2005)
-
--1 * Msens[1,1] + 1 * Msens[1,2] + 1 * Msens[2,1] - 1 * Msens[2,2]
-
-
-###############################################################
-
-
-# Gull example (Lebreton, 1966)
-
-rm(list=ls(all=TRUE))
-
-B1<-matrix(c(0,0.096,0.160,0.224,0.320,0.80,0,0,0,0,0,0.82,0,0,0,0,0,0.82,0,0,0,0,0,0.82,0.82),5,5,byrow=T)    # for patch 1
-
-B2<-matrix(c(0,0.1,0.160,0.20,0.20,0.80,0,0,0,0,0,0.82,0,0,0,0,0,0.82,0,0,0,0,0,0.82,0.82),5,5,byrow=T) # for patch 2
-
-M1<-matrix(c(0.75,0.375,0.25,0.625),2,2,byrow=T)  # for the first age class
-
-M5<-M4<-M3<-M2<-matrix(c(1,0,0,1),2,2,byrow=T) # for the rest
-
-
-# This time, dispersal takes place before demography, and assume that population vector is arranged by stages
-
-# Using a similar approach to the Gull example above, try to estimate the relative contribution of each patch to the metapopulation growth rate (demographic elasticities).
-
-@
-
-<<>>=
-#############################################
-
-s=nrow(B1) # number of stages
-
-p=nrow(M1) # number of patches
-
-
-# Create the block diagonal matrix of demographic projection matrices
-
-B<-matrix(0,p*s,p*s)
-
-B[1:5,1:5]<-B1
-
-B[6:10,6:10]<-B2
-
-B #check
-
-
-# Create M, the block diagonal matrix of movement matrices
-
-M=matrix(0,p*s,p*s)
-
-M[1:2,1:2]<-M1
-
-M[3:4,3:4]<-M2
-M[5:6,5:6]<-M3
-M[7:8,7:8]<-M4
-M[9:10,9:10]<-M5
-
-M #check
-
-
-# create P, the vec-permutation matrix
-
-P<-matrix(0,s*p,s*p)
-for (i in 1:s){
-	for (j in 1:p){
+P <- matrix(0,s*p,s*p)
+for (i in 1:s)
+  {
+	for (j in 1:p)
+	  {
 		E=matrix(0,s,p)
         E[i,j]<-1
         P<-P+E%x%t(E) # %x% is the Kronecker product
-        }}
+	  }
+  }
+A <- t(P)%*% M %*% P %*% B
 
-
-# create the Metapopulation Projection Matrix, A
-
-A<- P %*% B %*% t(P) %*% M
-A #check what it looks like
-
-eigen.analysis(A) # Check local and metapoulation growth rates an have a look at the sensitivity matrix
-lambda <- eigen.analysis(A)$lambda1
-
-## A sensitivity & elasticity
-
-analysis<-eigen.analysis(A)
-
-Asens<-analysis$sensitivities # the A sensitivity matrix
-
-Bsens<-t(P) %*% Asens %*% t(M) %*% P    # demography sensitivities
-
-Belas<-B * Bsens / lambda  # demography elasticities
-
-sum(Belas[1:5,1:5])   # contribution from patch 1 to metapopulation growth rate 
-sum(Belas[6:10,6:10]) # contribution from patch 2 to metapopulation growth rate
-
-Msens=P %*% t(B) %*% t(P) %*% Asens # movement sensitivities
-
-Melas=M * Msens / lambda  # movement elasticities
-
+# lambda(A)
+# lambda(B1)
+# lambda(B2)
+# lambda(B3)
 @
+
+
+<<MPD7,echo=FALSE,results='asis',message=FALSE>>=
+cat("\\begin{align*}")
+cat("\\boldsymbol{B_1} &=")
+ print(xtable(B1,align=rep("",ncol(B1)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+cat("& \\boldsymbol{B_2} &=")
+ print(xtable(B2,align=rep("",ncol(B1)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+cat("& \\boldsymbol{B_3} &=")
+ print(xtable(B3,align=rep("",ncol(B1)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+
+cat("\\end{align*}")
+@
+What are their asymptotic growth rates? What do you think about the fate of this meta-population?\\
+
+These three populations are exchanging quite a lot of migrants, both juveniles and adults:
+
+<<MPD8,echo=FALSE,results='asis',message=FALSE>>=
+cat("\\begin{align*}")
+cat("\\boldsymbol{M_j} &=")
+ print(xtable(Mj,align=rep("",ncol(Mj)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+cat("& \\boldsymbol{M_a} =")
+ print(xtable(Ma,align=rep("",ncol(Ma)+1)), floating=FALSE, tabular.environment="pmatrix", 
+ hline.after=NULL, include.rownames=FALSE, include.colnames=FALSE)
+cat("\\end{align*}")
+@
+
+Construct and analyze the meta-population matrix. Did you change your opinion as for the fate of the meta-population?\\
+
+This example is obviously extreme, but it hopefully helps to demonstrate that population structure and migration can matter a lot. 
+
 \vspace{2ex}
 
-This is where the practical ends. If it ends a bit too soon for you and you would like to continue fighting \texttt{R}, think about a model that combines both types of stochasticity: environmental and demographic. Alternatively, do something less biologically relevant, but quite beautiful programming wise: understand (or write) a recursive function. This is a function that calls itself, an example that draws a tree is given below. Finally, you could of course also consider doing a project in our research group. (These options are not mutually exclusive).
+This is where the practical ends. If it ends a bit too soon for you and you would like to continue fighting \texttt{R}, think about a model that combines migration with both types of stochasticity: environmental and demographic. Alternatively, do something less biologically relevant, but quite beautiful programming wise: understand (or write) a recursive function. This is a function that calls itself, an example that draws a tree is given below. Finally, you could of course also consider doing a project in our research group. (These options are not mutually exclusive).
 
 \begin{center}
 Ciao!

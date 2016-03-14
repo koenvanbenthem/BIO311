@@ -84,28 +84,28 @@
 
 \section{Environmental Stochasticity}
 In practical $9$ we investigated the population dynamics for two populations of yellow-necked mice. Here we focus on one of the two populations presented in that practical: the population living on the plain. For this population the Leslie matrix was given by:
-\begin{equation*} \boldsymbol{A}=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:41 2016
+\begin{equation*} \boldsymbol{A}=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 14:34:24 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.25 & 0.50 \\ 
   \end{pmatrix}
 \end{equation*}
 It turns out however that the conditions for the population are not the same every year. Measurements have been done (okay, this is what we say, in reality we made up some numbers that give reasonable results in the end...) for three years in a row and the matrices that were found for these years are shown below:
-\begin{align*}\boldsymbol{A_1} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:41 2016
+\begin{align*}\boldsymbol{A_1} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 14:34:24 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.25 & 0.50 \\ 
   \end{pmatrix}
-& \boldsymbol{A_2} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:41 2016
+& \boldsymbol{A_2} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 14:34:24 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.27 & 0.54 \\ 
   \end{pmatrix}
-& \boldsymbol{A_3} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:41 2016
+& \boldsymbol{A_3} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 14:34:24 2016
 \begin{pmatrix}{}
   0.00 & 1.80 \\ 
   0.20 & 0.44 \\ 
@@ -140,7 +140,7 @@ In the rest of this practical, we will explore what happens if we decide to mode
 \hlkwd{sample}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{3}\hlstd{,}\hlnum{4}\hlstd{),}\hlnum{1}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 1
+## [1] 4
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -306,7 +306,7 @@ For example we have a dice with 6 sides and we want to roll it $100$ times and w
 \hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 27
+## [1] 32
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -317,7 +317,7 @@ We see that this function indeed returns us an integer number. \texttt{R} has in
 \hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-##  [1] 26 27 35 36 36 32 34 29 39 32
+##  [1] 29 32 34 33 37 29 36 32 47 31
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -328,7 +328,7 @@ However, if we average the outcomes of very many of these simulations, we should
 \hlkwd{mean}\hlstd{(}\hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10000}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{))}
 \end{alltt}
 \begin{verbatim}
-## [1] 33.246
+## [1] 33.4163
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -349,7 +349,7 @@ Now all that is left is calculating the amount of offspring that is produced at 
 \hlkwd{rpois}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{lambda}\hlstd{=}\hlnum{2}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 0
+## [1] 1
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -360,7 +360,7 @@ Let us now check whether the mean value of many numbers drawn from a Poisson dis
 \hlkwd{mean}\hlstd{(}\hlkwd{rpois}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10000}\hlstd{,}\hlkwc{lambda}\hlstd{=}\hlnum{2}\hlstd{))}
 \end{alltt}
 \begin{verbatim}
-## [1] 1.9786
+## [1] 1.9852
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -462,14 +462,14 @@ So far we have considered only populations in isolation of each other. For insta
 
 Let us consider two populations of peregrine falcons. 
 The demography of the two populations is summarized by the Leslie matrices $\boldsymbol{B_1}$ and $\boldsymbol{B_2}$ and by the associated asymptotic growth rates:
-\begin{align*}\boldsymbol{B_1} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:57 2016
+\begin{align*}\boldsymbol{B_1} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 14:34:40 2016
 \begin{pmatrix}{}
   0.00 & 0.25 \\ 
   0.72 & 0.77 \\ 
   \end{pmatrix}
-& \boldsymbol{B_2} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:57 2016
+& \boldsymbol{B_2} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 14:34:40 2016
 \begin{pmatrix}{}
   0.00 & 0.32 \\ 
   0.74 & 0.79 \\ 
@@ -478,8 +478,8 @@ The demography of the two populations is summarized by the Leslie matrices $\bol
 One of the populations seem to be in good shape, while the other one is likely to be declining (but remember that stochasticity can make predictions based on asymptotic behaviour unreliable). Let us assume that the differences between the two populations is due to the massive use of DDT as an insecticide around population 1, while population 2 is located in a remote mountain area with less human influence.
 
 For convenience, we can write these two matrices into a single matrix, $\boldsymbol{B}$, of dimension $4\times 4$:
-\begin{align*}\boldsymbol{B} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:57 2016
+\begin{align*}\boldsymbol{B} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 14:34:40 2016
 \begin{pmatrix}{}
   0.00 & 0.25 & 0.00 & 0.00 \\ 
   0.72 & 0.77 & 0.00 & 0.00 \\ 
@@ -491,16 +491,16 @@ For convenience, we can write these two matrices into a single matrix, $\boldsym
 These two populations are not ecologically isolated, however, and they exchange a number of migrants, both juveniles and adults every year. 
 Migration rates vary depending on age, and are not symmetrical. Thus, $73\%$ of juveniles born in the population 1 stay there (and therefor $50\%$ emigrate to population 2), while $50\%$ of juveniles born in population 2 stay there ($50\%$ emmigrate). 
 These rates are summarized in the matrix $\boldsymbol{M_j}$:
-\begin{align*}\boldsymbol{M_j} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:58 2016
+\begin{align*}\boldsymbol{M_j} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 14:34:40 2016
 \begin{pmatrix}{}
   0.73 & 0.50 \\ 
   0.27 & 0.50 \\ 
   \end{pmatrix}
 \end{align*}
 Similarly, migration rates for adults are summarized in matrix $\boldsymbol{M_a}$:
-\begin{align*}\boldsymbol{M_a} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:58 2016
+\begin{align*}\boldsymbol{M_a} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 14:34:40 2016
 \begin{pmatrix}{}
   0.50 & 0.20 \\ 
   0.50 & 0.80 \\ 
@@ -508,8 +508,8 @@ Similarly, migration rates for adults are summarized in matrix $\boldsymbol{M_a}
 \end{align*}
 
 We also define a matrix $\boldsymbol{M}$ summarizing the migration rates:
-\begin{align*}\boldsymbol{M} &=% latex table generated in R 3.2.3 by xtable 1.8-2 package
-% Sat Mar 12 22:22:58 2016
+\begin{align*}\boldsymbol{M} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 14:34:40 2016
 \begin{pmatrix}{}
   0.73 & 0.50 & 0.00 & 0.00 \\ 
   0.27 & 0.50 & 0.00 & 0.00 \\ 
@@ -523,11 +523,35 @@ What is the proportion of adults migrating from population 2 to population 1? (d
 
 We would like to modify the matrix $\boldsymbol{B}$ so that it contains the migration rates. \\
 What are the two assumptions you have to make before you can start? 
-(hints: one is about population size, and one about timing)% even ratio of population sizes + timing of reproduction VS. migration
+(hints: one is about population size, and one about timing)\\% even ratio of population sizes + timing of reproduction VS. migration
 
-This task is not absolutely trivial because $\boldsymbol{M}$ is organized by age, while $\boldsymbol{B}$ is organized by site. 
 
-During the lectures, you have seen how one can use matrix algebra to efficiently obtain this meta-population matrix, using a vec-permutation matrix, \boldsymbol{P}.
+This task is not absolutely trivial to do mathematically because $\boldsymbol{M}$ is organized by age, while $\boldsymbol{B}$ is organized by site. 
+Nevertheless, by thinking carefully, you can find what should be the elements of the matrix one by one. We just need to understand how the matrix is organized.
+You can visualize four compartments in \boldsymbol{A}:
+\begin{align*}
+\boldsymbol{A}=
+\begin{pmatrix}
+\boldsymbol{\color{red}{A_1}} & \boldsymbol{\color{orange}{A_2}} \\
+\boldsymbol{\color{blue}{A_3}} & \boldsymbol{\color{purple}{A_4}}
+\end{pmatrix}
+=\begin{pmatrix}
+  \color{red}{a_{11}} & \color{red}{a_{12}} & \color{orange}{a_{13}} & \color{orange}{a_{14}}\\
+  \color{red}{a_{21}} & \color{red}{a_{22}} & \color{orange}{a_{23}} & \color{orange}{a_{24}}\\
+  \color{blue}{a_{31}} & \color{blue}{a_{32}} & \color{purple}{a_{33}} & \color{purple}{a_{34}}\\
+  \color{blue}{a_{41}} & \color{blue}{a_{42}} & \color{purple}{a_{43}} & \color{purple}{a_{44}}\\
+\end{pmatrix}
+\end{align*}
+In {\color{red}{red}}, the sub-matrix $\boldsymbol{\color{red}{A_1}}$ contains the contribution of the population $1$ to itself, that is, the fertility ($f_1$) and survival ($\phi_{j1}$ & $\phi_{a1}$) rates, corrected for emigration out of $1$ ($d_1$). Within $\boldsymbol{\color{red}{A_1}}$, $\color{red}{a_{11}}$ is the contribution of the juvenile age class to itself, within population $1$. Clearly this is zero, for juveniles do not reproduce. $\color{red}{a_{21}}$ is the contribution of juveniles to adults, within population $1$, and is the product of juvenile survival by the proportion of non-migrating adults (not the proportion of non-migrating juveniles, because of the order of sequence of life-history events we assume). 
+What are $\color{red}{a_{12}}$ and $\color{red}{a_{22}}$?\\
+
+Let's now look at the rest of our matrix $\boldsymbol{A}$. The sub-matrix $\boldsymbol{\color{orange}{A_2}}$ represents the contributions of the population $2$ to the population $1$, that is, the fertility ($f_2$) and survival ($\phi_{j2}$ & $\phi_{a2}$) rates within population $2$, multiplied by the rate of emigration out of $2$ ($d_2$).
+
+You should now be able to guess the rest and write $\boldsymbol{A}$ completely, using symbols $f$ (fertility), $\phi$ (survival) and $d$ (emigration), and indexes $1$ (population $1$), $2$ (population $2$), $j$ (juvenile) and $a$ (adult).
+Do it, and the proceed to the numerical application.\\
+
+
+During the lectures, you have seen how one can use matrix algebra, instead of biological thinking (as you just did), to efficiently obtain this meta-population matrix $\boldsymbol{A}$, using a vec-permutation matrix, \boldsymbol{P}.
 
 \boldsymbol{P} can be defined as:
 \begin{align*}
@@ -539,332 +563,69 @@ Can you write a code that calculates \boldsymbol{P}?
 
 
 
+From the lecture, you know that
+\begin{align*}
+\boldsymbol{A} = \boldsymbol{P^T}\boldsymbol{M}\boldsymbol{P}\boldsymbol{B} \text{,}
+\end{align*}
+where $\boldsymbol{P^T}$ is the transposition of \boldsymbol{P}. 
+Using the English language (and not maths), describe what this formula means: What is $\boldsymbol{B}$? What means the product of $\boldsymbol{P}$ and $\boldsymbol{B}$, and so on.\\
+
+Now write a code that applies this formula to compute $\boldsymbol{A}$. You will need to know how to multiply matrices in \texttt{R}, and you might want to know how to transpose matrices (although here it is useless because $\boldsymbol{P^T}=\boldsymbol{P}$).\\
+
+Compute the asymptotic growth rate of $\boldsymbol{A}$. How does it compare to the local asymptotic growth rates? To their mean?\\
+
+
+Let us consider another hypothetical meta-population, consisting of three very different populations. 
 
 
 
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlcom{# Create M, the block diagonal matrix of movement matrices}
+\begin{align*}\boldsymbol{B_1} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 14:34:40 2016
+\begin{pmatrix}{}
+  0.00 & 2.00 \\ 
+  0.10 & 0.20 \\ 
+  \end{pmatrix}
+& \boldsymbol{B_2} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 14:34:40 2016
+\begin{pmatrix}{}
+  0.00 & 0.20 \\ 
+  0.80 & 0.20 \\ 
+  \end{pmatrix}
+& \boldsymbol{B_3} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 14:34:40 2016
+\begin{pmatrix}{}
+  0.00 & 0.20 \\ 
+  0.10 & 0.80 \\ 
+  \end{pmatrix}
+\end{align*}
+What are their asymptotic growth rates? What do you think about the fate of this meta-population?\\
 
-\hlstd{A1} \hlcom{#check what it looks like}
-\end{alltt}
-\begin{verbatim}
-##      [,1]   [,2]  [,3]  [,4]
-## [1,] 0.00 0.1825 0.000 0.160
-## [2,] 0.36 0.3850 0.148 0.158
-## [3,] 0.00 0.0675 0.000 0.160
-## [4,] 0.36 0.3850 0.592 0.632
-\end{verbatim}
-\begin{alltt}
-\hlkwd{eigen.analysis}\hlstd{(A1)} \hlcom{# Check local and metapoulation growth rates an have a look at the sensitivity matrix}
-\end{alltt}
-\begin{verbatim}
-## $lambda1
-## [1] 1.001181
-## 
-## $stable.stage
-## [1] 0.1284145 0.2362844 0.1012739 0.5340271
-## 
-## $sensitivities
-##           [,1]      [,2]      [,3]      [,4]
-## [1,] 0.0000000 0.1780902 0.0000000 0.4025022
-## [2,] 0.1280537 0.2356205 0.1009893 0.5325265
-## [3,] 0.0000000 0.1883674 0.0000000 0.4257297
-## [4,] 0.1411180 0.2596589 0.1112924 0.5868559
-## 
-## $elasticities
-##            [,1]       [,2]       [,3]       [,4]
-## [1,] 0.00000000 0.03246311 0.00000000 0.06432435
-## [2,] 0.04604493 0.09060683 0.01492878 0.08403991
-## [3,] 0.00000000 0.01269979 0.00000000 0.06803637
-## [4,] 0.05074253 0.09985072 0.06580738 0.37045529
-## 
-## $repro.value
-## [1] 1.000000 1.323040 1.057708 1.458019
-## 
-## $damping.ratio
-## [1] 3.623132
-\end{verbatim}
-\begin{alltt}
-\hlstd{lambda} \hlkwb{<-} \hlkwd{eigen.analysis}\hlstd{(A)}\hlopt{$}\hlstd{lambda1} \hlcom{# how does the metapoulation growth rate compare to local growth rates?}
+These three populations are exchanging quite a lot of migrants, both juveniles and adults:
 
+\begin{align*}\boldsymbol{M_j} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 14:34:40 2016
+\begin{pmatrix}{}
+  0.10 & 0.05 & 0.05 \\ 
+  0.85 & 0.90 & 0.05 \\ 
+  0.05 & 0.05 & 0.90 \\ 
+  \end{pmatrix}
+& \boldsymbol{M_a} =% latex table generated in R 3.2.3 by xtable 1.8-0 package
+% Mon Mar 14 14:34:40 2016
+\begin{pmatrix}{}
+  0.80 & 0.85 & 0.75 \\ 
+  0.10 & 0.10 & 0.05 \\ 
+  0.10 & 0.05 & 0.20 \\ 
+  \end{pmatrix}
+\end{align*}
 
-\hlcom{## Sensitivity & elasticity of metapopulation growth rate to demography and dispersal}
+Construct and analyze the meta-population matrix. Did you change your opinion as for the fate of the meta-population?\\
 
-\hlstd{Asens1}\hlkwb{<-}\hlkwd{eigen.analysis}\hlstd{(A1)}\hlopt{$}\hlstd{sensitivities} \hlcom{# the A sensitivity matrix}
-\hlstd{Asens2}\hlkwb{<-}\hlkwd{eigen.analysis}\hlstd{(A2)}\hlopt{$}\hlstd{sensitivities} \hlcom{# the A sensitivity matrix}
-\hlstd{Asens3}\hlkwb{<-}\hlkwd{eigen.analysis}\hlstd{(A3)}\hlopt{$}\hlstd{sensitivities} \hlcom{# the A sensitivity matrix}
-\hlstd{Asens4}\hlkwb{<-}\hlkwd{eigen.analysis}\hlstd{(A4)}\hlopt{$}\hlstd{sensitivities} \hlcom{# the A sensitivity matrix}
+This example is obviously extreme, but it hopefully helps to demonstrate that population structure and migration can matter a lot. 
 
-\hlstd{Bsens1}\hlkwb{<-}\hlkwd{t}\hlstd{(P)} \hlopt{%*%} \hlkwd{t}\hlstd{(M)} \hlopt{%*%} \hlstd{P} \hlopt{%*%} \hlstd{Asens1} \hlcom{# demography sensitivities}
-\hlstd{Bsens2}\hlkwb{<-}\hlstd{Asens2} \hlopt{%*%} \hlkwd{t}\hlstd{(P)} \hlopt{%*%} \hlkwd{t}\hlstd{(M)} \hlopt{%*%} \hlstd{P} \hlcom{# demography sensitivities}
-\hlstd{Bsens3}\hlkwb{<-}\hlkwd{t}\hlstd{(P)} \hlopt{%*%} \hlkwd{t}\hlstd{(M)} \hlopt{%*%} \hlstd{Asens3} \hlopt{%*%} \hlstd{P} \hlcom{# demography sensitivities}
-\hlstd{Bsens4}\hlkwb{<-}\hlkwd{t}\hlstd{(P)} \hlopt{%*%} \hlstd{Asens4} \hlopt{%*%} \hlkwd{t}\hlstd{(M)} \hlopt{%*%} \hlstd{P} \hlcom{# demography sensitivities}
-
-\hlstd{Belas}\hlkwb{<-}\hlstd{B} \hlopt{*} \hlstd{Bsens} \hlopt{/} \hlstd{lambda}  \hlcom{# demography elasticities}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'Bsens' introuvable}}\begin{alltt}
-\hlkwd{sum}\hlstd{(Belas[}\hlnum{1}\hlopt{:}\hlnum{2}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{2}\hlstd{])} \hlcom{# contribution from patch 1 to metapopulation growth rate }
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'Belas' introuvable}}\begin{alltt}
-\hlkwd{sum}\hlstd{(Belas[}\hlnum{3}\hlopt{:}\hlnum{4}\hlstd{,}\hlnum{3}\hlopt{:}\hlnum{4}\hlstd{])} \hlcom{# contribution from patch 2 to metapopulation growth rate }
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'Belas' introuvable}}\begin{alltt}
-\hlstd{Msens}\hlkwb{=}\hlstd{P} \hlopt{%*%} \hlkwd{t}\hlstd{(B)} \hlopt{%*%} \hlstd{Asens} \hlopt{%*%} \hlkwd{t}\hlstd{(P)} \hlcom{# movement sensitivities}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'Asens' introuvable}}\begin{alltt}
-\hlcom{# You'll realize that interpreting Movement sensitivities is rather difficult. A better approach would be to estimate the lower-level sensitivities for the dispersal rate, d (see H&C 2005)}
-
-\hlopt{-}\hlnum{1} \hlopt{*} \hlstd{Msens[}\hlnum{1}\hlstd{,}\hlnum{1}\hlstd{]} \hlopt{+} \hlnum{1} \hlopt{*} \hlstd{Msens[}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{]} \hlopt{+} \hlnum{1} \hlopt{*} \hlstd{Msens[}\hlnum{2}\hlstd{,}\hlnum{1}\hlstd{]} \hlopt{-} \hlnum{1} \hlopt{*} \hlstd{Msens[}\hlnum{2}\hlstd{,}\hlnum{2}\hlstd{]}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'Msens' introuvable}}\begin{alltt}
-\hlcom{###############################################################}
-
-
-\hlcom{# Gull example (Lebreton, 1966)}
-
-\hlkwd{rm}\hlstd{(}\hlkwc{list}\hlstd{=}\hlkwd{ls}\hlstd{(}\hlkwc{all}\hlstd{=}\hlnum{TRUE}\hlstd{))}
-
-\hlstd{B1}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{0.096}\hlstd{,}\hlnum{0.160}\hlstd{,}\hlnum{0.224}\hlstd{,}\hlnum{0.320}\hlstd{,}\hlnum{0.80}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0.82}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0.82}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0.82}\hlstd{,}\hlnum{0.82}\hlstd{),}\hlnum{5}\hlstd{,}\hlnum{5}\hlstd{,}\hlkwc{byrow}\hlstd{=T)}    \hlcom{# for patch 1}
-
-\hlstd{B2}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{0.1}\hlstd{,}\hlnum{0.160}\hlstd{,}\hlnum{0.20}\hlstd{,}\hlnum{0.20}\hlstd{,}\hlnum{0.80}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0.82}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0.82}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0.82}\hlstd{,}\hlnum{0.82}\hlstd{),}\hlnum{5}\hlstd{,}\hlnum{5}\hlstd{,}\hlkwc{byrow}\hlstd{=T)} \hlcom{# for patch 2}
-
-\hlstd{M1}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0.75}\hlstd{,}\hlnum{0.375}\hlstd{,}\hlnum{0.25}\hlstd{,}\hlnum{0.625}\hlstd{),}\hlnum{2}\hlstd{,}\hlnum{2}\hlstd{,}\hlkwc{byrow}\hlstd{=T)}  \hlcom{# for the first age class}
-
-\hlstd{M5}\hlkwb{<-}\hlstd{M4}\hlkwb{<-}\hlstd{M3}\hlkwb{<-}\hlstd{M2}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{1}\hlstd{),}\hlnum{2}\hlstd{,}\hlnum{2}\hlstd{,}\hlkwc{byrow}\hlstd{=T)} \hlcom{# for the rest}
-
-
-\hlcom{# This time, dispersal takes place before demography, and assume that population vector is arranged by stages}
-
-\hlcom{# Using a similar approach to the Gull example above, try to estimate the relative contribution of each patch to the metapopulation growth rate (demographic elasticities).}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlcom{#############################################}
-
-\hlstd{s}\hlkwb{=}\hlkwd{nrow}\hlstd{(B1)} \hlcom{# number of stages}
-
-\hlstd{p}\hlkwb{=}\hlkwd{nrow}\hlstd{(M1)} \hlcom{# number of patches}
-
-
-\hlcom{# Create the block diagonal matrix of demographic projection matrices}
-
-\hlstd{B}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,p}\hlopt{*}\hlstd{s,p}\hlopt{*}\hlstd{s)}
-
-\hlstd{B[}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{]}\hlkwb{<-}\hlstd{B1}
-
-\hlstd{B[}\hlnum{6}\hlopt{:}\hlnum{10}\hlstd{,}\hlnum{6}\hlopt{:}\hlnum{10}\hlstd{]}\hlkwb{<-}\hlstd{B2}
-
-\hlstd{B} \hlcom{#check}
-\end{alltt}
-\begin{verbatim}
-##       [,1]  [,2] [,3]  [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-##  [1,]  0.0 0.096 0.16 0.224 0.32  0.0 0.00 0.00 0.00  0.00
-##  [2,]  0.8 0.000 0.00 0.000 0.00  0.0 0.00 0.00 0.00  0.00
-##  [3,]  0.0 0.820 0.00 0.000 0.00  0.0 0.00 0.00 0.00  0.00
-##  [4,]  0.0 0.000 0.82 0.000 0.00  0.0 0.00 0.00 0.00  0.00
-##  [5,]  0.0 0.000 0.00 0.820 0.82  0.0 0.00 0.00 0.00  0.00
-##  [6,]  0.0 0.000 0.00 0.000 0.00  0.0 0.10 0.16 0.20  0.20
-##  [7,]  0.0 0.000 0.00 0.000 0.00  0.8 0.00 0.00 0.00  0.00
-##  [8,]  0.0 0.000 0.00 0.000 0.00  0.0 0.82 0.00 0.00  0.00
-##  [9,]  0.0 0.000 0.00 0.000 0.00  0.0 0.00 0.82 0.00  0.00
-## [10,]  0.0 0.000 0.00 0.000 0.00  0.0 0.00 0.00 0.82  0.82
-\end{verbatim}
-\begin{alltt}
-\hlcom{# Create M, the block diagonal matrix of movement matrices}
-
-\hlstd{M}\hlkwb{=}\hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,p}\hlopt{*}\hlstd{s,p}\hlopt{*}\hlstd{s)}
-
-\hlstd{M[}\hlnum{1}\hlopt{:}\hlnum{2}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{2}\hlstd{]}\hlkwb{<-}\hlstd{M1}
-
-\hlstd{M[}\hlnum{3}\hlopt{:}\hlnum{4}\hlstd{,}\hlnum{3}\hlopt{:}\hlnum{4}\hlstd{]}\hlkwb{<-}\hlstd{M2}
-\hlstd{M[}\hlnum{5}\hlopt{:}\hlnum{6}\hlstd{,}\hlnum{5}\hlopt{:}\hlnum{6}\hlstd{]}\hlkwb{<-}\hlstd{M3}
-\hlstd{M[}\hlnum{7}\hlopt{:}\hlnum{8}\hlstd{,}\hlnum{7}\hlopt{:}\hlnum{8}\hlstd{]}\hlkwb{<-}\hlstd{M4}
-\hlstd{M[}\hlnum{9}\hlopt{:}\hlnum{10}\hlstd{,}\hlnum{9}\hlopt{:}\hlnum{10}\hlstd{]}\hlkwb{<-}\hlstd{M5}
-
-\hlstd{M} \hlcom{#check}
-\end{alltt}
-\begin{verbatim}
-##       [,1]  [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-##  [1,] 0.75 0.375    0    0    0    0    0    0    0     0
-##  [2,] 0.25 0.625    0    0    0    0    0    0    0     0
-##  [3,] 0.00 0.000    1    0    0    0    0    0    0     0
-##  [4,] 0.00 0.000    0    1    0    0    0    0    0     0
-##  [5,] 0.00 0.000    0    0    1    0    0    0    0     0
-##  [6,] 0.00 0.000    0    0    0    1    0    0    0     0
-##  [7,] 0.00 0.000    0    0    0    0    1    0    0     0
-##  [8,] 0.00 0.000    0    0    0    0    0    1    0     0
-##  [9,] 0.00 0.000    0    0    0    0    0    0    1     0
-## [10,] 0.00 0.000    0    0    0    0    0    0    0     1
-\end{verbatim}
-\begin{alltt}
-\hlcom{# create P, the vec-permutation matrix}
-
-\hlstd{P}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,s}\hlopt{*}\hlstd{p,s}\hlopt{*}\hlstd{p)}
-\hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{s)\{}
-        \hlkwa{for} \hlstd{(j} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{p)\{}
-                \hlstd{E}\hlkwb{=}\hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,s,p)}
-        \hlstd{E[i,j]}\hlkwb{<-}\hlnum{1}
-        \hlstd{P}\hlkwb{<-}\hlstd{P}\hlopt{+}\hlstd{E}\hlopt{%x%}\hlkwd{t}\hlstd{(E)} \hlcom{# %x% is the Kronecker product}
-        \hlstd{\}\}}
-
-
-\hlcom{# create the Metapopulation Projection Matrix, A}
-
-\hlstd{A}\hlkwb{<-} \hlstd{P} \hlopt{%*%} \hlstd{B} \hlopt{%*%} \hlkwd{t}\hlstd{(P)} \hlopt{%*%} \hlstd{M}
-\hlstd{A} \hlcom{#check what it looks like}
-\end{alltt}
-\begin{verbatim}
-##       [,1] [,2]  [,3] [,4] [,5] [,6]  [,7] [,8] [,9] [,10]
-##  [1,]  0.0  0.0 0.096 0.00 0.16 0.00 0.224 0.00 0.32  0.00
-##  [2,]  0.0  0.0 0.000 0.10 0.00 0.16 0.000 0.20 0.00  0.20
-##  [3,]  0.6  0.3 0.000 0.00 0.00 0.00 0.000 0.00 0.00  0.00
-##  [4,]  0.2  0.5 0.000 0.00 0.00 0.00 0.000 0.00 0.00  0.00
-##  [5,]  0.0  0.0 0.820 0.00 0.00 0.00 0.000 0.00 0.00  0.00
-##  [6,]  0.0  0.0 0.000 0.82 0.00 0.00 0.000 0.00 0.00  0.00
-##  [7,]  0.0  0.0 0.000 0.00 0.82 0.00 0.000 0.00 0.00  0.00
-##  [8,]  0.0  0.0 0.000 0.00 0.00 0.82 0.000 0.00 0.00  0.00
-##  [9,]  0.0  0.0 0.000 0.00 0.00 0.00 0.820 0.00 0.82  0.00
-## [10,]  0.0  0.0 0.000 0.00 0.00 0.00 0.000 0.82 0.00  0.82
-\end{verbatim}
-\begin{alltt}
-\hlkwd{eigen.analysis}\hlstd{(A)} \hlcom{# Check local and metapoulation growth rates an have a look at the sensitivity matrix}
-\end{alltt}
-\begin{verbatim}
-## $lambda1
-## [1] 0.9970859
-## 
-## $stable.stage
-##  [1] 0.12952855 0.05171024 0.09350268 0.05191211 0.07689628
-##  [6] 0.04269234 0.06323924 0.03511004 0.29283071 0.16257780
-## 
-## $sensitivities
-##             [,1]       [,2]       [,3]       [,4]
-##  [1,] 0.00000000 0.00000000 0.07042373 0.00000000
-##  [2,] 0.00000000 0.00000000 0.00000000 0.03256113
-##  [3,] 0.13514559 0.05395267 0.00000000 0.00000000
-##  [4,] 0.08092901 0.03230839 0.00000000 0.00000000
-##  [5,] 0.00000000 0.00000000 0.11038107 0.00000000
-##  [6,] 0.00000000 0.00000000 0.00000000 0.03546815
-##  [7,] 0.00000000 0.00000000 0.00000000 0.00000000
-##  [8,] 0.00000000 0.00000000 0.00000000 0.00000000
-##  [9,] 0.00000000 0.00000000 0.00000000 0.00000000
-## [10,] 0.00000000 0.00000000 0.00000000 0.00000000
-##             [,5]       [,6]       [,7]       [,8]      [,9]
-##  [1,] 0.05791623 0.00000000 0.04763011 0.00000000 0.2205523
-##  [2,] 0.00000000 0.02677817 0.00000000 0.02202227 0.0000000
-##  [3,] 0.00000000 0.00000000 0.00000000 0.00000000 0.0000000
-##  [4,] 0.00000000 0.00000000 0.00000000 0.00000000 0.0000000
-##  [5,] 0.00000000 0.00000000 0.00000000 0.00000000 0.0000000
-##  [6,] 0.00000000 0.00000000 0.00000000 0.00000000 0.0000000
-##  [7,] 0.09908034 0.00000000 0.00000000 0.00000000 0.0000000
-##  [8,] 0.00000000 0.03024314 0.00000000 0.00000000 0.0000000
-##  [9,] 0.00000000 0.00000000 0.08606919 0.00000000 0.3985453
-## [10,] 0.00000000 0.00000000 0.00000000 0.02487186 0.0000000
-##           [,10]
-##  [1,] 0.0000000
-##  [2,] 0.1019746
-##  [3,] 0.0000000
-##  [4,] 0.0000000
-##  [5,] 0.0000000
-##  [6,] 0.0000000
-##  [7,] 0.0000000
-##  [8,] 0.0000000
-##  [9,] 0.0000000
-## [10,] 0.1151697
-## 
-## $elasticities
-##             [,1]       [,2]        [,3]       [,4]
-##  [1,] 0.00000000 0.00000000 0.006780437 0.00000000
-##  [2,] 0.00000000 0.00000000 0.000000000 0.00326563
-##  [3,] 0.08132434 0.01623311 0.000000000 0.00000000
-##  [4,] 0.01623311 0.01620141 0.000000000 0.00000000
-##  [5,] 0.00000000 0.00000000 0.090777014 0.00000000
-##  [6,] 0.00000000 0.00000000 0.000000000 0.02916889
-##  [7,] 0.00000000 0.00000000 0.000000000 0.00000000
-##  [8,] 0.00000000 0.00000000 0.000000000 0.00000000
-##  [9,] 0.00000000 0.00000000 0.000000000 0.00000000
-## [10,] 0.00000000 0.00000000 0.000000000 0.00000000
-##             [,5]        [,6]       [,7]        [,8]
-##  [1,] 0.00929368 0.000000000 0.01070033 0.000000000
-##  [2,] 0.00000000 0.004297029 0.00000000 0.004417327
-##  [3,] 0.00000000 0.000000000 0.00000000 0.000000000
-##  [4,] 0.00000000 0.000000000 0.00000000 0.000000000
-##  [5,] 0.00000000 0.000000000 0.00000000 0.000000000
-##  [6,] 0.00000000 0.000000000 0.00000000 0.000000000
-##  [7,] 0.08148333 0.000000000 0.00000000 0.000000000
-##  [8,] 0.00000000 0.024871858 0.00000000 0.000000000
-##  [9,] 0.00000000 0.000000000 0.07078301 0.000000000
-## [10,] 0.00000000 0.000000000 0.00000000 0.020454531
-##             [,9]      [,10]
-##  [1,] 0.07078301 0.00000000
-##  [2,] 0.00000000 0.02045453
-##  [3,] 0.00000000 0.00000000
-##  [4,] 0.00000000 0.00000000
-##  [5,] 0.00000000 0.00000000
-##  [6,] 0.00000000 0.00000000
-##  [7,] 0.00000000 0.00000000
-##  [8,] 0.00000000 0.00000000
-##  [9,] 0.32776228 0.00000000
-## [10,] 0.00000000 0.09471516
-## 
-## $repro.value
-##  [1] 1.0000000 0.8327907 1.3852923 0.8295523 1.5673846
-##  [6] 0.9071412 1.7107525 0.9405502 1.8070331 0.9405502
-## 
-## $damping.ratio
-## [1] 1.117914
-\end{verbatim}
-\begin{alltt}
-\hlstd{lambda} \hlkwb{<-} \hlkwd{eigen.analysis}\hlstd{(A)}\hlopt{$}\hlstd{lambda1}
-
-\hlcom{## A sensitivity & elasticity}
-
-\hlstd{analysis}\hlkwb{<-}\hlkwd{eigen.analysis}\hlstd{(A)}
-
-\hlstd{Asens}\hlkwb{<-}\hlstd{analysis}\hlopt{$}\hlstd{sensitivities} \hlcom{# the A sensitivity matrix}
-
-\hlstd{Bsens}\hlkwb{<-}\hlkwd{t}\hlstd{(P)} \hlopt{%*%} \hlstd{Asens} \hlopt{%*%} \hlkwd{t}\hlstd{(M)} \hlopt{%*%} \hlstd{P}    \hlcom{# demography sensitivities}
-
-\hlstd{Belas}\hlkwb{<-}\hlstd{B} \hlopt{*} \hlstd{Bsens} \hlopt{/} \hlstd{lambda}  \hlcom{# demography elasticities}
-
-\hlkwd{sum}\hlstd{(Belas[}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{,}\hlnum{1}\hlopt{:}\hlnum{5}\hlstd{])}   \hlcom{# contribution from patch 1 to metapopulation growth rate }
-\end{alltt}
-\begin{verbatim}
-## [1] 0.7659205
-\end{verbatim}
-\begin{alltt}
-\hlkwd{sum}\hlstd{(Belas[}\hlnum{6}\hlopt{:}\hlnum{10}\hlstd{,}\hlnum{6}\hlopt{:}\hlnum{10}\hlstd{])} \hlcom{# contribution from patch 2 to metapopulation growth rate}
-\end{alltt}
-\begin{verbatim}
-## [1] 0.2340795
-\end{verbatim}
-\begin{alltt}
-\hlstd{Msens}\hlkwb{=}\hlstd{P} \hlopt{%*%} \hlkwd{t}\hlstd{(B)} \hlopt{%*%} \hlkwd{t}\hlstd{(P)} \hlopt{%*%} \hlstd{Asens} \hlcom{# movement sensitivities}
-
-\hlstd{Melas}\hlkwb{=}\hlstd{M} \hlopt{*} \hlstd{Msens} \hlopt{/} \hlstd{lambda}  \hlcom{# movement elasticities}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
 \vspace{2ex}
 
-This is where the practical ends. If it ends a bit too soon for you and you would like to continue fighting \texttt{R}, think about a model that combines both types of stochasticity: environmental and demographic. Alternatively, do something less biologically relevant, but quite beautiful programming wise: understand (or write) a recursive function. This is a function that calls itself, an example that draws a tree is given below. Finally, you could of course also consider doing a project in our research group. (These options are not mutually exclusive).
+This is where the practical ends. If it ends a bit too soon for you and you would like to continue fighting \texttt{R}, think about a model that combines migration with both types of stochasticity: environmental and demographic. Alternatively, do something less biologically relevant, but quite beautiful programming wise: understand (or write) a recursive function. This is a function that calls itself, an example that draws a tree is given below. Finally, you could of course also consider doing a project in our research group. (These options are not mutually exclusive).
 
 \begin{center}
 Ciao!
