@@ -17,7 +17,9 @@
 \contentsline {subsection}{\numberline {1.2.4}Exercises}{18}
 \contentsline {section}{\numberline {1.3}Differential Equations}{20}
 \contentsline {subsection}{\numberline {1.3.1}The Exponential Function}{20}
+\contentsline {paragraph}{The function}{20}
 \contentsline {subsection}{\numberline {1.3.2}The Logarithmic Function}{21}
+\contentsline {paragraph}{The natural logarithm}{21}
 \contentsline {subsection}{\numberline {1.3.3}Exercises}{22}
 \contentsline {chapter}{\numberline {2}Introduction to Matrix Algebra}{24}
 \contentsline {section}{\numberline {2.1}Vectors}{24}
@@ -34,7 +36,7 @@
 \contentsline {subsection}{\numberline {2.2.2}With numbers}{32}
 \contentsline {subsection}{\numberline {2.2.3}Matrices}{33}
 \contentsline {subsection}{\numberline {2.2.4}Examples}{33}
-\contentsline {subsection}{\numberline {2.2.5}Matrix-Vector Multiplication}{34}
+\contentsline {subsection}{\numberline {2.2.5}Matrix vector Multiplication}{34}
 \contentsline {subsection}{\numberline {2.2.6}Larger dimensions}{34}
 \contentsline {subsection}{\numberline {2.2.7}Matrix vector multiplication in larger dimensions}{35}
 \contentsline {subsection}{\numberline {2.2.8}The order of matrix multiplications}{35}

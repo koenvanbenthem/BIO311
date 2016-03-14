@@ -132,11 +132,11 @@ If the blue curve is a mountain, you can picture the tangeant as the slope of yo
 \begin{center}
 \includegraphics[width=0.65\textwidth]{der_graph2.pdf}
 \end{center}
-To calculate the slope of a line, we need to know two points the line goes through. This is not the case in point A as we only know one point the tangent line goes through. So we take a second point, point A\textquoteright \; below and find the slope of the line between point A and point A\textquoteright.\\ 
+To calculate the slope of a line, we need to know two points the line goes through. We now take a second point, point A$^\prime$ \; that lies $dx$ away from the first point. This is illustrated below.\\ 
 \begin{center}
 \includegraphics[width=0.8\textwidth]{der_graph3.pdf}
 \end{center}
-The slope is given by the rise (height) over the run (length). Let the curve be described by $y=f(x)$. The coordinate of point A is $(x, f(x))$ and the coordinate of point A\textquoteright \; is $(x+dx, f(x+dx))$. Thus the rise of the line between point A and point A\textquoteright \; is given by 
+The slope of the line between point A and point A$^\prime$ is given by the rise (height) over the run (length). Let the curve be described by $y=f(x)$. The coordinate of point A is $(x, f(x))$ and the coordinate of point A$^\prime$ is $(x+dx, f(x+dx))$. Thus the rise of the line between point A and point A$^\prime$ is given by 
 \begin{equation}
 df=f(x+dx)-f(x)
 \end{equation}
@@ -148,12 +148,12 @@ So the slope is given by
 \begin{equation}
 \frac{df}{dx}=\frac{f(x+dx)-f(x)}{dx}.
 \end{equation}
-But if you look at the graph, the slope of the line between point A and point A\textquoteright \; (brown line) is not identical to the slope of the tangent (red line). By reducing the distance between point A and A\textquoteright, which is the same as reducing $dx$, we can find lines that have slopes more similar to the tangent of point A. This is what we did in the next figure. We chose two more points, A\textquoteright\textquoteright \; and A\textquoteright \textquoteright\textquoteright \;, that are both closer to A than A\textquoteright \;. Note that the closer these points get to A\textquoteright\;, the more the line between them and A resembles the tangent of the curve in point A.\\
+But if you look at the graph, the slope of the line between point A and point A$^\prime$ (brown line) is not identical to the slope of the tangent (red line). By reducing the distance between point A and A$^\prime$, which is the same as reducing $dx$, we can find lines that have slopes more similar to the tangent of point A. This is what we did in the next figure. We chose two more points, A$^{\prime\prime}$ and A$^{\prime\prime\prime}$, that are both closer to A than A$^\prime$. Note that the closer these points get to A, the more the line between them and A resembles the tangent of the curve in point A.\\
 \begin{center}
 \includegraphics[width=0.85\textwidth]{der_graph4.pdf}
 \end{center}
 \subsection{Formal definition}
-If we choose the points A and A\textquoteright \; very close together, this line will have the same slope as the tangent in point A. We thus want $dx$ to be reduced to such an extent that it tends towards zero. More precisely, we are interested in the limit when $dx$ tends towards zero:
+If we choose the points A and A$^\prime$ very close together, this line will have the same slope as the tangent in point A. We thus want $dx$ to be reduced to such an extent that it tends towards zero. More precisely, we are interested in the limit when $dx$ tends towards zero:
 \begin{equation}
 f^\prime(x)=\lim\limits_{dx \to 0}\frac{f(x+dx)-f(x))}{dx}.
 \label{eqderiv}
@@ -190,7 +190,7 @@ But when $dx$ tends towards zero we are only left with:
 \begin{equation}
 f^\prime(x)=2x
 \end{equation}
-This mean that the instantenous rate of change of any point on the curve is $2x$. Or in other words: the derivative of $x^2$ with respect to $x$ is $2x$. For instance, the slope of the tangent in $x=4$ is $2 \cdot 4=8$. Thus the instantenous rate of change in $x=4$ is $8$.
+This means that the instantenous rate of change of any point on the curve is $2x$. Or in other words: the derivative of $x^2$ with respect to $x$ is $2x$. For instance, the slope of the tangent in $x=4$ is $2 \cdot 4=8$. Thus the instantenous rate of change in $x=4$ is $8$.
 \end{mdframed}
 
 \subsection{General rule}
@@ -221,12 +221,12 @@ f^\prime(x)=h^\prime(u) u^\prime(x) = \frac{df}{du}\frac{du}{dx}
 
 \begin{mdframed}[backgroundcolor=exampcol]
 \textbf{Example}\\
-So far it is all a bit vague, we agree on that, so let's move to an example:
+So far it is all a bit vague, so let's move to an example:
 \begin{equation}
 f(x)=(x^2-4)^5
 \label{eqexder}
 \end{equation}
-Equation \ref{eqexder} can be decomposed in two functions; an "outer" function and an "inner" function. The outer function is raising to the power $5$. The inner function is the content of the brackets. Let us call the inner function of $f(x)$, $u(x)$. 
+Equation \ref{eqexder} can be decomposed in two functions; an ``outer'' function and an ``inner'' function. The outer function is raising to the power $5$. The inner function is the content of the brackets. Let us call the inner function of $f(x)$, $u(x)$. 
 \begin{equation}
 u(x)=(x^2-4)
 \label{yuk0}
@@ -350,7 +350,7 @@ $\;$
 \includegraphics[width=0.75\textwidth]{1f.pdf}
 \end{minipage}
 \begin{minipage}{\rati\textwidth}
-6. Show in the graph the points where the derivative is $0$. How many points are they? Show in the graph the parts where the derivative is smaller than $0$.
+6. Show in the graph the points where the derivative is $0$. How many such points are there? Also show in the graph the parts where the derivative is smaller than $0$.
 \end{minipage}
 \end{Exercise}
 \begin{Answer}[ref=ex0]
@@ -646,7 +646,7 @@ First we calculate the area of the rectangle ($A_1$), for this we multiply its w
 \begin{equation*}
 A_1 = (b-a)a = ba - a^2
 \end{equation*}
-Next we calculate the area of the rectangle ($A_2$). This is equal to one half times its width ($b-a$) times its height ($f(b)-f(a)=b-a$):
+Next we calculate the area of the triangle ($A_2$). This is equal to one half times its width ($b-a$) times its height ($f(b)-f(a)=b-a$):
 \begin{equation*}
 A_2 = \frac{1}{2} (b-a)(b-a) = \frac{1}{2} \left(b^2 + a^2 - 2ba \right) = \frac{1}{2} b^2 + \frac{1}{2} a^2 - ba 
 \end{equation*}
@@ -655,7 +655,7 @@ We find the the total area under the curve by adding up the areas of the rectang
 A = A_1 + A_2 = \frac{1}{2} b^2 - \frac{1}{2} a^2.
 \end{equation*}\\[0.5ex]
 \noindent\textit{Numerically}\\
-We are looking for a function $F(x)$, such that $F^\prime(x) = f(x)$. In words, we are looking for a function which derivative is $x$, because a primitive is the reverse function of a derivative. Remember that the derivative of $x^2$ is $2x$, so $x^2$ is close to the function we are looking for. In fact, it is $2$ times too high. So why not just divide it by $2$?
+We are looking for a function $F(x)$, such that $F^\prime(x) = f(x)$. In words, we are looking for a function whose derivative is $x$, because a primitive is the reverse function of a derivative. Remember that the derivative of $x^2$ is $2x$, so $x^2$ is close to the function we are looking for. In fact, it is $2$ times too high. So why not just divide it by $2$?
 \begin{equation*}
 F(x) = \frac{1}{2} x^2.
 \end{equation*}
@@ -681,7 +681,7 @@ We know that if we add a constant ($C$) to $F(x)$, this will also be a primitive
 \begin{equation*}
 (F(x)+C)^\prime = F^\prime(x) + C^\prime = F^\prime(x) + 0 = F^\prime(x) = f(x).
 \end{equation*}
-When we calculate the area under a curve, this extra constant has no influence. Say for example we define a new primitive $G(x) = F(x) + C$. If we calculate the area under the curve frm $x=a$ to $x=b$, we find that:
+When we calculate the area under a curve, this extra constant has no influence. Say for example we define a new primitive $G(x) = F(x) + C$. If we calculate the area under the curve from $x=a$ to $x=b$, we find that:
 \begin{equation*}
 G(b) - G(a) = F(b) + C - (F(a) + C) = F(b) - F(a).
 \end{equation*}
@@ -700,7 +700,7 @@ f(x) &= g(x) - h(x) &\rightarrow & &F(x) &= G(x) - H(x)\\
 
 \begin{mdframed}[backgroundcolor=exampcol]
 \textbf{Example}\\
-Let us work out a short example. what is the intergal of $f(x)=2 x^2 + x$ over the interval $\left[a,b\right]$? From the rules we find that:
+Let us work out a short example. what is the integral of $f(x)=2 x^2 + x$ over the interval $\left[a,b\right]$? From the rules we find that:
 \begin{equation*}
 F(x) = \frac{2}{3} x^3 + \frac{1}{2} x^2+ C
 \end{equation*}
@@ -720,7 +720,7 @@ and thus:
 \includegraphics[width=0.45\textwidth,page=1]{ex_int.pdf}
 \includegraphics[width=0.45\textwidth,page=2]{ex_int.pdf}
 \end{center}
-Your family just moved to a new apartment in Zurich and now it is time to paint the walls to make your house more of a home. Your creative uncle gave you two interesting designs and since you have two $1x2 m$ walls in your house, why not paint one wall with one design and the other with the other? One detail: how can you make sure that your sister has a larger surface to paint than you? Just to help you a little bit: the equation of the left design is:
+Your family just moved to a new apartment in Zurich and now it is time to paint the walls to make your house more of a home. Your creative uncle gave you two interesting designs and since you have two $1\times2 m$ walls in your house, why not paint one wall with one design and the other with the other? One detail: how can you make sure that your sister has a larger surface to paint than you? Just to help you a little bit: the equation of the left design is:
 \begin{equation*}
 f_{left}(x) = x^3 + \sqrt[4]{x}.
 \end{equation*}
@@ -859,7 +859,7 @@ Therefore exponential functions are used to model system where $a$ the factor of
 \includegraphics[width=0.85\textwidth]{exponential_plot.pdf}\\
 
 
-\textbf{The function} $f(x) = A \cdot e^x$
+\paragraph{The function} $f(x) = A \cdot e^x$
 
 
 Most of the time, the exponential function refers to the natural exponential function, an exponential function in base $e$ ($e \approx 2.72$) multiplied by a constant ($A$); $A \cdot e^x$. When $x$ tends towards $\infty$, $A \cdot e^x$ also tends towards $\infty$. This function is of specic interest to describe population growth and you will see it many times in the rest of this course. An important property of the exponential function is that its derivative is the same as the original function:
@@ -895,7 +895,7 @@ Just like division is the inverse operation of multiplication, the logarithm is 
 a^{\log_a(b)} = \log_a(a^b) = b.
 \end{equation*}
 
-\textbf{The natural logarithm}\\
+\paragraph{The natural logarithm}
 The logarithm of special interest for us is the natural logarithm $\ln(y)$ which is the inverse operation of the natural exponential function $e^x$. If $\ln(y) = x$, then $e^x = y$. The notation $\ln$ is specic to the natural logarithm and is always in base $e$. However, the literature can be confusing as you may see $\log(y)$ to mean $\ln(y)$ or $\log(y)$ to mean $\log_{10}(y)$. However, most of the time you can figure it out from the context.\\
 \includegraphics[width=0.85\textwidth]{ln_plot.pdf}\\
 The figure above shows the curve of a natural logarithmic function. The closer $x$ is to zero, the faster the value of $\ln(x)$ gets smaller. Conversly, when $x$ is far from zero, the value of $\ln(x)$ keeps increasing but the larger $x$, the slower this increase. The limit of $\ln(x)$ as $x$ approaches infinity is equal to infinity.\\
@@ -1554,7 +1554,7 @@ These vectors are special because they have a length of 1 and point along one of
 
 \end{Answer}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%% MATRIcES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% MATRICES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Vector Transformations}
 \subsection{Graphically}\label{sec:linal:mat:gr}
 So far we have been concerned with vectors: what they are and what happens when they are combined. We will now deal with linear transformations of vectors. That is instead of vectors themselves we look at operations that can change vectors. In general we will denote such transformations with a capital letter. When we have a transformation called $A$, then $A\vec{v}$ is the $\vec{v}$ transformed by $A$. To give you an idea we will now discuss 5 examples of transformations of a 2 dimensional vector.
@@ -1749,7 +1749,7 @@ S_{1.5,0.75} =
 P_x = \begin{pmatrix} 1 & 0\\ 0 & 0 \end{pmatrix}
 \end{equation*}
 \end{enumerate}
-\subsection{Matrix-Vector Multiplication}
+\subsection{Matrix vector Multiplication}
 In more dimensions everything is slightly more complicated (see next section), but for 2 dimensions it is not that bad:
 \begin{equation}
 A\vec{v} = \begin{pmatrix} a_{1,1} & a_{1,2} \\ a_{2,1} & a_{2,2} \end{pmatrix} \begin{pmatrix} v_x \\ v_y \end{pmatrix} = \begin{pmatrix} a_{1,1}v_x + a_{1,2} v_y \\ a_{2,1}v_x + a_{2,2}v_y \end{pmatrix}
@@ -1996,7 +1996,7 @@ It turns out that the wind was very favourable this year and instead of
 25\% of the adults, one third of the albatrosses gave birth to a juvenile.
 Can you:
 \subQuestion Correct the matrix in question 2 based on this information
-\subQuestion Use this matrix to calculate how the population actually looks like after one year?
+\subQuestion Use this matrix to calculate how the population actually looks like after one year
 \end{Exercise}
 \begin{Answer}[ref=alba]
 \Question Calculate how many juveniles, sub-adults and adults there will be next year. 
