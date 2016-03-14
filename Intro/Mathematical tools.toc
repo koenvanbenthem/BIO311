@@ -36,7 +36,7 @@
 \contentsline {subsection}{\numberline {2.2.2}With numbers}{32}
 \contentsline {subsection}{\numberline {2.2.3}Matrices}{33}
 \contentsline {subsection}{\numberline {2.2.4}Examples}{33}
-\contentsline {subsection}{\numberline {2.2.5}Matrix-Vector Multiplication}{34}
+\contentsline {subsection}{\numberline {2.2.5}Matrix vector Multiplication}{34}
 \contentsline {subsection}{\numberline {2.2.6}Larger dimensions}{34}
 \contentsline {subsection}{\numberline {2.2.7}Matrix vector multiplication in larger dimensions}{35}
 \contentsline {subsection}{\numberline {2.2.8}The order of matrix multiplications}{35}
