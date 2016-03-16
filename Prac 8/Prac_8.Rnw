@@ -73,7 +73,7 @@ $4$ & ... & ... & ... & ...&...\\
 \end{tabular}
 \end{table}
 
-Table \ref{tab:LT} contains the standard life-table calculation. Below is a description of each column. We purposefully do not provide you with the equations to obtain each value, we left this for you to find in the exercise. 
+Table \ref{tab:LT} contains the standard life-table calculation. Below is a description of each column. We purposefully do not provide you with the equations to obtain each value, we left this for you to find out. 
 \begin{itemize}
 
 \item \textit{The first column} $x$ is the age of the individuals. By convention, the newborn start at age $0$ and are age $1$ at their first birthday. 
