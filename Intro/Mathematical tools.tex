@@ -6,6 +6,7 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{bbold}
+\usepackage{mathtools}
 
 \graphicspath{{./figures/}}
 \usepackage{tikz}
@@ -50,6 +51,7 @@
 \renewcommand{\theExercise}{\thechapter.\arabic{Exercise}}%
 
 \begin{document}
+\input{../authors}
 \maketitle
 \tableofcontents
 \begin{mdframed}
@@ -2101,7 +2103,7 @@ Below are four matirces, for each you can choose between two vectors. Choose the
 \end{Exercise}
 
 \begin{Answer}[ref=eigen]
-\textit{We have outlined the procedure to find the answer only for the first matrix. For the other matrices, the procesdure is exactly the same. For these matrices, on ly the correct answers are given.}
+\textit{We have outlined the procedure to find the answer only for the first matrix. For the other matrices, the procesdure is exactly the same. For these matrices, only the correct answers are given.}
 \begin{enumerate}
 \item The correct answer is $a$.
 \begin{equation*}
@@ -2118,7 +2120,7 @@ Therefor $a$ is the correct answer and the corresponding eigenvalue is 2.21.
 \end{enumerate}
 \end{Answer}
 
-\begin{Exercise}[label=eigen2,title=Finding eigenvectors, difficulty=1]
+\begin{Exercise}[label=eigen2,title=Finding eigenvectors, difficulty=2]
 Consider the following transformation that mirrors every vector in the line $x=y$ (we call this transformation $M_{xy}$): 
 \begin{center}
 \begin{tikzpicture}
@@ -2236,10 +2238,91 @@ M_{xy}\vec{v}_2=\begin{pmatrix}0&1\\1&0\end{pmatrix}\begin{pmatrix}-1\\1\end{pma
 This is thus also an eigenvector. This eigenvector has eigenvalue $-1$.
 \end{Answer}
 
+\begin{Exercise}[label=eigen3,title=Re-arranging, difficulty=3]
+Consider a 4-dimensional vector:
+\begin{equation*}
+\vec{v} = \begin{pmatrix} v_1 \\ v_2 \\ v_3 \\ v_4 \end{pmatrix}\vspace{0.5ex}
+\end{equation*}
+\vspace{0.5ex}
+\ExePart \\
+It turns out that something went wrong in the notation and actually $v_1$ should have been $v_2$ and $v_2$ should have been $v_1$:
+\begin{equation*}
+P \begin{pmatrix} v_1 \\ v_2 \\ v_3 \\ v_4 \end{pmatrix} =  \begin{pmatrix} v_2 \\ v_1 \\ v_3 \\ v_4 \end{pmatrix}
+\end{equation*}
+\Question Find the matrix P that rearranges the vector.
+\Question Find the 4 eigenvectors and corresponding eigenvalues for P.
+\Question Give the matrix $P^2$. \\ \textit{Hint: no need to do calculations, try to conceptually understand what happens when you apply $P$ twice: $PP\vec{v} = \dots $}
 
+\vspace{0.5ex}
+\ExePart
+Consider now another re-arrangement in which all entries of $\vec{v}$ have been shuffled. That is:
+\begin{equation*}
+P_2 \begin{pmatrix} v_1 \\ v_2 \\ v_3 \\ v_4 \end{pmatrix} =  \begin{pmatrix} v_2 \\ v_3 \\ v_4 \\ v_1 \end{pmatrix}
+\end{equation*}
+\Question Write the matrix for this operation.
+\Question Find two of the four eigenvectors of this matrix and give the corresponding eigenvalues. (The remaining two eigenvectors contain complex numbers and are beyond the scope of this course) 
+\Question Find $n$ such that $P_2^n =\mathbb{1}$. Again, no need to do calculations.
 
-\chapter{Solutions to the exercises}
-\shipoutAnswer
+\end{Exercise}
+
+\begin{Answer}[ref=eigen3]
+\vspace{0.5ex}
+\ExePart
+\Question We are in four dimensional space, so we have 4 basisvectors:
+\begin{equation*}
+\vec{e}_1 =  \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} , \; \vec{e}_2 =  \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}, \; \vec{e}_3 =  \begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix} , \; \vec{e}_4 =  \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}.
+\end{equation*}
+Now all we need to know is how each of these basisvectors is altered by P. From the description of P it should be clear that:
+\begin{equation*}
+P\vec{e}_1 =  \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix} , \; P\vec{e}_2 =  \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix}, \; P\vec{e}_3 =  \begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix} , \; P\vec{e}_4 =  \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}.
+\end{equation*}
+And thus:
+\begin{equation*}
+P = \begin{pmatrix} 0 & 1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 1& 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}
+\end{equation*}
+\Question We have already seen in the previous answer that $P\vec{e}_3 = \vec{e}_3$ and $P\vec{e}_4 = \vec{e}_4$. Hence, both these vectors are eigenvectors of $P$, both with eigenvalue 1. The other two eigenvectors are slightly more difficult, but definitely not impossible to find. Just ask yourself the question: which vector does not change direction if $v_1$ and $v_2$ change place? Exactly! The vectors for which $v_1 = v_2$. Hence, the third eigenvector is:
+\begin{equation*}
+\begin{pmatrix} 1 \\ 1 \\ 0 \\ 0 \end{pmatrix}
+\end{equation*} 
+This vector too, has eigenvalue $1$. (Note that any vector that is a combination of the first three eigenvectors is also an eigenvector.)
+The last eigenvector is probably the most difficult one to find. We can't give much stronger help here than: you just have to see it. This is the vector
+\begin{equation*}
+\begin{pmatrix*}[r] 1 \\ -1 \\ 0 \\ 0 \end{pmatrix*}
+\end{equation*} 
+with eigenvalue $-1$. A short check:
+\begin{equation*}
+P \begin{pmatrix*}[r] 1 \\ -1 \\ 0 \\ 0 \end{pmatrix*} = \begin{pmatrix*}[r] -1 \\ 1 \\ 0 \\ 0 \end{pmatrix*} = -1\cdot \begin{pmatrix*}[r] 1 \\ -1 \\ 0 \\ 0 \end{pmatrix*} 
+\end{equation*} 
+\Question If we apply $P$ once, the first two indices of the vector are exchanged. If we then apply $P$ again, the first two entries are again exchanged: in total nothing happened. Therefore $P^2 = \mathbb{1}$.
+\begin{equation*}
+P^2 \begin{pmatrix} v_1 \\ v_2 \\ v_3 \\ v_4 \end{pmatrix} = P P \begin{pmatrix} v_1 \\ v_2 \\ v_3 \\ v_4 \end{pmatrix} = P \begin{pmatrix} v_2 \\ v_1 \\ v_3 \\ v_4 \end{pmatrix} =  \begin{pmatrix} v_1 \\ v_2 \\ v_3 \\ v_4 \end{pmatrix} 
+\end{equation*}
+\vspace{0.5ex}
+\ExePart
+\Question By following the same logic as in the previous part, we find that:
+\begin{equation*}
+P_2 = \begin{pmatrix} 	0 &  1 & 0 & 0 \\ 
+				0 & 0 & 1 & 0 \\ 
+				0 & 0 & 0& 1 \\ 
+				1 & 0 & 0 & 0 \end{pmatrix}
+\end{equation*}
+\Question Both eigenvectors in this part are very similar to the ones in the previous part. The easier one is:
+\begin{equation*}
+\begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \end{pmatrix}
+\end{equation*} 
+With eigenvalue 1. In short what we see here is that if all four entries have the same value, shuffling them does not influence the direction of the vector (how surprising... ). The second eigenvector is a bit harder to see, but it is:
+\begin{equation*}
+\begin{pmatrix*}[r] 1 \\ -1 \\ 1 \\ -1 \end{pmatrix*}
+\end{equation*}
+The eigenvalue here is -1:
+\begin{equation*}
+P_2 \begin{pmatrix*}[r] 1 \\ -1 \\ 1 \\ -1 \end{pmatrix*} = \begin{pmatrix*}[r] -1 \\ 1 \\ -1 \\ 1 \end{pmatrix*} = -1 \cdot  \begin{pmatrix*}[r] 1 \\ -1 \\ 1 \\ -1 \end{pmatrix*} 
+\end{equation*}
+\Question Every time we apply $P_2$, all the entries of the vector shift up one spot. If we thus apply $P_2$ two times, all entries of the vector will shift up two spots etc. The total vector has 4 spots, so if all entries move 4 spots, they will end up where they started and hence if $P$ is applied $4$ times, nothing will change in the vector. Of course from here, we could shif all entries by another 4 spots and end up with the same vector again, therefore the correct solutions are the solutions for which $n = 0, 4, 8, 12, 16, \dots$. Here, the value of $0$ is not a 'real' solution, becuase it means that if you apply the matrix $P$ zero times, nothing will change. Which is obvious for any matrix and does not depend on $P$ at all. (Actually to be more precise, also negative values for n are solutions. So to be more precise: $ n = \dots, -12 , -8, -4, 0, 4, 8, 12, \dots$.) 
+\end{Answer}
+
+%\chapter{Solutions to the exercises}
+%\shipoutAnswer
 
 
 \end{document}

@@ -45,4 +45,3 @@
 \contentsline {subsection}{\numberline {2.3.1}Graphically}{38}
 \contentsline {subsection}{\numberline {2.3.2}With numbers}{39}
 \contentsline {subsection}{\numberline {2.3.3}Exercises}{40}
-\contentsline {chapter}{\numberline {3}Solutions to the exercises}{42}

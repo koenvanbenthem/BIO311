@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  14 MAR 2016 19:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  16 MAR 2016 15:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -400,14 +400,47 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/bbold/bbold.sty
 Package: bbold 1994/04/06 Bbold symbol package
 )
+(/usr/local/texlive/2015/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2015/05/11 v1.16 mathematical typesetting tools
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count118
+\calc@Bcount=\count119
+\calc@Adimen=\dimen115
+\calc@Bdimen=\dimen116
+\calc@Askip=\skip68
+\calc@Bskip=\skip69
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count120
+\calc@Cskip=\skip70
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2010/01/21 v1.2a programming setup (MH)
+)
+LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
+\g_MT_multlinerow_int=\count121
+\l_MT_multwidth_dim=\dimen117
+\origjot=\skip71
+\l_MT_shortvdotswithinadjustabove_dim=\dimen118
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen119
+\l_MT_above_intertext_sep=\dimen120
+\l_MT_below_intertext_sep=\dimen121
+\l_MT_above_shortintertext_sep=\dimen122
+\l_MT_below_shortintertext_sep=\dimen123
+)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
 (/usr/local/texlive/2015/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
 (/usr/local/texlive/2015/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
 x
 \pgfutil@everybye=\toks22
-\pgfutil@tempdima=\dimen115
-\pgfutil@tempdimb=\dimen116
+\pgfutil@tempdima=\dimen124
+\pgfutil@tempdimb=\dimen125
 
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-li
 sts.tex))
@@ -432,20 +465,20 @@ Package: pgfsys 2013/11/30 v3.0.0 (rcs-revision 1.47)
 ode.tex
 \pgfkeys@tmptoks=\toks25
 ))
-\pgf@x=\dimen117
-\pgf@y=\dimen118
-\pgf@xa=\dimen119
-\pgf@ya=\dimen120
-\pgf@xb=\dimen121
-\pgf@yb=\dimen122
-\pgf@xc=\dimen123
-\pgf@yc=\dimen124
+\pgf@x=\dimen126
+\pgf@y=\dimen127
+\pgf@xa=\dimen128
+\pgf@ya=\dimen129
+\pgf@xb=\dimen130
+\pgf@yb=\dimen131
+\pgf@xc=\dimen132
+\pgf@yc=\dimen133
 \w@pgf@writea=\write3
 \r@pgf@reada=\read1
-\c@pgf@counta=\count118
-\c@pgf@countb=\count119
-\c@pgf@countc=\count120
-\c@pgf@countd=\count121
+\c@pgf@counta=\count122
+\c@pgf@countb=\count123
+\c@pgf@countc=\count124
+\c@pgf@countd=\count125
 \t@pgf@toka=\toks26
 \t@pgf@tokb=\toks27
 \t@pgf@tokc=\toks28
@@ -466,8 +499,8 @@ File: pgfsys-common-pdf.def 2013/10/10  (rcs-revision 1.13)
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
 code.tex
 File: pgfsyssoftpath.code.tex 2013/09/09  (rcs-revision 1.9)
-\pgfsyssoftpath@smallbuffer@items=\count122
-\pgfsyssoftpath@bigbuffer@items=\count123
+\pgfsyssoftpath@smallbuffer@items=\count126
+\pgfsyssoftpath@bigbuffer@items=\count127
 )
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
 code.tex
@@ -495,8 +528,8 @@ Package: pgfcore 2010/04/11 v3.0.0 (rcs-revision 1.7)
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen125
-\pgfmath@count=\count124
+\pgfmath@dimen=\dimen134
+\pgfmath@count=\count128
 \pgfmath@box=\box35
 \pgfmath@toks=\toks29
 \pgfmath@stack@operand=\toks30
@@ -521,37 +554,37 @@ code.tex)
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
 erarithmetics.code.tex)))
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count125
+\c@pgfmathroundto@lastzeros=\count129
 ))
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
 de.tex
 File: pgfcorepoints.code.tex 2013/10/07  (rcs-revision 1.27)
-\pgf@picminx=\dimen126
-\pgf@picmaxx=\dimen127
-\pgf@picminy=\dimen128
-\pgf@picmaxy=\dimen129
-\pgf@pathminx=\dimen130
-\pgf@pathmaxx=\dimen131
-\pgf@pathminy=\dimen132
-\pgf@pathmaxy=\dimen133
-\pgf@xx=\dimen134
-\pgf@xy=\dimen135
-\pgf@yx=\dimen136
-\pgf@yy=\dimen137
-\pgf@zx=\dimen138
-\pgf@zy=\dimen139
+\pgf@picminx=\dimen135
+\pgf@picmaxx=\dimen136
+\pgf@picminy=\dimen137
+\pgf@picmaxy=\dimen138
+\pgf@pathminx=\dimen139
+\pgf@pathmaxx=\dimen140
+\pgf@pathminy=\dimen141
+\pgf@pathmaxy=\dimen142
+\pgf@xx=\dimen143
+\pgf@xy=\dimen144
+\pgf@yx=\dimen145
+\pgf@yy=\dimen146
+\pgf@zx=\dimen147
+\pgf@zy=\dimen148
 )
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
 ruct.code.tex
 File: pgfcorepathconstruct.code.tex 2013/10/07  (rcs-revision 1.29)
-\pgf@path@lastx=\dimen140
-\pgf@path@lasty=\dimen141
+\pgf@path@lastx=\dimen149
+\pgf@path@lasty=\dimen150
 )
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
 .code.tex
 File: pgfcorepathusage.code.tex 2013/12/13  (rcs-revision 1.23)
-\pgf@shorten@end@additional=\dimen142
-\pgf@shorten@start@additional=\dimen143
+\pgf@shorten@end@additional=\dimen151
+\pgf@shorten@start@additional=\dimen152
 )
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
 de.tex
@@ -559,19 +592,19 @@ File: pgfcorescopes.code.tex 2013/10/09  (rcs-revision 1.44)
 \pgfpic=\box36
 \pgf@hbox=\box37
 \pgf@layerbox@main=\box38
-\pgf@picture@serial@count=\count126
+\pgf@picture@serial@count=\count130
 )
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
 ate.code.tex
 File: pgfcoregraphicstate.code.tex 2013/09/19  (rcs-revision 1.11)
-\pgflinewidth=\dimen144
+\pgflinewidth=\dimen153
 )
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
 ations.code.tex
 File: pgfcoretransformations.code.tex 2013/10/10  (rcs-revision 1.17)
-\pgf@pt@x=\dimen145
-\pgf@pt@y=\dimen146
-\pgf@pt@temp=\dimen147
+\pgf@pt@x=\dimen154
+\pgf@pt@y=\dimen155
+\pgf@pt@temp=\dimen156
 )
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
 e.tex
@@ -588,13 +621,13 @@ File: pgfcorepathprocessing.code.tex 2013/09/09  (rcs-revision 1.9)
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
 de.tex
 File: pgfcorearrows.code.tex 2013/11/07  (rcs-revision 1.40)
-\pgfarrowsep=\dimen148
+\pgfarrowsep=\dimen157
 )
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
 e.tex
 File: pgfcoreshade.code.tex 2013/07/15  (rcs-revision 1.15)
-\pgf@max=\dimen149
-\pgf@sys@shading@range@num=\count127
+\pgf@max=\dimen158
+\pgf@sys@shading@range@num=\count131
 )
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
 e.tex
@@ -629,8 +662,8 @@ File: pgfmoduleplot.code.tex 2013/07/31  (rcs-revision 1.12)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
 -0-65.sty
 Package: pgfcomp-version-0-65 2007/07/03 v3.0.0 (rcs-revision 1.7)
-\pgf@nodesepstart=\dimen150
-\pgf@nodesepend=\dimen151
+\pgf@nodesepstart=\dimen159
+\pgf@nodesepend=\dimen160
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
 -1-18.sty
@@ -645,8 +678,8 @@ Package: pgfcomp-version-1-18 2007/07/23 v3.0.0 (rcs-revision 1.1)
 Package: pgffor 2013/12/13 v3.0.0 (rcs-revision 1.25)
 
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
-\pgffor@iter=\dimen152
-\pgffor@skip=\dimen153
+\pgffor@iter=\dimen161
+\pgffor@skip=\dimen162
 \pgffor@stack=\toks32
 \pgffor@toks=\toks33
 ))
@@ -657,32 +690,32 @@ Package: tikz 2013/12/13 v3.0.0 (rcs-revision 1.142)
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
 dlers.code.tex
 File: pgflibraryplothandlers.code.tex 2013/08/31 v3.0.0 (rcs-revision 1.20)
-\pgf@plot@mark@count=\count128
-\pgfplotmarksize=\dimen154
+\pgf@plot@mark@count=\count132
+\pgfplotmarksize=\dimen163
 )
-\tikz@lastx=\dimen155
-\tikz@lasty=\dimen156
-\tikz@lastxsaved=\dimen157
-\tikz@lastysaved=\dimen158
-\tikzleveldistance=\dimen159
-\tikzsiblingdistance=\dimen160
+\tikz@lastx=\dimen164
+\tikz@lasty=\dimen165
+\tikz@lastxsaved=\dimen166
+\tikz@lastysaved=\dimen167
+\tikzleveldistance=\dimen168
+\tikzsiblingdistance=\dimen169
 \tikz@figbox=\box41
 \tikz@figbox@bg=\box42
 \tikz@tempbox=\box43
 \tikz@tempbox@bg=\box44
-\tikztreelevel=\count129
-\tikznumberofchildren=\count130
-\tikznumberofcurrentchild=\count131
-\tikz@fig@count=\count132
+\tikztreelevel=\count133
+\tikznumberofchildren=\count134
+\tikznumberofcurrentchild=\count135
+\tikz@fig@count=\count136
 
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
 e.tex
 File: pgfmodulematrix.code.tex 2013/09/17  (rcs-revision 1.8)
-\pgfmatrixcurrentrow=\count133
-\pgfmatrixcurrentcolumn=\count134
-\pgf@matrix@numberofcolumns=\count135
+\pgfmatrixcurrentrow=\count137
+\pgfmatrixcurrentcolumn=\count138
+\pgf@matrix@numberofcolumns=\count139
 )
-\tikz@expandcount=\count136
+\tikz@expandcount=\count140
 
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarytopaths.code.tex
@@ -691,23 +724,23 @@ File: tikzlibrarytopaths.code.tex 2008/06/17 v3.0.0 (rcs-revision 1.2)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/silence/silence.sty
 Package: silence 2012/07/02 v1.5b Selective filtering of warnings and error mes
 sages
-\sl@Save=\count137
-\sl@StateNumber=\count138
-\sl@MessageCount=\count139
-\sl@Casualties=\count140
+\sl@Save=\count141
+\sl@StateNumber=\count142
+\sl@MessageCount=\count143
+\sl@Casualties=\count144
 \sl@Filter=\toks34
 \sl@Message=\toks35
 \sl@UnexpandedMessage=\toks36
 \sl@Mess@ge=\toks37
-\sl@WarningCount=\count141
-\sl@WarningNumber=\count142
-\sl@WarningCasualties=\count143
+\sl@WarningCount=\count145
+\sl@WarningNumber=\count146
+\sl@WarningCasualties=\count147
 \sl@TempBOW=\toks38
 \sl@BankOfWarnings=\toks39
 LaTeX Info: Redefining \GenericWarning on input line 433.
-\sl@ErrorCount=\count144
-\sl@ErrorNumber=\count145
-\sl@ErrorCasualties=\count146
+\sl@ErrorCount=\count148
+\sl@ErrorNumber=\count149
+\sl@ErrorCasualties=\count150
 \sl@TempBOE=\toks40
 \sl@BankOfErrors=\toks41
 LaTeX Info: Redefining \GenericError on input line 601.
@@ -747,37 +780,37 @@ L3 Module: l3tl 2015/01/27 v5500 L3 Token lists
 L3 Module: l3str 2015/03/01 v5545 L3 Strings
 L3 Module: l3seq 2014/08/23 v5354 L3 Sequences and stacks
 L3 Module: l3int 2015/02/21 v5529 L3 Integers
-\c_max_int=\count147
-\l_tmpa_int=\count148
-\l_tmpb_int=\count149
-\g_tmpa_int=\count150
-\g_tmpb_int=\count151
+\c_max_int=\count151
+\l_tmpa_int=\count152
+\l_tmpb_int=\count153
+\g_tmpa_int=\count154
+\g_tmpb_int=\count155
 L3 Module: l3quark 2014/08/23 v5354 L3 Quarks
 L3 Module: l3prg 2014/08/23 v5354 L3 Control structures
-\g__prg_map_int=\count152
+\g__prg_map_int=\count156
 L3 Module: l3clist 2014/08/23 v5354 L3 Comma separated lists
 L3 Module: l3token 2014/09/15 v5422 L3 Experimental token manipulation
 L3 Module: l3prop 2014/08/23 v5354 L3 Property lists
 L3 Module: l3msg 2015/02/26 v5537 L3 Messages
 L3 Module: l3file 2014/08/24 v5369 L3 File and I/O operations
-\l_iow_line_count_int=\count153
-\l__iow_target_count_int=\count154
-\l__iow_current_line_int=\count155
-\l__iow_current_word_int=\count156
-\l__iow_current_indentation_int=\count157
+\l_iow_line_count_int=\count157
+\l__iow_target_count_int=\count158
+\l__iow_current_line_int=\count159
+\l__iow_current_word_int=\count160
+\l__iow_current_indentation_int=\count161
 L3 Module: l3skip 2014/08/23 v5354 L3 Dimensions and skips
-\c_zero_dim=\dimen161
-\c_max_dim=\dimen162
-\l_tmpa_dim=\dimen163
-\l_tmpb_dim=\dimen164
-\g_tmpa_dim=\dimen165
-\g_tmpb_dim=\dimen166
-\c_zero_skip=\skip68
-\c_max_skip=\skip69
-\l_tmpa_skip=\skip70
-\l_tmpb_skip=\skip71
-\g_tmpa_skip=\skip72
-\g_tmpb_skip=\skip73
+\c_zero_dim=\dimen170
+\c_max_dim=\dimen171
+\l_tmpa_dim=\dimen172
+\l_tmpb_dim=\dimen173
+\g_tmpa_dim=\dimen174
+\g_tmpb_dim=\dimen175
+\c_zero_skip=\skip72
+\c_max_skip=\skip73
+\l_tmpa_skip=\skip74
+\l_tmpb_skip=\skip75
+\g_tmpa_skip=\skip76
+\g_tmpb_skip=\skip77
 \c_zero_muskip=\muskip11
 \c_max_muskip=\muskip12
 \l_tmpa_muskip=\muskip13
@@ -785,18 +818,18 @@ L3 Module: l3skip 2014/08/23 v5354 L3 Dimensions and skips
 \g_tmpa_muskip=\muskip15
 \g_tmpb_muskip=\muskip16
 L3 Module: l3keys 2015/01/27 v5500 L3 Key-value interfaces
-\g__keyval_level_int=\count158
-\l_keys_choice_int=\count159
+\g__keyval_level_int=\count162
+\l_keys_choice_int=\count163
 L3 Module: l3fp 2014/08/22 v5336 L3 Floating points
-\c__fp_leading_shift_int=\count160
-\c__fp_middle_shift_int=\count161
-\c__fp_trailing_shift_int=\count162
-\c__fp_big_leading_shift_int=\count163
-\c__fp_big_middle_shift_int=\count164
-\c__fp_big_trailing_shift_int=\count165
-\c__fp_Bigg_leading_shift_int=\count166
-\c__fp_Bigg_middle_shift_int=\count167
-\c__fp_Bigg_trailing_shift_int=\count168
+\c__fp_leading_shift_int=\count164
+\c__fp_middle_shift_int=\count165
+\c__fp_trailing_shift_int=\count166
+\c__fp_big_leading_shift_int=\count167
+\c__fp_big_middle_shift_int=\count168
+\c__fp_big_trailing_shift_int=\count169
+\c__fp_Bigg_leading_shift_int=\count170
+\c__fp_Bigg_middle_shift_int=\count171
+\c__fp_Bigg_trailing_shift_int=\count172
 L3 Module: l3box 2014/08/23 v5354 L3 Experimental boxes
 \c_empty_box=\box45
 \l_tmpa_box=\box46
@@ -805,13 +838,13 @@ L3 Module: l3box 2014/08/23 v5354 L3 Experimental boxes
 \g_tmpb_box=\box49
 L3 Module: l3coffins 2014/08/23 v5354 L3 Coffin code layer
 \l__coffin_internal_box=\box50
-\l__coffin_internal_dim=\dimen167
-\l__coffin_offset_x_dim=\dimen168
-\l__coffin_offset_y_dim=\dimen169
-\l__coffin_x_dim=\dimen170
-\l__coffin_y_dim=\dimen171
-\l__coffin_x_prime_dim=\dimen172
-\l__coffin_y_prime_dim=\dimen173
+\l__coffin_internal_dim=\dimen176
+\l__coffin_offset_x_dim=\dimen177
+\l__coffin_offset_y_dim=\dimen178
+\l__coffin_x_dim=\dimen179
+\l__coffin_y_dim=\dimen180
+\l__coffin_x_prime_dim=\dimen181
+\l__coffin_y_prime_dim=\dimen182
 \c_empty_coffin=\box51
 \l__coffin_aligned_coffin=\box52
 \l__coffin_aligned_internal_coffin=\box53
@@ -820,45 +853,45 @@ L3 Module: l3coffins 2014/08/23 v5354 L3 Coffin code layer
 \l__coffin_display_coffin=\box56
 \l__coffin_display_coord_coffin=\box57
 \l__coffin_display_pole_coffin=\box58
-\l__coffin_display_offset_dim=\dimen174
-\l__coffin_display_x_dim=\dimen175
-\l__coffin_display_y_dim=\dimen176
+\l__coffin_display_offset_dim=\dimen183
+\l__coffin_display_x_dim=\dimen184
+\l__coffin_display_y_dim=\dimen185
 L3 Module: l3color 2014/08/23 v5354 L3 Experimental color support
 L3 Module: l3candidates 2015/03/01 v5544 L3 Experimental additions to l3kernel
-\l__box_top_dim=\dimen177
-\l__box_bottom_dim=\dimen178
-\l__box_left_dim=\dimen179
-\l__box_right_dim=\dimen180
-\l__box_top_new_dim=\dimen181
-\l__box_bottom_new_dim=\dimen182
-\l__box_left_new_dim=\dimen183
-\l__box_right_new_dim=\dimen184
+\l__box_top_dim=\dimen186
+\l__box_bottom_dim=\dimen187
+\l__box_left_dim=\dimen188
+\l__box_right_dim=\dimen189
+\l__box_top_new_dim=\dimen190
+\l__box_bottom_new_dim=\dimen191
+\l__box_left_new_dim=\dimen192
+\l__box_right_new_dim=\dimen193
 \l__box_internal_box=\box59
-\l__coffin_bounding_shift_dim=\dimen185
-\l__coffin_left_corner_dim=\dimen186
-\l__coffin_right_corner_dim=\dimen187
-\l__coffin_bottom_corner_dim=\dimen188
-\l__coffin_top_corner_dim=\dimen189
-\l__coffin_scaled_total_height_dim=\dimen190
-\l__coffin_scaled_width_dim=\dimen191
+\l__coffin_bounding_shift_dim=\dimen194
+\l__coffin_left_corner_dim=\dimen195
+\l__coffin_right_corner_dim=\dimen196
+\l__coffin_bottom_corner_dim=\dimen197
+\l__coffin_top_corner_dim=\dimen198
+\l__coffin_scaled_total_height_dim=\dimen199
+\l__coffin_scaled_width_dim=\dimen200
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/l3kernel/l3unicode-data.def
 File: l3unicode-data.def 2015/03/01 v5544 L3 Unicode data
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/l3kernel/l3pdfmode.def
 File: l3pdfmode.def 2015/03/01 v5544 L3 Experimental driver: PDF mode
-\l__driver_color_stack_int=\count169
+\l__driver_color_stack_int=\count173
 ))
 Package: xparse 2014/11/25 v5471 L3 Experimental document command parser
-\l__xparse_current_arg_int=\count170
-\l__xparse_m_args_int=\count171
-\l__xparse_mandatory_args_int=\count172
-\l__xparse_processor_int=\count173
-\l__xparse_v_nesting_int=\count174
+\l__xparse_current_arg_int=\count174
+\l__xparse_m_args_int=\count175
+\l__xparse_mandatory_args_int=\count176
+\l__xparse_processor_int=\count177
+\l__xparse_v_nesting_int=\count178
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2015/05/04 v2.2 e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count175
+\etb@tempcnta=\count179
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/zref-abspage.sty
 Package: zref-abspage 2012/04/04 v2.24 Module abspage for zref (HO)
@@ -892,53 +925,53 @@ Package zref Info: New property: page on input line 761.
 (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/atbegshi.sty
 Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
 )
-\c@abspage=\count176
+\c@abspage=\count180
 Package zref Info: New property: abspage on input line 62.
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/needspace/needspace.sty
 Package: needspace 2010/09/12 v1.3d reserve vertical space
 )
-\mdf@templength=\skip74
-\c@mdf@globalstyle@cnt=\count177
-\mdf@skipabove@length=\skip75
-\mdf@skipbelow@length=\skip76
-\mdf@leftmargin@length=\skip77
-\mdf@rightmargin@length=\skip78
-\mdf@innerleftmargin@length=\skip79
-\mdf@innerrightmargin@length=\skip80
-\mdf@innertopmargin@length=\skip81
-\mdf@innerbottommargin@length=\skip82
-\mdf@splittopskip@length=\skip83
-\mdf@splitbottomskip@length=\skip84
-\mdf@outermargin@length=\skip85
-\mdf@innermargin@length=\skip86
-\mdf@linewidth@length=\skip87
-\mdf@innerlinewidth@length=\skip88
-\mdf@middlelinewidth@length=\skip89
-\mdf@outerlinewidth@length=\skip90
-\mdf@roundcorner@length=\skip91
-\mdf@footenotedistance@length=\skip92
-\mdf@userdefinedwidth@length=\skip93
-\mdf@needspace@length=\skip94
-\mdf@frametitleaboveskip@length=\skip95
-\mdf@frametitlebelowskip@length=\skip96
-\mdf@frametitlerulewidth@length=\skip97
-\mdf@frametitleleftmargin@length=\skip98
-\mdf@frametitlerightmargin@length=\skip99
-\mdf@shadowsize@length=\skip100
-\mdf@extratopheight@length=\skip101
-\mdf@subtitleabovelinewidth@length=\skip102
-\mdf@subtitlebelowlinewidth@length=\skip103
-\mdf@subtitleaboveskip@length=\skip104
-\mdf@subtitlebelowskip@length=\skip105
-\mdf@subtitleinneraboveskip@length=\skip106
-\mdf@subtitleinnerbelowskip@length=\skip107
-\mdf@subsubtitleabovelinewidth@length=\skip108
-\mdf@subsubtitlebelowlinewidth@length=\skip109
-\mdf@subsubtitleaboveskip@length=\skip110
-\mdf@subsubtitlebelowskip@length=\skip111
-\mdf@subsubtitleinneraboveskip@length=\skip112
-\mdf@subsubtitleinnerbelowskip@length=\skip113
+\mdf@templength=\skip78
+\c@mdf@globalstyle@cnt=\count181
+\mdf@skipabove@length=\skip79
+\mdf@skipbelow@length=\skip80
+\mdf@leftmargin@length=\skip81
+\mdf@rightmargin@length=\skip82
+\mdf@innerleftmargin@length=\skip83
+\mdf@innerrightmargin@length=\skip84
+\mdf@innertopmargin@length=\skip85
+\mdf@innerbottommargin@length=\skip86
+\mdf@splittopskip@length=\skip87
+\mdf@splitbottomskip@length=\skip88
+\mdf@outermargin@length=\skip89
+\mdf@innermargin@length=\skip90
+\mdf@linewidth@length=\skip91
+\mdf@innerlinewidth@length=\skip92
+\mdf@middlelinewidth@length=\skip93
+\mdf@outerlinewidth@length=\skip94
+\mdf@roundcorner@length=\skip95
+\mdf@footenotedistance@length=\skip96
+\mdf@userdefinedwidth@length=\skip97
+\mdf@needspace@length=\skip98
+\mdf@frametitleaboveskip@length=\skip99
+\mdf@frametitlebelowskip@length=\skip100
+\mdf@frametitlerulewidth@length=\skip101
+\mdf@frametitleleftmargin@length=\skip102
+\mdf@frametitlerightmargin@length=\skip103
+\mdf@shadowsize@length=\skip104
+\mdf@extratopheight@length=\skip105
+\mdf@subtitleabovelinewidth@length=\skip106
+\mdf@subtitlebelowlinewidth@length=\skip107
+\mdf@subtitleaboveskip@length=\skip108
+\mdf@subtitlebelowskip@length=\skip109
+\mdf@subtitleinneraboveskip@length=\skip110
+\mdf@subtitleinnerbelowskip@length=\skip111
+\mdf@subsubtitleabovelinewidth@length=\skip112
+\mdf@subsubtitlebelowlinewidth@length=\skip113
+\mdf@subsubtitleaboveskip@length=\skip114
+\mdf@subsubtitlebelowskip@length=\skip115
+\mdf@subsubtitleinneraboveskip@length=\skip116
+\mdf@subsubtitleinnerbelowskip@length=\skip117
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/mdframed/md-frame-0.mdf
 File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
@@ -948,34 +981,34 @@ File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
 \mdf@splitbox@one=\box62
 \mdf@splitbox@two=\box63
 \mdf@splitbox@save=\box64
-\mdfsplitboxwidth=\skip114
-\mdfsplitboxtotalwidth=\skip115
-\mdfsplitboxheight=\skip116
-\mdfsplitboxdepth=\skip117
-\mdfsplitboxtotalheight=\skip118
-\mdfframetitleboxwidth=\skip119
-\mdfframetitleboxtotalwidth=\skip120
-\mdfframetitleboxheight=\skip121
-\mdfframetitleboxdepth=\skip122
-\mdfframetitleboxtotalheight=\skip123
-\mdffootnoteboxwidth=\skip124
-\mdffootnoteboxtotalwidth=\skip125
-\mdffootnoteboxheight=\skip126
-\mdffootnoteboxdepth=\skip127
-\mdffootnoteboxtotalheight=\skip128
-\mdftotallinewidth=\skip129
-\mdfboundingboxwidth=\skip130
-\mdfboundingboxtotalwidth=\skip131
-\mdfboundingboxheight=\skip132
-\mdfboundingboxdepth=\skip133
-\mdfboundingboxtotalheight=\skip134
-\mdf@freevspace@length=\skip135
-\mdf@horizontalwidthofbox@length=\skip136
-\mdf@verticalmarginwhole@length=\skip137
-\mdf@horizontalspaceofbox=\skip138
-\mdfsubtitleheight=\skip139
-\mdfsubsubtitleheight=\skip140
-\c@mdfcountframes=\count178
+\mdfsplitboxwidth=\skip118
+\mdfsplitboxtotalwidth=\skip119
+\mdfsplitboxheight=\skip120
+\mdfsplitboxdepth=\skip121
+\mdfsplitboxtotalheight=\skip122
+\mdfframetitleboxwidth=\skip123
+\mdfframetitleboxtotalwidth=\skip124
+\mdfframetitleboxheight=\skip125
+\mdfframetitleboxdepth=\skip126
+\mdfframetitleboxtotalheight=\skip127
+\mdffootnoteboxwidth=\skip128
+\mdffootnoteboxtotalwidth=\skip129
+\mdffootnoteboxheight=\skip130
+\mdffootnoteboxdepth=\skip131
+\mdffootnoteboxtotalheight=\skip132
+\mdftotallinewidth=\skip133
+\mdfboundingboxwidth=\skip134
+\mdfboundingboxtotalwidth=\skip135
+\mdfboundingboxheight=\skip136
+\mdfboundingboxdepth=\skip137
+\mdfboundingboxtotalheight=\skip138
+\mdf@freevspace@length=\skip139
+\mdf@horizontalwidthofbox@length=\skip140
+\mdf@verticalmarginwhole@length=\skip141
+\mdf@horizontalspaceofbox=\skip142
+\mdfsubtitleheight=\skip143
+\mdfsubsubtitleheight=\skip144
+\c@mdfcountframes=\count182
 
 ****** mdframed patching \endmdf@trivlist
 
@@ -991,10 +1024,10 @@ File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
 . 
 . Defining command \mdtheorem with sig. ' O{} m o m o ' on line 701.
 .................................................
-\mdf@envdepth=\count179
-\c@mdf@env@i=\count180
-\c@mdf@env@ii=\count181
-\c@mdf@zref@counter=\count182
+\mdf@envdepth=\count183
+\c@mdf@env@i=\count184
+\c@mdf@env@ii=\count185
+\c@mdf@zref@counter=\count186
 Package zref Info: New property: mdf@pagevalue on input line 895.
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/todonotes/todonotes.sty
@@ -1009,46 +1042,33 @@ Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
 \XKV@toks=\toks42
 \XKV@tempa@toks=\toks43
 )
-\XKV@depth=\count183
+\XKV@depth=\count187
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 (/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2008/10/06 v3.0.0 (rcs-revision 1.7)
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/calc.sty
-Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count184
-\calc@Bcount=\count185
-\calc@Adimen=\dimen192
-\calc@Bdimen=\dimen193
-\calc@Askip=\skip141
-\calc@Bskip=\skip142
-LaTeX Info: Redefining \setlength on input line 80.
-LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count186
-\calc@Cskip=\skip143
-)
-\c@@todonotes@numberoftodonotes=\count187
+\c@@todonotes@numberoftodonotes=\count188
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count188
+\lst@mode=\count189
 \lst@gtempboxa=\box65
 \lst@token=\toks44
-\lst@length=\count189
-\lst@currlwidth=\dimen194
-\lst@column=\count190
-\lst@pos=\count191
-\lst@lostspace=\dimen195
-\lst@width=\dimen196
-\lst@newlines=\count192
-\lst@lineno=\count193
-\lst@maxwidth=\dimen197
+\lst@length=\count190
+\lst@currlwidth=\dimen201
+\lst@column=\count191
+\lst@pos=\count192
+\lst@lostspace=\dimen202
+\lst@width=\dimen203
+\lst@newlines=\count193
+\lst@lineno=\count194
+\lst@maxwidth=\dimen204
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
-\c@lstnumber=\count194
-\lst@skipnumbers=\count195
+\c@lstnumber=\count195
+\lst@skipnumbers=\count196
 \lst@framebox=\box66
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.cfg
@@ -1058,23 +1078,23 @@ Package: listings 2015/06/04 1.6 (Carsten Heinz)
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2015/03/31 v1.8m multicolumn formatting (FMi)
-\c@tracingmulticols=\count196
+\c@tracingmulticols=\count197
 \mult@box=\box67
-\multicol@leftmargin=\dimen198
-\c@unbalance=\count197
-\c@collectmore=\count198
-\doublecol@number=\count199
-\multicoltolerance=\count200
-\multicolpretolerance=\count201
-\full@width=\dimen199
-\page@free=\dimen200
-\premulticols=\dimen201
-\postmulticols=\dimen202
-\multicolsep=\skip144
-\multicolbaselineskip=\skip145
+\multicol@leftmargin=\dimen205
+\c@unbalance=\count198
+\c@collectmore=\count199
+\doublecol@number=\count200
+\multicoltolerance=\count201
+\multicolpretolerance=\count202
+\full@width=\dimen206
+\page@free=\dimen207
+\premulticols=\dimen208
+\postmulticols=\dimen209
+\multicolsep=\skip145
+\multicolbaselineskip=\skip146
 \partial@page=\box68
 \last@line=\box69
-\maxbalancingoverflow=\dimen203
+\maxbalancingoverflow=\dimen210
 \mult@rightbox=\box70
 \mult@grightbox=\box71
 \mult@gfirstbox=\box72
@@ -1096,14 +1116,14 @@ Package: multicol 2015/03/31 v1.8m multicolumn formatting (FMi)
 \@tempa=\box88
 \@tempa=\box89
 \@tempa=\box90
-\c@columnbadness=\count202
-\c@finalcolumnbadness=\count203
-\last@try=\dimen204
-\multicolovershoot=\dimen205
-\multicolundershoot=\dimen206
+\c@columnbadness=\count203
+\c@finalcolumnbadness=\count204
+\last@try=\dimen211
+\multicolovershoot=\dimen212
+\multicolundershoot=\dimen213
 \mult@nat@firstbox=\box91
 \colbreak@box=\box92
-\mc@col@check@num=\count204
+\mc@col@check@num=\count205
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
@@ -1117,31 +1137,31 @@ File: lstlang3.sty 2015/06/04 1.6 listings language file
 (./Mathematical tools.aux)
 \openout1 = `"Mathematical tools.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
 
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count205
-\scratchdimen=\dimen207
+\scratchcounter=\count206
+\scratchdimen=\dimen214
 \scratchbox=\box93
-\nofMPsegments=\count206
-\nofMParguments=\count207
+\nofMPsegments=\count207
+\nofMParguments=\count208
 \everyMPshowfont=\toks45
-\MPscratchCnt=\count208
-\MPscratchDim=\dimen208
-\MPnumerator=\count209
-\makeMPintoPDFobject=\count210
+\MPscratchCnt=\count209
+\MPscratchDim=\dimen215
+\MPnumerator=\count210
+\makeMPintoPDFobject=\count211
 \everyMPtoPDFconversion=\toks46
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -1160,209 +1180,210 @@ e
 ))
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box94
-\c@lstlisting=\count211
- [1
+\c@lstlisting=\count212
+ (../authors.tex) [1
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./Math
 ematical tools.toc)
 \tf@toc=\write4
 \openout4 = `"Mathematical tools.toc"'.
 
- [1
+
+[1
 
 ] [2] [3]
 Chapter 1.
 
-Underfull \hbox (badness 10000) in paragraph at lines 127--128
+Underfull \hbox (badness 10000) in paragraph at lines 129--130
 
  []
 
-<./figures/der_graph1.pdf, id=32, 505.89pt x 505.89pt>
+<./figures/der_graph1.pdf, id=36, 505.89pt x 505.89pt>
 File: ./figures/der_graph1.pdf Graphic file (type pdf)
 
 <use ./figures/der_graph1.pdf>
-Package pdftex.def Info: ./figures/der_graph1.pdf used on input line 129.
+Package pdftex.def Info: ./figures/der_graph1.pdf used on input line 131.
 (pdftex.def)             Requested size: 224.2479pt x 224.25192pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 131--132
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
 
  []
 
-<./figures/der_graph2.pdf, id=33, 505.89pt x 505.89pt>
+<./figures/der_graph2.pdf, id=37, 505.89pt x 505.89pt>
 File: ./figures/der_graph2.pdf Graphic file (type pdf)
 
 <use ./figures/der_graph2.pdf>
-Package pdftex.def Info: ./figures/der_graph2.pdf used on input line 133.
+Package pdftex.def Info: ./figures/der_graph2.pdf used on input line 135.
 (pdftex.def)             Requested size: 224.2479pt x 224.25192pt.
  [4
 
  <./figures/der_graph1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 135--136
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
 
  []
 
-<./figures/der_graph3.pdf, id=43, 505.89pt x 505.89pt>
+<./figures/der_graph3.pdf, id=47, 505.89pt x 505.89pt>
 File: ./figures/der_graph3.pdf Graphic file (type pdf)
 
 <use ./figures/der_graph3.pdf>
-Package pdftex.def Info: ./figures/der_graph3.pdf used on input line 137.
+Package pdftex.def Info: ./figures/der_graph3.pdf used on input line 139.
 (pdftex.def)             Requested size: 276.00105pt x 276.00177pt.
  [5 <./figures/der_graph2.pdf> <./figures/der_graph3.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 150--152
+Underfull \hbox (badness 10000) in paragraph at lines 152--154
 
  []
 
-<./figures/der_graph4.pdf, id=59, 505.89pt x 505.89pt>
+<./figures/der_graph4.pdf, id=63, 505.89pt x 505.89pt>
 File: ./figures/der_graph4.pdf Graphic file (type pdf)
 
 <use ./figures/der_graph4.pdf>
-Package pdftex.def Info: ./figures/der_graph4.pdf used on input line 153.
+Package pdftex.def Info: ./figures/der_graph4.pdf used on input line 155.
 (pdftex.def)             Requested size: 293.2521pt x 293.25429pt.
  [6 <./figures/der_graph4.pdf>]
 File: ./figures/der_graph2.pdf Graphic file (type pdf)
 
 <use ./figures/der_graph2.pdf>
-Package pdftex.def Info: ./figures/der_graph2.pdf used on input line 165.
+Package pdftex.def Info: ./figures/der_graph2.pdf used on input line 167.
 (pdftex.def)             Requested size: 189.75105pt x 189.7546pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 168--169
+Underfull \hbox (badness 10000) in paragraph at lines 170--171
 
  []
 
-<./figures/der_graphquad.pdf, id=70, 505.89pt x 505.89pt>
+<./figures/der_graphquad.pdf, id=74, 505.89pt x 505.89pt>
 File: ./figures/der_graphquad.pdf Graphic file (type pdf)
 
 <use ./figures/der_graphquad.pdf>
-Package pdftex.def Info: ./figures/der_graphquad.pdf used on input line 170.
+Package pdftex.def Info: ./figures/der_graphquad.pdf used on input line 172.
 (pdftex.def)             Requested size: 210.72803pt x 210.72778pt.
  [7] [8 <./figures/der_graphquad.pdf>]
-[9] <./figures/1a.pdf, id=85, 218.8175pt x 259.97125pt>
+[9] <./figures/1a.pdf, id=89, 218.8175pt x 259.97125pt>
 File: ./figures/1a.pdf Graphic file (type pdf)
  <use ./figures/1a.pdf>
-Package pdftex.def Info: ./figures/1a.pdf used on input line 314.
+Package pdftex.def Info: ./figures/1a.pdf used on input line 316.
 (pdftex.def)             Requested size: 168.18591pt x 199.81749pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 313--319
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 315--321
 []$[]$ $[]$ 
  []
 
-<./figures/1b.pdf, id=86, 218.8175pt x 259.97125pt>
+<./figures/1b.pdf, id=90, 218.8175pt x 259.97125pt>
 File: ./figures/1b.pdf Graphic file (type pdf)
  <use ./figures/1b.pdf>
-Package pdftex.def Info: ./figures/1b.pdf used on input line 321.
+Package pdftex.def Info: ./figures/1b.pdf used on input line 323.
 (pdftex.def)             Requested size: 168.18591pt x 199.81749pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 320--326
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 322--328
 []$[]$ $[]$ 
  []
 
-<./figures/1c.pdf, id=87, 218.8175pt x 259.97125pt>
+<./figures/1c.pdf, id=91, 218.8175pt x 259.97125pt>
 File: ./figures/1c.pdf Graphic file (type pdf)
  <use ./figures/1c.pdf>
-Package pdftex.def Info: ./figures/1c.pdf used on input line 328.
+Package pdftex.def Info: ./figures/1c.pdf used on input line 330.
 (pdftex.def)             Requested size: 168.18591pt x 199.81749pt.
 
-Underfull \hbox (badness 2027) in paragraph at lines 331--332
+Underfull \hbox (badness 2027) in paragraph at lines 333--334
 \OT1/cmr/m/n/10 is the deriva-tive smaller,
  []
 
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 327--333
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 329--335
 []$[]$ $[]$ 
  []
 
-<./figures/1d.pdf, id=88, 218.8175pt x 259.97125pt>
+<./figures/1d.pdf, id=92, 218.8175pt x 259.97125pt>
 File: ./figures/1d.pdf Graphic file (type pdf)
  <use ./figures/1d.pdf>
-Package pdftex.def Info: ./figures/1d.pdf used on input line 335.
+Package pdftex.def Info: ./figures/1d.pdf used on input line 337.
 (pdftex.def)             Requested size: 168.18591pt x 199.81749pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 334--340
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 336--342
 []$[]$ $[]$ 
  []
 
-<./figures/1e.pdf, id=89, 218.8175pt x 259.97125pt>
+<./figures/1e.pdf, id=93, 218.8175pt x 259.97125pt>
 File: ./figures/1e.pdf Graphic file (type pdf)
  <use ./figures/1e.pdf>
-Package pdftex.def Info: ./figures/1e.pdf used on input line 342.
+Package pdftex.def Info: ./figures/1e.pdf used on input line 344.
 (pdftex.def)             Requested size: 168.18591pt x 199.81749pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 341--347
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 343--349
 []$[]$ $[]$ 
  []
 
-<./figures/1f.pdf, id=90, 218.8175pt x 259.97125pt>
+<./figures/1f.pdf, id=94, 218.8175pt x 259.97125pt>
 File: ./figures/1f.pdf Graphic file (type pdf)
  <use ./figures/1f.pdf>
-Package pdftex.def Info: ./figures/1f.pdf used on input line 350.
+Package pdftex.def Info: ./figures/1f.pdf used on input line 352.
 (pdftex.def)             Requested size: 168.18591pt x 199.81749pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 349--355
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 351--357
 []$[]$ $[]$ 
  []
 
-<./figures/1aa.pdf, id=91, 218.8175pt x 259.97125pt>
+<./figures/1aa.pdf, id=95, 218.8175pt x 259.97125pt>
 File: ./figures/1aa.pdf Graphic file (type pdf)
  <use ./figures/1aa.pdf>
-Package pdftex.def Info: ./figures/1aa.pdf used on input line 361.
+Package pdftex.def Info: ./figures/1aa.pdf used on input line 363.
 (pdftex.def)             Requested size: 161.28955pt x 191.62598pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 360--366
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 362--368
 []$[]$ $[]$ 
  []
 
-<./figures/1ab.pdf, id=92, 180.675pt x 261.97874pt>
+<./figures/1ab.pdf, id=96, 180.675pt x 261.97874pt>
 File: ./figures/1ab.pdf Graphic file (type pdf)
  <use ./figures/1ab.pdf>
-Package pdftex.def Info: ./figures/1ab.pdf used on input line 368.
+Package pdftex.def Info: ./figures/1ab.pdf used on input line 370.
 (pdftex.def)             Requested size: 161.28955pt x 233.87189pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 367--373
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 369--375
 []$[]$ $[]$ 
  []
 
-<./figures/1ac.pdf, id=93, 180.675pt x 261.97874pt>
+<./figures/1ac.pdf, id=97, 180.675pt x 261.97874pt>
 File: ./figures/1ac.pdf Graphic file (type pdf)
  <use ./figures/1ac.pdf>
-Package pdftex.def Info: ./figures/1ac.pdf used on input line 375.
+Package pdftex.def Info: ./figures/1ac.pdf used on input line 377.
 (pdftex.def)             Requested size: 161.28955pt x 233.87189pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 374--380
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 376--382
 []$[]$ $[]$ 
  []
 
-<./figures/1ae.pdf, id=94, 218.8175pt x 260.975pt>
+<./figures/1ae.pdf, id=98, 218.8175pt x 260.975pt>
 File: ./figures/1ae.pdf Graphic file (type pdf)
  <use ./figures/1ae.pdf>
-Package pdftex.def Info: ./figures/1ae.pdf used on input line 382.
+Package pdftex.def Info: ./figures/1ae.pdf used on input line 384.
 (pdftex.def)             Requested size: 161.28955pt x 192.36584pt.
 
-Underfull \hbox (badness 1043) in paragraph at lines 385--386
+Underfull \hbox (badness 1043) in paragraph at lines 387--388
 \OT1/cmr/m/n/10 i-mum and max-i-mum, where the
  []
 
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 381--387
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 383--389
 []$[]$ $[]$ 
  []
 
-<./figures/1af.pdf, id=95, 218.8175pt x 260.975pt>
+<./figures/1af.pdf, id=99, 218.8175pt x 260.975pt>
 File: ./figures/1af.pdf Graphic file (type pdf)
  <use ./figures/1af.pdf>
-Package pdftex.def Info: ./figures/1af.pdf used on input line 389.
+Package pdftex.def Info: ./figures/1af.pdf used on input line 391.
 (pdftex.def)             Requested size: 161.28955pt x 192.36584pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 388--394
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 390--396
 []$[]$ $[]$ 
  []
 
-<./figures/1ag.pdf, id=96, 180.675pt x 261.97874pt>
+<./figures/1ag.pdf, id=100, 180.675pt x 261.97874pt>
 File: ./figures/1ag.pdf Graphic file (type pdf)
  <use ./figures/1ag.pdf>
-Package pdftex.def Info: ./figures/1ag.pdf used on input line 397.
+Package pdftex.def Info: ./figures/1ag.pdf used on input line 399.
 (pdftex.def)             Requested size: 161.28955pt x 233.87189pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 396--402
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 398--404
 []$[]$ $[]$ 
  []
 
@@ -1375,12 +1396,12 @@ ltiple pdfs with page group included in a single page
 pdfTeX warning: /usr/texbin/pdflatex (file ./figures/1c.pdf): PDF inclusion: mu
 ltiple pdfs with page group included in a single page
 >]
-Underfull \hbox (badness 10000) in paragraph at lines 436--437
+Underfull \hbox (badness 10000) in paragraph at lines 438--439
 
  []
 
 Package mdframed Info: mdframed inside a box 
- mdframed uses option nobreak mdframed on input line 488.
+ mdframed uses option nobreak mdframed on input line 490.
 [12 <./figures/1d.pdf> <./figures/1e.pdf
 
 pdfTeX warning: /usr/texbin/pdflatex (file ./figures/1e.pdf): PDF inclusion: mu
@@ -1390,90 +1411,90 @@ ltiple pdfs with page group included in a single page
 pdfTeX warning: /usr/texbin/pdflatex (file ./figures/1f.pdf): PDF inclusion: mu
 ltiple pdfs with page group included in a single page
 >]
-Underfull \hbox (badness 10000) in paragraph at lines 554--557
+Underfull \hbox (badness 10000) in paragraph at lines 556--559
 
  []
 
-<./figures/int_graph1.pdf, id=157, 551.05875pt x 289.08pt>
+<./figures/int_graph1.pdf, id=161, 551.05875pt x 289.08pt>
 File: ./figures/int_graph1.pdf Graphic file (type pdf)
 
 <use ./figures/int_graph1.pdf>
-Package pdftex.def Info: ./figures/int_graph1.pdf used on input line 578.
+Package pdftex.def Info: ./figures/int_graph1.pdf used on input line 580.
 (pdftex.def)             Requested size: 293.26215pt x 206.99939pt.
 
-<./figures/int_graph2.pdf, id=158, 505.89pt x 505.89pt>
+<./figures/int_graph2.pdf, id=162, 505.89pt x 505.89pt>
 File: ./figures/int_graph2.pdf Graphic file (type pdf)
 
 <use ./figures/int_graph2.pdf>
-Package pdftex.def Info: ./figures/int_graph2.pdf used on input line 580.
+Package pdftex.def Info: ./figures/int_graph2.pdf used on input line 582.
 (pdftex.def)             Requested size: 293.2521pt x 293.25429pt.
  [13 <./figures/int_graph1.pdf>]
-<./figures/int_graph3.pdf, id=171, page=1, 505.89pt x 505.89pt>
+<./figures/int_graph3.pdf, id=175, page=1, 505.89pt x 505.89pt>
 File: ./figures/int_graph3.pdf Graphic file (type pdf)
 
 <use ./figures/int_graph3.pdf, page 1>
-Package pdftex.def Info: ./figures/int_graph3.pdf, page1 used on input line 599
+Package pdftex.def Info: ./figures/int_graph3.pdf, page1 used on input line 601
 .
 (pdftex.def)             Requested size: 155.24895pt x 155.24954pt.
 
-<./figures/int_graph3.pdf, id=172, page=2, 505.89pt x 505.89pt>
+<./figures/int_graph3.pdf, id=176, page=2, 505.89pt x 505.89pt>
 File: ./figures/int_graph3.pdf Graphic file (type pdf)
 
 <use ./figures/int_graph3.pdf, page 2>
-Package pdftex.def Info: ./figures/int_graph3.pdf, page2 used on input line 600
+Package pdftex.def Info: ./figures/int_graph3.pdf, page2 used on input line 602
 .
 (pdftex.def)             Requested size: 155.24895pt x 155.24954pt.
 
-<./figures/int_graph3.pdf, id=173, page=3, 505.89pt x 505.89pt> [14 <./figures/
+<./figures/int_graph3.pdf, id=177, page=3, 505.89pt x 505.89pt> [14 <./figures/
 int_graph2.pdf>]
 File: ./figures/int_graph3.pdf Graphic file (type pdf)
  <use ./figures/int_graph3.pdf, page 3>
-Package pdftex.def Info: ./figures/int_graph3.pdf, page3 used on input line 601
+Package pdftex.def Info: ./figures/int_graph3.pdf, page3 used on input line 603
 .
 (pdftex.def)             Requested size: 155.24895pt x 155.24954pt.
 
-<./figures/int_graph3.pdf, id=187, page=4, 505.89pt x 505.89pt>
+<./figures/int_graph3.pdf, id=191, page=4, 505.89pt x 505.89pt>
 File: ./figures/int_graph3.pdf Graphic file (type pdf)
 
 <use ./figures/int_graph3.pdf, page 4>
-Package pdftex.def Info: ./figures/int_graph3.pdf, page4 used on input line 602
+Package pdftex.def Info: ./figures/int_graph3.pdf, page4 used on input line 604
 .
 (pdftex.def)             Requested size: 155.24895pt x 155.24954pt.
  [15 <./figures/int_graph3.pdf> <./figures/int_graph3.pdf> <./figures/int_graph
 3.pdf> <./figures/int_graph3.pdf>]
-<./figures/int_graph4.pdf, id=199, 505.89pt x 505.89pt>
+<./figures/int_graph4.pdf, id=203, 505.89pt x 505.89pt>
 File: ./figures/int_graph4.pdf Graphic file (type pdf)
 
 <use ./figures/int_graph4.pdf>
-Package pdftex.def Info: ./figures/int_graph4.pdf used on input line 640.
+Package pdftex.def Info: ./figures/int_graph4.pdf used on input line 642.
 (pdftex.def)             Requested size: 243.15001pt x 243.15636pt.
  [16 <./figures/int_graph4.pdf>]
 Package mdframed Info: Box was splittet wrong
  starting loop to iterate the splitting point
-(mdframed)              on input line 689.
+(mdframed)              on input line 691.
  [17]
-<./figures/ex_int.pdf, id=214, page=1, 505.89pt x 505.89pt>
+<./figures/ex_int.pdf, id=218, page=1, 505.89pt x 505.89pt>
 File: ./figures/ex_int.pdf Graphic file (type pdf)
 
 <use ./figures/ex_int.pdf, page 1>
-Package pdftex.def Info: ./figures/ex_int.pdf, page1 used on input line 720.
+Package pdftex.def Info: ./figures/ex_int.pdf, page1 used on input line 722.
 (pdftex.def)             Requested size: 155.24895pt x 155.24954pt.
 
-<./figures/ex_int.pdf, id=215, page=2, 505.89pt x 505.89pt>
+<./figures/ex_int.pdf, id=219, page=2, 505.89pt x 505.89pt>
 File: ./figures/ex_int.pdf Graphic file (type pdf)
 
 <use ./figures/ex_int.pdf, page 2>
-Package pdftex.def Info: ./figures/ex_int.pdf, page2 used on input line 721.
+Package pdftex.def Info: ./figures/ex_int.pdf, page2 used on input line 723.
 (pdftex.def)             Requested size: 155.24895pt x 155.24954pt.
  [18 <./figures/ex_int.pdf> <./figures/ex_int.pdf>] <./figures/ex_int2.pdf, id=
-228, page=1, 505.89pt x 505.89pt>
+232, page=1, 505.89pt x 505.89pt>
 File: ./figures/ex_int2.pdf Graphic file (type pdf)
 
 <use ./figures/ex_int2.pdf, page 1>
-Package pdftex.def Info: ./figures/ex_int2.pdf, page1 used on input line 807.
+Package pdftex.def Info: ./figures/ex_int2.pdf, page1 used on input line 809.
 (pdftex.def)             Requested size: 155.24895pt x 155.24954pt.
 
-Overfull \hbox (28.74457pt too wide) detected at line 824
+Overfull \hbox (28.74457pt too wide) detected at line 826
 \OML/cmm/m/it/10 A \OT1/cmr/m/n/10 = [][] \OML/cmm/m/it/10 f[]\OT1/cmr/m/n/10 (
 \OML/cmm/m/it/10 x\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 dx \OMS/cmsy/m/n/10 ^^@ [][
 ] \OML/cmm/m/it/10 f[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 )\OML/
@@ -1484,7 +1505,7 @@ ML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 (0))\OML/cmm/m/it/10 :
  []
 
 
-Overfull \hbox (3.97443pt too wide) detected at line 840
+Overfull \hbox (3.97443pt too wide) detected at line 842
 \OML/cmm/m/it/10 A[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 (1) 
 \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 (0) = [] \OMS/cmsy/m/n
 /10 ^^@ [] \OT1/cmr/m/n/10 + [] = [] \OMS/cmsy/m/n/10 ^^@ [] \OT1/cmr/m/n/10 + 
@@ -1493,194 +1514,190 @@ Overfull \hbox (3.97443pt too wide) detected at line 840
  []
 
 [19 <./figures/ex_int2.pdf>]
-<./figures/exponential_plot.pdf, id=240, 505.89pt x 505.89pt>
+<./figures/exponential_plot.pdf, id=244, 505.89pt x 505.89pt>
 File: ./figures/exponential_plot.pdf Graphic file (type pdf)
 
 <use ./figures/exponential_plot.pdf>
-Package pdftex.def Info: ./figures/exponential_plot.pdf used on input line 859.
+Package pdftex.def Info: ./figures/exponential_plot.pdf used on input line 861.
 
 (pdftex.def)             Requested size: 293.2521pt x 293.25429pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 857--860
+Underfull \hbox (badness 10000) in paragraph at lines 859--862
 
  []
 
 [20 <./figures/exponential_plot.pdf>]
-<./figures/ln_plot.pdf, id=249, 555.07375pt x 289.08pt>
+<./figures/ln_plot.pdf, id=253, 555.07375pt x 289.08pt>
 File: ./figures/ln_plot.pdf Graphic file (type pdf)
 
 <use ./figures/ln_plot.pdf>
-Package pdftex.def Info: ./figures/ln_plot.pdf used on input line 900.
+Package pdftex.def Info: ./figures/ln_plot.pdf used on input line 902.
 (pdftex.def)             Requested size: 293.2521pt x 152.72646pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 899--902
+Underfull \hbox (badness 10000) in paragraph at lines 901--904
 
  []
 
 [21 <./figures/ln_plot.pdf>]
-<./figures/example_e_plot.pdf, id=258, 555.07375pt x 289.08pt>
+<./figures/example_e_plot.pdf, id=262, 555.07375pt x 289.08pt>
 File: ./figures/example_e_plot.pdf Graphic file (type pdf)
 
 <use ./figures/example_e_plot.pdf>
-Package pdftex.def Info: ./figures/example_e_plot.pdf used on input line 906.
+Package pdftex.def Info: ./figures/example_e_plot.pdf used on input line 908.
 (pdftex.def)             Requested size: 275.57198pt x 143.51628pt.
 
-<./figures/example_ln_plot.pdf, id=259, 555.07375pt x 289.08pt>
+<./figures/example_ln_plot.pdf, id=263, 555.07375pt x 289.08pt>
 File: ./figures/example_ln_plot.pdf Graphic file (type pdf)
 
 <use ./figures/example_ln_plot.pdf>
-Package pdftex.def Info: ./figures/example_ln_plot.pdf used on input line 908.
+Package pdftex.def Info: ./figures/example_ln_plot.pdf used on input line 910.
 (pdftex.def)             Requested size: 275.57198pt x 143.51628pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 922--923
+Underfull \hbox (badness 10000) in paragraph at lines 924--925
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 946--947
+Underfull \hbox (badness 10000) in paragraph at lines 948--949
 
  []
 
 File: ./figures/exponential_plot.pdf Graphic file (type pdf)
 <use ./figures/exponential_plot.pdf>
-Package pdftex.def Info: ./figures/exponential_plot.pdf used on input line 974.
+Package pdftex.def Info: ./figures/exponential_plot.pdf used on input line 976.
 
 (pdftex.def)             Requested size: 293.2521pt x 293.25429pt.
 File: ./figures/ln_plot.pdf Graphic file (type pdf)
  <use ./figures/ln_plot.pdf>
-Package pdftex.def Info: ./figures/ln_plot.pdf used on input line 999.
+Package pdftex.def Info: ./figures/ln_plot.pdf used on input line 1001.
 (pdftex.def)             Requested size: 293.2521pt x 152.72646pt.
 
-<./figures/ex_exp_ln_plot.pdf, id=260, 505.89pt x 505.89pt>
+<./figures/ex_exp_ln_plot.pdf, id=264, 505.89pt x 505.89pt>
 File: ./figures/ex_exp_ln_plot.pdf Graphic file (type pdf)
 
 <use ./figures/ex_exp_ln_plot.pdf>
-Package pdftex.def Info: ./figures/ex_exp_ln_plot.pdf used on input line 1004.
+Package pdftex.def Info: ./figures/ex_exp_ln_plot.pdf used on input line 1006.
 (pdftex.def)             Requested size: 293.2521pt x 293.25429pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1003--1005
+Underfull \hbox (badness 10000) in paragraph at lines 1005--1007
 
  []
 
 [22 <./figures/example_e_plot.pdf> <./figures/example_ln_plot.pdf>] [23]
 Chapter 2.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1017--1018
+Underfull \hbox (badness 10000) in paragraph at lines 1019--1020
 
  []
 
 [24
 
 ] [25]
-Overfull \hbox (4.9302pt too wide) in paragraph at lines 1075--1076
+Overfull \hbox (4.9302pt too wide) in paragraph at lines 1077--1078
 []\OT1/cmr/m/n/10 The two no-ta-tions can be con-verted into one an-other. Us-i
 ng the Pythagorean
  []
 
-Package mdframed Info: Not enough space on this page on input line 1084.
+Package mdframed Info: Not enough space on this page on input line 1086.
 [26
 
 ]
-Package mdframed Info: Not enough space on this page on input line 1172.
+Package mdframed Info: Not enough space on this page on input line 1174.
  [27] [28]
-Underfull \hbox (badness 10000) in paragraph at lines 1337--1338
+Underfull \hbox (badness 10000) in paragraph at lines 1339--1340
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1347--1348
+Underfull \hbox (badness 10000) in paragraph at lines 1349--1350
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1363--1364
+Underfull \hbox (badness 10000) in paragraph at lines 1365--1366
 
  []
 
 [29]
-Underfull \hbox (badness 10000) in paragraph at lines 1378--1379
+Underfull \hbox (badness 10000) in paragraph at lines 1380--1381
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1427--1428
+Underfull \hbox (badness 10000) in paragraph at lines 1429--1430
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1520--1521
+Underfull \hbox (badness 10000) in paragraph at lines 1522--1523
 
  []
 
 [30] [31] [32]
-LaTeX Font Info:    Try loading font information for U+bbold on input line 1728
+LaTeX Font Info:    Try loading font information for U+bbold on input line 1730
 .
  (/usr/local/texlive/2015/texmf-dist/tex/latex/bbold/Ubbold.fd)
 [33] [34]
-Underfull \hbox (badness 10000) in paragraph at lines 1821--1824
+Underfull \hbox (badness 10000) in paragraph at lines 1823--1826
 
  []
 
 
-Overfull \hbox (5.99644pt too wide) in alignment at lines 1911--1914
+Overfull \hbox (5.99644pt too wide) in alignment at lines 1913--1916
  [][][] []
  []
 
 [35]
-Package mdframed Info: Not enough space on this page on input line 1925.
+Package mdframed Info: Not enough space on this page on input line 1927.
  [36] [37]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1984
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1986
 .
  (/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1984.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1986.
 
 
-[38] [39] [40] [41]
-Chapter 3.
-[42
+[38] [39] [40]
+Overfull \hbox (2.22221pt too wide) in paragraph at lines 2245--2249
+ [] 
+ []
 
- <./figures/1aa.pdf>] [43 <./figures/1ab.pdf> <./figures/1ac.pdf
-
-pdfTeX warning: /usr/texbin/pdflatex (file ./figures/1ac.pdf): PDF inclusion: m
-ultiple pdfs with page group included in a single page
->] [44 <./figures/1ae.pdf> <./figures/1af.pdf
-
-pdfTeX warning: /usr/texbin/pdflatex (file ./figures/1af.pdf): PDF inclusion: m
-ultiple pdfs with page group included in a single page
->] [45 <./figures/1ag.pdf>] [46] [47] [48] [49] [50] [51] [52 <./figures/ex_exp
-_ln_plot.pdf>] [53] [54] [55] [56] [57] [58] [59] (./Mathematical tools.aux) ) 
+[41] [42] (./Mathematical tools.aux) ) 
 Here is how much of TeX's memory you used:
- 22749 strings out of 493089
- 440222 string characters out of 6134843
- 694803 words of memory out of 5000000
- 25842 multiletter control sequences out of 15000+600000
- 11489 words of font info for 42 fonts, out of 8000000 for 9000
+ 23213 strings out of 493089
+ 448581 string characters out of 6134843
+ 737582 words of memory out of 5000000
+ 26290 multiletter control sequences out of 15000+600000
+ 13142 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,15n,72p,10454b,918s stack positions out of 5000i,500n,10000p,200000b,80000s
-<
-/usr/local/texlive/2015/texmf-dist/fonts/type1/public/bbold-type1/bbold10.pfb><
-/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></u
-sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
-r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr
-/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/l
-ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/loc
-al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local
-/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/t
-exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/tex
-live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texliv
-e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2
-015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
-15/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on "Mathematical tools.pdf" (60 pages, 891510 bytes).
+</usr/local/texlive/2015/texmf-dist/fonts
+/type1/public/bbold-type1/bbold10.pfb></usr/local/texlive/2015/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr17.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10
+.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.
+pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.p
+fb>
+Output written on "Mathematical tools.pdf" (43 pages, 800160 bytes).
 PDF statistics:
- 511 PDF objects out of 1000 (max. 8388607)
- 355 compressed objects within 4 object streams
+ 409 PDF objects out of 1000 (max. 8388607)
+ 282 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  173 words of extra memory for PDF output out of 10000 (max. 10000000)
 
