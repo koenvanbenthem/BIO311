@@ -5,8 +5,8 @@
 \contentsline {section}{\numberline {4}Data Fitting}{6}
 \contentsline {subsection}{\numberline {4.1}From the graph}{7}
 \contentsline {subsection}{\numberline {4.2}More about the average growth rate}{9}
-\contentsline {section}{\numberline {5}Logistic Growth}{11}
-\contentsline {subsection}{\numberline {5.1}Continuous Logistic Model}{11}
+\contentsline {section}{\numberline {5}Logistic Growth}{12}
+\contentsline {subsection}{\numberline {5.1}Continuous Logistic Model}{12}
 \contentsline {subsection}{\numberline {5.2}Discrete Logistic Growth Model}{15}
 \contentsline {subsection}{\numberline {5.3}Environmental Stochasticity}{17}
 \contentsline {subsubsection}{\numberline {5.3.1}Random numbers}{17}
