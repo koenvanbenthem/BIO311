@@ -290,11 +290,15 @@ N_t=N_{0}e^{rt}
 \end{equation}
 
 Let us now find the population size that would be predicted by the intercept and the slope we extracted from the linear regression. For this, use the commands \texttt{reg1\$coef[[1]]} and \texttt{reg1\$coef[[2]]}. 
-<<t24,echo=T,eval=T, results='hide'>>=
+<<t24,echo=T,eval=F, results='hide'>>=
 Bea$sim <- ... * exp(... * (Bea$Year))
 @
+
+<<t24b,echo=F,eval=T, results='hide'>>=
+Bea$sim <- exp(reg1$coef[[1]]) * exp(reg1$coef[[2]] * (Bea$Year))
+@
 And plot it on the same graph as the original population. 
-<<t25,echo=T,eval=F>>=
+<<t25,echo=T,eval=T>>=
 plot(Bea$Year, Bea$Population, xlab="year", ylab="N") 
 lines(Bea$Year,  Bea$sim)
 @
@@ -501,7 +505,7 @@ Now we consider the righthand side of the equation: $r_{max} N \left( 1-\frac{N}
 \begin{align*}
 r_{max} N \left( 1-\frac{N}{K}\right) &= r_{max} \frac{K}{1+\frac{K-N_0}{N_0}e^{-r_{max}t}} \left( 1-\frac{1}{1+\frac{K-N_0}{N_0}e^{-r_{max}t}}\right) \\ &= r_{max} \frac{K}{1+\frac{K-N_0}{N_0}e^{-r_{max}t}} \left( \frac{1+\frac{K-N_0}{N_0}e^{-r_{max}t}}{1+\frac{K-N_0}{N_0}e^{-r_{max}t}}-\frac{1}{1+\frac{K-N_0}{N_0}e^{-r_{max}t}}\right)\\ &= r_{max} \frac{K}{1+\frac{K-N_0}{N_0}e^{-r_{max}t}} \left( \frac{\frac{K-N_0}{N_0}e^{-r_{max}t}}{1+\frac{K-N_0}{N_0}e^{-r_{max}t}}\right)\\ &= \frac{K r_{max}\frac{K-N_0}{N_0}e^{-r_{max}t}}{(1+\frac{K-N_0}{N_0}e^{-r_{max}t})^2}
 \end{align*}
-Comparing this outcome with the expression for $\frac{dN}{dt}$, we see that the two are equivalent and thus that equation \ref{keq2} satisfies equation \ref{keq1}. Madan was thus correct when he told us this!
+Comparing this outcome with the expression for $\frac{dN}{dt}$, we see that the two are equivalent and thus that equation \ref{keq2} satisfies equation \ref{keq1}. Arpat was thus correct when he told us this!
 \vspace{1.5ex}
 \end{Answer}
 \subsection{Discrete Logistic Growth Model}
@@ -761,7 +765,7 @@ Now we divide the numerator and the denominator on the right side by $Ae^t$ to g
 \begin{equation}
 N = \frac{1}{1+\frac{1}{A}e^{-t}}
 \end{equation}
-Next, we now that at $t=0$, $N=N_0$, so we plug this in the equation:
+Next, we know that at $t=0$, $N=N_0$, so we plug this in the equation:
 \begin{equation}
 N_0 = \frac{1}{1+\frac{1}{A}e^{0}} = \frac{1}{1+\frac{1}{A}}
 \end{equation}

@@ -107,7 +107,7 @@ Let us look at the evolution of population size over time. First we define the v
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-Now, we get the population size over time and we plot this in a graph. The code \texttt{axis} sets the label below the x-axis to be $2009$, $2010$, $2011$, $2012$, $2013$. The \textasciicircum  \; sign means \textquotedblleft raise to the power\textquotedblright.
+Now, we get the population size over time and we plot this in a graph. The code \texttt{axis} sets the label below the x-axis to be $2009$, $2010$, $2011$, $2012$, $2013$. The \textasciicircum  \; sign means \textquotedblleft raise at the power\textquotedblright.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -117,7 +117,7 @@ Now, we get the population size over time and we plot this in a graph. The code 
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-Change the initial population size to $100$. What happens if $\lambda<1$? If $\lambda=1$? Remember that $\lambda$ can only be a positive number. Try plotting $\lambda<0$ and explain why the behaviour in this graph is not very likely to occur in reality. 
+Change the initial population size to $100$. What happens if $\lambda<1$ and $\lambda=1$? Remember that $\lambda$ can only be a positive number. Try plotting $\lambda<0$ and explain why the behaviour in this graph is not very likely to occur in reality. 
 
 
  \textit{Hint} Use \texttt{par(mfrow=...)} to see all your graphs in the same window. If you do not remember how to use this function, type ?\texttt{par} for help. 
@@ -126,7 +126,7 @@ The botanical garden is curious to know how this pond-lily will do $10$ years fr
 
 \section{Average Growth Rate}
 
-In nature, population growth rates between different year are rarely identical. Let us examine a hypothetical population of crocodiles in Egypt. The annual growth rate ($R$) of that population has varies from year to year. For example between 2009 and 2013; $R_{2009}=1$, $R_{2010}=0.9$, $R_{2011}=0.7$, $R_{2012}=1.4$. In that case, to get the finite growth rate, we need to take the average over the years. 
+In nature, population growth rates between different year are rarely identical. Let us examine a hypothetical population of crocodiles in Egypte. The annual growth rate ($R$) of that population has varies from year to year. For example between 2009 and 2013; $R_{2009}=1$, $R_{2010}=0.9$, $R_{2011}=0.7$, $R_{2012}=1.4$. In that case, to get the finite growth rate, we need to take the average over the years. 
 \vspace{1.5ex}
 \begin{center}
 \includegraphics[width=0.5\textwidth]{crocodile.jpg}
@@ -396,10 +396,10 @@ Let us now find the population size that would be predicted by the intercept and
 \begin{alltt}
 \hlstd{Bea}\hlopt{$}\hlstd{sim} \hlkwb{<-} \hlstd{...} \hlopt{*} \hlkwd{exp}\hlstd{(...} \hlopt{*} \hlstd{(Bea}\hlopt{$}\hlstd{Year))}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): '...' used in an incorrect context}}\end{kframe}
+\end{kframe}
 \end{knitrout}
+
+
 And plot it on the same graph as the original population. 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -408,6 +408,8 @@ And plot it on the same graph as the original population.
 \hlkwd{lines}\hlstd{(Bea}\hlopt{$}\hlstd{Year,  Bea}\hlopt{$}\hlstd{sim)}
 \end{alltt}
 \end{kframe}
+\includegraphics[width=\maxwidth]{figure/t25-1} 
+
 \end{knitrout}
 The fit is actually not bad at all!
 
@@ -674,7 +676,7 @@ Now we consider the righthand side of the equation: $r_{max} N \left( 1-\frac{N}
 \begin{align*}
 r_{max} N \left( 1-\frac{N}{K}\right) &= r_{max} \frac{K}{1+\frac{K-N_0}{N_0}e^{-r_{max}t}} \left( 1-\frac{1}{1+\frac{K-N_0}{N_0}e^{-r_{max}t}}\right) \\ &= r_{max} \frac{K}{1+\frac{K-N_0}{N_0}e^{-r_{max}t}} \left( \frac{1+\frac{K-N_0}{N_0}e^{-r_{max}t}}{1+\frac{K-N_0}{N_0}e^{-r_{max}t}}-\frac{1}{1+\frac{K-N_0}{N_0}e^{-r_{max}t}}\right)\\ &= r_{max} \frac{K}{1+\frac{K-N_0}{N_0}e^{-r_{max}t}} \left( \frac{\frac{K-N_0}{N_0}e^{-r_{max}t}}{1+\frac{K-N_0}{N_0}e^{-r_{max}t}}\right)\\ &= \frac{K r_{max}\frac{K-N_0}{N_0}e^{-r_{max}t}}{(1+\frac{K-N_0}{N_0}e^{-r_{max}t})^2}
 \end{align*}
-Comparing this outcome with the expression for $\frac{dN}{dt}$, we see that the two are equivalent and thus that equation \ref{keq2} satisfies equation \ref{keq1}. Madan was thus correct when he told us this!
+Comparing this outcome with the expression for $\frac{dN}{dt}$, we see that the two are equivalent and thus that equation \ref{keq2} satisfies equation \ref{keq1}. Arpat was thus correct when he told us this!
 \vspace{1.5ex}
 \end{Answer}
 \subsection{Discrete Logistic Growth Model}
@@ -777,8 +779,8 @@ In order to incorporate this, we need random numbers. In \texttt{R} functions ar
 \hlkwd{runif}\hlstd{(}\hlnum{7}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.92412566 0.19732202 0.03742861 0.41902651 0.12370917
-## [6] 0.33651646 0.41878251
+## [1] 0.6069924 0.7292492 0.7027433 0.6844545 0.8098047
+## [6] 0.1686827 0.1882089
 \end{verbatim}
 \begin{alltt}
 \hlkwd{hist}\hlstd{(}\hlkwd{runif}\hlstd{(}\hlnum{10000}\hlstd{),}\hlkwc{n}\hlstd{=}\hlnum{20}\hlstd{,}\hlkwc{main}\hlstd{=}\hlstr{""}\hlstd{,}
@@ -1027,7 +1029,7 @@ Now we divide the numerator and the denominator on the right side by $Ae^t$ to g
 \begin{equation}
 N = \frac{1}{1+\frac{1}{A}e^{-t}}
 \end{equation}
-Next, we now that at $t=0$, $N=N_0$, so we plug this in the equation:
+Next, we know that at $t=0$, $N=N_0$, so we plug this in the equation:
 \begin{equation}
 N_0 = \frac{1}{1+\frac{1}{A}e^{0}} = \frac{1}{1+\frac{1}{A}}
 \end{equation}
