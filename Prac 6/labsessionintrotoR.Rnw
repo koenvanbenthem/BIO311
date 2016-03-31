@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -24,7 +24,7 @@
 \begin{document}
 \input{../authors}
 <<ksetup, cache=FALSE, include=FALSE>>=
-opts_chunk$set(dev="tikz",tidy=F,dev.args=list(pointsize=7.5))
+opts_chunk$set(dev="tikz",tidy=F,dev.args=list(pointsize=12))
 options(width=60)
 @
 
@@ -77,29 +77,33 @@ summary(rot) # Calculate basic information for each column in rot
 @
 What happens if you type \texttt{head(rot,10)} instead of \texttt{head(rot)}? Try the same thing for the function \texttt{tail}.
 \subsubsection{Finding typos}
-While typing in the data, a typo is easily made, especially for the columns \texttt{Copper} and \texttt{Population}. For the rest of the analysis it is crucial that the spelling in these columns is consistent. For this, we focus on these specific columns. To access one specific column, we use the notation \texttt{dataframe\$columnname}. Thus, to extract all the values of the \texttt{Population} column, you can use \texttt{rot\$Population}. Now use the command \texttt{table()} to obtain a summary of this data:
+While typing in the data, a typo is easily made, especially for the columns \texttt{Copper} and \texttt{Layer}. For the rest of the analysis it is crucial that the spelling in these columns is consistent. For this, we focus on these specific columns. To access one specific column, we use the notation \texttt{dataframe\$columnname}. Thus, to extract all the values of the \texttt{Layer} column, you can use \texttt{rot\$Layer}. Now use the command \texttt{table()} to obtain a summary of this data:
 <<typos,eval=FALSE>>=
-table(rot$Population)
+table(rot$Layer)
 @
-You will notice that the post pollution populations are indicated with either \texttt{Postpollution} or \texttt{Post-pollution}. This will be very inconvenient in the further analysis. Correct this as follows:
+You will notice that the post pollution populations are indicated with either \texttt{Post} or \texttt{post}. This will be very inconvenient in the further analysis. Correct this as follows:
 <<typos2,eval=TRUE>>=
-rot$Population[rot$Population=="Post-pollution"] <- "Postpollution"
+rot$Layer[rot$Layer=="Post"] <- "post"
 @
-What happens here is that we first select the column \texttt{Population} by typing \texttt{rot\$Population}. Next, the square brackets indicate that we are only interested in a part of the contents of that column. The part that we are interested in, are the entries that have the value \texttt{"Post-pollution"}. Precisely these elements are selected by \texttt{rot\$Population[rot\$Population=="Post-pollution"]}. Subsequently these elements are replaced by the properly spelled version by the command \texttt{<-"Postpollution"}. Now we check whether the problem is solved:
+What happens here is that we first select the column \texttt{Layer} by typing \texttt{rot\$Layer}. Next, the square brackets indicate that we are only interested in a part of the contents of that column. The part that we are interested in, are the entries that have the value \texttt{"Post"}. Precisely these elements are selected by \texttt{rot\$Layer[rot\$Layer=="Post"]}. Subsequently these elements are replaced by the properly spelled version by the command \texttt{<-"post"}. Now we check whether the problem is solved:
 <<typos3,eval=T>>=
-table(rot$Population)
+table(rot$Layer)
 @
 Repeat these steps now for the \texttt{Copper} column, and correct any typos you encounter in that column.
+
+<<typos4,eval=TRUE,echo=FALSE>>=
+rot$Copper[rot$Copper==1000] <- 100
+@
 \begin{mdframed}
 \textit{Please note that we have included these errors manually, just for practicing purposes.}
 \end{mdframed}
 
 \subsubsection{Average values per type}
-So far we have looked at a set of summary statistics for the \texttt{rot} dataframe. These statistics were however all calculated for the full dataset, regardless of the parameters. In reality we would like to show such statistics per type (that is unique combination of \texttt{Population}, \texttt{Copper} and \texttt{Day}). Below we use the \texttt{aggregate()} function to calculate the mean number of alive juveniles for unique combinations of \texttt{Copper} and \texttt{Population}. Please extend this code to also account for the different days.
+So far we have looked at a set of summary statistics for the \texttt{rot} dataframe. These statistics were however all calculated for the full dataset, regardless of the parameters. In reality we would like to show such statistics per type (that is unique combination of \texttt{Layer}, \texttt{Copper} and \texttt{Day}). Below we use the \texttt{aggregate()} function to calculate the mean number of alive juveniles for unique combinations of \texttt{Copper} and \texttt{Layer}. Please extend this code to also account for the different days.
 <<agg1,out.width='0.65\\textwidth'>>=
-aggregate(rot$Alive_Juv,by=list(rot$Population, rot$Copper), mean)
+aggregate(rot$Live_Juv,by=list(rot$Layer, rot$Copper), mean)
 @
-Now repeat this procedure to also calculate the average number of alive adults per \texttt{Population}, \texttt{Copper}-treatment and \texttt{Day}.
+Now repeat this procedure to also calculate the average number of alive adults per \texttt{Layer}, \texttt{Copper}-treatment and \texttt{Day}.
 
 Finally adapt the script to also calculate other parameters, such as the median, maximum counts, minimum counts, standard deviation and variance.
 
@@ -121,23 +125,22 @@ plot(0, 0, type="n", xlab="Day",
 axis(side=1, at=c(1, 2, 3))
 axis(side=2, at=c(0, 5, 10, 15, 20, 25, 30))
 @
-Now we need to prepare the data that we are interested in. First we use the \texttt{factor()} function in the beginning to make sure that the variable \texttt{Population} will be plot in the correct order. Furthermore we add a new variable \texttt{Total} that corresponds to the total number of individuals (adults and juveniles).
+Now we need to prepare the data that we are interested in. First we use the \texttt{factor()} function in the beginning to make sure that the variable \texttt{Layer} will be plot in the correct order. Furthermore we add a new variable \texttt{Total} that corresponds to the total number of individuals (adults and juveniles).
 <<gp2,eval=T,results='hide'>>=
-rot$Population <- factor(rot$Population, 
-                      levels=c('Commercial', 'Postpollution',
-                        'Recovery', 'Pollution'), ordered=T)
+rot$Layer <- factor(rot$Layer, 
+                      levels=c('peak','rec','post'), ordered=T)
 
-rot$Total <- rot$Alive_Juv + rot$Alive_Adult
+rot$Total <- rot$Live_Juv + rot$Live_Adult
 @
 To select only the low copper treatment entries, use the function \texttt{subset()} and store this part of the dataset in a new variable \texttt{temp}. Make sure you understand what this function does.
 <<gp3,eval=T,results='hide'>>=
-temp <- subset(rot, Copper=='low')
+temp <- subset(rot, Copper==0)
 @
 Next use \texttt{aggregate()} to calculate the mean number of total individuals alive per day and population. Store this information in a variable named \texttt{Tot\textunderscore mean}. This should give you:
 \begin{center}
 <<gp4,eval=T,echo=F,results='asis'>>=
 library(xtable)
-Tot_mean <- aggregate(temp$Total, by=list(temp$Population, temp$Day), mean)
+Tot_mean <- aggregate(temp$Total, by=list(temp$Layer, temp$Day), mean)
 print(xtable(Tot_mean, digits=2), 
       size="footnotesize",  #Change size; useful for bigger tables
       include.rownames=FALSE,  #Don't print rownames
@@ -147,7 +150,7 @@ print(xtable(Tot_mean, digits=2),
       )
 @
 \end{center}
-Now we use the command \texttt{lines()} to add a line for the commercial populations to the empty plot:
+Now we use the command \texttt{lines()} to add a line for the peak layer to the empty plot:
 <<gp5,eval=T,echo=c(-1,-2,-3,-4),out.width='0.5\\textwidth',fig.align='center'>>=
 par(mar=c(6,6,2,2))
 plot(0, 0, type="n", xlab="Day",
@@ -155,7 +158,7 @@ plot(0, 0, type="n", xlab="Day",
      axes=FALSE, xlim=c(1, 3), ylim=c(0, 30))
 axis(side=1, at=c(1, 2, 3))
 axis(side=2, at=c(0, 5, 10, 15, 20, 25, 30))
-temp2 <- subset(Tot_mean, Group.1=="Commercial")
+temp2 <- subset(Tot_mean, Group.1=="peak")
 lines(temp2$Group.2, temp2$x, col='red', pch=1, type="b")
 @
 Use these methods to also add lines for the other populations.\\
@@ -166,14 +169,12 @@ plot(0,0,type="n",xlab="Day",
      axes=FALSE,xlim=c(1,3),ylim=c(0,30))
 axis(side=1,at=c(1,2,3))
 axis(side=2, at=c(0,5,10,15,20,25,30))
-temp2<-subset(Tot_mean,Group.1=="Commercial")
+temp2<-subset(Tot_mean,Group.1=="peak")
 lines(temp2$Group.2,temp2$x,col='red',pch=1,type="b")
-temp2<-subset(Tot_mean,Group.1=="Postpollution")
+temp2<-subset(Tot_mean,Group.1=="rec")
 lines(temp2$Group.2,temp2$x,col='blue',pch=1,type="b")
-temp2<-subset(Tot_mean,Group.1=="Recovery")
+temp2<-subset(Tot_mean,Group.1=="post")
 lines(temp2$Group.2,temp2$x,col='green',pch=1,type="b")
-temp2<-subset(Tot_mean,Group.1=="Pollution")
-lines(temp2$Group.2,temp2$x,col='orange',pch=1,type="b")
 @
 We are getting closer, but we aren't there yet, now we want to add a legend to the figure. To do so we use the command \texttt{legend()}, with $7$ parameters. Use \texttt{?legend} to find out what each parameter determines (or just play around with the parameters to find that out):
 <<gp7,eval=T,echo=c(13),out.width='0.5\\textwidth',fig.align='center'>>=
@@ -183,16 +184,16 @@ plot(0,0,type="n",xlab="Day",
      axes=FALSE,xlim=c(1,3),ylim=c(0,30))
 axis(side=1,at=c(1,2,3))
 axis(side=2, at=c(0,5,10,15,20,25,30))
-temp2<-subset(Tot_mean,Group.1=="Commercial")
+temp2<-subset(Tot_mean,Group.1=="peak")
 lines(temp2$Group.2,temp2$x,col='red',pch=1,type="b")
-temp2<-subset(Tot_mean,Group.1=="Postpollution")
+temp2<-subset(Tot_mean,Group.1=="rec")
 lines(temp2$Group.2,temp2$x,col='blue',pch=1,type="b")
-temp2<-subset(Tot_mean,Group.1=="Recovery")
+temp2<-subset(Tot_mean,Group.1=="post")
 lines(temp2$Group.2,temp2$x,col='green',pch=1,type="b")
-temp2<-subset(Tot_mean,Group.1=="Pollution")
-lines(temp2$Group.2,temp2$x,col='orange',pch=1,type="b")
-legend(x=1, y=24, col=c("red","blue","green","orange"),
-legend=c("Commercial", "Postpollution", "Recovery", "Pollution"), 
+
+
+legend(x=1, y=24, col=c("red","blue","green"),
+legend=c("Peak", "Recovery", "Postpollution"), 
 lty=1, pch=1, bty="n")
 @
 Finally we would like to introduce error bars in this graph. To do so, we first define a function for calculating the standard error. The standard error ($SE$) is defined as the standard deviation ($sd$) divided by the square root of the number of measurements ($N$) that the mean depends on:
@@ -246,7 +247,7 @@ We have seen that we can not access the version of \texttt{ans} that 'lives' ins
 If we now call \texttt{SE(x)}, it will return us the standard error of \texttt{x}. We use this function together with \texttt{aggregate} to calculate the standard errors for all our datapoints in the low copper treatment:
 \begin{center}
 <<gp9,eval=T,echo=c(1),results='asis'>>=
-SE_tot <- aggregate(temp$Total, by=list(temp$Population, temp$Day), SE)
+SE_tot <- aggregate(temp$Total, by=list(temp$Layer, temp$Day), SE)
 print(xtable(SE_tot, digits=2), 
       size="footnotesize", #Change size; useful for bigger tables
       include.rownames=FALSE, #Don't print rownames
@@ -264,28 +265,28 @@ plot(0,0,type="n",xlab="Day",
      axes=FALSE,xlim=c(1,3),ylim=c(0,30))
 axis(side=1,at=c(1,2,3))
 axis(side=2, at=c(0,5,10,15,20,25,30))
-temp2<-subset(Tot_mean,Group.1=="Commercial")
+temp2<-subset(Tot_mean,Group.1=="peak")
 lines(temp2$Group.2,temp2$x,col='red',pch=1,type="b")
-temp2<-subset(Tot_mean,Group.1=="Postpollution")
+temp2<-subset(Tot_mean,Group.1=="rec")
 lines(temp2$Group.2,temp2$x,col='blue',pch=1,type="b")
-temp2<-subset(Tot_mean,Group.1=="Recovery")
+temp2<-subset(Tot_mean,Group.1=="post")
 lines(temp2$Group.2,temp2$x,col='green',pch=1,type="b")
-temp2<-subset(Tot_mean,Group.1=="Pollution")
-lines(temp2$Group.2,temp2$x,col='orange',pch=1,type="b")
-legend(x=1, y=24, col=c("red","blue","green","orange"),legend=c("Commercial","Postpollution","Recovery","Pollution"), lty=1, pch=1, bty="n")
-temp2 <- subset(Tot_mean, Group.1=="Commercial")
-temp3 <- subset(SE_tot, Group.1=="Commercial")
+
+
+legend(x=1, y=24, col=c("red","blue","green"), legend=c("Peak", "Recovery", "Postpollution"), lty=1, pch=1, bty="n")
+temp2 <- subset(Tot_mean, Group.1=="peak")
+temp3 <- subset(SE_tot, Group.1=="peak")
 arrows(temp3$Group.2, temp2$x-temp3$x, temp3$Group.2, temp2$x+temp3$x,
        angle=90, length=0.1, col='red', code=3)
 @
 You will notice a warning message about zero-length arrows. What does this mean? Repeat this procedure to also include error bars for the other three lines. Can you now also generate the plots for the other two copper treatments?
-<<gekkeplot,echo=FALSE,eval=FALSE,out.width='0.65\\textwidth',fig.align='center',warning=FALSE>>=
+<<gekkeplot,echo=FALSE,eval=TRUE,out.width='0.65\\textwidth',fig.align='center',warning=FALSE>>=
 RData<-rot
-RData$Copper=factor(RData$Copper,levels=c('low','medium','high'),ordered=T)
-RData$Population=factor(RData$Population, levels=c('Commercial','Postpollution','Recovery','Pollution'), ordered=T)
+RData$Copper=factor(RData$Copper,levels=c(0,50,100),ordered=T)
+RData$Population=factor(RData$Layer, levels=c('peak','rec','post'), ordered=T)
 
 # Quickly have some overview over your data in numbers on your console
-RData$Total_all<-RData$Alive_Juv + RData$Alive_Adult
+RData$Total_all<-RData$Live_Juv + RData$Live_Adult
 Tot_mean<-data.frame(aggregate(RData$Total_all ~ RData$Day+ RData$Population + RData$Copper, data=RData, mean))
 # But also want to add the standard errors
 # So calculate them first
@@ -321,13 +322,13 @@ First of all the code can be shortened by using for-loops, can you find two plac
 <<blabla,out.width='0.6\\textwidth',warning=FALSE,fig.align='center', echo=c(-1)>>=
 par(mar=c(6,6,2,2))
 library(sciplot)
-temp<-subset(rot,Copper='low')
+temp<-subset(rot,Copper==0)
 lineplot.CI(temp$Day,temp$Total,
-            group=temp$Population,fixed=T, ylim=c(0,26),
+            group=temp$Layer,fixed=T, ylim=c(5,25),
             xlab="Day",ylab="Total population size", 
             main="Low copper treatment")
 @
-Using functions from packages such as the one above is a great way to increase your coding speed: there are a lot of things that you don't have to type yourself anymore. This also comes with a cost however: you will generally have less flexibility, you don't know which steps happen behing the scenes and you depend on the coding skills of the people that wrote the package.
+Using functions from packages such as the one above is a great way to increase your coding speed: there are a lot of things that you don't have to type yourself anymore. This also comes with a cost however: you will generally have less flexibility, you don't know which steps happen behind the scenes and you depend on the coding skills of the people that wrote the package.
 \end{mdframed}
 \subsection{Saving your graph}
 If you want to save your graph, write the code in R following the instructions below:
