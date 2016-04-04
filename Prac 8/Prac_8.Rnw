@@ -413,16 +413,16 @@ plot(Ntot, type="l", xlab="year", ylab="N(t)")
 
 @
 
-We see that the population is exponentially growing.
+How does the population behave?
 
 \subsubsection{Asymptotic behaviour}
 \textit{Asymptotic rate of increase} 
 
 From the matrix, we can find the asymptotic growth rate of that population. For this we need to look at the dominant eigenvalue of the population matrix. Remember from the lecture that the dominant eigenvalue of a population matrix is the long term asymptotic rate of increase, $\lambda$. An eigenvalue of a matrix is a \textbf{scalar that when multiplied by a specific vector, gives the same result as when that vector is multiplied by ththe concerning matrix}. Mathematically this means:
 \begin{equation}\label{eig}
-\boldsymbol{A} \vec{w}=\lambda \vec{w}
+\boldsymbol{A} \vec{v}=\lambda \vec{v}
 \end{equation}
-the vector $\vec{w}$ is not any vector but an eigenvector, that is a vector such that equation \ref{eig} holds. We will come back to it later. If you do not feel comfortable with the concept of eigenvectors/matrices, you might want to return to the last exercise of the mathematical tools script.
+the vector $\vec{v}$ is not any vector but an eigenvector, that is a vector such that equation \ref{eig} holds. We will come back to it later. If you do not feel comfortable with the concept of eigenvectors/matrices, you might want to return to the last two exercises of the mathematical tools script.
 
 In \texttt{R} we do not have to just see the eigenvectors, instead they can be found using the \texttt{eigen()} function.
 <<t6,echo=T,eval=T, results='hide'>>=
@@ -430,9 +430,9 @@ eigens.A<-eigen(A)
 eigens.A
 @
 
-Let us focus at the moment only on the first values. The first values returned by the function; \Sexpr{round(eigens.A$values,3)} are the eigenvalues of the matrix $\boldsymbol{A}$. A matrix has as many eigenvalues as it has dimensions. The only one we are interested in is the dominant eigenvalue, i.e. the largest eigenvalue. From looking at the eigenvalues, we can see that it is the first one. However, the dominant eigenvalue can be found by using the function \texttt{which.max()} that returns the position of the maximum value of the object. Then we extract the value in that position.
+Let us focus at the moment only on the first values. The first values returned by the function; \Sexpr{round(eigens.A$values,3)} are the eigenvalues of the matrix $\boldsymbol{A}$. A matrix has as many eigenvalues as it has dimensions. The only one we are interested in for now is the dominant eigenvalue, i.e. the largest eigenvalue. From looking at the eigenvalues, we can see that it is the first one. However, the dominant eigenvalue can be found by using the function \texttt{which.max()} that returns the position of the maximum value of the object. Then we extract the value in that position.
 <<t7,echo=T,eval=T, results='hide'>>=
-position<-which.max(eigens.A$values)
+position <- which.max(eigens.A$values)
 position
 
 lambda2<-eigens.A$values[position]
@@ -443,7 +443,7 @@ Alternatively, $\lambda$ can be found directly from the \texttt{lambda} funtion 
 library(popbio)
 lambda(A)
 @
-Thus our asymptotic finite rate of increase $\lambda$ is \Sexpr{lambda2}. So we know what the population growth rate looks like on the long-term.
+What does this value of $\lambda$ mean for the population on the long term?
 \vspace{0.5 cm}
 
 \noindent\textit{Stable-age distribution} 
@@ -497,7 +497,7 @@ col=c("blue", "red", "green", "purple"))
 When reading the graph, keep in mind that the $y$-axis is logarithmic. We see that after five years, the age class trajectories are parallel to each other and growing with a constant rate. If a population is growing with constant birth and death rate, as is the case of our owl population, then the population converges to a stable age distribution. Once a population has reached the stable age distribution, it grows exponentially at the asymptotic finite rate. A population at the stable age distribution always has the same relative number of individuals in each age class every time step. However, the absolute number of indiviuals will change. The stationary age distribution is a special case of stable age distribution where the absolute number of individuals does neither increase nor decrease. The population is not growing. What is the asymptotic growth rate ($\lambda$) of such a stationary population? 
 
 
-The stable age distibution is given by the right eigenvector corresponding to the dominant eigenvalue. Let us now look at the vector elements of the \texttt{eigen} function. The columns of \texttt{eigens.A\$ vector} are the right eigenvectors of the matrix $\boldsymbol{A}$. When applying the matrix to them, it is the same as multiplying them by the corresponding eigenvalues, which are scalars. This means that the length but not the direction of this vector is changed by the matrix. Check this for the eigenvector corresponding to the dominant eigenvalue.
+The stable age distibution is given by the right eigenvector corresponding to the dominant eigenvalue. Let us now look at the vector elements of the \texttt{eigen} function. The columns of \texttt{eigens.A\$vector} are the right eigenvectors of the matrix $\boldsymbol{A}$. When applying the matrix to them, it is the same as multiplying them by the corresponding eigenvalues, which are scalars. This means that the length but not the direction of this vector is changed by the matrix. Check this for the eigenvector corresponding to the dominant eigenvalue.
 
 There are as many right eigenvectors as there are eigenvalues. To each eigenvalue one eigenvector corresponds. Its position is the same as the one of the dominant eigenvalue so we can extract it with the following lines of code.
 
@@ -544,10 +544,14 @@ So the sensitivity can be approximated by taking the difference between the valu
 \item $\partial \lambda$ \; can be approximated by the difference between the original $\lambda$ \; and the new $\lambda$.
 \item $\partial a_{ij}$ can be approximated by the difference between the original $a_{ij}$ and the new $a_{ij}$  
 \end{itemize}
-If the change to the element of the matrix is very small, the sensitivities calucated so will be close from the actual sensitivities. Below you can find the actual sensititvities and compare them with the ones you can find using this approximation. If you want to calculate all sensitivities using this approximation, it is probably best to use a \texttt{for} loop (or actually two, why two?). Do not forget to only change one matrix element at a time. Also investigate how small the change in the matrix element has to be to make sure that the approximation returns reasonable numbers.
+If the change to the element of the matrix is very small, the sensitivities calucated so will be close from the actual sensitivities. If you want to calculate all sensitivities using this approximation, it is probably best to use a \texttt{for} loop (or actually two, why two?). Do not forget to only change one matrix element at a time. Also investigate how small the change in the matrix element has to be to make sure that the approximation returns reasonable numbers.
 
-
-
+\begin{Exercise}[title=Sensitivities, label=SENSI, difficulty=1]
+\Question Calculate (by actually changing elements in the matrix one by one in \texttt{R}) the sensitivity of $\lambda$ to each matrix element. \textit{Hint: use a for loop}.
+\Question How much would the population rate change if you would increase the rate at location \texttt{[3,1]} with a value of 0.1? Would you consider trying adapting this rate a good management strategy?
+\end{Exercise}
+\begin{Answer}[ref=SENSI]
+\Question The exact values are:
 <<t14,echo=F,eval=T, results='asis'>>=
 sen<- sensitivity(A)
 
@@ -566,6 +570,11 @@ print(xtable(sen, digits=4),
                         )
       )
 @
+see how your approximation will get closer to this value as you decrease the magnitude of the perturbation.
+\Question The sensitivity of this element is \Sexpr{sensitivity(A)[3,1]}, if we increase the matrix element by $0.1$, we would thus get an increase in lambda of $0.1\cdot \Sexpr{sensitivity(A)[3,1]} = \Sexpr{0.1*sensitivity(A)[3,1]}$. This does increase $\lambda$, however, in reality we won't be able to increase this rate: how do we biologically try to increase the rate with which owls go from age 1 to age 3 within one year? It is important with sensitivity analysis to realize that not all sensitivities make sense in the biological world.
+\end{Answer}
+
+
 \vspace{1.5ex}
 \noindent\textit{Elasitcity analysis}
 Elasticities are proportional sensitivities. Before we asked the question: if a matrix element increases by a small amount, how much does $\lambda$ \; increase? Elasticities ask a different question: with what factor does $\lambda$\; change if a matrix element is changed by a certain factor. They thus examine the effect of a proportional change of transition elements on $\lambda$. For example, you may be interested in knowing by how much does $\lambda$\; change if the fertility of age class 2 is increased by 25\%. 
@@ -574,8 +583,12 @@ The elasticity of $\lambda$\; to a proporitonal change of one element of the mat
 \begin{equation}
 e_{ij}=\frac{a_{ij}}{\lambda} \frac{\partial \lambda} {\partial a_{ij}}
 \end{equation}
-You can thus calculate them from your approximations of the sensitivities. Compare your values with the values below, which are calculated by the real solution to this problem. 
-
+\begin{Exercise}[title=Elasticities, label=ELASI, difficulty=1]
+\Question Calculate the elasticities from the sensitivities that you found in the previous exercise
+\Question What is now the prediction for the effect of changing element \texttt{[3,1]}?
+\end{Exercise}
+\begin{Answer}[ref=ELASI]
+\Question Here we show the exact elasticity values. Make sure that your values (from the approximation) are close to these
 
 <<t15,echo=F,eval=T, results='asis'>>=
 ela<- elasticity(A)
@@ -594,6 +607,10 @@ print(xtable(ela, digits=4),
                         )
       )
 @
+\Question Elasticities are always $0$ for matrix elements that are $0$, therefore, elasticities will predict that changing element \texttt{[3,1]} will not influence the population dynamics.
+\end{Answer}
+
+
 \subsubsection{Transient dynamics}
 Most of what we have described above focuses on the asymptotic, (i.e. long-term) behaviour of the system. However, the short-term dynamics can be very different. In nature, a population may never be observed in the asymptotic regime. Transient dynamics focuses on short-term responses.   
 
@@ -628,8 +645,222 @@ col=c("blue", "red"))
 @
 It thus takes around five years before the population reaches its asymptotic growth rate.
 
-\section{Rotifer data}
-We will discuss this topic in class.
+\subsection{Eigenvector decomposition}
+
+\begin{Exercise}[title=Eigenvector decomposition, label=ED, difficulty=2]
+\Question 
+We consider a population that consists of only two classes: juveniles and adults. After one time step, 60\% of the juveniles stay juveniles, 20\% become adults and the remaining 20\% dies. The adults have a 80\% chance of survival and produce 0.5 juveniles on average. We thus have the following matrix:
+\begin{equation}
+\boldsymbol{A} = \begin{pmatrix} 0.6 & 0.5 \\ 0.2 & 0.8 \end{pmatrix}
+\end{equation}
+<<matje,echo=FALSE,include=FALSE>>=
+A <- matrix(c(0.6,0.5,0.2,0.8),ncol=2,byrow=TRUE)
+eigen(A)
+A
+n <- c(5,2)
+v1<- -eigen(A)$vectors[,1]
+v2<- -eigen(A)$vectors[,2]
+lambda1 <- eigen(A)$values[1]
+lambda2 <- eigen(A)$values[2]
+c11<-(n%*%v1)/(0.2*(v1*n%*%v1 + v2*n%*%v2)[1]) 
+c22<-(n%*%v2)/(0.2*(v1*n%*%v1 + v2*n%*%v2)[1])
+A %*% A %*% n
+@
+
+Now consider the following population:
+\begin{equation}
+\vec{n}(0) = \begin{pmatrix} \Sexpr{n[1]}\\ \Sexpr{n[2]} \end{pmatrix}
+\end{equation}
+
+\subQuestion Calculate $\vec{n}(1)$ up to $\vec{n}(4)$. \\
+
+We are now going to try and find a more direct way to find $\vec{n}(t)$. For this, we realize that we can write $\vec{n}(0)$ as a combination of the two eigenvectors:
+\begin{equation}
+\vec{n}(0) = c_1 \vec{v}_1 + c_2 \vec{v}_2
+\end{equation}
+
+We can now obtain the eigenvalues and eigenvectors of this matrix:
+\begin{equation}
+\lambda_1 = \Sexpr{round(eigen(A)$values[1],2)},\; \lambda_2 = \Sexpr{round(eigen(A)$values[2],2)}
+\end{equation}
+\begin{equation}
+\vec{v}_1 = \begin{pmatrix}\Sexpr{round(v1[1],2)}\\ \Sexpr{round(v1[2],2)}\end{pmatrix},\vec{v}_2 = \begin{pmatrix}\Sexpr{round(v2[1],2)}\\ \Sexpr{round(v2[2],2)}\end{pmatrix}\;
+\end{equation}
+
+
+\subQuestion Calculate $c_1$ and $c_2$.
+Now we use this notation, to find an expression for $\vec{n}(t)$. Let us first find a notation for $\vec{n}(1)$:
+\begin{equation}
+\vec{n}(1) = \boldsymbol{A} \vec{n}(0) = \boldsymbol{A} \left( c_1 \vec{v}_1 + c_2 \vec{v}_2\right) = c_1 \boldsymbol{A} \vec{v}_1 + c_2 \boldsymbol{A} \vec{v_2}
+\end{equation}
+\subQuestion Use the properties of eigenvectors to rewrite the right side of the above equation into a form that does not contain $\boldsymbol{A}$ anymore, and instead contains $\lambda$.
+\subQuestion Using the same notation, what is the value of $\vec{n}(2)$?
+\subQuestion And $\vec{n}(t)$? Verify this answer by calculating $\vec{n}(1)$ up to $\vec{n}(4)$ using the equation you found.
+\subQuestion If $t\rightarrow \infty$, a stable stage distribution is reached. What does this distribution look like? How can you see that from your answer to the previous question?
+\subQuestion How much does the population grow at this point? Is this a stable population?
+\end{Exercise}
+
+\begin{Answer}[ref=ED]
+\Question
+\subQuestion
+
+<<matje_ans,results='asis',echo=FALSE>>=
+
+for(t in 1:4){
+  tmp <- n
+
+  for(t2 in 1:t){
+    tmp <- A%*%tmp
+  }
+   cat("$\\vec{n}(",t,") = \\begin{pmatrix}", round(tmp[1],1),"\\\\", round(tmp[2],1),"\\end{pmatrix} $")
+  if(t < 4) cat("$, \\; \\;$")
+}
+
+@
+
+\subQuestion We try to find $c_1$ and $c_2$, such that:
+\begin{equation*}
+\vec{n}(0) = c_1 \vec{v}_1 + c_2 \vec{v}_2 =  c_1 \begin{pmatrix}\Sexpr{round(v1[1],2)}\\ \Sexpr{round(v1[2],2)}\end{pmatrix} + c_2 \begin{pmatrix}\Sexpr{round(v2[1],2)}\\ \Sexpr{round(v2[2],2)}\end{pmatrix} 
+\end{equation*}
+and we know that:
+\begin{equation*}
+\vec{n}(0) = \begin{pmatrix} \Sexpr{n[1]} \\ \Sexpr{n[2]} \end{pmatrix}
+\end{equation*}
+And thus:
+\begin{equation*}
+c_1 \begin{pmatrix}
+\Sexpr{round(v1[1],2)} \\ 
+\Sexpr{round(v1[2],2)}
+\end{pmatrix} + 
+c_2 \begin{pmatrix}
+\Sexpr{round(v2[1],2)}\\ 
+\Sexpr{round(v2[2],2)}
+\end{pmatrix} =  
+\begin{pmatrix} \Sexpr{n[1]} \\ \Sexpr{n[2]} \end{pmatrix}
+\end{equation*}
+We write the expression on the left side out:
+\begin{equation*}
+\begin{pmatrix} c_1 \cdot \Sexpr{round(v1[1],2)}\\ c_1 \cdot \Sexpr{round(v1[2],2)}\end{pmatrix} + \begin{pmatrix}c_2 \cdot \Sexpr{round(v2[1],2)}\\ c_2 \cdot \Sexpr{round(v2[2],2)}\end{pmatrix} =  \begin{pmatrix} \Sexpr{n[1]} \\ \Sexpr{n[2]} \end{pmatrix}
+\end{equation*}
+We can now write this as two separate equations:
+\begin{equation} \label{sol1}
+\Sexpr{round(v1[1],2)} \cdot c_1 + \Sexpr{round(v2[1],2)} \cdot c_2  = \Sexpr{n[1]} \tag{$\clubsuit$}
+\end{equation}
+\begin{equation} \label{sol2}
+\Sexpr{round(v1[2],2)} \cdot c_1 \Sexpr{round(v2[2],2)} \cdot c_2 = \Sexpr{n[2]} \tag{$\diamondsuit$}
+\end{equation}
+From the first of these two equations (\ref{sol1}), we can find that:
+\begin{equation*}
+\Sexpr{round(v1[1],2)} \cdot c_1 = \Sexpr{n[1]} - \Sexpr{round(v2[1],2)} \cdot c_2
+\end{equation*}
+And thus:
+\begin{equation*} \label{sol3}
+c_1 = \frac{\Sexpr{n[1]} - \Sexpr{round(v2[1],2)} \cdot c_2}{\Sexpr{round(v1[1],2)}} = \Sexpr{round(n[1]/(v1[1]),2)} - \Sexpr{round(v2[1]/(-eigen(A)$vectors[1,1]),2)} \cdot c_2 \tag{$\spadesuit$}
+\end{equation*}
+We use this in the second equation (\ref{sol2}):
+\begin{equation*} 
+\Sexpr{round(v1[2],2)} \cdot c_1 \Sexpr{round(v2[2],2)} \cdot c_2 = \Sexpr{n[2]}
+\end{equation*}
+This equation now becomes:
+\begin{equation*}
+\Sexpr{round(v1[2],2)} \cdot \left(\Sexpr{round(n[1]/(v1[1]),2)} - \Sexpr{round(v2[1]/(v1[1]),2)} \cdot c_2\right) \Sexpr{round(v2[2],2)} \cdot c_2 = \Sexpr{n[2]}
+\end{equation*}
+This can be simplified to:
+\begin{equation*}
+\Sexpr{round(v1[2]*n[1]/(v1[1]),2)} \Sexpr{round(-v1[2]*v2[1]/(v1[1])+v2[2],2)} \cdot c_2 = \Sexpr{n[2]}
+\end{equation*}
+Now we find that:
+\begin{equation*}
+\Sexpr{round(v1[2]*v2[1]/(v1[1])-v2[2],2)} \cdot c_2 = \Sexpr{round(v1[2]*n[1]/(v1[1])-n[2],2)}
+\end{equation*}
+And thus:
+\begin{equation*}
+c_2 = \Sexpr{round((v1[2]*n[1]/(v1[1])-n[2])/(v1[2]*v2[1]/(v1[1])-v2[2]),2)}
+\end{equation*}
+<<setc2,include=FALSE>>=
+c2 <- (v1[2]*n[1]/(v1[1])-n[2])/(v1[2]*v2[1]/(v1[1])-v2[2])
+@
+Now, using equation \ref{sol3}, we can easily calculate $c_1$:
+\begin{equation*} 
+c_1 = \Sexpr{round(n[1]/(v1[1]),2)} - \Sexpr{round(v2[1]/v1[1],2)} \cdot c_2 = \Sexpr{round(n[1]/v1[1] - c22*v2[1]/v1[1],2)}
+\end{equation*}
+<<setc1,include=FALSE>>=
+c1 <- n[1]/v1[1] - c2*v2[1]/v1[1]
+@
+Now we can check if these two factors are correct:
+\begin{equation*}
+\Sexpr{round(c11,2)} \cdot \begin{pmatrix} \Sexpr{round(v1[1],2)} \\ \Sexpr{round(v1[2],2)} \end{pmatrix} + \Sexpr{round(c22,2)} \cdot \begin{pmatrix} \Sexpr{round(v2[1],2)} \\ \Sexpr{round(v2[2],2)} \end{pmatrix} = \begin{pmatrix} \Sexpr{(c11 * v1 + c22 * v2)[1]} \\ \Sexpr{(c11 * v1 + c22 * v2)[2]} \end{pmatrix}
+\end{equation*}
+<<calcN,include=FALSE>>=
+c1 * v1 + c2 * v2
+@
+\subQuestion
+\begin{equation*}
+\vec{n}(1) = c_1 \boldsymbol{A} \vec{v}_1 + c_2 \boldsymbol{A} \vec{v_2}
+\end{equation*}
+Now we use that
+\begin{equation*}
+\boldsymbol{A} \vec{v} = \lambda_i \vec{v}_i
+\end{equation*}
+To find:
+\begin{equation*}
+\vec{n}(1) = c_1 \lambda_1 \vec{v}_1 + c_2 \lambda_2 \vec{v_2}
+\end{equation*}
+\subQuestion We know that
+\begin{equation*}
+\vec{n}(2) = \boldsymbol{A} \vec{n}(1)
+\end{equation*}
+And thus:
+\begin{equation*}
+\vec{n}(2) = \boldsymbol{A} \left( c_1 \lambda_1 \vec{v}_1 + c_2 \lambda_2 \vec{v_2} \right) = \boldsymbol{A} c_1 \lambda_1 \vec{v}_1 + \boldsymbol{A} c_2 \lambda_2 \vec{v_2}
+\end{equation*}
+Because $\lambda_1$ and $\lambda_2$ are just numbers and not matrices, the order doesn't matter and we can therefore write: 
+\begin{equation*}
+\vec{n}(2) = c_1 \lambda_1 \boldsymbol{A} \vec{v}_1 + c_2 \lambda_2 \boldsymbol{A} \vec{v_2}
+\end{equation*}
+Which simplifies to:
+\begin{equation*}
+\vec{n}(2) = c_1 \lambda_1^2 \vec{v}_1 + c_2 \lambda_2^2 \vec{v_2}
+\end{equation*}
+\subQuestion 
+We use the same logic as we used to answer the last two questions to find:
+\begin{equation*}
+\vec{n}(t) = c_1 \lambda_1^t \vec{v}_1 + c_2 \lambda_2^t \vec{v_2}
+\end{equation*}
+We checked this answer in \texttt{R}:
+<<checking>>=
+pop <- function(t){
+  c1*lambda1^t*v1 + c2*lambda2^t*v2
+}
+
+# time = 1
+t(A%*%n)
+pop(1)
+
+# time = 2
+A%*%A%*%n
+pop(2)
+
+# time = 3
+A%*%A%*%A%*%n
+pop(3)
+
+# time = 4
+A%*%A%*%A%*%A%*%n
+pop(4)
+@
+\subQuestion We have the equation:
+\begin{equation*}
+\vec{n}(t) = c_1 \lambda_1^t \vec{v}_1 + c_2 \lambda_2^t \vec{v_2}
+\end{equation*}
+if $t$ becomes very big, the term that will dominate this equation will be the one with the highes eigenvalue. So if $t\gg 1$ and $\lambda_1 > \lambda_2$, we will find that $\lambda_1^t \gg \lambda_2^t$. All other numbers in the equations are constants that do not depend on time. As long as these are not 0, we will therefore find:
+\begin{equation*}
+c_1 \lambda_1^t \vec{v}_1 \gg c_2 \lambda_2^t \vec{v_2}
+\end{equation*}
+That means that the term with $\vec{v}_1$ will completely dominate the distribution. This is why we find a stable stage distribution for matrix models.
+\subQuestion This population grows with a rate equal to $\lambda_1 = \Sexpr{lambda1}$. Since this value is not $1$, it is not really stable. Instead, we are seeing exponential \Sexpr{ifelse(lambda1<1,"decline","increase")}. This means the following: although the distribution in the population is stable (the same ratio of juveniles/adults), overall growth is exponential and the population size changes rapidly!
+
+\end{Answer}
 
 \shipoutAnswer
 \end{document}
