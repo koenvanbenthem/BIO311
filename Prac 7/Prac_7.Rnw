@@ -290,7 +290,7 @@ N_t=N_{0}e^{rt}
 \end{equation}
 
 Let us now find the population size that would be predicted by the intercept and the slope we extracted from the linear regression. For this, use the commands \texttt{reg1\$coef[[1]]} and \texttt{reg1\$coef[[2]]}. 
-<<t24,echo=T,eval=F, results='hide'>>=
+<<t24,echo=T,eval=F>>=
 Bea$sim <- ... * exp(... * (Bea$Year))
 @
 
