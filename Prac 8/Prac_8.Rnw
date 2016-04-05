@@ -89,7 +89,7 @@ Table \ref{tab:LT} contains the standard life-table calculation. Below is a desc
 \item \textit{The sixth column} Rep. rate is what we call the reproductive rate: what is the mean number of offspring that each individual produce at a given age, regardless of whether the individual survives until that age. We are in fact interested in the \textbf{net reproductive rate, $R_0$} but to find it, we must first find the reproductive rate of each age. The net reproductive rate is defined as the \textbf{mean number of female offspring produced per female individual over their lifetime.} It is the reproductie potential of a female corrected for its mortality.
 \end{itemize}
 
-In addition to the elements of the table, there a few more important properties you can extract from the life table. A general property of the table is, $G$, the generation time. A definition of the generation time is \textbf{the average age of mothers when they give birth}. From the life table, you can also calculate the instantaneous rate of increase, $r$. Remember from Madan's lecture on unstructured population that:
+In addition to the elements of the table, there a few more important properties you can extract from the life table. A general property of the table is, $G$, the generation time. A definition of the generation time is \textbf{the average age of mothers when they give birth}. From the life table, you can also calculate the instantaneous rate of increase, $r$. Remember from Arpat's lecture on unstructured population that:
 \begin{equation}
 N_t=N_0e^{rt}
 \end{equation}
@@ -199,7 +199,7 @@ In the former section, we have followed the fate of a hypothetical cohort of bar
 \item In $2012$ there are $4$ females in age class $3$, $13$ females in age class $2$ and $12$ females produced by the individuals in age class $2$ and $26$ females produced by the females in age class $1$. 
 \item In $2013$ there is $1$ female in age class $4$, $7$ in age class $3$ and $30$ in age class $2$. There are in addition $81$ new individuals in age class $1$: $1$ from the females in age class $3$, $19$ from the females in age class $2$ and $61$ from the females in age class $1$. The survival rate of the age class 4 is $0$.
 \end{itemize}
-\begin{Exercise}[title=Age-structured matix, label=ASM, difficulty=1]
+\begin{Exercise}[title=Age-structured matrix, label=ASM, difficulty=1]
 \Question Let us work out the matrix of this barn owl population on paper.
 \subQuestion First, draw the life cycle of the population of barn owls describe above.
 \subQuestion Find the survival probability $P_i$ for each age class $i$, that is the probability of an individual in age class $i$ to age class $i+1$. 
