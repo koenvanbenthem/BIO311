@@ -220,7 +220,7 @@ The matrix $\boldsymbol{A}$ is used because we need a matrix to compare matrices
 You may have recognized that equation \ref{a} is a linear equation ($y=b+ax$). This method makes the assumption that the relationship between the matrices is linear and that the slope of this equation is given by $\frac{ \partial\lambda^{A}}{\partial a^{A}_{ij}}$.
 
 
-With equation \ref{a}, find the value of $\lambda^{(\boldsymbol{M})}$ using \texttt{R} and compare it to the value you found earlier. How different are they? More interestingly: which difference in the matrix elements is mainly responsible for this difference? Is it the juvenile survival, the adult survival or the reproductive value?\\[1.5ex]
+With equation \ref{a}, find the value of $\lambda^{(\boldsymbol{M})}$ using \texttt{R} and compare it to the value you found earlier. How different are they? More interestingly: which difference in the matrix elements is mainly responsible for this difference? Is it the juvenile survival, the adult survival or the reproductive rate?\\[1.5ex]
 
 \textit{Hint} Find the "mid-way" matrix. For the sensitivities, either approximate them yourself or use the \texttt{sensitivity()} function from the \texttt{popbio} package
 <<t21,echo=F,eval=T, results='hide'>>=
@@ -473,11 +473,14 @@ str(rot)
 
 
 #Find the avg rate per treatment
-Pj<-aggregate(rot$Pj, list(rot$Population, rot$Copper, rot$Species), na.rm=TRUE, FUN="mean")
+Pj<-aggregate(rot$Pj, list(rot$Population, rot$Copper, rot$Species),
+              na.rm=TRUE, FUN="mean")
 Pj
-Pa<-aggregate(rot$Pa, list(rot$Population, rot$Copper, rot$Species), na.rm=TRUE, FUN="mean")
+Pa<-aggregate(rot$Pa, list(rot$Population, rot$Copper, rot$Species), 
+              na.rm=TRUE, FUN="mean")
 Pa
-F<-aggregate(rot$F, list(rot$Population, rot$Copper, rot$Species), na.rm=TRUE, FUN="mean")
+F<-aggregate(rot$F, list(rot$Population, rot$Copper, rot$Species),
+             na.rm=TRUE, FUN="mean")
 F
 Surv<-merge(Pj, Pa,  by=c(1,2,3))
 Surv
@@ -503,13 +506,15 @@ for (i in 1:length(Roti$Pj)){
 #----------- code for function to extract matrices from the dataset-----------#
 get_matrix<-function(roti,pop,cop){
   if(!pop %in% c(levels(roti$Population),"mean")){
-    warning("Something went wrong, give the instructors a cookie and they may help you out:\n------------------------\n ",pop," is not a valid entry\n------------------------\n")
+    warning("Something went wrong, give the instructors a cookie and they may help you out:\n------------------------\n ",
+            pop," is not a valid entry\n------------------------\n")
     
     return()
   }
   
   if(!cop %in% c(levels(roti$Copper),"mean")){
-    warning("Something went wrong, give the instructors a cookie and they may help you out:\n------------------------\n ",cop," is not a valid entry\n------------------------\n")
+    warning("Something went wrong, give the instructors a cookie and they may help you out:\n------------------------\n ",
+            cop," is not a valid entry\n------------------------\n")
     
     return()
   }
@@ -524,7 +529,8 @@ get_matrix<-function(roti,pop,cop){
     i<-which(roti$Population==pop & roti$Copper==cop)  
   }
   
-  A<-matrix(c(0, mean(roti$Pj[i]), mean(roti$F[i]), mean(roti$Pa[i])), nrow=2, ncol=2)
+  A<-matrix(c(0, mean(roti$Pj[i]), mean(roti$F[i]),
+              mean(roti$Pa[i])), nrow=2, ncol=2)
   return(A)
   }
 #--------------------------end of the function-----------------#
@@ -648,7 +654,8 @@ inter6
 
 ######### ARRANGING THE DATA FOR PLOTTING ##############
 #Copper
-Copper <- cbind(as.vector(beta1)[2:4], as.vector(beta2)[2:4], as.vector(beta3)[2:4])
+Copper <- cbind(as.vector(beta1)[2:4], as.vector(beta2)[2:4],
+                as.vector(beta3)[2:4])
 colnames(Copper) <- c("High", "Medium", "Low")
 rownames(Copper) <- c("Pj", "F", "Pa")
 Copper
@@ -662,7 +669,9 @@ Layer
 Layert<-t(Layer)
 
 #Interactions
-Interactions <- cbind(as.vector(inter1)[2:4], as.vector(inter2)[2:4], as.vector(inter3)[2:4], as.vector(inter4)[2:4], as.vector(inter5)[2:4], as.vector(inter6)[2:4])
+Interactions <- cbind(as.vector(inter1)[2:4], as.vector(inter2)[2:4], 
+                      as.vector(inter3)[2:4], as.vector(inter4)[2:4],
+                      as.vector(inter5)[2:4], as.vector(inter6)[2:4])
 colnames(Interactions) <- axislabels
 rownames(Interactions) <- c("Pj", "F", "Pa")
 Interactions
@@ -680,14 +689,19 @@ limits<-c(-ylim,ylim)
 #graphs
 par(mfrow=c(1,3),mar=c(3,3,3,7))
 
-barplot(Coppert,xaxt='n', xlab="", ylab="Parameters contribution", ylim=limits, xlim=c(0,14), col=c("brown","orange", "yellow"), beside=TRUE, main="Copper level")
+barplot(Coppert,xaxt='n', xlab="", ylab="Parameters contribution",
+        ylim=limits, xlim=c(0,14), col=c("brown","orange", "yellow"), 
+        beside=TRUE, main="Copper level")
 segments(-1,0, 13,0)
 par(mar=c(5.1, 5.1, 4.1, 5.1), xpd=TRUE)
 legend("topleft", 
-     c("High", "Medium", "Low"), fill=c("brown","orange", "yellow"),  bty="n")
-axis(side=1, at=c(3,7,11), labels=c( "Pj", "F", "Pa"), line=1, tick=FALSE)
+     c("High", "Medium", "Low"), fill=c("brown","orange", "yellow"),
+     bty="n")
+axis(side=1, at=c(3,7,11), labels=c( "Pj", "F", "Pa"), line=1,
+     tick=FALSE)
 
-barplot(Layert,xaxt='n', xlab="", ylab="", ylim=limits, xlim=c(0,14), col=c("blue","lightblue"), beside=TRUE, main="Layer")
+barplot(Layert,xaxt='n', xlab="", ylab="", ylim=limits, xlim=c(0,14),
+        col=c("blue","lightblue"), beside=TRUE, main="Layer")
 segments(-1,0, 10,0)
 par(mar=c(5.1, 5.1, 4.1, 5.1), xpd=TRUE)
 legend("topleft",
@@ -716,7 +730,8 @@ for(i in c(ash,bsh)){
 rainbow(6,start = 0, end = 0.5, alpha = 0.7)
 library("RColorBrewer")
 
-barplot(Interactionst, xaxt='n', xlab="", ylab="", ylim=limits, xlim=c(0,20), col=brewer.pal(6, "Set3") , beside=TRUE, main="Interactions")
+barplot(Interactionst, xaxt='n', xlab="", ylab="", ylim=limits, xlim=c(0,20),
+        col=brewer.pal(6, "Set3") , beside=TRUE, main="Interactions")
 segments(-1,0, 20,0)
 par(mar=c(5.1, 5.1, 4.1, 7.1), xpd=TRUE)
 legend("topleft",  
