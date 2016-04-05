@@ -319,8 +319,111 @@ axis(side=1, at=c(3,7,11), labels=c( "Pj", "F", "Pa"), line=1, tick=FALSE)
 
 \section{Rotifer data analysis}
 In this section, you will apply the factorial LTRE to the rotifer data to compare the layers "pollution" and "recovery". The second factor is the copper treatment with the levels "low", "high", "medium".
+
+\subsection{Rate estimation}
+Before we can start with the analysis of the population matrices, we first need... the matrices and thus the rates (survival and reproduction). Here, we have only two stages: juveniles and adults, so we consider a $2\times 2$ matrix. First, we load in the data:
+<<LoadDat>>=
+Rot <- read.csv("/Users/koen/Documents/Given Courses/BIO311/Prac 9/rotifer_data.csv")[,2:9]
+table(Rot$Copper)
+Rot$Copper[Rot$Copper==1000] <- 100
+table(Rot$Layer)
+Rot$Layer[Rot$Layer=="Post"] <- "post"
+Rotti<-reshape(Rot,timevar="Day",idvar=c("Clone","Copper","Layer"),direction="wide")
+Rates <- Rotti[,1:3] 
+@
+We shall now first calculate the adult survival rate for the period from day $1$ to day $2$.
+<<Rates>>=
+# 1 --> 2
+Rates$Sa1 <- (Rotti$Live_Adult.1 - Rotti$Dead_Adult.2)/ Rotti$Live_Adult.1
+Rates$M1 <- (Rotti$Live_Adult.2 + Rotti$Dead_Adult.2 - Rotti$Live_Adult.1) / Rotti$Live_Juv.1
+Rates$Sj1 <- (Rotti$Live_Juv.1 - (Rotti$Live_Adult.2 + Rotti$Dead_Adult.2 - Rotti$Live_Adult.1) - Rotti$Dead_Juv.2)/Rotti$Live_Juv.1
+Rates$R1 <- (Rotti$Live_Juv.2 - Rotti$Live_Juv.2*Rates$Sj1) / Rotti$Live_Adult.1
+
+# 2 --> 3
+Rates$Sa2 <- (Rotti$Live_Adult.2 - Rotti$Dead_Adult.3)/ Rotti$Live_Adult.2
+Rates$M2 <- (Rotti$Live_Adult.3 + Rotti$Dead_Adult.3 - Rotti$Live_Adult.2) / Rotti$Live_Juv.2
+Rates$Sj2 <- (Rotti$Live_Juv.2 - (Rotti$Live_Adult.3 + Rotti$Dead_Adult.3 - Rotti$Live_Adult.2) - Rotti$Dead_Juv.3)/Rotti$Live_Juv.2
+Rates$R2 <- (Rotti$Live_Juv.3 - Rotti$Live_Juv.3*Rates$Sj2) / Rotti$Live_Adult.2
+
+# Averages
+Rates$SaM <- (Rates$Sa1 + Rates$Sa2)/2
+Rates$MM <- (Rates$M1 + Rates$M2)/2
+Rates$SjM <- (Rates$Sj1 + Rates$Sj2)/2
+Rates$RM <- (Rates$R1 + Rates$R2)/2
+
+Rates2 <- Rates[,c('Copper','Layer','SaM','MM','SjM','RM')]
+Rates3 <- aggregate( .~ Copper+Layer,Rates2,mean)
+Rates3$lambda <- NA
+for(i in 1:nrow(Rates3)){
+  Mat <- matrix(c(Rates3$SjM[i],Rates3$MM[i],Rates3$RM[i],Rates3$SaM[i]),nrow=2)
+  Rates3$lambda[i] <- eigen(Mat)$values[1]
+}
+@
+
+<<LTRE_FACT>>=
+
+#### FACTORIAL DESIGN LTRE
+library(popbio)
+
+LTRE <- function(A,B){
+  M <- (A+B)/2
+  (A-B) * sensitivity(M)
+}
+
+MatMean <- matrix(c(mean(Rates3$SjM),mean(Rates3$MM),mean(Rates3$RM),mean(Rates3$SaM)),nrow=2)
+
+### Copper treatment
+temp  <- Rates3[,c('Copper','SaM','MM','SjM','RM')]
+tempc <- aggregate(.~Copper,temp,mean)
+copper <- list(3)
+for(i in 1:3){
+  mat <- matrix(c(tempc$SjM[i],tempc$MM[i],tempc$RM[i],tempc$SaM[i]),nrow=2)
+  copper[[i]] <- LTRE(mat,MatMean)
+}
+names(copper) <- tempc$Copper
+
+### Layer treatment
+temp  <- Rates3[,c('Layer','SaM','MM','SjM','RM')]
+templ <- aggregate(.~Layer,temp,mean)
+layer <- list(3)
+for(i in 1:3){
+  mat <- matrix(c(templ$SjM[i],templ$MM[i],templ$RM[i],templ$SaM[i]),nrow=2)
+  layer[[i]] <- LTRE(mat,MatMean)
+}
+names(layer) = templ$Layer
+
+### Interactions
+temp2  <- Rates3[,c('Copper','Layer','SaM','MM','SjM','RM')]
+interaction <- list(9)
+for(i in 1:9){
+  mat <- matrix(c(temp2$SjM[i],temp2$MM[i],temp2$RM[i],temp2$SaM[i]),nrow=2)
+  interaction[[i]] <- LTRE(mat,MatMean) - layer[[as.character(temp2$Layer[i])]] - copper[[as.character(temp2$Copper[i])]]
+}
+
+### Plots
+barplot(matrix(unlist(copper),nrow=4),beside=T)
+barplot(matrix(unlist(layer),nrow=4),beside=T)
+barplot(matrix(unlist(interaction),nrow=4),beside=T)
+
+## Summary
+sapply(copper,sum)
+sapply(layer,sum)
+sapply(interaction,sum)
+
+### Outcome check
+
+Rates3$lambda2 <- NA
+Rates3$lambda3 <- NA
+lam_mean <- lambda(MatMean)
+for(i in 1:9){
+  Rates3$lambda2[i] <- lam_mean + sum(copper[[as.character(Rates3$Copper[i])]]) +sum(layer[[as.character(Rates3$Layer[i])]]) + sum(interaction[[i]])
+  Rates3$lambda3[i] <- lam_mean + sum(copper[[as.character(Rates3$Copper[i])]]) +sum(layer[[as.character(Rates3$Layer[i])]])
+}
+Rates3
+@
+
+\subsection{LTRE}
 \begin{enumerate}
-\item Load the file that contains the estimated transition rates in \texttt{R}, do not forget to set the working directory first. 
 \item Because in the lab, you have made several replicates for each treatment combination, you now have a rate per replicate. We are however interested in the average rates per treatment. We want one juvenile survival rate, one adult survival rate and one fertility rate per population, per copper level and per species. For this you can use the \texttt{aggregate()} function that we have seen in practical $6$ and find the mean. Use the function three times seperately, once for each of the rates that we are interested in. Store the results in a variable. Use \texttt{?aggregate} to see how to use the function. You will need to use one special argument: \texttt{na.rm=TRUE}. This is to make sure that when there are $NA$s in the dataset, the function ignores them and still returns a value.
 \item Now you have three separate lists. You want to group them. For this you can adapt the following lines of code. Use the names of the variables that you specified in the previous step.
 <<t23,echo=T, eval=F>>=
