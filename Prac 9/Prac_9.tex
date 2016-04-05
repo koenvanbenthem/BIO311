@@ -140,10 +140,10 @@ If you want to understand the interpretation of the reproductive values more clo
 \hlstd{B}
 \end{alltt}
 \begin{verbatim}
-##            [,1]      [,2]       [,3]
-## [1,] 0.03647354 1.6312533 0.55656309
-## [2,] 0.45934128 0.1478964 0.03347026
-## [3,] 0.18124954 3.8780935 3.68049853
+##          [,1]      [,2]     [,3]
+## [1,] 2.178226 3.4971162 2.319496
+## [2,] 2.276421 3.8959946 3.774394
+## [3,] 3.788442 0.7960238 3.114312
 \end{verbatim}
 \begin{alltt}
 \hlcom{# We output B, in case you want to repeat the }
@@ -152,7 +152,7 @@ If you want to understand the interpretation of the reproductive values more clo
 \hlkwd{eigen}\hlstd{(}\hlkwd{t}\hlstd{(B))}\hlopt{$}\hlstd{vectors[,}\hlnum{1}\hlstd{]}\hlopt{/}\hlkwd{sum}\hlstd{(}\hlkwd{eigen}\hlstd{(}\hlkwd{t}\hlstd{(B))}\hlopt{$}\hlstd{vectors[,}\hlnum{1}\hlstd{])}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.08002004 0.48969268 0.43028728
+## [1] 0.3281938+0i 0.3117589+0i 0.3600473+0i
 \end{verbatim}
 \begin{alltt}
 \hlcom{# We calculate the dominant left eigenvector of this matrix}
@@ -183,7 +183,7 @@ If you want to understand the interpretation of the reproductive values more clo
 \hlstd{N1}\hlopt{/}\hlkwd{sum}\hlstd{(N1)}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.08002004 0.48969268 0.43028728
+## [1] 0.3281938 0.3117589 0.3600473
 \end{verbatim}
 \begin{alltt}
 \hlcom{# We output the normalised version of N1, which should be}
@@ -191,31 +191,31 @@ If you want to understand the interpretation of the reproductive values more clo
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-You can interpret this as follows: if we for example start with a population $\begin{pmatrix}1\\ 1\\ 1 \end{pmatrix}$, after $40$ years, $8\% $ of the total population will have originated from the individual that was initially in age class $1$, $49\% $ from the individual in age class $2$ and the remaining $43\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population.
+You can interpret this as follows: if we for example start with a population $\begin{pmatrix}1\\ 1\\ 1 \end{pmatrix}$, after $40$ years, $33\% $ of the total population will have originated from the individual that was initially in age class $1$, $31\% $ from the individual in age class $2$ and the remaining $36\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population.
 \textit{Please note that since we took completely random numbers to construct the matrix, the matrix is unlikely to have biological relevance. But the concept of course remains the same for more relevant matrices.}\\[1.5ex]
 However, what would happen if the initial population would look as follows: $\begin{pmatrix}2\\ 1\\ 1 \end{pmatrix}$? If we project this initial population in the future we find (the code is omitted this time):
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-## [1] 0.1481825 0.4534107 0.3984068
+## [1] 0.4941957 0.2347240 0.2710804
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-This means that after $40$ years, $15\% $ of the total population will have originated from the two individuals that were initially in age class $1$, $45\% $ from the individual in age class $2$ and the remaining $40\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population. These numbers do not correspond to the left eigenvector, yet they do relate to the left eigenvalue.
-First we need to realize that if $15\% $ of the final population originated from the two individuals in age class 1 in the initial population, this means that each of these two individuals is responsible for $7.5\% $ of the final population. It is of course fairer to compare these numbers with each other (so after correcting for the number of individuals that we started with):
+This means that after $40$ years, $49\% $ of the total population will have originated from the two individuals that were initially in age class $1$, $23\% $ from the individual in age class $2$ and the remaining $27\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population. These numbers do not correspond to the left eigenvector, yet they do relate to the left eigenvalue.
+First we need to realize that if $49\% $ of the final population originated from the two individuals in age class 1 in the initial population, this means that each of these two individuals is responsible for $24.5\% $ of the final population. It is of course fairer to compare these numbers with each other (so after correcting for the number of individuals that we started with):
 \begin{equation*}
 \begin{pmatrix}
-7.5 \\
-45 \\
-40
+24.5 \\
+23 \\
+27
 \end{pmatrix}
 \end{equation*}
-However, now the numbers no longer add up to $100\%$. Since all we care about is the ratio between the different contributions, we can just divide all of them by the sum of the three contributions ($\approx 7.5 +45 + 40 $) and multiply the total by $100$ (just to make sure that all the percentages add up to $100$). What we get now is: 
+However, now the numbers no longer add up to $100\%$. Since all we care about is the ratio between the different contributions, we can just divide all of them by the sum of the three contributions ($\approx 24.5 +23 + 27 $) and multiply the total by $100$ (just to make sure that all the percentages add up to $100$). What we get now is: 
 \begin{equation*}
 \begin{pmatrix}
-8 \\
-48.97 \\
-43.03
+32.82 \\
+31.18 \\
+36
 \end{pmatrix}
 \end{equation*}
 This is indeed again the left eigenvector! (Hopefully. Every time we save this document new random numbers are generated, so actually we can only hope that the theory is general enough to work for all random matrices \texttt{B} that are accidentally generated...). We see thus that the left eigenvector actually mainly tell you how many more offspring an individual that starts in a certain age class will have compared to individuals in other age classes on the long term. -- This is indeed a relatively difficult concept, but maybe if you think about it and go over this simulation yourself, it might sink in.
@@ -393,11 +393,126 @@ We shall now first calculate the adult survival rate for the period from day $1$
   \hlstd{Mat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(Rates3}\hlopt{$}\hlstd{SjM[i],Rates3}\hlopt{$}\hlstd{MM[i],Rates3}\hlopt{$}\hlstd{RM[i],Rates3}\hlopt{$}\hlstd{SaM[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
   \hlstd{Rates3}\hlopt{$}\hlstd{lambda[i]} \hlkwb{<-} \hlkwd{eigen}\hlstd{(Mat)}\hlopt{$}\hlstd{values[}\hlnum{1}\hlstd{]}
 \hlstd{\}}
-
-\hlcom{#### FACTORIAL DESIGN LTRE}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#### FACTORIAL DESIGN LTRE}
+\hlkwd{library}\hlstd{(popbio)}
+
+\hlstd{LTRE} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{A}\hlstd{,}\hlkwc{B}\hlstd{)\{}
+  \hlstd{M} \hlkwb{<-} \hlstd{(A}\hlopt{+}\hlstd{B)}\hlopt{/}\hlnum{2}
+  \hlstd{(A}\hlopt{-}\hlstd{B)} \hlopt{*} \hlkwd{sensitivity}\hlstd{(M)}
+\hlstd{\}}
+
+\hlstd{MatMean} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlkwd{mean}\hlstd{(Rates3}\hlopt{$}\hlstd{SjM),}\hlkwd{mean}\hlstd{(Rates3}\hlopt{$}\hlstd{MM),}\hlkwd{mean}\hlstd{(Rates3}\hlopt{$}\hlstd{RM),}\hlkwd{mean}\hlstd{(Rates3}\hlopt{$}\hlstd{SaM)),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+
+\hlcom{### Copper treatment}
+\hlstd{temp}  \hlkwb{<-} \hlstd{Rates3[,}\hlkwd{c}\hlstd{(}\hlstr{'Copper'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
+\hlstd{tempc} \hlkwb{<-} \hlkwd{aggregate}\hlstd{(.}\hlopt{~}\hlstd{Copper,temp,mean)}
+\hlstd{copper} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlnum{3}\hlstd{)}
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{3}\hlstd{)\{}
+  \hlstd{mat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(tempc}\hlopt{$}\hlstd{SjM[i],tempc}\hlopt{$}\hlstd{MM[i],tempc}\hlopt{$}\hlstd{RM[i],tempc}\hlopt{$}\hlstd{SaM[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+  \hlstd{copper[[i]]} \hlkwb{<-} \hlkwd{LTRE}\hlstd{(mat,MatMean)}
+\hlstd{\}}
+\hlkwd{names}\hlstd{(copper)} \hlkwb{<-} \hlstd{tempc}\hlopt{$}\hlstd{Copper}
+
+\hlcom{### Layer treatment}
+\hlstd{temp}  \hlkwb{<-} \hlstd{Rates3[,}\hlkwd{c}\hlstd{(}\hlstr{'Layer'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
+\hlstd{templ} \hlkwb{<-} \hlkwd{aggregate}\hlstd{(.}\hlopt{~}\hlstd{Layer,temp,mean)}
+\hlstd{layer} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlnum{3}\hlstd{)}
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{3}\hlstd{)\{}
+  \hlstd{mat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(templ}\hlopt{$}\hlstd{SjM[i],templ}\hlopt{$}\hlstd{MM[i],templ}\hlopt{$}\hlstd{RM[i],templ}\hlopt{$}\hlstd{SaM[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+  \hlstd{layer[[i]]} \hlkwb{<-} \hlkwd{LTRE}\hlstd{(mat,MatMean)}
+\hlstd{\}}
+\hlkwd{names}\hlstd{(layer)} \hlkwb{=} \hlstd{templ}\hlopt{$}\hlstd{Layer}
+
+\hlcom{### Interactions}
+\hlstd{temp2}  \hlkwb{<-} \hlstd{Rates3[,}\hlkwd{c}\hlstd{(}\hlstr{'Copper'}\hlstd{,}\hlstr{'Layer'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
+\hlstd{interaction} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlnum{9}\hlstd{)}
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{9}\hlstd{)\{}
+  \hlstd{mat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(temp2}\hlopt{$}\hlstd{SjM[i],temp2}\hlopt{$}\hlstd{MM[i],temp2}\hlopt{$}\hlstd{RM[i],temp2}\hlopt{$}\hlstd{SaM[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+  \hlstd{interaction[[i]]} \hlkwb{<-} \hlkwd{LTRE}\hlstd{(mat,MatMean)} \hlopt{-} \hlstd{layer[[}\hlkwd{as.character}\hlstd{(temp2}\hlopt{$}\hlstd{Layer[i])]]} \hlopt{-} \hlstd{copper[[}\hlkwd{as.character}\hlstd{(temp2}\hlopt{$}\hlstd{Copper[i])]]}
+\hlstd{\}}
+
+\hlcom{### Plots}
+\hlkwd{barplot}\hlstd{(}\hlkwd{matrix}\hlstd{(}\hlkwd{unlist}\hlstd{(copper),}\hlkwc{nrow}\hlstd{=}\hlnum{4}\hlstd{),}\hlkwc{beside}\hlstd{=T)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/LTRE_FACT-1} 
+\begin{kframe}\begin{alltt}
+\hlkwd{barplot}\hlstd{(}\hlkwd{matrix}\hlstd{(}\hlkwd{unlist}\hlstd{(layer),}\hlkwc{nrow}\hlstd{=}\hlnum{4}\hlstd{),}\hlkwc{beside}\hlstd{=T)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/LTRE_FACT-2} 
+\begin{kframe}\begin{alltt}
+\hlkwd{barplot}\hlstd{(}\hlkwd{matrix}\hlstd{(}\hlkwd{unlist}\hlstd{(interaction),}\hlkwc{nrow}\hlstd{=}\hlnum{4}\hlstd{),}\hlkwc{beside}\hlstd{=T)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/LTRE_FACT-3} 
+\begin{kframe}\begin{alltt}
+\hlcom{## Summary}
+\hlkwd{sapply}\hlstd{(copper,sum)}
+\end{alltt}
+\begin{verbatim}
+##           0          50         100 
+##  0.08814100 -0.01002019 -0.09329622
+\end{verbatim}
+\begin{alltt}
+\hlkwd{sapply}\hlstd{(layer,sum)}
+\end{alltt}
+\begin{verbatim}
+##         peak         post          rec 
+## -0.004656362  0.041299880 -0.036841624
+\end{verbatim}
+\begin{alltt}
+\hlkwd{sapply}\hlstd{(interaction,sum)}
+\end{alltt}
+\begin{verbatim}
+## [1] -0.0007072465  0.0132467044 -0.0101268866  0.0112381029
+## [5]  0.0012824450  0.0012805065 -0.0113151382 -0.0142800310
+## [9]  0.0049814645
+\end{verbatim}
+\begin{alltt}
+\hlcom{### Outcome check}
+
+\hlstd{Rates3}\hlopt{$}\hlstd{lambda2} \hlkwb{<-} \hlnum{NA}
+\hlstd{Rates3}\hlopt{$}\hlstd{lambda3} \hlkwb{<-} \hlnum{NA}
+\hlstd{lam_mean} \hlkwb{<-} \hlkwd{lambda}\hlstd{(MatMean)}
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{9}\hlstd{)\{}
+  \hlstd{Rates3}\hlopt{$}\hlstd{lambda2[i]} \hlkwb{<-} \hlstd{lam_mean} \hlopt{+} \hlkwd{sum}\hlstd{(copper[[}\hlkwd{as.character}\hlstd{(Rates3}\hlopt{$}\hlstd{Copper[i])]])} \hlopt{+}\hlkwd{sum}\hlstd{(layer[[}\hlkwd{as.character}\hlstd{(Rates3}\hlopt{$}\hlstd{Layer[i])]])} \hlopt{+} \hlkwd{sum}\hlstd{(interaction[[i]])}
+  \hlstd{Rates3}\hlopt{$}\hlstd{lambda3[i]} \hlkwb{<-} \hlstd{lam_mean} \hlopt{+} \hlkwd{sum}\hlstd{(copper[[}\hlkwd{as.character}\hlstd{(Rates3}\hlopt{$}\hlstd{Copper[i])]])} \hlopt{+}\hlkwd{sum}\hlstd{(layer[[}\hlkwd{as.character}\hlstd{(Rates3}\hlopt{$}\hlstd{Layer[i])]])}
+\hlstd{\}}
+\hlstd{Rates3}
+\end{alltt}
+\begin{verbatim}
+##   Copper Layer       SaM        MM       SjM        RM
+## 1      0  peak 0.9062771 0.5625000 0.2993056 0.7330204
+## 2     50  peak 0.8325397 0.3436177 0.5429563 0.7901587
+## 3    100  peak 0.6763889 0.4187500 0.1827652 0.9999747
+## 4      0  post 0.8332341 0.5708333 0.4013889 0.9127561
+## 5     50  post 0.9101852 0.3851852 0.4495370 0.7438889
+## 6    100  post 0.8291667 0.3230519 0.5188312 0.7156417
+## 7      0   rec 0.8735119 0.5939484 0.3171627 0.6373810
+## 8     50   rec 0.8658069 0.3125000 0.6458333 0.5074206
+## 9    100   rec 0.8075397 0.1982143 0.6128968 0.7283050
+##     lambda  lambda2  lambda3
+## 1 1.313022 1.312811 1.313519
+## 2 1.228560 1.228604 1.215357
+## 3 1.122149 1.121954 1.132081
+## 4 1.370740 1.370713 1.359475
+## 5 1.262600 1.262596 1.261314
+## 6 1.179238 1.179318 1.178038
+## 7 1.270580 1.270018 1.281333
+## 8 1.168938 1.168892 1.183172
+## 9 1.102432 1.104878 1.099896
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
 \subsection{LTRE}
 \begin{enumerate}
 \item Because in the lab, you have made several replicates for each treatment combination, you now have a rate per replicate. We are however interested in the average rates per treatment. We want one juvenile survival rate, one adult survival rate and one fertility rate per population, per copper level and per species. For this you can use the \texttt{aggregate()} function that we have seen in practical $6$ and find the mean. Use the function three times seperately, once for each of the rates that we are interested in. Store the results in a variable. Use \texttt{?aggregate} to see how to use the function. You will need to use one special argument: \texttt{na.rm=TRUE}. This is to make sure that when there are $NA$s in the dataset, the function ignores them and still returns a value.

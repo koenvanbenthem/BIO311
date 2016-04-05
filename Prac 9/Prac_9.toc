@@ -4,4 +4,4 @@
 \contentsline {subsection}{\numberline {1.2}Fixed Factorial Designs (Theory)}{8}
 \contentsline {section}{\numberline {2}Rotifer data analysis}{10}
 \contentsline {subsection}{\numberline {2.1}Rate estimation}{10}
-\contentsline {subsection}{\numberline {2.2}LTRE}{12}
+\contentsline {subsection}{\numberline {2.2}LTRE}{16}
