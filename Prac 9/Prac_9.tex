@@ -81,287 +81,6 @@
 \tableofcontents
 \vspace{3cm}
 \newpage
-\begin{mdframed}
-\textit{The last practical before the Easter break contains important concept for the analysis of the rotifer data. Therefore the beginning of this practical is the same as the ending of the previous practical to make sure that everybody has the time to finish these exercises.}\\[1.5ex]
-\textbf{The completely new material starts at section \ref{Newfrhere}. In the other sections some minor revisions have been made though.}
-\end{mdframed}
-\section{Hypothetical Dataset}
-\subsection{Age-structured Matrix Analysis}
-In the former practical, we have followed the fate of a hypothetical population of barn owls. The life cycle of this popualtion is given below.
-\begin{center}
-\includegraphics[width=0.95\textwidth]{Barn_owl_life_cycle.pdf}
-\end{center}
-For this population we found the following leslie matrix:
-\begin{equation}
-\begin{pmatrix}
-1.60&1.48&0.25&0\\
-0.80&0&0&0\\
-0&0.52&0&0\\
-0&0&0.25&0
-\end{pmatrix}
-\end{equation}
-
-
-
-\subsubsection{Asymptotic behaviour}
-\textit{Asymptotic rate of increase} 
-
-From the matrix, we can find the asymptotic growth rate of that population. For this we need to look at the dominant eigenvalue of the population matrix. Remember from the lecture that the dominant eigenvalue of a population matrix is the long term asymptotic rate of increase, $\lambda$. An eigenvalue of a matrix is a \textbf{scalar that when multiplied by a specific vector, gives the same result as when that vector is multiplied by the matrix}. Mathematically this means:
-\begin{equation}\label{eig}
-\boldsymbol{A} \vec{w}=\lambda \vec{w}
-\end{equation}
-the vector $\vec{w}$ is not any vector but an eigenvector, that is a vector such that equation \ref{eig} holds. We will come back to it later. If you do not feel comfortable with the concept of eigenvectors/matrices, you might want to return to the last exercise of the mathematical tools script.
-
-In \texttt{R} we do not have to just see the eigenvectors, instead they can be found using the \texttt{eigen()} function.
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{eigens.A}\hlkwb{<-}\hlkwd{eigen}\hlstd{(A)}
-\hlstd{eigens.A}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
-Let us for the moment only focus on the first set of outputted values. These values ($2.168, \ensuremath{-0.465}, \ensuremath{-0.103}, 0$) are the eigenvalues of the matrix $\boldsymbol{A}$. A matrix has as many eigenvalues as it has dimensions. The only one we are interested in is the dominant eigenvalue, i.e. the largest eigenvalue. From looking at the eigenvalues, we see that this is the first one. In general the dominant eigenvalue can be found by using the function \texttt{which.max()} that returns the position of the maximum value of an object. Next we extract the value in that position.
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{position}\hlkwb{<-}\hlkwd{which.max}\hlstd{(eigens.A}\hlopt{$}\hlstd{values)}
-\hlstd{position}
-
-\hlstd{lambda2}\hlkwb{<-}\hlstd{eigens.A}\hlopt{$}\hlstd{values[position]}
-\hlstd{lambda2}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-Alternatively, $\lambda$ can be found directly by using the \texttt{lambda()} funtion of the \texttt{popbio} package in \texttt{R}. This will give exactly the same result. 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{library}\hlstd{(popbio)}
-\end{alltt}
-
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: quadprog}}\begin{alltt}
-\hlkwd{lambda}\hlstd{(A)}
-\end{alltt}
-\begin{verbatim}
-## [1] 2.168198
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
-Thus our asymptotic finite rate of increase $\lambda$ is 2.1681981. This is what we expect the population growth rate to look like on the long-term.
-\vspace{0.5 cm}
-
-\noindent\textit{Stable-age distribution} 
-
-In the previous section, we looked at the growth of the whole population. It is also informative to examine what the population structure will look like on the long-term. We already calculated these numbers in the previous practical, let us now plot them. 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{plot}\hlstd{(}\hlkwd{log}\hlstd{(n[}\hlnum{1}\hlstd{,]),} \hlkwc{type}\hlstd{=}\hlstr{"l"}\hlstd{,} \hlkwc{col}\hlstd{=}\hlstr{"blue"}\hlstd{,} \hlkwc{ylim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{5}\hlstd{),}
-     \hlkwc{xlab}\hlstd{=}\hlstr{"year"}\hlstd{,} \hlkwc{ylab}\hlstd{=}\hlstr{"ln(n(t))"}\hlstd{)}
-\hlkwd{lines}\hlstd{(}\hlkwd{log}\hlstd{(n[}\hlnum{2}\hlstd{,]),} \hlkwc{col}\hlstd{=}\hlstr{"red"}\hlstd{)}
-\hlkwd{lines}\hlstd{(}\hlkwd{log}\hlstd{(n[}\hlnum{3}\hlstd{,]),} \hlkwc{col}\hlstd{=}\hlstr{"green"}\hlstd{)}
-\hlkwd{lines}\hlstd{(}\hlkwd{log}\hlstd{(n[}\hlnum{4}\hlstd{,]),} \hlkwc{col}\hlstd{=}\hlstr{"purple"}\hlstd{)}
-\hlkwd{legend}\hlstd{(}\hlstr{"topright"}\hlstd{,}
-       \hlkwd{c}\hlstd{(}\hlstr{"age class 1 "}\hlstd{,}\hlstr{"age class 2"}\hlstd{,} \hlstr{"age class 3"}\hlstd{,}
-         \hlstr{"age class 4"}\hlstd{),}
-       \hlkwc{bty} \hlstd{=} \hlstr{"n"}\hlstd{,}
-\hlkwc{lty}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{1}\hlstd{,}\hlnum{1}\hlstd{,}\hlnum{1}\hlstd{),}
-\hlkwc{col}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"blue"}\hlstd{,} \hlstr{"red"}\hlstd{,} \hlstr{"green"}\hlstd{,} \hlstr{"purple"}\hlstd{))}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/t3a-1} 
-
-\end{knitrout}
-When reading the graph, keep in mind that the $y$-axis is logarithmic. We see that after five years, the age class trajectories are parallel to each other and growing with a constant rate. If a population is growing with constant birth and death rate, as is the case of our owl population, then the population converges to a stable age distribution. Once a population has reached the stable age distribution, it grows exponentially at the asymptotic finite rate $\lambda$. A population at the stable age distribution always has the same relative number of individuals in each age class every time step. However, the absolute number of indiviuals will change. The stationary age distribution is a special case of stable age distribution where the absolute number of individuals does neither increase nor decrease. The population is not growing. What is the asymptotic growth rate ($\lambda$) of such a stationary population? 
-
-
-The stable age distibution is given by the right eigenvector corresponding to the dominant eigenvalue. Let us now look at the vector elements of the \texttt{eigen} function. The columns of \texttt{eigens.A\$ vector} are the right eigenvectors of the matrix $\boldsymbol{A}$. When applying the matrix to them, it is the same as multiplying them by the corresponding eigenvalues, which are scalars. This means that the length but not the direction of this vector is changed by the matrix. Check this for the eigenvector corresponding to the dominant eigenvalue.
-
-There are as many right eigenvectors as there are eigenvalues. To each eigenvalue one eigenvector corresponds. Its position is the same as the one of the dominant eigenvalue so we can extract it with the following lines of code.
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{w}\hlkwb{<-}\hlstd{eigens.A}\hlopt{$}\hlstd{vector[,position]}
-\hlstd{w}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-The right eigenvector as such does not give us the proportion found in each age class. This is because in the vector that \texttt{R} returns, the length of the eigenvectors is set to $1$ instead of the sum of its elements (what is the difference between these two? Which is biologically more relevant? Which is mathematically more relevant?). However, to find the proportion of each age class, we want to rescale it (remember that if you find an eigenvector all vectors that point in the same direction are also eigenvectors. If we multiply an eigenvector by a scalar it thus remains an eigenvector.):
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{ssd}\hlkwb{<-}\hlstd{w}\hlopt{/}\hlkwd{sum}\hlstd{(w)}
-\hlstd{ssd}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-Therefore we know now that in the stable age structure a proportion of 0.68 of the population is in age class 1, 0.25 in age class 2, 0.06 in age class 3, and 0.01 in age class 4.
-
-\subsubsection{Sensitivity and elasticity analysis}
-
-Sensitivities and elasticities of $\lambda$ evaluate the relative importance of each matrix element for the asymptotic growth rate. Sensitivity is the effect of additive change in a matrix element on $\lambda$ and the elasticity is the proportional effect of a proportional change in the parameter to $\lambda$.
-
-
-\vspace{1.5ex}
-\noindent\textit{Sensitivity analysis}
-
-
-The sensitivity tells us how an increase in absolute value of one of the parameters affects $\lambda$. How much does $\lambda$ increase if the fertility of the age class 1 increases by a very small amount (for example 0.01)? Let us play around with the projection matrix and change each element of this matrix by 0.01 one by one to see how if affects $\lambda$ and store these different values of $\lambda$. 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlcom{# Build the Leslie Matrix for the barn owl population}
-
-\hlstd{F11}\hlkwb{<-}    \hlopt{+} \hlnum{0.01} \hlcom{#insert your value here}
-\hlstd{F21}\hlkwb{<-} \hlcom{#insert your value here}
-\hlstd{F31}\hlkwb{<-} \hlcom{#insert your value here}
-\hlstd{F41}\hlkwb{<-} \hlcom{#insert your value here}
-
-\hlstd{P11}\hlkwb{<-} \hlcom{#insert your value here}
-\hlstd{P21}\hlkwb{<-} \hlcom{#insert your value here}
-\hlstd{P31}\hlkwb{<-} \hlcom{#insert your value here}
-\hlstd{P41}\hlkwb{<-} \hlcom{#insert your value here }
-
-\hlstd{A1}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(F11,P11,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,F21,}\hlnum{0}\hlstd{,P21,}\hlnum{0}\hlstd{,F31,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,P31,F41,}\hlnum{0}\hlstd{,}\hlnum{0}\hlstd{,P41),}
-           \hlkwc{nr}\hlstd{=}\hlnum{4}\hlstd{)}
-\hlstd{A1}
-\hlstd{lambdaF1}\hlkwb{<-} \hlkwd{lambda}\hlstd{(A1)}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
-You can see that by changing the parameter values, the value of $\lambda$ changes. The sensitivity of $\lambda$ to one element of the matrix is given by:
-\begin{equation}\label{aa}
-s_{ij}=\frac{\partial \lambda} {\partial a_{ij}}
-\end{equation}
-Remember the first practical on mathematical tools, the section on the derivatives. Instead of taking the derivative, equation \ref{aa} can be approximated by taking the difference between $\lambda$ of the original matrix and $\lambda$ the modified matrix, and dividing it by the change we apply to the element of the matrix. 
-\begin{itemize}
-\item $\partial \lambda$ \; can be approximated by the difference between the original $\lambda$ \; and the new $\lambda$ (after changing one of the elements).
-\item $\partial a_{ij}$ can be approximated by the difference between the original $a_{ij}$ and the new $a_{ij}$. In our \texttt{R} code, this is 0.01.  
-\end{itemize}
-If the change to the element of the matrix is very small, the sensitivities calucated so will be close to the actual sensitivities. Try to approximate the sensitivities of $\lambda$ to a few of the matrix elements in \texttt{R}. Then compare your results with the actual sensititvities presented in the table below. The sensitivities in the table have been calculated with the function \texttt{sensitivty} from the \texttt{popbio} library. 
-
-
-
-% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Mar  8 15:48:40 2016
-{\footnotesize
-\begin{tabular}{rrrr}
-  
- $n_1$ & $n_2$ & $n_3$ & $n_4$ \\
- 
- 0.7860 & 0.2900 & 0.0696 & 0.0080 \\ 
-  0.5583 & 0.2060 & 0.0494 & 0.0057 \\ 
-  0.0906 & 0.0334 & 0.0080 & 0.0009 \\ 
-  0.0000 & 0.0000 & 0.0000 & 0.0000 \\ 
-   
-\end{tabular}
-}
-
-
-\begin{mdframed}
-If you want to calculate all sensitivities using the approximation presented above, it is probably best to use a \texttt{for} loop (or actually two, why two?). Do not forget to only change one matrix element at a time. Also investigate how small the change in the matrix element has to be to make sure that the approximation returns reasonable numbers. Change the values of $a$ and compare your sensitivities with the one in the table above. What do you see?
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{a}\hlkwb{<-}\hlnum{0.01}
-\hlstd{Sen}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlnum{NA}\hlstd{,}\hlnum{4}\hlstd{,}\hlnum{4}\hlstd{)}
-\hlstd{lamA}\hlkwb{<-}\hlkwd{lambda}\hlstd{(A)}
-\hlkwa{for} \hlstd{(i} \hlkwa{in} \hlstd{...)\{}
-  \hlkwa{for} \hlstd{(j} \hlkwa{in} \hlstd{...)\{}
-  \hlstd{Ap}\hlkwb{<-}\hlstd{A}
-  \hlstd{Ap[i,j]}\hlkwb{<-}\hlstd{...} \hlcom{# Create the matrix where only one }
-               \hlcom{# element of the matrix (the element}
-               \hlcom{#i,j) is changed at a time.}
-  \hlstd{Sen[i,j]}\hlkwb{<-}\hlstd{...} \hlcom{# Find the sensitivity to the }
-               \hlcom{# element of the matrix modified in }
-               \hlcom{# Ap one by one from the differences}
-               \hlcom{# in lambda over the change in aij. }
-\hlstd{\}}
-\hlstd{\}}
-\hlstd{Sen}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-\end{mdframed}
-
-\vspace{1.5ex}
-
-\noindent\textit{Elasiticity analysis}
-
-
-Elasticities are proportional sensitivities. Before we asked the question: if a matrix element increases by a small amount, how much does $\lambda$ \; increase? Elasticities ask a different question: with what factor does $\lambda$\; change if a matrix element is changed by a certain factor. They thus examine the effect of a proportional change of transition elements on $\lambda$. For example, you may be interested in knowing by how much does $\lambda$\; change if the fertility of age class 2 is increased by 25\%. 
- 
-The elasticity of $\lambda$\; to a proporitonal change of one element of the matrix is given by:
-\begin{equation}
-e_{i,j}=\frac{a_{i,j}}{\lambda} \frac{\partial \lambda} {\partial a_{i,j}} = \frac{a_{i,j}}{\partial a_{i,j}} \frac{\partial \lambda}{\lambda} = \frac{\frac{\partial \lambda}{\lambda}}{\frac{\partial a_{i,j}}{ a_{i,j}}}
-\end{equation}
-You can thus calculate the elasticities from your approximations of the sensitivities. To do so, focus on the first part of the equation: $e_{i,j}=\frac{a_{i,j}}{\lambda} \frac{\partial \lambda} {\partial a_{i,j}}$.  Compare your values with the values below, which were calculated with the \texttt{elasticity()} function of the \texttt{popbio} package. 
-
-
-% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Mar  8 15:48:40 2016
-{\footnotesize
-\begin{tabular}{rrrr}
-  
- $n_1$ & $n_2$ & $n_3$ & $n_4$ \\
- 
- 0.5800 & 0.1980 & 0.0080 & 0.0000 \\ 
-  0.2060 & 0.0000 & 0.0000 & 0.0000 \\ 
-  0.0000 & 0.0080 & 0.0000 & 0.0000 \\ 
-  0.0000 & 0.0000 & 0.0000 & 0.0000 \\ 
-   
-\end{tabular}
-}
-
-
-\subsubsection{Transient dynamics}
-Most of what we have described above focuses on the asymptotic, (i.e. long-term) behaviour of the system. However, the short-term dynamics can be very different. In nature, a population may never be observed in the asymptotic regime. Transient dynamics focus on short-term responses.   
-
-There are year-to-year variations in growth rate before the asymptotic growth rate is reached. The code below calculates the annual finite growth rates of the barn owl population. 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{Ntot} \hlcom{# the total population size vector.}
-     \hlcom{# Each element is the population size}
-     \hlcom{# at one time step. As calculated before}
-\hlstd{Ntott}\hlkwb{<-}\hlstd{Ntot[}\hlnum{2}\hlopt{:}\hlstd{(}\hlkwd{length}\hlstd{(Ntot)}\hlopt{+}\hlnum{1}\hlstd{)]}
-\hlcom{# the total popoluation size at t+1}
-
-\hlstd{R}\hlkwb{<-}\hlstd{Ntott}\hlopt{/}\hlstd{Ntot}
-\hlcom{# the annual finite growth rates}
-\hlcom{#vector}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
-We can plot this in a graph to see how much time it takes this population to reach the asymptotic finite  growth rate. To this plot we add a straight line using the function \texttt{abline} to represent the value of $\lambda$.
-
-\begin{kframe}
-\begin{alltt}
-\hlstd{lam}\hlkwb{<-}\hlkwd{lambda}\hlstd{(A)}
-
-\hlkwd{plot}\hlstd{(R,} \hlkwc{type}\hlstd{=}\hlstr{"l"}\hlstd{,} \hlkwc{col}\hlstd{=}\hlstr{"blue"}\hlstd{,} \hlkwc{xlab}\hlstd{=}\hlstr{"year"}\hlstd{,} \hlkwc{ylab}\hlstd{=}\hlstr{"growth rate"}\hlstd{)}
-\hlkwd{abline}\hlstd{(}\hlkwc{h}\hlstd{=lam,} \hlkwc{col}\hlstd{=}\hlstr{"red"}\hlstd{)}
-\hlkwd{legend}\hlstd{(}\hlstr{"topright"}\hlstd{,}
-       \hlkwd{c}\hlstd{(}\hlstr{"annual growth rate"}\hlstd{,}\hlstr{"asymptotic growth rate"}\hlstd{),}
-       \hlkwc{bty} \hlstd{=} \hlstr{"n"}\hlstd{,}
-\hlkwc{lty}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{1}\hlstd{),}
-\hlkwc{col}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"blue"}\hlstd{,} \hlstr{"red"}\hlstd{))}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/t17-1} 
-
-It thus takes approximately five years before the population reaches its asymptotic growth rate.
 
 \subsubsection{Reproductive values}\label{Newfrhere}
 The reproductive value vector represents the contribution of each individual to present and future reproduction. In other words, it gives how much an individual in a given age class contributes to the population on the long-term, including offspring of its offspring. That is: if we have a population and its matrix at time $t=1$, what proportion of individuals at a much later time will be descendants of individuals in age class $1$ at time $t=1$ and how many from individuals in age class $2$ etc. Mathematically, the reproductive value vector is the left eigenvector of the population matrix.
@@ -380,13 +99,36 @@ To get the left eigenvector of a matrix, we need to perform the eigen analysis o
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{At}\hlkwb{<-}\hlkwd{t}\hlstd{(A)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in t(A): objet 'A' introuvable}}\begin{alltt}
 \hlstd{eigens.At}\hlkwb{<-}\hlkwd{eigen}\hlstd{(At)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in as.matrix(x): objet 'At' introuvable}}\begin{alltt}
 \hlstd{eigens.At}
 \end{alltt}
-\end{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'eigens.At' introuvable}}\end{kframe}
 \end{knitrout}
 We apply the same proceedure as for the right eigenvector to find the left eigenvector and the eigenvalue. Write the code to extract the eigenvalue and the left eigenvector. Do you notice anything about the eigenvalue? Check that the found dominant left eigenvector is indeed a left eigenvector of the matrix with the dominant eigenvalue as its eigenvalue.\\[1.5ex]
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in which.max(eigens.At\$values): objet 'eigens.At' introuvable}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'eigens.At' introuvable}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'eigens.At' introuvable}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'v' introuvable}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'rv' introuvable}}\end{kframe}
+\end{knitrout}
 \begin{mdframed}
 \textbf{Additional information: Reproductive values more in depth}\\
 If you want to understand the interpretation of the reproductive values more closely, take a look at the following (not too elegant) code:
@@ -399,9 +141,9 @@ If you want to understand the interpretation of the reproductive values more clo
 \end{alltt}
 \begin{verbatim}
 ##           [,1]      [,2]      [,3]
-## [1,] 2.5763411 0.8963245 1.4282282
-## [2,] 0.2515067 3.5307231 0.6023476
-## [3,] 0.2199782 3.8938637 2.3911846
+## [1,] 0.7065403 1.1137356 0.4195131
+## [2,] 1.9505753 2.8367538 2.7158272
+## [3,] 2.4073581 0.6070039 1.0202562
 \end{verbatim}
 \begin{alltt}
 \hlcom{# We output B, in case you want to repeat the }
@@ -410,7 +152,7 @@ If you want to understand the interpretation of the reproductive values more clo
 \hlkwd{eigen}\hlstd{(}\hlkwd{t}\hlstd{(B))}\hlopt{$}\hlstd{vectors[,}\hlnum{1}\hlstd{]}\hlopt{/}\hlkwd{sum}\hlstd{(}\hlkwd{eigen}\hlstd{(}\hlkwd{t}\hlstd{(B))}\hlopt{$}\hlstd{vectors[,}\hlnum{1}\hlstd{])}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.09505893 0.68595776 0.21898330
+## [1] 0.3596799+0i 0.3383311+0i 0.3019890+0i
 \end{verbatim}
 \begin{alltt}
 \hlcom{# We calculate the dominant left eigenvector of this matrix}
@@ -441,7 +183,7 @@ If you want to understand the interpretation of the reproductive values more clo
 \hlstd{N1}\hlopt{/}\hlkwd{sum}\hlstd{(N1)}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.09505893 0.68595776 0.21898330
+## [1] 0.3596799 0.3383311 0.3019890
 \end{verbatim}
 \begin{alltt}
 \hlcom{# We output the normalised version of N1, which should be}
@@ -449,31 +191,31 @@ If you want to understand the interpretation of the reproductive values more clo
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-You can interpret this as follows: if we for example start with a population $\begin{pmatrix}1\\ 1\\ 1 \end{pmatrix}$, after $40$ years, $10\% $ of the total population will have originated from the individual that was initially in age class $1$, $69\% $ from the individual in age class $2$ and the remaining $22\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population.
-\textit{Please not that since we took completely random numbers to construct the matrix, the matrix is unlikely to have biological relevance. But the concept of course remains the same for more relevant matrices.}\\[1.5ex]
+You can interpret this as follows: if we for example start with a population $\begin{pmatrix}1\\ 1\\ 1 \end{pmatrix}$, after $40$ years, $36\% $ of the total population will have originated from the individual that was initially in age class $1$, $34\% $ from the individual in age class $2$ and the remaining $30\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population.
+\textit{Please note that since we took completely random numbers to construct the matrix, the matrix is unlikely to have biological relevance. But the concept of course remains the same for more relevant matrices.}\\[1.5ex]
 However, what would happen if the initial population would look as follows: $\begin{pmatrix}2\\ 1\\ 1 \end{pmatrix}$? If we project this initial population in the future we find (the code is omitted this time):
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-## [1] 0.1736143 0.6264117 0.1999740
+## [1] 0.5290656 0.2488314 0.2221030
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-This means that after $40$ years, $17\% $ of the total population will have originated from the two individuals that were initially in age class $1$, $63\% $ from the individual in age class $2$ and the remaining $20\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population. These numbers do not correspond to the left eigenvector, yet they do relate to the left eigenvalue.
-First we need to realize that if $17\% $ of the final population originated from the two individuals in age class 1 in the initial population, this means that each of these two individuals is responsible for $8.5\% $ of the final population. It is of course fairer to compare these numbers with each other (so after correcting for the number of individuals that we started with):
+This means that after $40$ years, $53\% $ of the total population will have originated from the two individuals that were initially in age class $1$, $25\% $ from the individual in age class $2$ and the remaining $22\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population. These numbers do not correspond to the left eigenvector, yet they do relate to the left eigenvalue.
+First we need to realize that if $53\% $ of the final population originated from the two individuals in age class 1 in the initial population, this means that each of these two individuals is responsible for $26.5\% $ of the final population. It is of course fairer to compare these numbers with each other (so after correcting for the number of individuals that we started with):
 \begin{equation*}
 \begin{pmatrix}
-8.5 \\
-63 \\
-20
+26.5 \\
+25 \\
+22
 \end{pmatrix}
 \end{equation*}
-However, now the numbers no longer add up to $100\%$. Since all we care about is the ratio between the different contributions, we can just divide all of them by the sum of the three contributions ($\approx 8.5 +63 + 20 $) and multiply the total by $100$ (just to make sure that all the percentages add up to $100$). What we get now is: 
+However, now the numbers no longer add up to $100\%$. Since all we care about is the ratio between the different contributions, we can just divide all of them by the sum of the three contributions ($\approx 26.5 +25 + 22 $) and multiply the total by $100$ (just to make sure that all the percentages add up to $100$). What we get now is: 
 \begin{equation*}
 \begin{pmatrix}
-9.51 \\
-68.6 \\
-21.9
+35.97 \\
+33.83 \\
+30.2
 \end{pmatrix}
 \end{equation*}
 This is indeed again the left eigenvector! (Hopefully. Every time we save this document new random numbers are generated, so actually we can only hope that the theory is general enough to work for all random matrices \texttt{B} that are accidentally generated...). We see thus that the left eigenvector actually mainly tell you how many more offspring an individual that starts in a certain age class will have compared to individuals in other age classes on the long term. -- This is indeed a relatively difficult concept, but maybe if you think about it and go over this simulation yourself, it might sink in.
@@ -524,7 +266,7 @@ The matrix $\boldsymbol{A}$ is used because we need a matrix to compare matrices
 You may have recognized that equation \ref{a} is a linear equation ($y=b+ax$). This method makes the assumption that the relationship between the matrices is linear and that the slope of this equation is given by $\frac{ \partial\lambda^{A}}{\partial a^{A}_{ij}}$.
 
 
-With equation \ref{a}, find the value of $\lambda^{(\boldsymbol{M})}$ using \texttt{R} and compare it to the value you found earlier. How different are they? More interestingly: which difference in the matrix elements is mainly responsible for this difference? Is it the juvenile survival, the adult survival or the reproductive value?\\[1.5ex]
+With equation \ref{a}, find the value of $\lambda^{(\boldsymbol{M})}$ using \texttt{R} and compare it to the value you found earlier. How different are they? More interestingly: which difference in the matrix elements is mainly responsible for this difference? Is it the juvenile survival, the adult survival or the reproductive rate?\\[1.5ex]
 
 \textit{Hint} Find the "mid-way" matrix. For the sensitivities, either approximate them yourself or use the \texttt{sensitivity()} function from the \texttt{popbio} package
 
@@ -731,7 +473,8 @@ Good luck!
 \end{verbatim}
 \begin{alltt}
 \hlcom{#Find the avg rate per treatment}
-\hlstd{Pj}\hlkwb{<-}\hlkwd{aggregate}\hlstd{(rot}\hlopt{$}\hlstd{Pj,} \hlkwd{list}\hlstd{(rot}\hlopt{$}\hlstd{Population, rot}\hlopt{$}\hlstd{Copper, rot}\hlopt{$}\hlstd{Species),} \hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{FUN}\hlstd{=}\hlstr{"mean"}\hlstd{)}
+\hlstd{Pj}\hlkwb{<-}\hlkwd{aggregate}\hlstd{(rot}\hlopt{$}\hlstd{Pj,} \hlkwd{list}\hlstd{(rot}\hlopt{$}\hlstd{Population, rot}\hlopt{$}\hlstd{Copper, rot}\hlopt{$}\hlstd{Species),}
+              \hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{FUN}\hlstd{=}\hlstr{"mean"}\hlstd{)}
 \hlstd{Pj}
 \end{alltt}
 \begin{verbatim}
@@ -750,7 +493,8 @@ Good luck!
 ## 12      Recovery  medium      BU 0.2000000
 \end{verbatim}
 \begin{alltt}
-\hlstd{Pa}\hlkwb{<-}\hlkwd{aggregate}\hlstd{(rot}\hlopt{$}\hlstd{Pa,} \hlkwd{list}\hlstd{(rot}\hlopt{$}\hlstd{Population, rot}\hlopt{$}\hlstd{Copper, rot}\hlopt{$}\hlstd{Species),} \hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{FUN}\hlstd{=}\hlstr{"mean"}\hlstd{)}
+\hlstd{Pa}\hlkwb{<-}\hlkwd{aggregate}\hlstd{(rot}\hlopt{$}\hlstd{Pa,} \hlkwd{list}\hlstd{(rot}\hlopt{$}\hlstd{Population, rot}\hlopt{$}\hlstd{Copper, rot}\hlopt{$}\hlstd{Species),}
+              \hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{FUN}\hlstd{=}\hlstr{"mean"}\hlstd{)}
 \hlstd{Pa}
 \end{alltt}
 \begin{verbatim}
@@ -769,7 +513,8 @@ Good luck!
 ## 12      Recovery  medium      BU 0.7111667
 \end{verbatim}
 \begin{alltt}
-\hlstd{F}\hlkwb{<-}\hlkwd{aggregate}\hlstd{(rot}\hlopt{$}\hlstd{F,} \hlkwd{list}\hlstd{(rot}\hlopt{$}\hlstd{Population, rot}\hlopt{$}\hlstd{Copper, rot}\hlopt{$}\hlstd{Species),} \hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{FUN}\hlstd{=}\hlstr{"mean"}\hlstd{)}
+\hlstd{F}\hlkwb{<-}\hlkwd{aggregate}\hlstd{(rot}\hlopt{$}\hlstd{F,} \hlkwd{list}\hlstd{(rot}\hlopt{$}\hlstd{Population, rot}\hlopt{$}\hlstd{Copper, rot}\hlopt{$}\hlstd{Species),}
+             \hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{FUN}\hlstd{=}\hlstr{"mean"}\hlstd{)}
 \hlstd{F}
 \end{alltt}
 \begin{verbatim}
@@ -885,13 +630,15 @@ Good luck!
 \hlcom{#----------- code for function to extract matrices from the dataset-----------#}
 \hlstd{get_matrix}\hlkwb{<-}\hlkwa{function}\hlstd{(}\hlkwc{roti}\hlstd{,}\hlkwc{pop}\hlstd{,}\hlkwc{cop}\hlstd{)\{}
   \hlkwa{if}\hlstd{(}\hlopt{!}\hlstd{pop} \hlopt{%in%} \hlkwd{c}\hlstd{(}\hlkwd{levels}\hlstd{(roti}\hlopt{$}\hlstd{Population),}\hlstr{"mean"}\hlstd{))\{}
-    \hlkwd{warning}\hlstd{(}\hlstr{"Something went wrong, give the instructors a cookie and they may help you out:\textbackslash{}n------------------------\textbackslash{}n "}\hlstd{,pop,}\hlstr{" is not a valid entry\textbackslash{}n------------------------\textbackslash{}n"}\hlstd{)}
+    \hlkwd{warning}\hlstd{(}\hlstr{"Something went wrong, give the instructors a cookie and they may help you out:\textbackslash{}n------------------------\textbackslash{}n "}\hlstd{,}
+            \hlstd{pop,}\hlstr{" is not a valid entry\textbackslash{}n------------------------\textbackslash{}n"}\hlstd{)}
 
     \hlkwd{return}\hlstd{()}
   \hlstd{\}}
 
   \hlkwa{if}\hlstd{(}\hlopt{!}\hlstd{cop} \hlopt{%in%} \hlkwd{c}\hlstd{(}\hlkwd{levels}\hlstd{(roti}\hlopt{$}\hlstd{Copper),}\hlstr{"mean"}\hlstd{))\{}
-    \hlkwd{warning}\hlstd{(}\hlstr{"Something went wrong, give the instructors a cookie and they may help you out:\textbackslash{}n------------------------\textbackslash{}n "}\hlstd{,cop,}\hlstr{" is not a valid entry\textbackslash{}n------------------------\textbackslash{}n"}\hlstd{)}
+    \hlkwd{warning}\hlstd{(}\hlstr{"Something went wrong, give the instructors a cookie and they may help you out:\textbackslash{}n------------------------\textbackslash{}n "}\hlstd{,}
+            \hlstd{cop,}\hlstr{" is not a valid entry\textbackslash{}n------------------------\textbackslash{}n"}\hlstd{)}
 
     \hlkwd{return}\hlstd{()}
   \hlstd{\}}
@@ -906,7 +653,8 @@ Good luck!
     \hlstd{i}\hlkwb{<-}\hlkwd{which}\hlstd{(roti}\hlopt{$}\hlstd{Population}\hlopt{==}\hlstd{pop} \hlopt{&} \hlstd{roti}\hlopt{$}\hlstd{Copper}\hlopt{==}\hlstd{cop)}
   \hlstd{\}}
 
-  \hlstd{A}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwd{mean}\hlstd{(roti}\hlopt{$}\hlstd{Pj[i]),} \hlkwd{mean}\hlstd{(roti}\hlopt{$}\hlstd{F[i]),} \hlkwd{mean}\hlstd{(roti}\hlopt{$}\hlstd{Pa[i])),} \hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{,} \hlkwc{ncol}\hlstd{=}\hlnum{2}\hlstd{)}
+  \hlstd{A}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwd{mean}\hlstd{(roti}\hlopt{$}\hlstd{Pj[i]),} \hlkwd{mean}\hlstd{(roti}\hlopt{$}\hlstd{F[i]),}
+              \hlkwd{mean}\hlstd{(roti}\hlopt{$}\hlstd{Pa[i])),} \hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{,} \hlkwc{ncol}\hlstd{=}\hlnum{2}\hlstd{)}
   \hlkwd{return}\hlstd{(A)}
   \hlstd{\}}
 \hlcom{#--------------------------end of the function-----------------#}
@@ -1110,7 +858,8 @@ Good luck!
 \begin{alltt}
 \hlcom{######### ARRANGING THE DATA FOR PLOTTING ##############}
 \hlcom{#Copper}
-\hlstd{Copper} \hlkwb{<-} \hlkwd{cbind}\hlstd{(}\hlkwd{as.vector}\hlstd{(beta1)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwd{as.vector}\hlstd{(beta2)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwd{as.vector}\hlstd{(beta3)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{])}
+\hlstd{Copper} \hlkwb{<-} \hlkwd{cbind}\hlstd{(}\hlkwd{as.vector}\hlstd{(beta1)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwd{as.vector}\hlstd{(beta2)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],}
+                \hlkwd{as.vector}\hlstd{(beta3)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{])}
 \hlkwd{colnames}\hlstd{(Copper)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"High"}\hlstd{,} \hlstr{"Medium"}\hlstd{,} \hlstr{"Low"}\hlstd{)}
 \hlkwd{rownames}\hlstd{(Copper)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Pj"}\hlstd{,} \hlstr{"F"}\hlstd{,} \hlstr{"Pa"}\hlstd{)}
 \hlstd{Copper}
@@ -1140,12 +889,14 @@ Good luck!
 \hlstd{Layert}\hlkwb{<-}\hlkwd{t}\hlstd{(Layer)}
 
 \hlcom{#Interactions}
-\hlstd{Interactions} \hlkwb{<-} \hlkwd{cbind}\hlstd{(}\hlkwd{as.vector}\hlstd{(inter1)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwd{as.vector}\hlstd{(inter2)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwd{as.vector}\hlstd{(inter3)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwd{as.vector}\hlstd{(inter4)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwd{as.vector}\hlstd{(inter5)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwd{as.vector}\hlstd{(inter6)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{])}
+\hlstd{Interactions} \hlkwb{<-} \hlkwd{cbind}\hlstd{(}\hlkwd{as.vector}\hlstd{(inter1)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwd{as.vector}\hlstd{(inter2)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],}
+                      \hlkwd{as.vector}\hlstd{(inter3)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwd{as.vector}\hlstd{(inter4)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],}
+                      \hlkwd{as.vector}\hlstd{(inter5)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwd{as.vector}\hlstd{(inter6)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{])}
 \hlkwd{colnames}\hlstd{(Interactions)} \hlkwb{<-} \hlstd{axislabels}
 \end{alltt}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'axislabels' not found}}\begin{alltt}
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): objet 'axislabels' introuvable}}\begin{alltt}
 \hlkwd{rownames}\hlstd{(Interactions)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Pj"}\hlstd{,} \hlstr{"F"}\hlstd{,} \hlstr{"Pa"}\hlstd{)}
 \hlstd{Interactions}
 \end{alltt}
@@ -1174,14 +925,19 @@ Good luck!
 \hlcom{#graphs}
 \hlkwd{par}\hlstd{(}\hlkwc{mfrow}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{3}\hlstd{),}\hlkwc{mar}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{3}\hlstd{,}\hlnum{3}\hlstd{,}\hlnum{3}\hlstd{,}\hlnum{7}\hlstd{))}
 
-\hlkwd{barplot}\hlstd{(Coppert,}\hlkwc{xaxt}\hlstd{=}\hlstr{'n'}\hlstd{,} \hlkwc{xlab}\hlstd{=}\hlstr{""}\hlstd{,} \hlkwc{ylab}\hlstd{=}\hlstr{"Parameters contribution"}\hlstd{,} \hlkwc{ylim}\hlstd{=limits,} \hlkwc{xlim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{14}\hlstd{),} \hlkwc{col}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"brown"}\hlstd{,}\hlstr{"orange"}\hlstd{,} \hlstr{"yellow"}\hlstd{),} \hlkwc{beside}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{main}\hlstd{=}\hlstr{"Copper level"}\hlstd{)}
+\hlkwd{barplot}\hlstd{(Coppert,}\hlkwc{xaxt}\hlstd{=}\hlstr{'n'}\hlstd{,} \hlkwc{xlab}\hlstd{=}\hlstr{""}\hlstd{,} \hlkwc{ylab}\hlstd{=}\hlstr{"Parameters contribution"}\hlstd{,}
+        \hlkwc{ylim}\hlstd{=limits,} \hlkwc{xlim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{14}\hlstd{),} \hlkwc{col}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"brown"}\hlstd{,}\hlstr{"orange"}\hlstd{,} \hlstr{"yellow"}\hlstd{),}
+        \hlkwc{beside}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{main}\hlstd{=}\hlstr{"Copper level"}\hlstd{)}
 \hlkwd{segments}\hlstd{(}\hlopt{-}\hlnum{1}\hlstd{,}\hlnum{0}\hlstd{,} \hlnum{13}\hlstd{,}\hlnum{0}\hlstd{)}
 \hlkwd{par}\hlstd{(}\hlkwc{mar}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{5.1}\hlstd{,} \hlnum{5.1}\hlstd{,} \hlnum{4.1}\hlstd{,} \hlnum{5.1}\hlstd{),} \hlkwc{xpd}\hlstd{=}\hlnum{TRUE}\hlstd{)}
 \hlkwd{legend}\hlstd{(}\hlstr{"topleft"}\hlstd{,}
-     \hlkwd{c}\hlstd{(}\hlstr{"High"}\hlstd{,} \hlstr{"Medium"}\hlstd{,} \hlstr{"Low"}\hlstd{),} \hlkwc{fill}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"brown"}\hlstd{,}\hlstr{"orange"}\hlstd{,} \hlstr{"yellow"}\hlstd{),}  \hlkwc{bty}\hlstd{=}\hlstr{"n"}\hlstd{)}
-\hlkwd{axis}\hlstd{(}\hlkwc{side}\hlstd{=}\hlnum{1}\hlstd{,} \hlkwc{at}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{3}\hlstd{,}\hlnum{7}\hlstd{,}\hlnum{11}\hlstd{),} \hlkwc{labels}\hlstd{=}\hlkwd{c}\hlstd{(} \hlstr{"Pj"}\hlstd{,} \hlstr{"F"}\hlstd{,} \hlstr{"Pa"}\hlstd{),} \hlkwc{line}\hlstd{=}\hlnum{1}\hlstd{,} \hlkwc{tick}\hlstd{=}\hlnum{FALSE}\hlstd{)}
+     \hlkwd{c}\hlstd{(}\hlstr{"High"}\hlstd{,} \hlstr{"Medium"}\hlstd{,} \hlstr{"Low"}\hlstd{),} \hlkwc{fill}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"brown"}\hlstd{,}\hlstr{"orange"}\hlstd{,} \hlstr{"yellow"}\hlstd{),}
+     \hlkwc{bty}\hlstd{=}\hlstr{"n"}\hlstd{)}
+\hlkwd{axis}\hlstd{(}\hlkwc{side}\hlstd{=}\hlnum{1}\hlstd{,} \hlkwc{at}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{3}\hlstd{,}\hlnum{7}\hlstd{,}\hlnum{11}\hlstd{),} \hlkwc{labels}\hlstd{=}\hlkwd{c}\hlstd{(} \hlstr{"Pj"}\hlstd{,} \hlstr{"F"}\hlstd{,} \hlstr{"Pa"}\hlstd{),} \hlkwc{line}\hlstd{=}\hlnum{1}\hlstd{,}
+     \hlkwc{tick}\hlstd{=}\hlnum{FALSE}\hlstd{)}
 
-\hlkwd{barplot}\hlstd{(Layert,}\hlkwc{xaxt}\hlstd{=}\hlstr{'n'}\hlstd{,} \hlkwc{xlab}\hlstd{=}\hlstr{""}\hlstd{,} \hlkwc{ylab}\hlstd{=}\hlstr{""}\hlstd{,} \hlkwc{ylim}\hlstd{=limits,} \hlkwc{xlim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{14}\hlstd{),} \hlkwc{col}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"blue"}\hlstd{,}\hlstr{"lightblue"}\hlstd{),} \hlkwc{beside}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{main}\hlstd{=}\hlstr{"Layer"}\hlstd{)}
+\hlkwd{barplot}\hlstd{(Layert,}\hlkwc{xaxt}\hlstd{=}\hlstr{'n'}\hlstd{,} \hlkwc{xlab}\hlstd{=}\hlstr{""}\hlstd{,} \hlkwc{ylab}\hlstd{=}\hlstr{""}\hlstd{,} \hlkwc{ylim}\hlstd{=limits,} \hlkwc{xlim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{14}\hlstd{),}
+        \hlkwc{col}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"blue"}\hlstd{,}\hlstr{"lightblue"}\hlstd{),} \hlkwc{beside}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{main}\hlstd{=}\hlstr{"Layer"}\hlstd{)}
 \hlkwd{segments}\hlstd{(}\hlopt{-}\hlnum{1}\hlstd{,}\hlnum{0}\hlstd{,} \hlnum{10}\hlstd{,}\hlnum{0}\hlstd{)}
 \hlkwd{par}\hlstd{(}\hlkwc{mar}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{5.1}\hlstd{,} \hlnum{5.1}\hlstd{,} \hlnum{4.1}\hlstd{,} \hlnum{5.1}\hlstd{),} \hlkwc{xpd}\hlstd{=}\hlnum{TRUE}\hlstd{)}
 \hlkwd{legend}\hlstd{(}\hlstr{"topleft"}\hlstd{,}
@@ -1216,7 +972,8 @@ Good luck!
 \begin{alltt}
 \hlkwd{library}\hlstd{(}\hlstr{"RColorBrewer"}\hlstd{)}
 
-\hlkwd{barplot}\hlstd{(Interactionst,} \hlkwc{xaxt}\hlstd{=}\hlstr{'n'}\hlstd{,} \hlkwc{xlab}\hlstd{=}\hlstr{""}\hlstd{,} \hlkwc{ylab}\hlstd{=}\hlstr{""}\hlstd{,} \hlkwc{ylim}\hlstd{=limits,} \hlkwc{xlim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{20}\hlstd{),} \hlkwc{col}\hlstd{=}\hlkwd{brewer.pal}\hlstd{(}\hlnum{6}\hlstd{,} \hlstr{"Set3"}\hlstd{) ,} \hlkwc{beside}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{main}\hlstd{=}\hlstr{"Interactions"}\hlstd{)}
+\hlkwd{barplot}\hlstd{(Interactionst,} \hlkwc{xaxt}\hlstd{=}\hlstr{'n'}\hlstd{,} \hlkwc{xlab}\hlstd{=}\hlstr{""}\hlstd{,} \hlkwc{ylab}\hlstd{=}\hlstr{""}\hlstd{,} \hlkwc{ylim}\hlstd{=limits,} \hlkwc{xlim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{20}\hlstd{),}
+        \hlkwc{col}\hlstd{=}\hlkwd{brewer.pal}\hlstd{(}\hlnum{6}\hlstd{,} \hlstr{"Set3"}\hlstd{) ,} \hlkwc{beside}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{main}\hlstd{=}\hlstr{"Interactions"}\hlstd{)}
 \hlkwd{segments}\hlstd{(}\hlopt{-}\hlnum{1}\hlstd{,}\hlnum{0}\hlstd{,} \hlnum{20}\hlstd{,}\hlnum{0}\hlstd{)}
 \hlkwd{par}\hlstd{(}\hlkwc{mar}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{5.1}\hlstd{,} \hlnum{5.1}\hlstd{,} \hlnum{4.1}\hlstd{,} \hlnum{7.1}\hlstd{),} \hlkwc{xpd}\hlstd{=}\hlnum{TRUE}\hlstd{)}
 \hlkwd{legend}\hlstd{(}\hlstr{"topleft"}\hlstd{,}
