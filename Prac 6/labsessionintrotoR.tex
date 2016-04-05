@@ -76,7 +76,7 @@
 
 \maketitle
 \tableofcontents
-\vspace{3cm}
+\vspace{1cm}
 \begin{mdframed}
 \textit{We do not claim to teach you the most efficient way to use \texttt{R}. If you at some point during the computer practicals encounter a code that you could make more efficient or elegant, please do let us know! We do want to learn from you as well.\\[1.5ex] However, do try to understand exactly what we are doing and how the functions we use work. The best way to learn how functions work is by either using the \texttt{R}-manaul (type \texttt{?functionname}) or by creating dummy data (just make up a small amount of data yourself) and analyse what the function does to this data.}
 \end{mdframed}
@@ -89,11 +89,10 @@ Before exploring the data that you collected in the lab, we recommend you to get
 
 \textit{Note: in this tutorial the word vector is used for all lists of numbers and the word matrix is used for all arrays of numbers, not only for transformations.}
 
+\section{Dataset preparation}
 \begin{mdframed}[backgroundcolor=red!40]
 \textbf{In this document you will find both normal text as well as \texttt{R}-code. Copying code from this pdf into \texttt{R} may results in errors. This has to do with the encoding of the file. Instead we recommend to retype the commands.}
 \end{mdframed}
-
-\section{Dataset preparation}
 Prepare you dataset in excel before importing it into \texttt{R}. Open your rotifer data in excel and create a copy. Never directly modify your original data file. There is always the chance that you make a serious mistake which results in losing all or part of your data. Your file must not contain any space (especially check the column names, they should have no space between words) or any special character of the type "\'e" or "\"o". Remove the comments, they are not in a form that can be analysed numerically but keep them in mind when writing your report. Avoid empty cells by filling them with \texttt{NA} if you do not know the value for that cell or zero if appropriate. 
 
 
@@ -245,7 +244,7 @@ To select only the low copper treatment entries, use the function \texttt{subset
 Next use \texttt{aggregate()} to calculate the mean number of total individuals alive per day and population. Store this information in a variable named \texttt{Tot\textunderscore mean}. This should give you:
 \begin{center}
 % latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Thu Mar 31 15:15:58 2016
+% Tue Apr  5 11:33:36 2016
 {\footnotesize
 \begin{tabular}{lrr}
  Group.1 & Group.2 & x \\ 
@@ -398,7 +397,7 @@ If we now call \texttt{SE(x)}, it will return us the standard error of \texttt{x
 \hlstd{SE_tot} \hlkwb{<-} \hlkwd{aggregate}\hlstd{(temp}\hlopt{$}\hlstd{Total,} \hlkwc{by}\hlstd{=}\hlkwd{list}\hlstd{(temp}\hlopt{$}\hlstd{Layer, temp}\hlopt{$}\hlstd{Day), SE)}
 \end{alltt}
 \end{kframe}% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Thu Mar 31 15:16:08 2016
+% Tue Apr  5 11:33:38 2016
 {\footnotesize
 \begin{tabular}{lrr}
  Group.1 & Group.2 & x \\ 
@@ -430,30 +429,7 @@ Finally we use the function \texttt{arrows()} (use \texttt{?arrows} to understan
 
 \end{knitrout}
 You will notice a warning message about zero-length arrows. What does this mean? Repeat this procedure to also include error bars for the other three lines. Can you now also generate the plots for the other two copper treatments?
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=0.65\textwidth]{figure/gekkeplot-1} 
-
-}
-
-
-
-
-{\centering \includegraphics[width=0.65\textwidth]{figure/gekkeplot-2} 
-
-}
-
-
-
-
-{\centering \includegraphics[width=0.65\textwidth]{figure/gekkeplot-3} 
-
-}
-
-
-
-\end{knitrout}
 \begin{mdframed}
 \textit{The shortcut}\\
 First of all the code can be shortened by using for-loops, can you find two place where introducing a for-loop would make the code shorter? Alternatively, you could also write functions for parts of the code that you use frequently. We are not the first people to deal with this problem and the sciplot package already contains such a function:
