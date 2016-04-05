@@ -140,10 +140,10 @@ If you want to understand the interpretation of the reproductive values more clo
 \hlstd{B}
 \end{alltt}
 \begin{verbatim}
-##           [,1]      [,2]      [,3]
-## [1,] 0.7065403 1.1137356 0.4195131
-## [2,] 1.9505753 2.8367538 2.7158272
-## [3,] 2.4073581 0.6070039 1.0202562
+##          [,1]      [,2]     [,3]
+## [1,] 3.373255 1.3164538 1.406945
+## [2,] 2.696759 3.3752230 2.735994
+## [3,] 3.066494 0.5296365 1.353726
 \end{verbatim}
 \begin{alltt}
 \hlcom{# We output B, in case you want to repeat the }
@@ -152,7 +152,7 @@ If you want to understand the interpretation of the reproductive values more clo
 \hlkwd{eigen}\hlstd{(}\hlkwd{t}\hlstd{(B))}\hlopt{$}\hlstd{vectors[,}\hlnum{1}\hlstd{]}\hlopt{/}\hlkwd{sum}\hlstd{(}\hlkwd{eigen}\hlstd{(}\hlkwd{t}\hlstd{(B))}\hlopt{$}\hlstd{vectors[,}\hlnum{1}\hlstd{])}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.3596799+0i 0.3383311+0i 0.3019890+0i
+## [1] 0.4824396 0.2508090 0.2667513
 \end{verbatim}
 \begin{alltt}
 \hlcom{# We calculate the dominant left eigenvector of this matrix}
@@ -183,7 +183,7 @@ If you want to understand the interpretation of the reproductive values more clo
 \hlstd{N1}\hlopt{/}\hlkwd{sum}\hlstd{(N1)}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.3596799 0.3383311 0.3019890
+## [1] 0.4824396 0.2508090 0.2667513
 \end{verbatim}
 \begin{alltt}
 \hlcom{# We output the normalised version of N1, which should be}
@@ -191,31 +191,31 @@ If you want to understand the interpretation of the reproductive values more clo
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-You can interpret this as follows: if we for example start with a population $\begin{pmatrix}1\\ 1\\ 1 \end{pmatrix}$, after $40$ years, $36\% $ of the total population will have originated from the individual that was initially in age class $1$, $34\% $ from the individual in age class $2$ and the remaining $30\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population.
+You can interpret this as follows: if we for example start with a population $\begin{pmatrix}1\\ 1\\ 1 \end{pmatrix}$, after $40$ years, $48\% $ of the total population will have originated from the individual that was initially in age class $1$, $25\% $ from the individual in age class $2$ and the remaining $27\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population.
 \textit{Please note that since we took completely random numbers to construct the matrix, the matrix is unlikely to have biological relevance. But the concept of course remains the same for more relevant matrices.}\\[1.5ex]
 However, what would happen if the initial population would look as follows: $\begin{pmatrix}2\\ 1\\ 1 \end{pmatrix}$? If we project this initial population in the future we find (the code is omitted this time):
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-## [1] 0.5290656 0.2488314 0.2221030
+## [1] 0.6508725 0.1691867 0.1799408
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-This means that after $40$ years, $53\% $ of the total population will have originated from the two individuals that were initially in age class $1$, $25\% $ from the individual in age class $2$ and the remaining $22\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population. These numbers do not correspond to the left eigenvector, yet they do relate to the left eigenvalue.
-First we need to realize that if $53\% $ of the final population originated from the two individuals in age class 1 in the initial population, this means that each of these two individuals is responsible for $26.5\% $ of the final population. It is of course fairer to compare these numbers with each other (so after correcting for the number of individuals that we started with):
+This means that after $40$ years, $65\% $ of the total population will have originated from the two individuals that were initially in age class $1$, $17\% $ from the individual in age class $2$ and the remaining $18\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population. These numbers do not correspond to the left eigenvector, yet they do relate to the left eigenvalue.
+First we need to realize that if $65\% $ of the final population originated from the two individuals in age class 1 in the initial population, this means that each of these two individuals is responsible for $32.5\% $ of the final population. It is of course fairer to compare these numbers with each other (so after correcting for the number of individuals that we started with):
 \begin{equation*}
 \begin{pmatrix}
-26.5 \\
-25 \\
-22
+32.5 \\
+17 \\
+18
 \end{pmatrix}
 \end{equation*}
-However, now the numbers no longer add up to $100\%$. Since all we care about is the ratio between the different contributions, we can just divide all of them by the sum of the three contributions ($\approx 26.5 +25 + 22 $) and multiply the total by $100$ (just to make sure that all the percentages add up to $100$). What we get now is: 
+However, now the numbers no longer add up to $100\%$. Since all we care about is the ratio between the different contributions, we can just divide all of them by the sum of the three contributions ($\approx 32.5 +17 + 18 $) and multiply the total by $100$ (just to make sure that all the percentages add up to $100$). What we get now is: 
 \begin{equation*}
 \begin{pmatrix}
-35.97 \\
-33.83 \\
-30.2
+48.24 \\
+25.08 \\
+26.68
 \end{pmatrix}
 \end{equation*}
 This is indeed again the left eigenvector! (Hopefully. Every time we save this document new random numbers are generated, so actually we can only hope that the theory is general enough to work for all random matrices \texttt{B} that are accidentally generated...). We see thus that the left eigenvector actually mainly tell you how many more offspring an individual that starts in a certain age class will have compared to individuals in other age classes on the long term. -- This is indeed a relatively difficult concept, but maybe if you think about it and go over this simulation yourself, it might sink in.
