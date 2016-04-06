@@ -14,4 +14,3 @@
 \contentsline {section}{\numberline {6}Demographic Stochasticity}{21}
 \contentsline {section}{\numberline {7}Additional Exercise}{22}
 \contentsline {section}{\numberline {8}Additional information:\\ The continuous logistic growth model}{23}
-\contentsline {section}{\numberline {9}Answers to the \textit {pen \& paper} exercises}{25}
