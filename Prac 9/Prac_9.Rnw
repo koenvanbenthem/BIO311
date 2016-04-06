@@ -39,7 +39,7 @@ options(width=60)
 \vspace{3cm}
 \newpage
 
-\subsubsection{Reproductive values}\label{Newfrhere}
+\subsubsection{Reproductive values}
 The reproductive value vector represents the contribution of each individual to present and future reproduction. In other words, it gives how much an individual in a given age class contributes to the population on the long-term, including offspring of its offspring. That is: if we have a population and its matrix at time $t=1$, what proportion of individuals at a much later time will be descendants of individuals in age class $1$ at time $t=1$ and how many from individuals in age class $2$ etc. Mathematically, the reproductive value vector is the left eigenvector of the population matrix.
 \begin{equation}
 \vec{v}A=\lambda \vec{v}
@@ -165,10 +165,15 @@ However, now the numbers no longer add up to $100\%$. Since all we care about is
 \end{equation*}
 This is indeed again the left eigenvector! (Hopefully. Every time we save this document new random numbers are generated, so actually we can only hope that the theory is general enough to work for all random matrices \texttt{B} that are accidentally generated...). We see thus that the left eigenvector actually mainly tell you how many more offspring an individual that starts in a certain age class will have compared to individuals in other age classes on the long term. -- This is indeed a relatively difficult concept, but maybe if you think about it and go over this simulation yourself, it might sink in.
 \end{mdframed}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% LTREs %%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Life Table Response Experiment}
-Life table response experiments (LTREs) are used to assess which  differences in vital rates lead to a change in $\lambda$ in an experimental design. The experiment you performed on the rotifers is well suited to be analysed by an LTRE. More information on the LTREs can be find in Caswell (2001) \textit{Matrix population models}, this is also the book that we based the theoretical background of this practical on. 
-\subsection{One-way fixed designs}
-A one-way fixed effect is applied on data with one treatment of several levels. For example, let us examine two populations of yellow-necked mice. 
+Life table response experiments (LTREs) are used to assess which  differences in vital rates lead to a change in $\lambda$ in an experimental design. The experiment you performed on the rotifers is well suited to be analysed by an LTRE. More information on the LTREs can be find in Caswell (2001) \textit{Matrix population models}, this is also the book that we based the theoretical background of this practical on. Before analysing the rotifer data, we will first perform a simple LTRE analysis on different data. During this part of the practical, we will write some of the functions that we will use later to analyse the rotifer data.
+
+\subsection{Comparison of two Leslie matrices}
+To start, we will examine two populations of yellow-necked mice. 
 
 \begin{figure}[h]
 \centering
@@ -177,7 +182,7 @@ A one-way fixed effect is applied on data with one treatment of several levels. 
 \end{figure}
 
 This species lives mostly in woodlands and it is suspected that its distribution is limited by altitude. Let us compare a population living in the mountain (population $\boldsymbol{M}$) with a population living in the plain (population $\boldsymbol{P}$) to see if the altitude is a limiting distribution factor. This species can be described by a life-cylce in two stages; juveniles and adults. Thus the matrices describing those populations are given by:
-<<t20,echo=F,eval=T, results='hide'>>=
+<<t20,echo=F,eval=T, include=FALSE>>=
 P<-matrix(c(0,0.25,2,0.5), nrow=2)
 M<-matrix(c(0,0.2,1.9,0.45), nrow=2)
 
@@ -200,7 +205,54 @@ and
 \Sexpr{M[2,1]}&\Sexpr{M[2,2]}
 \end{pmatrix}
 \end{equation}
-Find the asymptotic growth rates of these populations. You can see that they differ. We would now like to investigate which matrix elements contribute the most to the difference in the asymptotic growth rates. For this we describe the asymptotic growth rate of the mountain population matrix, $\boldsymbol{M}$, as a function of the asymptotic growth rate of the plain population matrix, $\boldsymbol{P}$ , our reference population plus a treatment effect:  
+Find the asymptotic growth rates of these populations. You can see that they differ. We would now like to investigate which matrix elements contribute the most to the difference in the asymptotic growth rates. As before, we will start by looking at the sensitivities. This time however, we will write a function that calculates the sensitivities of $\lambda$ to the matrix elements. Writing a general function, will make it easier for us to calculate sensitivities for matrices later. We provide two options for doing so: by numerical perturbation as we did in the previous practical, or by using the exact solution. The latter is conceptually more difficult, but more precise and less code. You may choose yourself which one you want to implement.
+
+\begin{mdframed}\textbf{A: Sensitivities using perturbations}\\
+<<numm_approx>>=
+A<-matrix(runif(4),ncol=2)
+sens <- function(A){
+  da <- 1e-4
+  lam <- eigen(A)$value[1]
+  dim <- ncol(A)
+  output <- matrix(NA,ncol=dim,nrow=dim)
+  for(i in 1:nrow(A)){
+    for(j in 1:ncol(A)){
+      TempA <- A
+      TempA[i,j] <- A[i,j] + da
+      TemLam <- eigen(TempA)$value[1]
+      output[i,j] <- (TemLam - lam) /da
+    }
+  }
+  return(output)
+}
+@
+\end{mdframed}
+\begin{mdframed}
+\textbf{B: Sensitivities using the exact solution}\\
+Here we will use the formula that was shown in the lecture:
+\begin{equation}
+\begin{pmatrix} 
+\frac{\partial \lambda}{\partial a_{1,1}} & \frac{\partial \lambda}{\partial a_{1,2}} & \dots & \frac{\partial \lambda}{\partial a_{1,N}} \\ 
+\frac{\partial \lambda}{\partial a_{2,1}} & \frac{\partial \lambda}{\partial a_{2,2}} & \dots & \frac{\partial \lambda}{\partial a_{2,N}}\\
+\vdots & \vdots & & \vdots \\
+\frac{\partial \lambda}{\partial a_{N,1}} & \frac{\partial \lambda}{\partial a_{N,2}} & \dots & \frac{\partial \lambda}{\partial a_{N,N}} \\ 
+\end{pmatrix}
+=
+ \frac{\vec{v} \vec{w}^T}{\vec{v}^T \vec{w}}
+\end{equation}
+Here, $\vec{w}$ and $\vec{v}$ are the dominant right and left eigenvector respectively. Furthermore $\vec{v}^T$ responds to the transpose of $\vec{v}$. Using this we can now wite a function to calculate the sensitivities:
+<<exact_approach>>=
+sens <- function(A){
+  w <- eigen(A)$vector[,1]
+  v <- eigen(t(A))$vector[,1]
+  outcome <- v %*% t(w) / as.numeric(t(w)%*%v)
+  return(outcome)
+}
+@
+\end{mdframed}
+This is a very good start! We now have a function that easily provides us with the sensitivity values for any matrix. All we have to do now to get the sensitivity of \texttt{P} is to type \texttt{sens(P)}. 
+
+For this we describe the asymptotic growth rate of the mountain population matrix, $\boldsymbol{M}$, as a function of the asymptotic growth rate of the plain population matrix, $\boldsymbol{P}$ , our reference population plus a treatment effect:  
 
 \begin{equation}\label{a}
 \lambda^{(M)} \approx \lambda^{(P)}+\sum_{i,j}{(a^{(M)}_{ij}-a^{(P)}_{ij})} \frac{ \partial\lambda^{A}}{\partial a^{A}_{ij}}
@@ -222,7 +274,7 @@ You may have recognized that equation \ref{a} is a linear equation ($y=b+ax$). T
 
 With equation \ref{a}, find the value of $\lambda^{(\boldsymbol{M})}$ using \texttt{R} and compare it to the value you found earlier. How different are they? More interestingly: which difference in the matrix elements is mainly responsible for this difference? Is it the juvenile survival, the adult survival or the reproductive rate?\\[1.5ex]
 
-\textit{Hint} Find the "mid-way" matrix. For the sensitivities, either approximate them yourself or use the \texttt{sensitivity()} function from the \texttt{popbio} package
+\textit{Hint} Find the "mid-way" matrix. For the sensitivities.
 <<t21,echo=F,eval=T, results='hide'>>=
 P<-matrix(c(0,0.25,2,0.5), nrow=2)
 M<-matrix(c(0,0.2,1.9,0.45), nrow=2)

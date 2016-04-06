@@ -82,7 +82,7 @@
 \vspace{3cm}
 \newpage
 
-\subsubsection{Reproductive values}\label{Newfrhere}
+\subsubsection{Reproductive values}
 The reproductive value vector represents the contribution of each individual to present and future reproduction. In other words, it gives how much an individual in a given age class contributes to the population on the long-term, including offspring of its offspring. That is: if we have a population and its matrix at time $t=1$, what proportion of individuals at a much later time will be descendants of individuals in age class $1$ at time $t=1$ and how many from individuals in age class $2$ etc. Mathematically, the reproductive value vector is the left eigenvector of the population matrix.
 \begin{equation}
 \vec{v}A=\lambda \vec{v}
@@ -140,10 +140,10 @@ If you want to understand the interpretation of the reproductive values more clo
 \hlstd{B}
 \end{alltt}
 \begin{verbatim}
-##          [,1]      [,2]     [,3]
-## [1,] 2.178226 3.4971162 2.319496
-## [2,] 2.276421 3.8959946 3.774394
-## [3,] 3.788442 0.7960238 3.114312
+##           [,1]      [,2]     [,3]
+## [1,] 0.5650049 0.7936572 1.294919
+## [2,] 2.6327763 2.3305074 3.259474
+## [3,] 1.6566056 3.6362175 2.593450
 \end{verbatim}
 \begin{alltt}
 \hlcom{# We output B, in case you want to repeat the }
@@ -152,7 +152,7 @@ If you want to understand the interpretation of the reproductive values more clo
 \hlkwd{eigen}\hlstd{(}\hlkwd{t}\hlstd{(B))}\hlopt{$}\hlstd{vectors[,}\hlnum{1}\hlstd{]}\hlopt{/}\hlkwd{sum}\hlstd{(}\hlkwd{eigen}\hlstd{(}\hlkwd{t}\hlstd{(B))}\hlopt{$}\hlstd{vectors[,}\hlnum{1}\hlstd{])}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.3281938+0i 0.3117589+0i 0.3600473+0i
+## [1] 0.2599660+0i 0.3642403+0i 0.3757937+0i
 \end{verbatim}
 \begin{alltt}
 \hlcom{# We calculate the dominant left eigenvector of this matrix}
@@ -183,7 +183,7 @@ If you want to understand the interpretation of the reproductive values more clo
 \hlstd{N1}\hlopt{/}\hlkwd{sum}\hlstd{(N1)}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.3281938 0.3117589 0.3600473
+## [1] 0.2599660 0.3642403 0.3757937
 \end{verbatim}
 \begin{alltt}
 \hlcom{# We output the normalised version of N1, which should be}
@@ -191,39 +191,44 @@ If you want to understand the interpretation of the reproductive values more clo
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-You can interpret this as follows: if we for example start with a population $\begin{pmatrix}1\\ 1\\ 1 \end{pmatrix}$, after $40$ years, $33\% $ of the total population will have originated from the individual that was initially in age class $1$, $31\% $ from the individual in age class $2$ and the remaining $36\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population.
+You can interpret this as follows: if we for example start with a population $\begin{pmatrix}1\\ 1\\ 1 \end{pmatrix}$, after $40$ years, $26\% $ of the total population will have originated from the individual that was initially in age class $1$, $36\% $ from the individual in age class $2$ and the remaining $38\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population.
 \textit{Please note that since we took completely random numbers to construct the matrix, the matrix is unlikely to have biological relevance. But the concept of course remains the same for more relevant matrices.}\\[1.5ex]
 However, what would happen if the initial population would look as follows: $\begin{pmatrix}2\\ 1\\ 1 \end{pmatrix}$? If we project this initial population in the future we find (the code is omitted this time):
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-## [1] 0.4941957 0.2347240 0.2710804
+## [1] 0.4126556 0.2890874 0.2982570
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-This means that after $40$ years, $49\% $ of the total population will have originated from the two individuals that were initially in age class $1$, $23\% $ from the individual in age class $2$ and the remaining $27\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population. These numbers do not correspond to the left eigenvector, yet they do relate to the left eigenvalue.
-First we need to realize that if $49\% $ of the final population originated from the two individuals in age class 1 in the initial population, this means that each of these two individuals is responsible for $24.5\% $ of the final population. It is of course fairer to compare these numbers with each other (so after correcting for the number of individuals that we started with):
+This means that after $40$ years, $41\% $ of the total population will have originated from the two individuals that were initially in age class $1$, $29\% $ from the individual in age class $2$ and the remaining $30\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population. These numbers do not correspond to the left eigenvector, yet they do relate to the left eigenvalue.
+First we need to realize that if $41\% $ of the final population originated from the two individuals in age class 1 in the initial population, this means that each of these two individuals is responsible for $20.5\% $ of the final population. It is of course fairer to compare these numbers with each other (so after correcting for the number of individuals that we started with):
 \begin{equation*}
 \begin{pmatrix}
-24.5 \\
-23 \\
-27
+20.5 \\
+29 \\
+30
 \end{pmatrix}
 \end{equation*}
-However, now the numbers no longer add up to $100\%$. Since all we care about is the ratio between the different contributions, we can just divide all of them by the sum of the three contributions ($\approx 24.5 +23 + 27 $) and multiply the total by $100$ (just to make sure that all the percentages add up to $100$). What we get now is: 
+However, now the numbers no longer add up to $100\%$. Since all we care about is the ratio between the different contributions, we can just divide all of them by the sum of the three contributions ($\approx 20.5 +29 + 30 $) and multiply the total by $100$ (just to make sure that all the percentages add up to $100$). What we get now is: 
 \begin{equation*}
 \begin{pmatrix}
-32.82 \\
-31.18 \\
-36
+26 \\
+36.42 \\
+37.58
 \end{pmatrix}
 \end{equation*}
 This is indeed again the left eigenvector! (Hopefully. Every time we save this document new random numbers are generated, so actually we can only hope that the theory is general enough to work for all random matrices \texttt{B} that are accidentally generated...). We see thus that the left eigenvector actually mainly tell you how many more offspring an individual that starts in a certain age class will have compared to individuals in other age classes on the long term. -- This is indeed a relatively difficult concept, but maybe if you think about it and go over this simulation yourself, it might sink in.
 \end{mdframed}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% LTREs %%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Life Table Response Experiment}
-Life table response experiments (LTREs) are used to assess which  differences in vital rates lead to a change in $\lambda$ in an experimental design. The experiment you performed on the rotifers is well suited to be analysed by an LTRE. More information on the LTREs can be find in Caswell (2001) \textit{Matrix population models}, this is also the book that we based the theoretical background of this practical on. 
-\subsection{One-way fixed designs}
-A one-way fixed effect is applied on data with one treatment of several levels. For example, let us examine two populations of yellow-necked mice. 
+Life table response experiments (LTREs) are used to assess which  differences in vital rates lead to a change in $\lambda$ in an experimental design. The experiment you performed on the rotifers is well suited to be analysed by an LTRE. More information on the LTREs can be find in Caswell (2001) \textit{Matrix population models}, this is also the book that we based the theoretical background of this practical on. Before analysing the rotifer data, we will first perform a simple LTRE analysis on different data. During this part of the practical, we will write some of the functions that we will use later to analyse the rotifer data.
+
+\subsection{Comparison of two Leslie matrices}
+To start, we will examine two populations of yellow-necked mice. 
 
 \begin{figure}[h]
 \centering
@@ -232,12 +237,7 @@ A one-way fixed effect is applied on data with one treatment of several levels. 
 \end{figure}
 
 This species lives mostly in woodlands and it is suspected that its distribution is limited by altitude. Let us compare a population living in the mountain (population $\boldsymbol{M}$) with a population living in the plain (population $\boldsymbol{P}$) to see if the altitude is a limiting distribution factor. This species can be described by a life-cylce in two stages; juveniles and adults. Thus the matrices describing those populations are given by:
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: quadprog}}\end{kframe}
-\end{knitrout}
 \begin{equation}
 \boldsymbol{P}=\begin{pmatrix}
 0&2\\
@@ -251,7 +251,62 @@ and
 0.2&0.45
 \end{pmatrix}
 \end{equation}
-Find the asymptotic growth rates of these populations. You can see that they differ. We would now like to investigate which matrix elements contribute the most to the difference in the asymptotic growth rates. For this we describe the asymptotic growth rate of the mountain population matrix, $\boldsymbol{M}$, as a function of the asymptotic growth rate of the plain population matrix, $\boldsymbol{P}$ , our reference population plus a treatment effect:  
+Find the asymptotic growth rates of these populations. You can see that they differ. We would now like to investigate which matrix elements contribute the most to the difference in the asymptotic growth rates. As before, we will start by looking at the sensitivities. This time however, we will write a function that calculates the sensitivities of $\lambda$ to the matrix elements. Writing a general function, will make it easier for us to calculate sensitivities for matrices later. We provide two options for doing so: by numerical perturbation as we did in the previous practical, or by using the exact solution. The latter is conceptually more difficult, but more precise and less code. You may choose yourself which one you want to implement.
+
+\begin{mdframed}\textbf{A: Sensitivities using perturbations}\\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{A}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{runif}\hlstd{(}\hlnum{4}\hlstd{),}\hlkwc{ncol}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlstd{sens} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{A}\hlstd{)\{}
+  \hlstd{da} \hlkwb{<-} \hlnum{1e-4}
+  \hlstd{lam} \hlkwb{<-} \hlkwd{eigen}\hlstd{(A)}\hlopt{$}\hlstd{value[}\hlnum{1}\hlstd{]}
+  \hlstd{dim} \hlkwb{<-} \hlkwd{ncol}\hlstd{(A)}
+  \hlstd{output} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{NA}\hlstd{,}\hlkwc{ncol}\hlstd{=dim,}\hlkwc{nrow}\hlstd{=dim)}
+  \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(A))\{}
+    \hlkwa{for}\hlstd{(j} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{ncol}\hlstd{(A))\{}
+      \hlstd{TempA} \hlkwb{<-} \hlstd{A}
+      \hlstd{TempA[i,j]} \hlkwb{<-} \hlstd{A[i,j]} \hlopt{+} \hlstd{da}
+      \hlstd{TemLam} \hlkwb{<-} \hlkwd{eigen}\hlstd{(TempA)}\hlopt{$}\hlstd{value[}\hlnum{1}\hlstd{]}
+      \hlstd{output[i,j]} \hlkwb{<-} \hlstd{(TemLam} \hlopt{-} \hlstd{lam)} \hlopt{/}\hlstd{da}
+    \hlstd{\}}
+  \hlstd{\}}
+  \hlkwd{return}\hlstd{(output)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\end{mdframed}
+\begin{mdframed}
+\textbf{B: Sensitivities using the exact solution}\\
+Here we will use the formula that was shown in the lecture:
+\begin{equation}
+\begin{pmatrix} 
+\frac{\partial \lambda}{\partial a_{1,1}} & \frac{\partial \lambda}{\partial a_{1,2}} & \dots & \frac{\partial \lambda}{\partial a_{1,N}} \\ 
+\frac{\partial \lambda}{\partial a_{2,1}} & \frac{\partial \lambda}{\partial a_{2,2}} & \dots & \frac{\partial \lambda}{\partial a_{2,N}}\\
+\vdots & \vdots & & \vdots \\
+\frac{\partial \lambda}{\partial a_{N,1}} & \frac{\partial \lambda}{\partial a_{N,2}} & \dots & \frac{\partial \lambda}{\partial a_{N,N}} \\ 
+\end{pmatrix}
+=
+ \frac{\vec{v} \vec{w}^T}{\vec{v}^T \vec{w}}
+\end{equation}
+Here, $\vec{w}$ and $\vec{v}$ are the dominant right and left eigenvector respectively. Furthermore $\vec{v}^T$ responds to the transpose of $\vec{v}$. Using this we can now wite a function to calculate the sensitivities:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{sens} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{A}\hlstd{)\{}
+  \hlstd{w} \hlkwb{<-} \hlkwd{eigen}\hlstd{(A)}\hlopt{$}\hlstd{vector[,}\hlnum{1}\hlstd{]}
+  \hlstd{v} \hlkwb{<-} \hlkwd{eigen}\hlstd{(}\hlkwd{t}\hlstd{(A))}\hlopt{$}\hlstd{vector[,}\hlnum{1}\hlstd{]}
+  \hlstd{outcome} \hlkwb{<-} \hlstd{v} \hlopt{%*%} \hlkwd{t}\hlstd{(w)} \hlopt{/} \hlkwd{as.numeric}\hlstd{(}\hlkwd{t}\hlstd{(w)}\hlopt{%*%}\hlstd{v)}
+  \hlkwd{return}\hlstd{(outcome)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\end{mdframed}
+This is a very good start! We now have a function that easily provides us with the sensitivity values for any matrix. All we have to do now to get the sensitivity of some matrix \texttt{P} is to type \texttt{sens(P)}. 
+
+For this we describe the asymptotic growth rate of the mountain population matrix, $\boldsymbol{M}$, as a function of the asymptotic growth rate of the plain population matrix, $\boldsymbol{P}$ , our reference population plus a treatment effect:  
 
 \begin{equation}\label{a}
 \lambda^{(M)} \approx \lambda^{(P)}+\sum_{i,j}{(a^{(M)}_{ij}-a^{(P)}_{ij})} \frac{ \partial\lambda^{A}}{\partial a^{A}_{ij}}
@@ -439,20 +494,18 @@ We shall now first calculate the adult survival rate for the period from day $1$
 \hlstd{\}}
 
 \hlcom{### Plots}
+\hlkwd{par}\hlstd{(}\hlkwc{mfrow}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{))}
+\hlkwd{barplot}\hlstd{(}\hlkwd{matrix}\hlstd{(}\hlkwd{unlist}\hlstd{(copper),}\hlkwc{nrow}\hlstd{=}\hlnum{4}\hlstd{),}\hlkwc{beside}\hlstd{=F)}
 \hlkwd{barplot}\hlstd{(}\hlkwd{matrix}\hlstd{(}\hlkwd{unlist}\hlstd{(copper),}\hlkwc{nrow}\hlstd{=}\hlnum{4}\hlstd{),}\hlkwc{beside}\hlstd{=T)}
 \end{alltt}
 \end{kframe}
 \includegraphics[width=\maxwidth]{figure/LTRE_FACT-1} 
 \begin{kframe}\begin{alltt}
 \hlkwd{barplot}\hlstd{(}\hlkwd{matrix}\hlstd{(}\hlkwd{unlist}\hlstd{(layer),}\hlkwc{nrow}\hlstd{=}\hlnum{4}\hlstd{),}\hlkwc{beside}\hlstd{=T)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/LTRE_FACT-2} 
-\begin{kframe}\begin{alltt}
 \hlkwd{barplot}\hlstd{(}\hlkwd{matrix}\hlstd{(}\hlkwd{unlist}\hlstd{(interaction),}\hlkwc{nrow}\hlstd{=}\hlnum{4}\hlstd{),}\hlkwc{beside}\hlstd{=T)}
 \end{alltt}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/LTRE_FACT-3} 
+\includegraphics[width=\maxwidth]{figure/LTRE_FACT-2} 
 \begin{kframe}\begin{alltt}
 \hlcom{## Summary}
 \hlkwd{sapply}\hlstd{(copper,sum)}
