@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  6 APR 2016 10:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  6 APR 2016 11:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1137,10 +1137,10 @@ Preview: Tightpage 0 0 0 0
 Non-PDF special ignored!
 Non-PDF special ignored!] (./k19-1.aux) ) 
 Here is how much of TeX's memory you used:
- 21825 strings out of 493089
- 424980 string characters out of 6134843
+ 21824 strings out of 493089
+ 424960 string characters out of 6134843
  450999 words of memory out of 5000000
- 24989 multiletter control sequences out of 15000+600000
+ 24988 multiletter control sequences out of 15000+600000
  4857 words of font info for 17 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,7n,54p,10395b,648s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1149,7 +1149,7 @@ nts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2015/texmf-dist/font
 s/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts
 /type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
 ype1/public/cm-super/sfrm1000.pfb>
-Output written on k19-1.pdf (1 page, 32279 bytes).
+Output written on k19-1.pdf (1 page, 32285 bytes).
 PDF statistics:
  24 PDF objects out of 1000 (max. 8388607)
  17 compressed objects within 1 object stream
