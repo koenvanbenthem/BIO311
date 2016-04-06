@@ -82,145 +82,6 @@
 \vspace{3cm}
 \newpage
 
-\subsubsection{Reproductive values}
-The reproductive value vector represents the contribution of each individual to present and future reproduction. In other words, it gives how much an individual in a given age class contributes to the population on the long-term, including offspring of its offspring. That is: if we have a population and its matrix at time $t=1$, what proportion of individuals at a much later time will be descendants of individuals in age class $1$ at time $t=1$ and how many from individuals in age class $2$ etc. Mathematically, the reproductive value vector is the left eigenvector of the population matrix.
-\begin{equation}
-\vec{v}A=\lambda \vec{v}
-\end{equation}
-Please note that this time the vector is on the left side instead of on the right side of the matrix. This is why this is called a left eigenvector. Multiplication with the vector on the left side of the matrix looks as follows in 2 dimensions:
-\begin{equation}
-\begin{pmatrix} v_1 & v_2 \end{pmatrix} \begin{pmatrix} a_{1,1} & a_{1,2}\\ a_{2,1} & a_{2,2} \end{pmatrix} = \begin{pmatrix} v_1 a_{1,1} + v_2 a_{2,1} & v_1 a_{1,2} + v_2 a_{2,2} \end{pmatrix}
-\end{equation}
-Again, we take the row from the first element (in this case the vector) and multiply its elements by the elements of the first column of the second element (in these case a matrix). Adding up these contributions gives us the value for the first entry of the final vector. Compare this to what you would get if the order of the matrix and the vector would be the other way around.
-
-To get the left eigenvector of a matrix, we need to perform the eigen analysis on the transpose of the projection matrix. (The transpose of a matrix is the matrix we get by exchanging the rows and the columns of that matrix. For example for the matrix $\boldsymbol{B}=\begin{pmatrix}a & b\\ c & d\end{pmatrix}$, $\boldsymbol{B}^T$ is the transpose of matrix $\boldsymbol{B}$ and $\boldsymbol{B}^T=\begin{pmatrix}a & c\\ b & d\end{pmatrix}$). More visually: when you transpose a matrix, you mirror its elements in the diagonal of that matrix. \texttt{t()} is the \texttt{R} function that transposes a matrix. If you do not remember what the function \texttt{eigen} does, reread the subsection \textit{asymptotic rate of increase} or aks \texttt{R} (\texttt{?eigen}).
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{At}\hlkwb{<-}\hlkwd{t}\hlstd{(A)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in t(A): object 'A' not found}}\begin{alltt}
-\hlstd{eigens.At}\hlkwb{<-}\hlkwd{eigen}\hlstd{(At)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in as.matrix(x): object 'At' not found}}\begin{alltt}
-\hlstd{eigens.At}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'eigens.At' not found}}\end{kframe}
-\end{knitrout}
-We apply the same proceedure as for the right eigenvector to find the left eigenvector and the eigenvalue. Write the code to extract the eigenvalue and the left eigenvector. Do you notice anything about the eigenvalue? Check that the found dominant left eigenvector is indeed a left eigenvector of the matrix with the dominant eigenvalue as its eigenvalue.\\[1.5ex]
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in which.max(eigens.At\$values): object 'eigens.At' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'eigens.At' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'eigens.At' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'v' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'rv' not found}}\end{kframe}
-\end{knitrout}
-\begin{mdframed}
-\textbf{Additional information: Reproductive values more in depth}\\
-If you want to understand the interpretation of the reproductive values more closely, take a look at the following (not too elegant) code:
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{B}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlnum{4}\hlopt{*}\hlkwd{runif}\hlstd{(}\hlnum{9}\hlstd{),}\hlkwc{nrow}\hlstd{=}\hlnum{3}\hlstd{)} \hlcom{# We generate a random matrix}
-
-\hlstd{B}
-\end{alltt}
-\begin{verbatim}
-##           [,1]      [,2]     [,3]
-## [1,] 0.5650049 0.7936572 1.294919
-## [2,] 2.6327763 2.3305074 3.259474
-## [3,] 1.6566056 3.6362175 2.593450
-\end{verbatim}
-\begin{alltt}
-\hlcom{# We output B, in case you want to repeat the }
-\hlcom{# simulation yourself}
-
-\hlkwd{eigen}\hlstd{(}\hlkwd{t}\hlstd{(B))}\hlopt{$}\hlstd{vectors[,}\hlnum{1}\hlstd{]}\hlopt{/}\hlkwd{sum}\hlstd{(}\hlkwd{eigen}\hlstd{(}\hlkwd{t}\hlstd{(B))}\hlopt{$}\hlstd{vectors[,}\hlnum{1}\hlstd{])}
-\end{alltt}
-\begin{verbatim}
-## [1] 0.2599660+0i 0.3642403+0i 0.3757937+0i
-\end{verbatim}
-\begin{alltt}
-\hlcom{# We calculate the dominant left eigenvector of this matrix}
-\hlcom{# and normalise it with respect to the sum of its elements}
-
-\hlcom{# Now we want to investigate what would happen to the }
-\hlcom{# following 3 initial populations:}
-\hlcom{# 1) (1,0,0)  2) (0,1,0)  3) (0,0,1)}
-
-\hlstd{N1}\hlkwb{<-}\hlkwd{rep}\hlstd{(}\hlnum{NA}\hlstd{,}\hlnum{3}\hlstd{)}
-\hlcom{# Create an empty vector for storing the final population}
-\hlcom{# size if we start with any of the three initial populations}
-\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{3}\hlstd{)\{}
-  \hlstd{N}\hlkwb{<-}\hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{3}\hlstd{)}
-  \hlstd{N[i]}\hlkwb{<-}\hlnum{1}
-  \hlcom{# Set the initial population vector}
-  \hlcom{# the first time it will be (1,0,0)}
-  \hlcom{# then (0,1,0) and finally (0,0,1)}
-
-  \hlkwa{for}\hlstd{(t} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{40}\hlstd{)\{}
-    \hlcom{# we project the population for 40 timesteps}
-    \hlstd{N}\hlkwb{<-}\hlstd{B}\hlopt{%*%}\hlstd{N}
-  \hlstd{\}}
-  \hlstd{N1[i]}\hlkwb{<-}\hlkwd{sum}\hlstd{(N)}
-  \hlcom{# We store the total population size after 40 timesteps}
-  \hlcom{# in the vector N1}
-\hlstd{\}}
-\hlstd{N1}\hlopt{/}\hlkwd{sum}\hlstd{(N1)}
-\end{alltt}
-\begin{verbatim}
-## [1] 0.2599660 0.3642403 0.3757937
-\end{verbatim}
-\begin{alltt}
-\hlcom{# We output the normalised version of N1, which should be}
-\hlcom{# equal to the left eigenvector, do check this!}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-You can interpret this as follows: if we for example start with a population $\begin{pmatrix}1\\ 1\\ 1 \end{pmatrix}$, after $40$ years, $26\% $ of the total population will have originated from the individual that was initially in age class $1$, $36\% $ from the individual in age class $2$ and the remaining $38\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population.
-\textit{Please note that since we took completely random numbers to construct the matrix, the matrix is unlikely to have biological relevance. But the concept of course remains the same for more relevant matrices.}\\[1.5ex]
-However, what would happen if the initial population would look as follows: $\begin{pmatrix}2\\ 1\\ 1 \end{pmatrix}$? If we project this initial population in the future we find (the code is omitted this time):
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-## [1] 0.4126556 0.2890874 0.2982570
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
-This means that after $40$ years, $41\% $ of the total population will have originated from the two individuals that were initially in age class $1$, $29\% $ from the individual in age class $2$ and the remaining $30\% $ of the total population at timestep $40$ from the individual that was in age class $3$ in the initial population. These numbers do not correspond to the left eigenvector, yet they do relate to the left eigenvalue.
-First we need to realize that if $41\% $ of the final population originated from the two individuals in age class 1 in the initial population, this means that each of these two individuals is responsible for $20.5\% $ of the final population. It is of course fairer to compare these numbers with each other (so after correcting for the number of individuals that we started with):
-\begin{equation*}
-\begin{pmatrix}
-20.5 \\
-29 \\
-30
-\end{pmatrix}
-\end{equation*}
-However, now the numbers no longer add up to $100\%$. Since all we care about is the ratio between the different contributions, we can just divide all of them by the sum of the three contributions ($\approx 20.5 +29 + 30 $) and multiply the total by $100$ (just to make sure that all the percentages add up to $100$). What we get now is: 
-\begin{equation*}
-\begin{pmatrix}
-26 \\
-36.42 \\
-37.58
-\end{pmatrix}
-\end{equation*}
-This is indeed again the left eigenvector! (Hopefully. Every time we save this document new random numbers are generated, so actually we can only hope that the theory is general enough to work for all random matrices \texttt{B} that are accidentally generated...). We see thus that the left eigenvector actually mainly tell you how many more offspring an individual that starts in a certain age class will have compared to individuals in other age classes on the long term. -- This is indeed a relatively difficult concept, but maybe if you think about it and go over this simulation yourself, it might sink in.
-\end{mdframed}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%% LTREs %%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -273,7 +134,13 @@ Find the asymptotic growth rates of these populations. You can see that they dif
   \hlstd{\}}
   \hlkwd{return}\hlstd{(output)}
 \hlstd{\}}
+\hlkwd{sens}\hlstd{(A)}
 \end{alltt}
+\begin{verbatim}
+##           [,1]      [,2]
+## [1,] 0.2412714 0.1855591
+## [2,] 0.9863592 0.7587660
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 \end{mdframed}
@@ -297,14 +164,20 @@ Here, $\vec{w}$ and $\vec{v}$ are the dominant right and left eigenvector respec
 \hlstd{sens} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{A}\hlstd{)\{}
   \hlstd{w} \hlkwb{<-} \hlkwd{eigen}\hlstd{(A)}\hlopt{$}\hlstd{vector[,}\hlnum{1}\hlstd{]}
   \hlstd{v} \hlkwb{<-} \hlkwd{eigen}\hlstd{(}\hlkwd{t}\hlstd{(A))}\hlopt{$}\hlstd{vector[,}\hlnum{1}\hlstd{]}
-  \hlstd{outcome} \hlkwb{<-} \hlstd{v} \hlopt{%*%} \hlkwd{t}\hlstd{(w)} \hlopt{/} \hlkwd{as.numeric}\hlstd{(}\hlkwd{t}\hlstd{(w)}\hlopt{%*%}\hlstd{v)}
+  \hlstd{outcome} \hlkwb{<-} \hlstd{v} \hlopt{%*%} \hlkwd{t}\hlstd{(w)} \hlopt{/} \hlkwd{as.numeric}\hlstd{(}\hlkwd{t}\hlstd{(v)}\hlopt{%*%}\hlstd{w)}
   \hlkwd{return}\hlstd{(outcome)}
 \hlstd{\}}
+\hlkwd{sens}\hlstd{(A)}
 \end{alltt}
+\begin{verbatim}
+##           [,1]      [,2]
+## [1,] 0.2412527 0.1855626
+## [2,] 0.9864586 0.7587473
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 \end{mdframed}
-This is a very good start! We now have a function that easily provides us with the sensitivity values for any matrix. All we have to do now to get the sensitivity of some matrix \texttt{P} is to type \texttt{sens(P)}. 
+This is a very good start! We now have a function that easily provides us with the sensitivity values for any matrix. All we have to do now to get the sensitivity of \texttt{P} is to type \texttt{sens(P)}. 
 
 For this we describe the asymptotic growth rate of the mountain population matrix, $\boldsymbol{M}$, as a function of the asymptotic growth rate of the plain population matrix, $\boldsymbol{P}$ , our reference population plus a treatment effect:  
 
@@ -328,7 +201,7 @@ You may have recognized that equation \ref{a} is a linear equation ($y=b+ax$). T
 
 With equation \ref{a}, find the value of $\lambda^{(\boldsymbol{M})}$ using \texttt{R} and compare it to the value you found earlier. How different are they? More interestingly: which difference in the matrix elements is mainly responsible for this difference? Is it the juvenile survival, the adult survival or the reproductive rate?\\[1.5ex]
 
-\textit{Hint} Find the "mid-way" matrix. For the sensitivities, either approximate them yourself or use the \texttt{sensitivity()} function from the \texttt{popbio} package
+\textit{Hint} Find the "mid-way" matrix. For the sensitivities.
 
 \subsection{Fixed Factorial Designs (Theory)}
 Factorial LTRE allows the examination of the effects of several treatments and their interactions. This is the case for your rotifer data where you have a "layer" treatment, a "pollution" treatment and a "species" treatment. Not all the combinations were investigated though; the layers "recovery" and "pollution" contained only the species BU whereas the layers "commercial" and "postpollution" contained only species BC. What difficulty would this pose if you want to compare the species to each other? Because of this, we cannot make a full factorial LTRE on the rotifer data, but we will examine subsets of the full dataset.
@@ -396,28 +269,42 @@ Before we can start with the analysis of the population matrices, we first need.
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{Rot} \hlkwb{<-} \hlkwd{read.csv}\hlstd{(}\hlstr{"/Users/koen/Documents/Given Courses/BIO311/Prac 9/rotifer_data.csv"}\hlstd{)[,}\hlnum{2}\hlopt{:}\hlnum{9}\hlstd{]}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in file(file, "{}rt"{}): cannot open file '/Users/koen/Documents/Given Courses/BIO311/Prac 9/rotifer\_data.csv': No such file or directory}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in file(file, "{}rt"{}): cannot open the connection}}\begin{alltt}
 \hlkwd{table}\hlstd{(Rot}\hlopt{$}\hlstd{Copper)}
 \end{alltt}
-\begin{verbatim}
-## 
-##    0   50  100 1000 
-##   54   54   50    4
-\end{verbatim}
-\begin{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in table(Rot\$Copper): object 'Rot' not found}}\begin{alltt}
 \hlstd{Rot}\hlopt{$}\hlstd{Copper[Rot}\hlopt{$}\hlstd{Copper}\hlopt{==}\hlnum{1000}\hlstd{]} \hlkwb{<-} \hlnum{100}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in Rot\$Copper[Rot\$Copper == 1000] <- 100: object 'Rot' not found}}\begin{alltt}
 \hlkwd{table}\hlstd{(Rot}\hlopt{$}\hlstd{Layer)}
 \end{alltt}
-\begin{verbatim}
-## 
-## peak post Post  rec 
-##   54   51    3   54
-\end{verbatim}
-\begin{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in table(Rot\$Layer): object 'Rot' not found}}\begin{alltt}
 \hlstd{Rot}\hlopt{$}\hlstd{Layer[Rot}\hlopt{$}\hlstd{Layer}\hlopt{==}\hlstr{"Post"}\hlstd{]} \hlkwb{<-} \hlstr{"post"}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in Rot\$Layer[Rot\$Layer == "{}Post"{}] <- "{}post"{}: object 'Rot' not found}}\begin{alltt}
 \hlstd{Rotti}\hlkwb{<-}\hlkwd{reshape}\hlstd{(Rot,}\hlkwc{timevar}\hlstd{=}\hlstr{"Day"}\hlstd{,}\hlkwc{idvar}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"Clone"}\hlstd{,}\hlstr{"Copper"}\hlstd{,}\hlstr{"Layer"}\hlstd{),}\hlkwc{direction}\hlstd{=}\hlstr{"wide"}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in reshape(Rot, timevar = "{}Day"{}, idvar = c("{}Clone"{}, "{}Copper"{}, "{}Layer"{}), : object 'Rot' not found}}\begin{alltt}
 \hlstd{Rates} \hlkwb{<-} \hlstd{Rotti[,}\hlnum{1}\hlopt{:}\hlnum{3}\hlstd{]}
 \end{alltt}
-\end{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\end{kframe}
 \end{knitrout}
 We shall now first calculate the adult survival rate for the period from day $1$ to day $2$.
 \begin{knitrout}
@@ -425,31 +312,90 @@ We shall now first calculate the adult survival rate for the period from day $1$
 \begin{alltt}
 \hlcom{# 1 --> 2}
 \hlstd{Rates}\hlopt{$}\hlstd{Sa1} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.1} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.2)}\hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.1}
-\hlstd{Rates}\hlopt{$}\hlstd{M1} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.2} \hlopt{+} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.2} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.1)} \hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.1}
-\hlstd{Rates}\hlopt{$}\hlstd{Sj1} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Juv.1} \hlopt{-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.2} \hlopt{+} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.2} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.1)} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Juv.2)}\hlopt{/}\hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.1}
-\hlstd{Rates}\hlopt{$}\hlstd{R1} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Juv.2} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.2}\hlopt{*}\hlstd{Rates}\hlopt{$}\hlstd{Sj1)} \hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.1}
+\end{alltt}
 
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{M1} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.2} \hlopt{+} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.2} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.1)} \hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.1}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{Sj1} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Juv.1} \hlopt{-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.2} \hlopt{+} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.2} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.1)} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Juv.2)}\hlopt{/}\hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.1}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{R1} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Juv.2} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.2}\hlopt{*}\hlstd{Rates}\hlopt{$}\hlstd{Sj1)} \hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.1}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\begin{alltt}
 \hlcom{# 2 --> 3}
 \hlstd{Rates}\hlopt{$}\hlstd{Sa2} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.2} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.3)}\hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.2}
-\hlstd{Rates}\hlopt{$}\hlstd{M2} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.3} \hlopt{+} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.3} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.2)} \hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.2}
-\hlstd{Rates}\hlopt{$}\hlstd{Sj2} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Juv.2} \hlopt{-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.3} \hlopt{+} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.3} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.2)} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Juv.3)}\hlopt{/}\hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.2}
-\hlstd{Rates}\hlopt{$}\hlstd{R2} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Juv.3} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.3}\hlopt{*}\hlstd{Rates}\hlopt{$}\hlstd{Sj2)} \hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.2}
+\end{alltt}
 
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{M2} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.3} \hlopt{+} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.3} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.2)} \hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.2}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{Sj2} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Juv.2} \hlopt{-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.3} \hlopt{+} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.3} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.2)} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Juv.3)}\hlopt{/}\hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.2}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{R2} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Juv.3} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.3}\hlopt{*}\hlstd{Rates}\hlopt{$}\hlstd{Sj2)} \hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.2}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\begin{alltt}
 \hlcom{# Averages}
 \hlstd{Rates}\hlopt{$}\hlstd{SaM} \hlkwb{<-} \hlstd{(Rates}\hlopt{$}\hlstd{Sa1} \hlopt{+} \hlstd{Rates}\hlopt{$}\hlstd{Sa2)}\hlopt{/}\hlnum{2}
-\hlstd{Rates}\hlopt{$}\hlstd{MM} \hlkwb{<-} \hlstd{(Rates}\hlopt{$}\hlstd{M1} \hlopt{+} \hlstd{Rates}\hlopt{$}\hlstd{M2)}\hlopt{/}\hlnum{2}
-\hlstd{Rates}\hlopt{$}\hlstd{SjM} \hlkwb{<-} \hlstd{(Rates}\hlopt{$}\hlstd{Sj1} \hlopt{+} \hlstd{Rates}\hlopt{$}\hlstd{Sj2)}\hlopt{/}\hlnum{2}
-\hlstd{Rates}\hlopt{$}\hlstd{RM} \hlkwb{<-} \hlstd{(Rates}\hlopt{$}\hlstd{R1} \hlopt{+} \hlstd{Rates}\hlopt{$}\hlstd{R2)}\hlopt{/}\hlnum{2}
+\end{alltt}
 
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates' not found}}\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{MM} \hlkwb{<-} \hlstd{(Rates}\hlopt{$}\hlstd{M1} \hlopt{+} \hlstd{Rates}\hlopt{$}\hlstd{M2)}\hlopt{/}\hlnum{2}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates' not found}}\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{SjM} \hlkwb{<-} \hlstd{(Rates}\hlopt{$}\hlstd{Sj1} \hlopt{+} \hlstd{Rates}\hlopt{$}\hlstd{Sj2)}\hlopt{/}\hlnum{2}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates' not found}}\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{RM} \hlkwb{<-} \hlstd{(Rates}\hlopt{$}\hlstd{R1} \hlopt{+} \hlstd{Rates}\hlopt{$}\hlstd{R2)}\hlopt{/}\hlnum{2}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates' not found}}\begin{alltt}
 \hlstd{Rates2} \hlkwb{<-} \hlstd{Rates[,}\hlkwd{c}\hlstd{(}\hlstr{'Copper'}\hlstd{,}\hlstr{'Layer'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates' not found}}\begin{alltt}
 \hlstd{Rates3} \hlkwb{<-} \hlkwd{aggregate}\hlstd{( .}\hlopt{~} \hlstd{Copper}\hlopt{+}\hlstd{Layer,Rates2,mean)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates2' not found}}\begin{alltt}
 \hlstd{Rates3}\hlopt{$}\hlstd{lambda} \hlkwb{<-} \hlnum{NA}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in Rates3\$lambda <- NA: object 'Rates3' not found}}\begin{alltt}
 \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(Rates3))\{}
   \hlstd{Mat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(Rates3}\hlopt{$}\hlstd{SjM[i],Rates3}\hlopt{$}\hlstd{MM[i],Rates3}\hlopt{$}\hlstd{RM[i],Rates3}\hlopt{$}\hlstd{SaM[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
   \hlstd{Rates3}\hlopt{$}\hlstd{lambda[i]} \hlkwb{<-} \hlkwd{eigen}\hlstd{(Mat)}\hlopt{$}\hlstd{values[}\hlnum{1}\hlstd{]}
 \hlstd{\}}
 \end{alltt}
-\end{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in nrow(Rates3): object 'Rates3' not found}}\end{kframe}
 \end{knitrout}
 
 \begin{knitrout}
@@ -464,35 +410,75 @@ We shall now first calculate the adult survival rate for the period from day $1$
 \hlstd{\}}
 
 \hlstd{MatMean} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlkwd{mean}\hlstd{(Rates3}\hlopt{$}\hlstd{SjM),}\hlkwd{mean}\hlstd{(Rates3}\hlopt{$}\hlstd{MM),}\hlkwd{mean}\hlstd{(Rates3}\hlopt{$}\hlstd{RM),}\hlkwd{mean}\hlstd{(Rates3}\hlopt{$}\hlstd{SaM)),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+\end{alltt}
 
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in mean(Rates3\$SjM): object 'Rates3' not found}}\begin{alltt}
 \hlcom{### Copper treatment}
 \hlstd{temp}  \hlkwb{<-} \hlstd{Rates3[,}\hlkwd{c}\hlstd{(}\hlstr{'Copper'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates3' not found}}\begin{alltt}
 \hlstd{tempc} \hlkwb{<-} \hlkwd{aggregate}\hlstd{(.}\hlopt{~}\hlstd{Copper,temp,mean)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'temp' not found}}\begin{alltt}
 \hlstd{copper} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlnum{3}\hlstd{)}
 \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{3}\hlstd{)\{}
   \hlstd{mat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(tempc}\hlopt{$}\hlstd{SjM[i],tempc}\hlopt{$}\hlstd{MM[i],tempc}\hlopt{$}\hlstd{RM[i],tempc}\hlopt{$}\hlstd{SaM[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
   \hlstd{copper[[i]]} \hlkwb{<-} \hlkwd{LTRE}\hlstd{(mat,MatMean)}
 \hlstd{\}}
-\hlkwd{names}\hlstd{(copper)} \hlkwb{<-} \hlstd{tempc}\hlopt{$}\hlstd{Copper}
+\end{alltt}
 
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in matrix(c(tempc\$SjM[i], tempc\$MM[i], tempc\$RM[i], tempc\$SaM[i]), : object 'tempc' not found}}\begin{alltt}
+\hlkwd{names}\hlstd{(copper)} \hlkwb{<-} \hlstd{tempc}\hlopt{$}\hlstd{Copper}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'tempc' not found}}\begin{alltt}
 \hlcom{### Layer treatment}
 \hlstd{temp}  \hlkwb{<-} \hlstd{Rates3[,}\hlkwd{c}\hlstd{(}\hlstr{'Layer'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates3' not found}}\begin{alltt}
 \hlstd{templ} \hlkwb{<-} \hlkwd{aggregate}\hlstd{(.}\hlopt{~}\hlstd{Layer,temp,mean)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'temp' not found}}\begin{alltt}
 \hlstd{layer} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlnum{3}\hlstd{)}
 \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{3}\hlstd{)\{}
   \hlstd{mat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(templ}\hlopt{$}\hlstd{SjM[i],templ}\hlopt{$}\hlstd{MM[i],templ}\hlopt{$}\hlstd{RM[i],templ}\hlopt{$}\hlstd{SaM[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
   \hlstd{layer[[i]]} \hlkwb{<-} \hlkwd{LTRE}\hlstd{(mat,MatMean)}
 \hlstd{\}}
-\hlkwd{names}\hlstd{(layer)} \hlkwb{=} \hlstd{templ}\hlopt{$}\hlstd{Layer}
+\end{alltt}
 
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in matrix(c(templ\$SjM[i], templ\$MM[i], templ\$RM[i], templ\$SaM[i]), : object 'templ' not found}}\begin{alltt}
+\hlkwd{names}\hlstd{(layer)} \hlkwb{=} \hlstd{templ}\hlopt{$}\hlstd{Layer}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'templ' not found}}\begin{alltt}
 \hlcom{### Interactions}
 \hlstd{temp2}  \hlkwb{<-} \hlstd{Rates3[,}\hlkwd{c}\hlstd{(}\hlstr{'Copper'}\hlstd{,}\hlstr{'Layer'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates3' not found}}\begin{alltt}
 \hlstd{interaction} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlnum{9}\hlstd{)}
 \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{9}\hlstd{)\{}
   \hlstd{mat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(temp2}\hlopt{$}\hlstd{SjM[i],temp2}\hlopt{$}\hlstd{MM[i],temp2}\hlopt{$}\hlstd{RM[i],temp2}\hlopt{$}\hlstd{SaM[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
   \hlstd{interaction[[i]]} \hlkwb{<-} \hlkwd{LTRE}\hlstd{(mat,MatMean)} \hlopt{-} \hlstd{layer[[}\hlkwd{as.character}\hlstd{(temp2}\hlopt{$}\hlstd{Layer[i])]]} \hlopt{-} \hlstd{copper[[}\hlkwd{as.character}\hlstd{(temp2}\hlopt{$}\hlstd{Copper[i])]]}
 \hlstd{\}}
+\end{alltt}
 
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in matrix(c(temp2\$SjM[i], temp2\$MM[i], temp2\$RM[i], temp2\$SaM[i]), : object 'temp2' not found}}\begin{alltt}
 \hlcom{### Plots}
 \hlkwd{par}\hlstd{(}\hlkwc{mfrow}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{))}
 \hlkwd{barplot}\hlstd{(}\hlkwd{matrix}\hlstd{(}\hlkwd{unlist}\hlstd{(copper),}\hlkwc{nrow}\hlstd{=}\hlnum{4}\hlstd{),}\hlkwc{beside}\hlstd{=F)}
@@ -511,59 +497,51 @@ We shall now first calculate the adult survival rate for the period from day $1$
 \hlkwd{sapply}\hlstd{(copper,sum)}
 \end{alltt}
 \begin{verbatim}
-##           0          50         100 
-##  0.08814100 -0.01002019 -0.09329622
+## [1] 3
 \end{verbatim}
 \begin{alltt}
 \hlkwd{sapply}\hlstd{(layer,sum)}
 \end{alltt}
 \begin{verbatim}
-##         peak         post          rec 
-## -0.004656362  0.041299880 -0.036841624
+## [1] 3
 \end{verbatim}
 \begin{alltt}
 \hlkwd{sapply}\hlstd{(interaction,sum)}
 \end{alltt}
 \begin{verbatim}
-## [1] -0.0007072465  0.0132467044 -0.0101268866  0.0112381029
-## [5]  0.0012824450  0.0012805065 -0.0113151382 -0.0142800310
-## [9]  0.0049814645
+## [1] 9
 \end{verbatim}
 \begin{alltt}
 \hlcom{### Outcome check}
 
 \hlstd{Rates3}\hlopt{$}\hlstd{lambda2} \hlkwb{<-} \hlnum{NA}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in Rates3\$lambda2 <- NA: object 'Rates3' not found}}\begin{alltt}
 \hlstd{Rates3}\hlopt{$}\hlstd{lambda3} \hlkwb{<-} \hlnum{NA}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in Rates3\$lambda3 <- NA: object 'Rates3' not found}}\begin{alltt}
 \hlstd{lam_mean} \hlkwb{<-} \hlkwd{lambda}\hlstd{(MatMean)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in as.matrix(x): object 'MatMean' not found}}\begin{alltt}
 \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{9}\hlstd{)\{}
   \hlstd{Rates3}\hlopt{$}\hlstd{lambda2[i]} \hlkwb{<-} \hlstd{lam_mean} \hlopt{+} \hlkwd{sum}\hlstd{(copper[[}\hlkwd{as.character}\hlstd{(Rates3}\hlopt{$}\hlstd{Copper[i])]])} \hlopt{+}\hlkwd{sum}\hlstd{(layer[[}\hlkwd{as.character}\hlstd{(Rates3}\hlopt{$}\hlstd{Layer[i])]])} \hlopt{+} \hlkwd{sum}\hlstd{(interaction[[i]])}
   \hlstd{Rates3}\hlopt{$}\hlstd{lambda3[i]} \hlkwb{<-} \hlstd{lam_mean} \hlopt{+} \hlkwd{sum}\hlstd{(copper[[}\hlkwd{as.character}\hlstd{(Rates3}\hlopt{$}\hlstd{Copper[i])]])} \hlopt{+}\hlkwd{sum}\hlstd{(layer[[}\hlkwd{as.character}\hlstd{(Rates3}\hlopt{$}\hlstd{Layer[i])]])}
 \hlstd{\}}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: object 'lam\_mean' not found}}\begin{alltt}
 \hlstd{Rates3}
 \end{alltt}
-\begin{verbatim}
-##   Copper Layer       SaM        MM       SjM        RM
-## 1      0  peak 0.9062771 0.5625000 0.2993056 0.7330204
-## 2     50  peak 0.8325397 0.3436177 0.5429563 0.7901587
-## 3    100  peak 0.6763889 0.4187500 0.1827652 0.9999747
-## 4      0  post 0.8332341 0.5708333 0.4013889 0.9127561
-## 5     50  post 0.9101852 0.3851852 0.4495370 0.7438889
-## 6    100  post 0.8291667 0.3230519 0.5188312 0.7156417
-## 7      0   rec 0.8735119 0.5939484 0.3171627 0.6373810
-## 8     50   rec 0.8658069 0.3125000 0.6458333 0.5074206
-## 9    100   rec 0.8075397 0.1982143 0.6128968 0.7283050
-##     lambda  lambda2  lambda3
-## 1 1.313022 1.312811 1.313519
-## 2 1.228560 1.228604 1.215357
-## 3 1.122149 1.121954 1.132081
-## 4 1.370740 1.370713 1.359475
-## 5 1.262600 1.262596 1.261314
-## 6 1.179238 1.179318 1.178038
-## 7 1.270580 1.270018 1.281333
-## 8 1.168938 1.168892 1.183172
-## 9 1.102432 1.104878 1.099896
-\end{verbatim}
-\end{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates3' not found}}\end{kframe}
 \end{knitrout}
 
 \subsection{LTRE}
