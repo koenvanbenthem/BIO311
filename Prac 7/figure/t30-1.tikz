@@ -1,4 +1,4 @@
-% Created by tikzDevice version 0.10.1 on 2016-03-31 17:18:55
+% Created by tikzDevice version 0.9 on 2016-04-06 10:59:31
 % !TEX encoding = UTF-8 Unicode
 \documentclass{article}
 \nonstopmode
@@ -201,19 +201,19 @@
 
 \path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] (463.60, 45.90) -- (463.60, 41.40);
 
-\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 60.29, 29.70) {1920};
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 60.29, 29.70) {1920};
 
-\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (127.51, 29.70) {1930};
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (127.51, 29.70) {1930};
 
-\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (194.73, 29.70) {1940};
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (194.73, 29.70) {1940};
 
-\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (261.94, 29.70) {1950};
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (261.94, 29.70) {1950};
 
-\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (329.16, 29.70) {1960};
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (329.16, 29.70) {1960};
 
-\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (396.38, 29.70) {1970};
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (396.38, 29.70) {1970};
 
-\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (463.60, 29.70) {1980};
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (463.60, 29.70) {1980};
 
 \path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 36.90, 61.32) -- ( 36.90,418.78);
 
@@ -229,17 +229,17 @@
 
 \path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 36.90,418.78) -- ( 32.40,418.78);
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 26.10, 61.32) {0};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 26.10, 61.32) {0};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 26.10,132.81) {20000};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 26.10,132.81) {20000};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 26.10,204.31) {40000};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 26.10,204.31) {40000};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 26.10,275.80) {60000};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 26.10,275.80) {60000};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 26.10,347.29) {80000};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 26.10,347.29) {80000};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 26.10,418.78) {100000};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 26.10,418.78) {100000};
 
 \path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 36.90, 45.90) --
 	(486.99, 45.90) --
@@ -251,9 +251,9 @@
 \path[clip] (  0.00,  0.00) rectangle (505.89,505.89);
 \definecolor{drawColor}{RGB}{0,0,0}
 
-\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (261.94, 11.70) {year};
+\node[text=drawColor,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (261.94, 11.70) {year};
 
-\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  1.00] at (  8.10,257.44) {$N$};
+\node[text=drawColor,rotate= 90.00,anchor=base,inner sep=0pt, outer sep=0pt, scale=  0.93] at (  8.10,257.44) {$N$};
 \end{scope}
 \begin{scope}
 \path[clip] ( 36.90, 45.90) rectangle (486.99,468.99);
@@ -513,23 +513,23 @@
 	(450.15, 61.57);
 \definecolor{drawColor}{RGB}{0,0,0}
 
-\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 43.65,459.99) -- ( 57.15,459.99);
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 43.17,460.66) -- ( 55.72,460.66);
 
-\path[draw=drawColor,line width= 0.4pt,dash pattern=on 4pt off 4pt ,line join=round,line cap=round] ( 43.65,450.99) -- ( 57.15,450.99);
+\path[draw=drawColor,line width= 0.4pt,dash pattern=on 4pt off 4pt ,line join=round,line cap=round] ( 43.17,452.33) -- ( 55.72,452.33);
 \definecolor{drawColor}{RGB}{255,0,0}
 
-\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 43.65,441.99) -- ( 57.15,441.99);
+\path[draw=drawColor,line width= 0.4pt,line join=round,line cap=round] ( 43.17,444.00) -- ( 55.72,444.00);
 
-\path[draw=drawColor,line width= 0.4pt,dash pattern=on 4pt off 4pt ,line join=round,line cap=round] ( 43.65,432.99) -- ( 57.15,432.99);
+\path[draw=drawColor,line width= 0.4pt,dash pattern=on 4pt off 4pt ,line join=round,line cap=round] ( 43.17,435.68) -- ( 55.72,435.68);
 \definecolor{drawColor}{RGB}{0,0,0}
 
-\node[text=drawColor,anchor=base west,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 63.90,456.55) {fit full };
+\node[text=drawColor,anchor=base west,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 62.00,457.45) {fit full };
 
-\node[text=drawColor,anchor=base west,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 63.90,447.55) {fit subset};
+\node[text=drawColor,anchor=base west,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 62.00,449.12) {fit subset};
 
-\node[text=drawColor,anchor=base west,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 63.90,438.55) {avg full};
+\node[text=drawColor,anchor=base west,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 62.00,440.79) {avg full};
 
-\node[text=drawColor,anchor=base west,inner sep=0pt, outer sep=0pt, scale=  1.00] at ( 63.90,429.55) {avg subset};
+\node[text=drawColor,anchor=base west,inner sep=0pt, outer sep=0pt, scale=  0.93] at ( 62.00,432.46) {avg subset};
 \end{scope}
 \end{tikzpicture}
 

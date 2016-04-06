@@ -232,13 +232,13 @@ This means that if you have $\lambda$, the finite rate of increase, you can calc
 So far, we have worked on simulated data. In this section we will work on real biological data. We will extract key population growth parameters and plot the data assuming 1) density-independence, 2) unlimited resources, 3) no environmental stochasticity and 4) no demographic stochasticity. The data you collected in the lab on the rotifer is not well suited for the type of population model that we covered during this practical.
 
 
-Instead, we will examine the variation of a beaver population from Alberta, Canada from 1919 to 1981. The data is from \texttt{NERC Centre for Population Biology, Imperial College (1999) The Global Population Dynamics Database. http://www.sw.ic.ac.uk/cpb/cpb/gpdd.html} and was published in \textit{Furbearer harvests in North America, 1600-1984} by Novak, M., Obbard, M., Jones, J., Newman, R., Booth, A., Satterthwaite, A. \& Linscombe, G. in 1987.  
+Instead, we will examine the variation of a beaver population from Alberta, Canada from 1919 to 1981. The data is from \texttt{NERC Centre for Population Biology, Imperial College (1999) The Global Population Dynamics Database. http://www.sw.ic.ac.uk/cpb/cpb/gpdd.html} and was published in \textit{Furbearer harvests in North America, 1600-1984} by Novak, M., Obbard, M., Jones, J., Newman, R., Booth, A., Satterthwaite, A. \& Linscombe, G. in 1987.
 \vspace{1.5ex}
 \begin{center}
 \includegraphics[height=0.35\textwidth]{Beaver.jpg}\includegraphics[height=0.35\textwidth]{Alberta.jpg}
 \end{center}
 
-First you need to take the \texttt{beaver\textunderscore pop.cvs} file and put it in a meaningful folder (for example the Pop\textunderscore Ecol folder on your desktop we created last time). As you now know, we 1) need to set the working directory and 2) open the file. Change the directory according to the location of your file.
+First you need to take the \texttt{beaver\textunderscore pop.cvs} that we already put on OLAT and put it in a meaningful folder (for example the Pop\textunderscore Ecol folder on your desktop we created last time). As you now know, we 1) need to set the working directory and 2) open the file. Change the directory according to the location of your file.
 <<t19,include=F>>=
 #setwd("C://Users//cornioley_t//Dropbox//Psch//course material pop ecol 2014//Prac 7")  
 @
@@ -444,12 +444,12 @@ head(time)
 
 tail(time)
 @
-Now we will calculate the values of $N$ at these times. To do so we need the function \texttt{exp()}. Like before, we assume that the population size starts with $300$ individuals. In order to find the population size $N$ at all the time points in \texttt{time}, we use the following code:
+Now we will calculate the values of $N$ at these times. To do so we need the function \texttt{exp()}. Like before, we assume that the population size starts with $300$ individuals. In order to find the population size $N$ at all the time points in \texttt{time}, complete the following code:
 <<k8,eval=F>>=
 K <-     # Input your value of K here
 rmax <-  # Input the value of rmax here
 N0 <- 300
-N <- K / (1 + ((K - N0) / N0) * exp(-rmax * time))
+N <- K / (... * exp(... * time))
 @
 <<k08,include=FALSE>>=
 N0<-300
@@ -462,8 +462,8 @@ plot(time, N, ylab="N", xlab="t", type="l", ylim=c(200,500))
 @
 Now change one of the parameters ($K,r_{max},N0$) and calculate the new values for $N$. Next, you can add a line with these new values to your current plot by using the function \texttt{lines()}. Below the code is illustrated for a change in the initial population size ($N_0$):
 <<k10,eval=F>>=
-N0<-350
-N<-K/(1+((K-N0)/N0)*exp(-rmax*time))
+N0 <- 350
+N <- K / (... * exp(... * time))
 lines(time,N,col="red")
 @
 Now change $r_{max}$ and $K$ and see how they influence the behaviour of the population. \textbf{If you want to compare the changed situation to the original one, do not forget to set $N_0$ back at its original value. You may consider writing a function that returns N.} What do the different parameters ($N_0,r_{max}, K$) determine? What happens if $K<N_0$? And what do you see if $N_0 < \frac{K}{2}$? \textit{Make sure to adjust the parameter} \texttt{ylim} \textit{in your plot if necessary.}
@@ -693,8 +693,27 @@ To summarise this code, we can find the proportion of surviving individuals as f
 <<k27,eval=FALSE>>=
 sum( runif(10) < 0.6) / 10
 @
-What happens to this proportion when the number of individuals increases? (assume that the chance of survival remains constant).
+Use a for loop to repeat this calculation $1000$ times and store all the results. You can plot them using \texttt{hist}. What happens to the proportions when the number of individuals increases? (assume that the chance of survival remains constant).
+<<k25p3,eval=FALSE>>=
+Np <- 1000
+outcome <- ... # Create empty vector
+for(i in 1:...){
+  outcome[i] <- ...
+}
+hist(outcome, xlim=c(0,1))
+@
 
+<<k25p5,include=FALSE,eval=FALSE,echo=FALSE>>=
+Np <- 1000
+outcome_10 <- rep(0,Np)
+outcome_100 <- rep(0,Np)
+for(i in 1:Np){
+  outcome_10[i] <- sum( runif(10) < 0.6) / 10
+  outcome_100[i] <- sum( runif(100) < 0.6) / 100
+}
+hist(outcome_10,xlim=c(0,1))
+hist(outcome_100,xlim=c(0,1))
+@
 \section{Additional Exercise}
 \textbf{This exercise is extra!\\}
 In case you finish the exercises fast and don't want to go home yet: can you adapt the discrete logistic growth model to incorporate a delayed density effect? (try it first without the stochasticity, then you can include the stochasticity on $r$ and $K$.)

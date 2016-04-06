@@ -401,7 +401,10 @@ for(i in 1:9){
 }
 
 ### Plots
+par(mfrow=c(1,2))
+barplot(matrix(unlist(copper),nrow=4),beside=F)
 barplot(matrix(unlist(copper),nrow=4),beside=T)
+
 barplot(matrix(unlist(layer),nrow=4),beside=T)
 barplot(matrix(unlist(interaction),nrow=4),beside=T)
 

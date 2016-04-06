@@ -311,13 +311,13 @@ This means that if you have $\lambda$, the finite rate of increase, you can calc
 So far, we have worked on simulated data. In this section we will work on real biological data. We will extract key population growth parameters and plot the data assuming 1) density-independence, 2) unlimited resources, 3) no environmental stochasticity and 4) no demographic stochasticity. The data you collected in the lab on the rotifer is not well suited for the type of population model that we covered during this practical.
 
 
-Instead, we will examine the variation of a beaver population from Alberta, Canada from 1919 to 1981. The data is from \texttt{NERC Centre for Population Biology, Imperial College (1999) The Global Population Dynamics Database. http://www.sw.ic.ac.uk/cpb/cpb/gpdd.html} and was published in \textit{Furbearer harvests in North America, 1600-1984} by Novak, M., Obbard, M., Jones, J., Newman, R., Booth, A., Satterthwaite, A. \& Linscombe, G. in 1987.  
+Instead, we will examine the variation of a beaver population from Alberta, Canada from 1919 to 1981. The data is from \texttt{NERC Centre for Population Biology, Imperial College (1999) The Global Population Dynamics Database. http://www.sw.ic.ac.uk/cpb/cpb/gpdd.html} and was published in \textit{Furbearer harvests in North America, 1600-1984} by Novak, M., Obbard, M., Jones, J., Newman, R., Booth, A., Satterthwaite, A. \& Linscombe, G. in 1987.
 \vspace{1.5ex}
 \begin{center}
 \includegraphics[height=0.35\textwidth]{Beaver.jpg}\includegraphics[height=0.35\textwidth]{Alberta.jpg}
 \end{center}
 
-First you need to take the \texttt{beaver\textunderscore pop.cvs} file and put it in a meaningful folder (for example the Pop\textunderscore Ecol folder on your desktop we created last time). As you now know, we 1) need to set the working directory and 2) open the file. Change the directory according to the location of your file.
+First you need to take the \texttt{beaver\textunderscore pop.cvs} that we already put on OLAT and put it in a meaningful folder (for example the Pop\textunderscore Ecol folder on your desktop we created last time). As you now know, we 1) need to set the working directory and 2) open the file. Change the directory according to the location of your file.
 
 
 \begin{knitrout}
@@ -605,14 +605,14 @@ Use the function \texttt{seq()} to make this vector in \texttt{R}. Type \texttt{
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-Now we will calculate the values of $N$ at these times. To do so we need the function \texttt{exp()}. Like before, we assume that the population size starts with $300$ individuals. In order to find the population size $N$ at all the time points in \texttt{time}, we use the following code:
+Now we will calculate the values of $N$ at these times. To do so we need the function \texttt{exp()}. Like before, we assume that the population size starts with $300$ individuals. In order to find the population size $N$ at all the time points in \texttt{time}, complete the following code:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{K} \hlkwb{<-}     \hlcom{# Input your value of K here}
 \hlstd{rmax} \hlkwb{<-}  \hlcom{# Input the value of rmax here}
 \hlstd{N0} \hlkwb{<-} \hlnum{300}
-\hlstd{N} \hlkwb{<-} \hlstd{K} \hlopt{/} \hlstd{(}\hlnum{1} \hlopt{+} \hlstd{((K} \hlopt{-} \hlstd{N0)} \hlopt{/} \hlstd{N0)} \hlopt{*} \hlkwd{exp}\hlstd{(}\hlopt{-}\hlstd{rmax} \hlopt{*} \hlstd{time))}
+\hlstd{N} \hlkwb{<-} \hlstd{K} \hlopt{/} \hlstd{(...} \hlopt{*} \hlkwd{exp}\hlstd{(...} \hlopt{*} \hlstd{time))}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -631,8 +631,8 @@ Now change one of the parameters ($K,r_{max},N0$) and calculate the new values f
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{N0}\hlkwb{<-}\hlnum{350}
-\hlstd{N}\hlkwb{<-}\hlstd{K}\hlopt{/}\hlstd{(}\hlnum{1}\hlopt{+}\hlstd{((K}\hlopt{-}\hlstd{N0)}\hlopt{/}\hlstd{N0)}\hlopt{*}\hlkwd{exp}\hlstd{(}\hlopt{-}\hlstd{rmax}\hlopt{*}\hlstd{time))}
+\hlstd{N0} \hlkwb{<-} \hlnum{350}
+\hlstd{N} \hlkwb{<-} \hlstd{K} \hlopt{/} \hlstd{(...} \hlopt{*} \hlkwd{exp}\hlstd{(...} \hlopt{*} \hlstd{time))}
 \hlkwd{lines}\hlstd{(time,N,}\hlkwc{col}\hlstd{=}\hlstr{"red"}\hlstd{)}
 \end{alltt}
 \end{kframe}
@@ -779,8 +779,8 @@ In order to incorporate this, we need random numbers. In \texttt{R} functions ar
 \hlkwd{runif}\hlstd{(}\hlnum{7}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 0.6069924 0.7292492 0.7027433 0.6844545 0.8098047
-## [6] 0.1686827 0.1882089
+## [1] 0.74391237 0.77038642 0.75648707 0.40006851 0.03212594
+## [6] 0.80518831 0.68901597
 \end{verbatim}
 \begin{alltt}
 \hlkwd{hist}\hlstd{(}\hlkwd{runif}\hlstd{(}\hlnum{10000}\hlstd{),}\hlkwc{n}\hlstd{=}\hlnum{20}\hlstd{,}\hlkwc{main}\hlstd{=}\hlstr{""}\hlstd{,}
@@ -957,7 +957,20 @@ To summarise this code, we can find the proportion of surviving individuals as f
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-What happens to this proportion when the number of individuals increases? (assume that the chance of survival remains constant).
+Use a for loop to repeat this calculation $1000$ times and store all the results. You can plot them using \texttt{hist}. What happens to the proportions when the number of individuals increases? (assume that the chance of survival remains constant).
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Np} \hlkwb{<-} \hlnum{1000}
+\hlstd{outcome} \hlkwb{<-} \hlstd{...} \hlcom{# Create empty vector}
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{...)\{}
+  \hlstd{outcome[i]} \hlkwb{<-} \hlstd{...}
+\hlstd{\}}
+\hlkwd{hist}\hlstd{(outcome,} \hlkwc{xlim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{1}\hlstd{))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
 
 \section{Additional Exercise}
 \textbf{This exercise is extra!\\}
