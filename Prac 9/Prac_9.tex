@@ -99,25 +99,8 @@ To start, we will examine two populations of yellow-necked mice.
 
 This species lives mostly in woodlands and it is suspected that its distribution is limited by altitude. Let us compare a population living in the mountain (population $\boldsymbol{M}$) with a population living in the plain (population $\boldsymbol{P}$) to see if the altitude is a limiting distribution factor. This species can be described by a life-cylce in two stages; juveniles and adults. Thus the matrices describing those populations are given by:
 
-\begi<<numm_approx,echo=FALSE>>=
-A<-matrix(runif(4),ncol=2)
-sens <- function(A){
-  da <- 1e-4
-  lam <- eigen(A)$value[1]
-  dim <- ncol(A)
-  output <- matrix(NA,ncol=dim,nrow=dim)
-  for(i in 1:nrow(A)){
-    for(j in 1:ncol(A)){
-      TempA <- A
-      TempA[i,j] <- A[i,j] + da
-      TemLam <- eigen(TempA)$value[1]
-      output[i,j] <- (TemLam - lam) /da
-    }
-  }
-  return(output)
-}
-@
-n{equation}
+
+\begin{equation}
 \boldsymbol{P}=\begin{pmatrix}
 0&2\\
 0.25&0.5
@@ -289,42 +272,28 @@ Before we can start with the analysis of the population matrices, we first need.
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{Rot} \hlkwb{<-} \hlkwd{read.csv}\hlstd{(}\hlstr{"/Users/koen/Documents/Given Courses/BIO311/Prac 9/rotifer_data.csv"}\hlstd{)[,}\hlnum{2}\hlopt{:}\hlnum{9}\hlstd{]}
-\end{alltt}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning in file(file, "{}rt"{}): cannot open file '/Users/koen/Documents/Given Courses/BIO311/Prac 9/rotifer\_data.csv': No such file or directory}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in file(file, "{}rt"{}): cannot open the connection}}\begin{alltt}
 \hlkwd{table}\hlstd{(Rot}\hlopt{$}\hlstd{Copper)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in table(Rot\$Copper): object 'Rot' not found}}\begin{alltt}
+\begin{verbatim}
+## 
+##    0   50  100 1000 
+##   54   54   50    4
+\end{verbatim}
+\begin{alltt}
 \hlstd{Rot}\hlopt{$}\hlstd{Copper[Rot}\hlopt{$}\hlstd{Copper}\hlopt{==}\hlnum{1000}\hlstd{]} \hlkwb{<-} \hlnum{100}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in Rot\$Copper[Rot\$Copper == 1000] <- 100: object 'Rot' not found}}\begin{alltt}
 \hlkwd{table}\hlstd{(Rot}\hlopt{$}\hlstd{Layer)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in table(Rot\$Layer): object 'Rot' not found}}\begin{alltt}
+\begin{verbatim}
+## 
+## peak post Post  rec 
+##   54   51    3   54
+\end{verbatim}
+\begin{alltt}
 \hlstd{Rot}\hlopt{$}\hlstd{Layer[Rot}\hlopt{$}\hlstd{Layer}\hlopt{==}\hlstr{"Post"}\hlstd{]} \hlkwb{<-} \hlstr{"post"}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in Rot\$Layer[Rot\$Layer == "{}Post"{}] <- "{}post"{}: object 'Rot' not found}}\begin{alltt}
 \hlstd{Rotti}\hlkwb{<-}\hlkwd{reshape}\hlstd{(Rot,}\hlkwc{timevar}\hlstd{=}\hlstr{"Day"}\hlstd{,}\hlkwc{idvar}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"Clone"}\hlstd{,}\hlstr{"Copper"}\hlstd{,}\hlstr{"Layer"}\hlstd{),}\hlkwc{direction}\hlstd{=}\hlstr{"wide"}\hlstd{)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in reshape(Rot, timevar = "{}Day"{}, idvar = c("{}Clone"{}, "{}Copper"{}, "{}Layer"{}), : object 'Rot' not found}}\begin{alltt}
 \hlstd{Rates} \hlkwb{<-} \hlstd{Rotti[,}\hlnum{1}\hlopt{:}\hlnum{3}\hlstd{]}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\end{kframe}
+\end{kframe}
 \end{knitrout}
 We shall now first calculate the adult survival rate for the period from day $1$ to day $2$.
 \begin{knitrout}
@@ -332,90 +301,31 @@ We shall now first calculate the adult survival rate for the period from day $1$
 \begin{alltt}
 \hlcom{# 1 --> 2}
 \hlstd{Rates}\hlopt{$}\hlstd{Sa1} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.1} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.2)}\hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.1}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\begin{alltt}
 \hlstd{Rates}\hlopt{$}\hlstd{M1} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.2} \hlopt{+} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.2} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.1)} \hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.1}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\begin{alltt}
 \hlstd{Rates}\hlopt{$}\hlstd{Sj1} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Juv.1} \hlopt{-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.2} \hlopt{+} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.2} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.1)} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Juv.2)}\hlopt{/}\hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.1}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\begin{alltt}
 \hlstd{Rates}\hlopt{$}\hlstd{R1} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Juv.2} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.2}\hlopt{*}\hlstd{Rates}\hlopt{$}\hlstd{Sj1)} \hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.1}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\begin{alltt}
 \hlcom{# 2 --> 3}
 \hlstd{Rates}\hlopt{$}\hlstd{Sa2} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.2} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.3)}\hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.2}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\begin{alltt}
 \hlstd{Rates}\hlopt{$}\hlstd{M2} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.3} \hlopt{+} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.3} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.2)} \hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.2}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\begin{alltt}
 \hlstd{Rates}\hlopt{$}\hlstd{Sj2} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Juv.2} \hlopt{-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.3} \hlopt{+} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.3} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.2)} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Juv.3)}\hlopt{/}\hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.2}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\begin{alltt}
 \hlstd{Rates}\hlopt{$}\hlstd{R2} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Juv.3} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.3}\hlopt{*}\hlstd{Rates}\hlopt{$}\hlstd{Sj2)} \hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.2}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rotti' not found}}\begin{alltt}
 \hlcom{# Averages}
 \hlstd{Rates}\hlopt{$}\hlstd{SaM} \hlkwb{<-} \hlstd{(Rates}\hlopt{$}\hlstd{Sa1} \hlopt{+} \hlstd{Rates}\hlopt{$}\hlstd{Sa2)}\hlopt{/}\hlnum{2}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates' not found}}\begin{alltt}
 \hlstd{Rates}\hlopt{$}\hlstd{MM} \hlkwb{<-} \hlstd{(Rates}\hlopt{$}\hlstd{M1} \hlopt{+} \hlstd{Rates}\hlopt{$}\hlstd{M2)}\hlopt{/}\hlnum{2}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates' not found}}\begin{alltt}
 \hlstd{Rates}\hlopt{$}\hlstd{SjM} \hlkwb{<-} \hlstd{(Rates}\hlopt{$}\hlstd{Sj1} \hlopt{+} \hlstd{Rates}\hlopt{$}\hlstd{Sj2)}\hlopt{/}\hlnum{2}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates' not found}}\begin{alltt}
 \hlstd{Rates}\hlopt{$}\hlstd{RM} \hlkwb{<-} \hlstd{(Rates}\hlopt{$}\hlstd{R1} \hlopt{+} \hlstd{Rates}\hlopt{$}\hlstd{R2)}\hlopt{/}\hlnum{2}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates' not found}}\begin{alltt}
 \hlstd{Rates2} \hlkwb{<-} \hlstd{Rates[,}\hlkwd{c}\hlstd{(}\hlstr{'Copper'}\hlstd{,}\hlstr{'Layer'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates' not found}}\begin{alltt}
 \hlstd{Rates3} \hlkwb{<-} \hlkwd{aggregate}\hlstd{( .}\hlopt{~} \hlstd{Copper}\hlopt{+}\hlstd{Layer,Rates2,mean)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates2' not found}}\begin{alltt}
 \hlstd{Rates3}\hlopt{$}\hlstd{lambda} \hlkwb{<-} \hlnum{NA}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in Rates3\$lambda <- NA: object 'Rates3' not found}}\begin{alltt}
 \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(Rates3))\{}
   \hlstd{Mat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(Rates3}\hlopt{$}\hlstd{SjM[i],Rates3}\hlopt{$}\hlstd{MM[i],Rates3}\hlopt{$}\hlstd{RM[i],Rates3}\hlopt{$}\hlstd{SaM[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
   \hlstd{Rates3}\hlopt{$}\hlstd{lambda[i]} \hlkwb{<-} \hlkwd{eigen}\hlstd{(Mat)}\hlopt{$}\hlstd{values[}\hlnum{1}\hlstd{]}
 \hlstd{\}}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in nrow(Rates3): object 'Rates3' not found}}\end{kframe}
+\end{kframe}
 \end{knitrout}
 
 \begin{knitrout}
@@ -430,75 +340,35 @@ We shall now first calculate the adult survival rate for the period from day $1$
 \hlstd{\}}
 
 \hlstd{MatMean} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlkwd{mean}\hlstd{(Rates3}\hlopt{$}\hlstd{SjM),}\hlkwd{mean}\hlstd{(Rates3}\hlopt{$}\hlstd{MM),}\hlkwd{mean}\hlstd{(Rates3}\hlopt{$}\hlstd{RM),}\hlkwd{mean}\hlstd{(Rates3}\hlopt{$}\hlstd{SaM)),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in mean(Rates3\$SjM): object 'Rates3' not found}}\begin{alltt}
 \hlcom{### Copper treatment}
 \hlstd{temp}  \hlkwb{<-} \hlstd{Rates3[,}\hlkwd{c}\hlstd{(}\hlstr{'Copper'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates3' not found}}\begin{alltt}
 \hlstd{tempc} \hlkwb{<-} \hlkwd{aggregate}\hlstd{(.}\hlopt{~}\hlstd{Copper,temp,mean)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'temp' not found}}\begin{alltt}
 \hlstd{copper} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlnum{3}\hlstd{)}
 \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{3}\hlstd{)\{}
   \hlstd{mat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(tempc}\hlopt{$}\hlstd{SjM[i],tempc}\hlopt{$}\hlstd{MM[i],tempc}\hlopt{$}\hlstd{RM[i],tempc}\hlopt{$}\hlstd{SaM[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
   \hlstd{copper[[i]]} \hlkwb{<-} \hlkwd{LTRE}\hlstd{(mat,MatMean)}
 \hlstd{\}}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in matrix(c(tempc\$SjM[i], tempc\$MM[i], tempc\$RM[i], tempc\$SaM[i]), : object 'tempc' not found}}\begin{alltt}
 \hlkwd{names}\hlstd{(copper)} \hlkwb{<-} \hlstd{tempc}\hlopt{$}\hlstd{Copper}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'tempc' not found}}\begin{alltt}
 \hlcom{### Layer treatment}
 \hlstd{temp}  \hlkwb{<-} \hlstd{Rates3[,}\hlkwd{c}\hlstd{(}\hlstr{'Layer'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates3' not found}}\begin{alltt}
 \hlstd{templ} \hlkwb{<-} \hlkwd{aggregate}\hlstd{(.}\hlopt{~}\hlstd{Layer,temp,mean)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'temp' not found}}\begin{alltt}
 \hlstd{layer} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlnum{3}\hlstd{)}
 \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{3}\hlstd{)\{}
   \hlstd{mat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(templ}\hlopt{$}\hlstd{SjM[i],templ}\hlopt{$}\hlstd{MM[i],templ}\hlopt{$}\hlstd{RM[i],templ}\hlopt{$}\hlstd{SaM[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
   \hlstd{layer[[i]]} \hlkwb{<-} \hlkwd{LTRE}\hlstd{(mat,MatMean)}
 \hlstd{\}}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in matrix(c(templ\$SjM[i], templ\$MM[i], templ\$RM[i], templ\$SaM[i]), : object 'templ' not found}}\begin{alltt}
 \hlkwd{names}\hlstd{(layer)} \hlkwb{=} \hlstd{templ}\hlopt{$}\hlstd{Layer}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'templ' not found}}\begin{alltt}
 \hlcom{### Interactions}
 \hlstd{temp2}  \hlkwb{<-} \hlstd{Rates3[,}\hlkwd{c}\hlstd{(}\hlstr{'Copper'}\hlstd{,}\hlstr{'Layer'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates3' not found}}\begin{alltt}
 \hlstd{interaction} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlnum{9}\hlstd{)}
 \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{9}\hlstd{)\{}
   \hlstd{mat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(temp2}\hlopt{$}\hlstd{SjM[i],temp2}\hlopt{$}\hlstd{MM[i],temp2}\hlopt{$}\hlstd{RM[i],temp2}\hlopt{$}\hlstd{SaM[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
   \hlstd{interaction[[i]]} \hlkwb{<-} \hlkwd{LTRE}\hlstd{(mat,MatMean)} \hlopt{-} \hlstd{layer[[}\hlkwd{as.character}\hlstd{(temp2}\hlopt{$}\hlstd{Layer[i])]]} \hlopt{-} \hlstd{copper[[}\hlkwd{as.character}\hlstd{(temp2}\hlopt{$}\hlstd{Copper[i])]]}
 \hlstd{\}}
-\end{alltt}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in matrix(c(temp2\$SjM[i], temp2\$MM[i], temp2\$RM[i], temp2\$SaM[i]), : object 'temp2' not found}}\begin{alltt}
 \hlcom{### Plots}
 \hlkwd{par}\hlstd{(}\hlkwc{mfrow}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{))}
 \hlkwd{barplot}\hlstd{(}\hlkwd{matrix}\hlstd{(}\hlkwd{unlist}\hlstd{(copper),}\hlkwc{nrow}\hlstd{=}\hlnum{4}\hlstd{),}\hlkwc{beside}\hlstd{=F)}
@@ -517,51 +387,59 @@ We shall now first calculate the adult survival rate for the period from day $1$
 \hlkwd{sapply}\hlstd{(copper,sum)}
 \end{alltt}
 \begin{verbatim}
-## [1] 3
+##           0          50         100 
+##  0.08814100 -0.01002019 -0.09329622
 \end{verbatim}
 \begin{alltt}
 \hlkwd{sapply}\hlstd{(layer,sum)}
 \end{alltt}
 \begin{verbatim}
-## [1] 3
+##         peak         post          rec 
+## -0.004656362  0.041299880 -0.036841624
 \end{verbatim}
 \begin{alltt}
 \hlkwd{sapply}\hlstd{(interaction,sum)}
 \end{alltt}
 \begin{verbatim}
-## [1] 9
+## [1] -0.0007072465  0.0132467044 -0.0101268866  0.0112381029
+## [5]  0.0012824450  0.0012805065 -0.0113151382 -0.0142800310
+## [9]  0.0049814645
 \end{verbatim}
 \begin{alltt}
 \hlcom{### Outcome check}
 
 \hlstd{Rates3}\hlopt{$}\hlstd{lambda2} \hlkwb{<-} \hlnum{NA}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in Rates3\$lambda2 <- NA: object 'Rates3' not found}}\begin{alltt}
 \hlstd{Rates3}\hlopt{$}\hlstd{lambda3} \hlkwb{<-} \hlnum{NA}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in Rates3\$lambda3 <- NA: object 'Rates3' not found}}\begin{alltt}
 \hlstd{lam_mean} \hlkwb{<-} \hlkwd{lambda}\hlstd{(MatMean)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in as.matrix(x): object 'MatMean' not found}}\begin{alltt}
 \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{9}\hlstd{)\{}
   \hlstd{Rates3}\hlopt{$}\hlstd{lambda2[i]} \hlkwb{<-} \hlstd{lam_mean} \hlopt{+} \hlkwd{sum}\hlstd{(copper[[}\hlkwd{as.character}\hlstd{(Rates3}\hlopt{$}\hlstd{Copper[i])]])} \hlopt{+}\hlkwd{sum}\hlstd{(layer[[}\hlkwd{as.character}\hlstd{(Rates3}\hlopt{$}\hlstd{Layer[i])]])} \hlopt{+} \hlkwd{sum}\hlstd{(interaction[[i]])}
   \hlstd{Rates3}\hlopt{$}\hlstd{lambda3[i]} \hlkwb{<-} \hlstd{lam_mean} \hlopt{+} \hlkwd{sum}\hlstd{(copper[[}\hlkwd{as.character}\hlstd{(Rates3}\hlopt{$}\hlstd{Copper[i])]])} \hlopt{+}\hlkwd{sum}\hlstd{(layer[[}\hlkwd{as.character}\hlstd{(Rates3}\hlopt{$}\hlstd{Layer[i])]])}
 \hlstd{\}}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: object 'lam\_mean' not found}}\begin{alltt}
 \hlstd{Rates3}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'Rates3' not found}}\end{kframe}
+\begin{verbatim}
+##   Copper Layer       SaM        MM       SjM        RM
+## 1      0  peak 0.9062771 0.5625000 0.2993056 0.7330204
+## 2     50  peak 0.8325397 0.3436177 0.5429563 0.7901587
+## 3    100  peak 0.6763889 0.4187500 0.1827652 0.9999747
+## 4      0  post 0.8332341 0.5708333 0.4013889 0.9127561
+## 5     50  post 0.9101852 0.3851852 0.4495370 0.7438889
+## 6    100  post 0.8291667 0.3230519 0.5188312 0.7156417
+## 7      0   rec 0.8735119 0.5939484 0.3171627 0.6373810
+## 8     50   rec 0.8658069 0.3125000 0.6458333 0.5074206
+## 9    100   rec 0.8075397 0.1982143 0.6128968 0.7283050
+##     lambda  lambda2  lambda3
+## 1 1.313022 1.312811 1.313519
+## 2 1.228560 1.228604 1.215357
+## 3 1.122149 1.121954 1.132081
+## 4 1.370740 1.370713 1.359475
+## 5 1.262600 1.262596 1.261314
+## 6 1.179238 1.179318 1.178038
+## 7 1.270580 1.270018 1.281333
+## 8 1.168938 1.168892 1.183172
+## 9 1.102432 1.104878 1.099896
+\end{verbatim}
+\end{kframe}
 \end{knitrout}
 
 \subsection{LTRE}
