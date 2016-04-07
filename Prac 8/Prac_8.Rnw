@@ -37,9 +37,8 @@ options(width=60)
 \tableofcontents
 \vspace{3cm}
 \newpage
-\section{Hypothetical Dataset}
-\subsection{Life table}
-In this practical, you will work with life tables. Read the following text carefullyand do the exercise at the end of this section. The first part is the description of a hypothetical barn owl population and the second part is brief reminder of life table theory. 
+\section{Life table}
+In this practical, you will work with life tables. Read the following text carefully and do the exercise at the end of this section. The first part is the description of a hypothetical barn owl population and the second part is brief reminder of life table theory. 
 
 \begin{figure}[h]
 \centering
@@ -47,7 +46,7 @@ In this practical, you will work with life tables. Read the following text caref
 \caption{\label{fig:owl}Barn owl, from wikipedia.}
 \end{figure}
 
-\subsubsection{A barn owl population}
+\subsection{A barn owl population}
 The barn owl (Schleiereule in German) is a common noctural prey bird (see fig. \ref{fig:owl}). We focus on a cohort of female barn owls that were born in 2010 and who have all died by the beginning of 2014.
 \begin{itemize}
 \item In 2010, 10 female chicks were born and were followed over the years. 
@@ -58,7 +57,7 @@ The barn owl (Schleiereule in German) is a common noctural prey bird (see fig. \
 \end{itemize}
 
 
-\subsubsection{Standard cohort life table}
+\subsection{Standard cohort life table}
 
 \begin{table}[h]
 \centering
@@ -191,7 +190,7 @@ cat("$r=$",r,"\\\\")
 \end{Answer}
 
 
-\subsection{Age-structured Matrix Analysis}
+\section{Age-structured Matrix Analysis}
 In the former section, we have followed the fate of a hypothetical cohort of barn owls. Let us now look at the transition matrix. We want to know the number of individuals in each age class. Imagine these $10$ female barn owls are the founders of a new population and we do a postbreeding census, in which females are counted each year just after they have bred. 
 \begin{itemize}
 \item In $2010$, there are $10$ females in age class $1$. 
@@ -308,7 +307,7 @@ P1&0&0&0\\
 
 \end{Answer}
 
-\subsubsection{Matrices in \texttt{R}}
+\subsection{Matrices in \texttt{R}}
 Now that you have found the matrix of this population, let us implement it in \texttt{R}. Set the initial population vector to the founder population ($10$ individuals in age class $1$). 
 
 <<t2a,echo=F,eval=T, results='hide'>>=
@@ -415,7 +414,7 @@ plot(Ntot, type="l", xlab="year", ylab="N(t)")
 
 How does the population behave?
 
-\subsubsection{Asymptotic behaviour}
+\subsection{Asymptotic behaviour}
 \textit{Asymptotic rate of increase} 
 
 From the matrix, we can find the asymptotic growth rate of that population. For this we need to look at the dominant eigenvalue of the population matrix. Remember from the lecture that the dominant eigenvalue of a population matrix is the long term asymptotic rate of increase, $\lambda$. An eigenvalue of a matrix is a \textbf{scalar that when multiplied by a specific vector, gives the same result as when that vector is multiplied by ththe concerning matrix}. Mathematically this means:
@@ -430,18 +429,13 @@ eigens.A<-eigen(A)
 eigens.A
 @
 
-Let us focus at the moment only on the first values. The first values returned by the function; \Sexpr{round(eigens.A$values,3)} are the eigenvalues of the matrix $\boldsymbol{A}$. A matrix has as many eigenvalues as it has dimensions. The only one we are interested in for now is the dominant eigenvalue, i.e. the largest eigenvalue. From looking at the eigenvalues, we can see that it is the first one. However, the dominant eigenvalue can be found by using the function \texttt{which.max()} that returns the position of the maximum value of the object. Then we extract the value in that position.
+Let us focus at the moment only on the first values. The first values returned by the function; \Sexpr{round(eigens.A$values,3)} are the eigenvalues of the matrix $\boldsymbol{A}$. A matrix has as many eigenvalues as it has dimensions. The only one we are interested in for now is the dominant eigenvalue, i.e. the largest eigenvalue. From looking at the eigenvalues, we can see that it is the first one. We thus extract the value in that position. 
 <<t7,echo=T,eval=T, results='hide'>>=
-position <- which.max(eigens.A$values)
-position
-
-lambda2<-eigens.A$values[position]
-lambda2
+lambda2<-eigens.A$values[1]
 @
-Alternatively, $\lambda$ can be found directly from the \texttt{lambda} funtion of the \texttt{popbio} package in \texttt{R}, which will give you exactly the same result. 
-<<t8,echo=T,eval=T>>=
-library(popbio)
-lambda(A)
+We could have done this more directly:
+<<t7e,echo=T,eval=T, results='hide'>>=
+lambda2<-eigen(A)$values[1]
 @
 What does this value of $\lambda$ mean for the population on the long term?
 \vspace{0.5 cm}
@@ -477,7 +471,7 @@ n[,1] <- c(10 ,0,0,0)              # initial population abundance in each age cl
 # %*% in R implies matrix multiplication, and * implies scalar multiplication
 # or element-by-element multiplication of matrix entries.
 for (t in 1:(tspan-1)) {
-    n[,t+1] <-A%*% n[,t]      # %*% = matrix multiplication in R
+    n[,t+1] <- A%*% n[,t]      # %*% = matrix multiplication in R
                                   
 }
 Ntot<-colSums (n)
@@ -502,17 +496,19 @@ The stable age distibution is given by the right eigenvector corresponding to th
 There are as many right eigenvectors as there are eigenvalues. To each eigenvalue one eigenvector corresponds. Its position is the same as the one of the dominant eigenvalue so we can extract it with the following lines of code.
 
 <<t11,echo=T,eval=T, results='hide'>>=
-w<-eigens.A$vector[,position]
+w<-eigens.A$vector[,1]
 w
 @
 The right eigenvector as such does not give us the proportion found in each age class. This is because the length of the vector is set to $1$ instead of the sum of its elements (what is the difference between these two? Which is biologically more relevant? Which is mathematically more relevant?). However, to find the proportion of each age class, we want to rescale it (remember that if you find an eigenvector all vectors that point in the same direction are also eigenvectors. If we multiply an eigenvector by a scalar it thus remains an eigenvector.):
 <<t12,echo=T,eval=T, results='hide'>>=
-ssd<-w/sum(w)
+ssd <- w/sum(w)
 ssd
 @
 Therefore we know now that a proportion of \Sexpr{round(ssd[1],2)} of the population is in age class 1, \Sexpr{round(ssd[2],2)} in age class 2, \Sexpr{round(ssd[3],2)} in age class 3, and \Sexpr{round(ssd[4],2)} in age class 4.
-
-\subsubsection{Sensitivity and elasticity analysis}
+<<loadpopbiosecretly,include=FALSE>>=
+library(popbio)
+@
+\subsection{Sensitivity and elasticity analysis}
 \noindent\textit{Sensitivity analysis} 
 Sensitivities and elasticities of $\lambda$ evaluate the relative importance of each matrix element for the asymptotic growth rate. Sensitivity is the effect of additive change in a matrix element on $\lambda$ and the elasticity is the proportional effect of a proportional change in the parameter to $\lambda$.
 
@@ -537,7 +533,7 @@ lambdaF1<- lambda(A1)
 
 The sensitivity of $\lambda$ to one element of the matrix is given by:
 \begin{equation}
-s_{ij}=\frac{\partial \lambda} {\partial a_{ij}}
+s_{ij}=\frac{\partial \lambda} {\partial a_{ij}} = \lim_{\Delta a_{i,j}\to 0} \; \frac{\Delta \lambda}{\Delta a_{i,j}}
 \end{equation}
 So the sensitivity can be approximated by taking the difference between the value of $\lambda$ \; of the original matrix and the modified matrix and dividing it by the change we apply to the element of the matrix. 
 \begin{itemize}
@@ -547,7 +543,8 @@ So the sensitivity can be approximated by taking the difference between the valu
 If the change to the element of the matrix is very small, the sensitivities calucated so will be close from the actual sensitivities. If you want to calculate all sensitivities using this approximation, it is probably best to use a \texttt{for} loop (or actually two, why two?). Do not forget to only change one matrix element at a time. Also investigate how small the change in the matrix element has to be to make sure that the approximation returns reasonable numbers.
 
 \begin{Exercise}[title=Sensitivities, label=SENSI, difficulty=1]
-\Question Calculate (by actually changing elements in the matrix one by one in \texttt{R}) the sensitivity of $\lambda$ to each matrix element. \textit{Hint: use a for loop}.
+\Question Calculate (by actually changing elements in the matrix one by one in \texttt{R}) the sensitivity of $\lambda$ to each matrix element. \textit{Hint: use two for loops in each other, in which you calculate for each element \texttt{A[i,j]}, how much $\lambda$ would change if you would change that element a little bit}.
+
 \Question How much would the population rate change if you would increase the rate at location \texttt{[3,1]} with a value of 0.1? Would you consider trying adapting this rate a good management strategy?
 \end{Exercise}
 \begin{Answer}[ref=SENSI]
@@ -611,7 +608,7 @@ print(xtable(ela, digits=4),
 \end{Answer}
 
 
-\subsubsection{Transient dynamics}
+\subsection{Transient dynamics}
 Most of what we have described above focuses on the asymptotic, (i.e. long-term) behaviour of the system. However, the short-term dynamics can be very different. In nature, a population may never be observed in the asymptotic regime. Transient dynamics focuses on short-term responses.   
 
 There are year-to-year variations in growth rate before the asymptote is reached. The code below calculate the annual finite growth rates of the barn owl population. 
@@ -630,7 +627,7 @@ R<-Ntott/Ntot
 
 We can plot this in a graph to see how much time it takes this population to reach the asymptotic finite  growth rate. For this we first create a vector of the same length as the annual growth rate vector in which all elements contain the value of $\lambda$.
 
-<<t17,echo=T,eval=T, results='asis'>>=
+<<t17,echo=T,eval=F, results='asis'>>=
 lam<-lambda(A)
 
 plot(R, type="l", col="blue", xlab="year", ylab="growth rate") 
@@ -643,8 +640,14 @@ col=c("blue", "red"))
 
 
 @
-It thus takes around five years before the population reaches its asymptotic growth rate.
+How long does it take before the population reaches its asymptotic growth rate?
 
+\section{Stage structured matrices}
+Everything that we have discussed for age based matrice so far also holds for stage structured populations. The main difference between the two is that an age based matrix only know two types of transitions: due to survival, individuals in age class $a$ can only get into age class $a+1$ at the next time step. The only other possible contribution is due to reproduction, which allows a contribution from age class $a$ to the first age class. It is impossibe however, for individuals from age class $a$ to end up in age class $a+2$ after one time step (you can not get two years older in one year of time!). It is also not possible to stay in the same age class! Hence, a lot of transition rates are $0$ in such matrices.
+
+When we instead classify a population in stages rather than ages, we do not have this property anymore. Say we have three stages: small individuals, medium-sized individuals and big individuals. Due to extreme growth, a small individual might become a big individual after one time step, or maybe it doesn't grow at all and it might stay small. Furthermore maybe a big individual may, after a harsh winter with almost no food, become a medium-size individual. Hence, much less matrix elements will be zero. 
+
+In the following exercise we are going to look at a stage structured population. Here, we only look at a $2\times 2$ matrix, but for larger matrices the same procedure can be followed, leading to the same conclusions about the dominant eigenvector and the stable stage distribution.
 \subsection{Eigenvector decomposition}
 
 \begin{Exercise}[title=Eigenvector decomposition, label=ED, difficulty=2]
@@ -863,7 +866,7 @@ That means that the term with $\vec{v}_1$ will completely dominate the distribut
 \end{Answer}
 
 
-\subsubsection{Reproductive values}
+\subsection{Reproductive values}
 The reproductive value vector represents the contribution of each individual to present and future reproduction. In other words, it gives how much an individual in a given age class contributes to the population on the long-term, including offspring of its offspring. That is: if we have a population and its matrix at time $t=1$, what proportion of individuals at a much later time will be descendants of individuals in age class $1$ at time $t=1$ and how many from individuals in age class $2$ etc. Mathematically, the reproductive value vector is the left eigenvector of the population matrix.
 \begin{equation}
 \vec{v}A=\lambda \vec{v}
@@ -896,16 +899,21 @@ If you want to understand the interpretation of the reproductive values more clo
 B<-matrix(4*runif(9),nrow=3) # We generate a random matrix
 
 B 
-# We output B, in case you want to repeat the 
-# simulation yourself
+@
 
+We output B, in case you want to repeat the simulation yourself
+<<testcode1112>>=
 eigen(t(B))$vectors[,1]/sum(eigen(t(B))$vectors[,1])
 # We calculate the dominant left eigenvector of this matrix
 # and normalise it with respect to the sum of its elements
-
-# Now we want to investigate what would happen to the 
-# following 3 initial populations:
-# 1) (1,0,0)  2) (0,1,0)  3) (0,0,1)
+@
+Now we want to investigate what would happen to the following 3 initial populations:
+\begin{itemize}
+\item (1,0,0)  
+\item (0,1,0)
+\item (0,0,1)
+\end{itemize}
+<<testcode3222>>=
 
 N1<-rep(NA,3)
 # Create an empty vector for storing the final population
@@ -990,5 +998,5 @@ However, now the numbers no longer add up to $100\%$. Since all we care about is
 This is indeed again the left eigenvector! (Hopefully. Every time we save this document new random numbers are generated, so actually we can only hope that the theory is general enough to work for all random matrices \texttt{B} that are accidentally generated...). We see thus that the left eigenvector actually mainly tell you how many more offspring an individual that starts in a certain age class will have compared to individuals in other age classes on the long term. -- This is indeed a relatively difficult concept, but maybe if you think about it and go over this simulation yourself, it might sink in.
 \end{mdframed}
 
-\shipoutAnswer
+%\shipoutAnswer
 \end{document}
