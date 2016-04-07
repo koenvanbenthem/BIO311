@@ -86,44 +86,124 @@
 %%%%%%%%%%%%%%%% LTREs %%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Life Table Response Experiment}
-Life table response experiments (LTREs) are used to assess which  differences in vital rates lead to a change in $\lambda$ in an experimental design. The experiment you performed on the rotifers is well suited to be analysed by an LTRE. More information on the LTREs can be find in Caswell (2001) \textit{Matrix population models}, this is also the book that we based the theoretical background of this practical on. Before analysing the rotifer data, we will first perform a simple LTRE analysis on different data. During this part of the practical, we will write some of the functions that we will use later to analyse the rotifer data.
+Life table response experiments (LTREs) are used to assess which  differences in vital rates lead to a change in $\lambda$ in an experimental design. The experiment you performed on the rotifers is well suited to be analysed by an LTRE. More information on the LTREs can be find in Caswell (2001) \textit{Matrix population models}, this is also the book that we based the theoretical background of this practical on. Before analysing the rotifer data, we will first perform a simple LTRE analysis on different data. During this part of the practical, we will write some of the functions that we will use later to analyse the rotifer data. In practical 6 (last tuesday) we had a short introduction on functions. We repeat (and slightly extend) it here, to refresh your memory.
+\begin{mdframed}
+\textbf{Functions} so far we have worked with variables that represent a value or set of values, for example \texttt{rot} is a variable that we have defined that contains our data. A function is in a sense a variable that does not contain values, but instead contains a set of tasks. When you call a variable, \texttt{R} will show the value of that variable. When you call a function, \texttt{R} will perform the set of tasks in that function. In general when you want to define a function, it will look like this:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+name_of_new_function <- \hlkwd{function}(input_1,input_2,...)\{
 
-\subsection{Comparison of two Leslie matrices}
-To start, we will examine two populations of yellow-necked mice. 
+  do stuff
+  
+  \hlkwd{return}(output)
+\}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+Let's try to make that less abstract with an example:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{x_sq} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)\{}
+  \hlkwd{return}\hlstd{(x}\hlopt{^}\hlnum{2}\hlstd{)}
+\hlstd{\}}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.3\textwidth]{mouse.jpg}
-\caption{\label{fig:mice}yellow-necked mouse, from wikipedia.}
-\end{figure}
+\hlkwd{x_sq}\hlstd{(}\hlnum{3}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 9
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Here we have first defined a function (\texttt{x\textunderscore sq}) that takes one input variable (\texttt{x}). This function returns the squared value of the input. We can use the function by typing \texttt{x\textunderscore sq(x)}. The advantage of a function as that we don't have to rewrite the code all the time. If we now want to square a different number, we can just type:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{x_sq}\hlstd{(}\hlnum{5}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 25
+\end{verbatim}
+\begin{alltt}
+\hlkwd{x_sq}\hlstd{(}\hlnum{7}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 49
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Of course, this is not very usefull when the operation that we perform is just simply squaring a number, but when the operations (or set of operations) become more complicated, functions are a great way to save time.
 
-This species lives mostly in woodlands and it is suspected that its distribution is limited by altitude. Let us compare a population living in the mountain (population $\boldsymbol{M}$) with a population living in the plain (population $\boldsymbol{P}$) to see if the altitude is a limiting distribution factor. This species can be described by a life-cylce in two stages; juveniles and adults. Thus the matrices describing those populations are given by:
+Similarly we can also make a function that adds up two numbers and returns the squared sum:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{x_y_sq} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,}\hlkwc{y}\hlstd{)\{}
+  \hlstd{ans} \hlkwb{<-} \hlstd{x} \hlopt{+} \hlstd{y}
+  \hlkwd{return}\hlstd{(ans}\hlopt{^}\hlnum{2}\hlstd{)}
+\hlstd{\}}
+\hlkwd{x_y_sq}\hlstd{(}\hlnum{3}\hlstd{,} \hlnum{4}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 49
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+One important thing to realise is that things that happen in a function, usually stay in a function (there are ways around this, but in general it is good practice to keep it that way). This means that the tasks in the function are performed in their own 'world' and as soon as the function is executed, the changes are gone.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{x_y_sq} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,}\hlkwc{y}\hlstd{)\{}
+  \hlstd{ans} \hlkwb{<-} \hlstd{x} \hlopt{+} \hlstd{y}
+  \hlkwd{return}\hlstd{(ans}\hlopt{^}\hlnum{2}\hlstd{)}
+\hlstd{\}}
+\hlkwd{x_y_sq}\hlstd{(}\hlnum{3}\hlstd{,} \hlnum{4}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 49
+\end{verbatim}
+\begin{alltt}
+\hlstd{ans}
+\end{alltt}
 
 
-\begin{equation}
-\boldsymbol{P}=\begin{pmatrix}
-0&2\\
-0.25&0.5
-\end{pmatrix}
-\end{equation}
-and
-\begin{equation}
-\boldsymbol{M}=\begin{pmatrix}
-0&1.9\\
-0.2&0.45
-\end{pmatrix}
-\end{equation}
-Find the asymptotic growth rates of these populations. You can see that they differ. We would now like to investigate which matrix elements contribute the most to the difference in the asymptotic growth rates. As before, we will start by looking at the sensitivities. This time however, we will write a function that calculates the sensitivities of $\lambda$ to the matrix elements. Writing a general function, will make it easier for us to calculate sensitivities for matrices later. We provide two options for doing so: by numerical perturbation as we did in the previous practical, or by using the exact solution. The latter is conceptually more difficult, but more precise and less code. You may choose yourself which one you want to implement.
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'ans' not found}}\end{kframe}
+\end{knitrout}
+We now get an error, because \texttt{ans} only exists in the function and is deleted as soon as the function is completed. 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{ans} \hlkwb{<-} \hlnum{4}
+\hlstd{x_y_sq} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,}\hlkwc{y}\hlstd{)\{}
+  \hlstd{ans} \hlkwb{<-} \hlstd{x} \hlopt{+} \hlstd{y}
+  \hlkwd{return}\hlstd{(ans}\hlopt{^}\hlnum{2}\hlstd{)}
+\hlstd{\}}
+\hlkwd{x_y_sq}\hlstd{(}\hlnum{3}\hlstd{,} \hlnum{4}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 49
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+What will now be the value of \texttt{ans}?
+
+We have seen that we can not access the version of \texttt{ans} that 'lives' inside the function anymore, once the function has run. If you change anything in a function, you best return these changes to \texttt{R} at the end of the function using \texttt{return()}. Please note that when a function executes \texttt{return(x)}, \texttt{x} is given back to \texttt{R} and anything that comes after it will not be executed.
+\end{mdframed}
+
+We will now write a function that calculates the sensitivities of $\lambda$ to the matrix elements. Writing a general function, will make it easier for us to calculate sensitivities for matrices later (which we will do frequently). We provide two options for doing so: by numerical perturbation as we did in the previous practical, or by using the exact solution. The latter is conceptually more difficult, but more precise and less code. You may choose yourself which one you want to implement. Do try to write your function such that it can handle matrices with different sizes.
 
 \begin{mdframed}\textbf{A: Sensitivities using perturbations}\\
+Yesterday we have calculated the sensitivities for a barn owl population. We can now re-use that code and put it in a function, so we can use it to from now on easily calculate sensitivities for new matrices. Below the outline is given.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# We are going to make a function with the name}
-\hlcom{# sens, that takes 1 input variable. We call this}
-\hlcom{# variable A. Everything between \{ and \} is the code}
-\hlcom{# of the function}
+\hlcom{# sens, that takes 1 input variable: a matrix. We call this}
+\hlcom{# matrix A. Everything between \{ and \} is the code}
+\hlcom{# of the function. At the end the function uses return()}
+\hlcom{# to give back the calculated values of the sensitivities}
 \hlstd{sens} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{A}\hlstd{)\{}
 
   \hlstd{da} \hlkwb{<-} \hlnum{1e-4} \hlcom{# define a small perturbation}
@@ -132,25 +212,34 @@ Find the asymptotic growth rates of these populations. You can see that they dif
              \hlcom{# use ?ncol to see what it does}
 
   \hlcom{# finally, create an empty matrix to store your results in}
-  \hlstd{output} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{NA}\hlstd{,}\hlkwc{ncol}\hlstd{=dim,}\hlkwc{nrow}\hlstd{=dim)}
+  \hlstd{output} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{0}\hlstd{,}\hlkwc{ncol}\hlstd{=dim,}\hlkwc{nrow}\hlstd{=dim)}
 
-  \hlcom{# loop over all indices [i,j] in A, both the rows and the columns}
+  \hlcom{# loop over all indices [i,j] in A, rows and columns}
   \hlcom{# to calculate the sensitivity of each and every index}
   \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlstd{...)\{}
     \hlkwa{for}\hlstd{(j} \hlkwa{in} \hlstd{...)\{}
       \hlstd{TempA} \hlkwb{<-} \hlstd{A} \hlcom{# we copy the matrix}
       \hlstd{TempA[i,j]} \hlkwb{<-} \hlstd{...} \hlcom{# we perturb one element}
-      \hlstd{TemLam} \hlkwb{<-} \hlstd{...} \hlcom{# calculate the dominant eigenvalue of the perturbed matrix}
-      \hlstd{output[i,j]} \hlkwb{<-} \hlstd{...} \hlcom{# calculate the sensitivity of lambda to the element (dlambda/da)}
+      \hlstd{TemLam} \hlkwb{<-} \hlstd{...} \hlcom{# get lambda of the perturbed matrix}
+      \hlstd{output[i,j]} \hlkwb{<-} \hlstd{...} \hlcom{# calculate the sensitivity of }
+                         \hlcom{#lambda to a[i,j] (dlambda/da)}
     \hlstd{\}}
   \hlstd{\}}
 
-  \hlkwd{return}\hlstd{(output)} \hlcom{# The end of the function is reached, we now return the value of output}
+  \hlcom{# In higher dimensions, some eigenvalues may have complex parts}
+  \hlcom{# These are not relevant for the sensitivity analysis }
+  \hlcom{# (because the sensitivities will not have complex parts)}
+  \hlcom{# we still add the following line to R to make sure that R does}
+  \hlcom{# not annoy us constantly by adding a +0i (+ an imaginary part of 0)}
+  \hlcom{# to the outcomes}
+  \hlstd{output} \hlkwb{<-} \hlkwd{Re}\hlstd{(output)}
+
+  \hlkwd{return}\hlstd{(output)} \hlcom{# The end of the function is reached, }
+                 \hlcom{# we now return the value of output}
 \hlstd{\}}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-
 \end{mdframed}
 
 \begin{mdframed}
@@ -166,28 +255,101 @@ Here we will use the formula that was shown in the lecture:
 =
  \frac{\vec{v} \vec{w}^T}{\vec{v}^T \vec{w}}
 \end{equation}
-Here, $\vec{w}$ and $\vec{v}$ are the dominant right and left eigenvector respectively. Furthermore $\vec{v}^T$ responds to the transpose of $\vec{v}$. Using this we can now wite a function to calculate the sensitivities:
+Here, $\vec{w}$ and $\vec{v}$ are the dominant right and left eigenvector respectively. Furthermore $\vec{v}^T$ responds to the transpose of $\vec{v}$ (try \texttt{?t} in \texttt{R}). The product of two vectors can be performed in \texttt{R} by using the \texttt{\%*\%} operator. Using this we can now wite a function to calculate the sensitivities:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{sens} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{A}\hlstd{)\{}
-  \hlstd{w} \hlkwb{<-} \hlkwd{eigen}\hlstd{(A)}\hlopt{$}\hlstd{vector[,}\hlnum{1}\hlstd{]}
-  \hlstd{v} \hlkwb{<-} \hlkwd{eigen}\hlstd{(}\hlkwd{t}\hlstd{(A))}\hlopt{$}\hlstd{vector[,}\hlnum{1}\hlstd{]}
-  \hlstd{outcome} \hlkwb{<-} \hlstd{v} \hlopt{%*%} \hlkwd{t}\hlstd{(w)} \hlopt{/} \hlkwd{as.numeric}\hlstd{(}\hlkwd{t}\hlstd{(v)}\hlopt{%*%}\hlstd{w)}
+  \hlstd{w} \hlkwb{<-} \hlstd{...}
+  \hlstd{v} \hlkwb{<-} \hlstd{...}
+  \hlstd{outcome} \hlkwb{<-} \hlstd{...} \hlopt{/} \hlkwd{as.numeric}\hlstd{(...)}
+  \hlcom{# here we have to add the as.numeric argument.}
+  \hlcom{# this is just a problem of R:}
+  \hlcom{# it sees that the number comes from a vector}
+  \hlcom{# multiplication and therefore stores it as a matrix}
+  \hlcom{# with dimension 1x1. However, it then has difficulties}
+  \hlcom{# to divide a matrix by another matrix. We therefore}
+  \hlcom{# explicitly have to tell R that this 1x1 matrix is just}
+  \hlcom{# a number.}
+
+  \hlcom{# Next: we delete the imaginary part:}
+  \hlstd{outcome} \hlkwb{<-} \hlkwd{Re}\hlstd{(outcome)}
   \hlkwd{return}\hlstd{(outcome)}
 \hlstd{\}}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
+
 \end{mdframed}
-This is a very good start! We now have a function that easily provides us with the sensitivity values for any matrix. All we have to do now to get the sensitivity of \texttt{P} is to type \texttt{sens(P)}. 
+Now test your function on the following two matrices, to make sure that it works.
 
-For this we describe the asymptotic growth rate of the mountain population matrix, $\boldsymbol{M}$, as a function of the asymptotic growth rate of the plain population matrix, $\boldsymbol{P}$ , our reference population plus a treatment effect:  
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{A} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0.5}\hlstd{,}\hlnum{0.3}\hlstd{,}\hlnum{0.75}\hlstd{,}\hlnum{0.9}\hlstd{),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlkwd{sens}\hlstd{(A)}
+\end{alltt}
+\begin{verbatim}
+##           [,1]      [,2]
+## [1,] 0.3057428 0.2913858
+## [2,] 0.7284644 0.6942572
+\end{verbatim}
+\begin{alltt}
+\hlstd{B} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0.5}\hlstd{,}\hlnum{0.3}\hlstd{,}\hlnum{0.7}\hlstd{,}\hlnum{0.9}\hlstd{,}\hlnum{0.3}\hlstd{,}\hlnum{0.2}\hlstd{,}\hlnum{0.4}\hlstd{,}\hlnum{0.8}\hlstd{,}\hlnum{0}\hlstd{),}\hlkwc{nrow}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlkwd{sens}\hlstd{(B)}
+\end{alltt}
+\begin{verbatim}
+##           [,1]      [,2]      [,3]
+## [1,] 0.4497062 0.3238265 0.2729042
+## [2,] 0.4412927 0.3177681 0.2677985
+## [3,] 0.3831683 0.2759136 0.2325257
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+This is a very good start! We now have a function that easily provides us with the sensitivity values for any matrix. From here, we can finally think about more biological problems!
+\subsection{Comparison of two populations of mice}
+We will now continue with the more biological part of the practical and examine two populations of yellow-necked mice. 
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.3\textwidth]{mouse.jpg}
+\caption{\label{fig:mice}yellow-necked mouse, from wikipedia.}
+\end{figure}
+
+This species lives mostly in woodlands and it is suspected that its distribution is limited by altitude. Let us compare a population living in the mountain (population $\boldsymbol{M}$) with a population living in the plain (population $\boldsymbol{P}$) to see if the altitude is a limiting distribution factor. This species can be described by a life-cylce in two stages; juveniles and adults. Thus the matrices describing those populations are given by:
+
+\begin{equation}
+\boldsymbol{P}=\begin{pmatrix}
+0&2\\
+0.25&0.5
+\end{pmatrix}
+\end{equation}
+and
+\begin{equation}
+\boldsymbol{M}=\begin{pmatrix}
+0&1.9\\
+0.2&0.45
+\end{pmatrix}
+\end{equation}
+Find the asymptotic growth rates of these populations. You can see that they differ. We would now like to investigate which matrix elements contribute the most to the difference in the asymptotic growth rates between the two populations. As before, we will start by looking at the sensitivities: which parameter seems to have the biggest effect on $\lambda$?
+
+The sensitivites give us an idea of what might happen in the future. It shows how much $\lambda$ would increase if a matrix elemant increases with a certain amount. For this, we look at the equations. As we have shown before:
+\begin{equation}
+s_{i,j} = \frac{\partial \lambda}{\partial a_{i,j}}
+\end{equation}
+from this it also follows that:
+\begin{equation}
+s_{i,j} \partial a_{i,j} = \partial \lambda
+\end{equation}
+So what we see is that if a matrix element increases with an amount of $\partial a_{i,j}$, $\lambda$ will increase with an amount of $\partial \lambda$. For our population however, we know how big the difference in $a_{i,j}$ are from looking at the differences between the matrices (for example, there is a difference of 0.25-0.2=Sexpr{M[2,1]-P[2,1]} in the maturation rate between the two populations). If we want to know how much each of these differences contributes to differences in $\lambda$, all we have to do with these differences is multiply them with the sensitivities of the corresponding elements.
+
+There is one problem however, which sensitivities do we take? The ones from $\boldsymbol{M}$ or the ones from $\boldsymbol{P}$? In practice what we do is that we use the sensitivities of the average matrix, to make sure that our sensitivities are not biased towards one of the two matrices. 
+
+Using these values, we can describe the asymptotic growth rate of the mountain population matrix, $\boldsymbol{M}$, as a function of the asymptotic growth rate of the plain population matrix, $\boldsymbol{P}$ , our reference population plus a treatment effect:  
 \begin{equation}\label{a}
 \lambda^{(M)} \approx \lambda^{(P)}+\sum_{i,j}{(a^{(M)}_{ij}-a^{(P)}_{ij})} \frac{ \partial\lambda^{A}}{\partial a^{A}_{ij}}
 \end{equation}
-Let us work through the right part of this equation together. 
+Below we explain the different terms:
 \begin{itemize}
 \item $\lambda^{(P)}$ is the asymptotic growth rate of the $\boldsymbol{P}$ matrix. 
 \item The term ${(a^{(M)}_{ij}-a^{(P)}_{ij})}$, is the change in the elements of the matrix due to the treatment effect, here the moutain habitat. It tells us how different an element in matrix $\boldsymbol{M}$ is from the element at the same position in matrix $\boldsymbol{P}$.
@@ -206,23 +368,161 @@ With equation \ref{a}, find the value of $\lambda^{(\boldsymbol{M})}$ using \tex
 
 \textit{Hint} Find the "mid-way" matrix. For the sensitivities.
 
-\subsection{Fixed Factorial Designs (Theory)}
-Factorial LTRE allows the examination of the effects of several treatments and their interactions. This is the case for your rotifer data where you have a "layer" treatment, a "pollution" treatment and a "species" treatment. Not all the combinations were investigated though; the layers "recovery" and "pollution" contained only the species BU whereas the layers "commercial" and "postpollution" contained only species BC. What difficulty would this pose if you want to compare the species to each other? Because of this, we cannot make a full factorial LTRE on the rotifer data, but we will examine subsets of the full dataset.
+\section{Rotifer data analysis}
+In this section, you will apply the factorial LTRE to the rotifer data to compare the layers "peak", "pollution" and "recovery". The second factor is the copper treatment with the levels "low", "high", "medium".
 
+\subsection{Rate estimation}
+Before we can start with the analysis of the population matrices, we first need... the matrices and thus the rates (survival and reproduction). Here, we have only two stages: juveniles and adults, so we consider a $2\times 2$ matrix. First, we load in the data:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Rot} \hlkwb{<-} \hlkwd{read.csv}\hlstd{(}\hlstr{"rotifer_data.csv"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+Next, we use the function \texttt{reshape()} to change the format of the data. This will later make it easier to calculate the rates. Make sure that you understand how this function changes the data!
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Roti}\hlkwb{<-}\hlkwd{reshape}\hlstd{(Rot,}\hlkwc{timevar}\hlstd{=}\hlstr{"Day"}\hlstd{,}\hlkwc{idvar}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"Clone"}\hlstd{,}\hlstr{"Copper"}\hlstd{,}\hlstr{"Layer"}\hlstd{),}\hlkwc{direction}\hlstd{=}\hlstr{"wide"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+We will now continue and calculte the rates, for this, we first create a new data frame to store the rates in. This data frame is basically 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Rates} \hlkwb{<-} \hlstd{Roti[,}\hlnum{1}\hlopt{:}\hlnum{3}\hlstd{]}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+Before we start, draw a 2 stage life cycle for the rotifers, this will make it easier to keep track of what is happening. We shall now first calculate the adult survival rate for the period from day $1$ to day $2$. We start by looking at adult survival. We assume that we counted all dead individuals. Now, the survival rate can easily be calculated, it should be the number of alive adults on the first day, minus the number of dead adults observed on the second day, divided by the number of alive adults in the first time step.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{Sa1} \hlkwb{<-} \hlstd{(Roti}\hlopt{$}\hlstd{Live_Adult.1} \hlopt{-} \hlstd{Roti}\hlopt{$}\hlstd{Dead_Adult.2)}\hlopt{/} \hlstd{Roti}\hlopt{$}\hlstd{Live_Adult.1}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+Next, we look at the maturation rate. We have already calcuated how many adults survived from day 1, to day 2. The total number of adults on day 2 will however be higher than this number. The additional adults should have arrived due to maturation of juveniles. Calculate the maturation rates (the following expression is incomplete):
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{M1} \hlkwb{<-} \hlstd{(Roti}\hlopt{$}\hlstd{Live_Adult.2} \hlopt{-} \hlstd{....)} \hlopt{/} \hlstd{...}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
-For example let us consider the species BU which has two treatments of the type "layer": the layers "recovery" ($r$) and "pollution" ($p$). For each of these layers it has 3 possible levels for the copper treatment: "low" ($l$), "medium" ($m$) and "high" ($h$). We thus have two factors, one with two levels, the second with three levels.
+When we look into the calculated maturation rates, we will see that sometimes it is sometimes higher than 1. The reason is that we have uncertainty in our count data, maybe an adult too many was counted on day 2, or maybe a juvenile too few on day 1. An alternative explanation is that we assume only 1 transition to take place, it is however theoretically possible that within 1 day a juvenile is born and already grows up to the adult stage. Since we have only very few entries that display such problems, we will cut off the maturation rate at 1: we know that it should not be higher than 1. Uncertainty in the data should not change that theoretical assumption.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{M1[Rates}\hlopt{$}\hlstd{M1} \hlopt{>} \hlnum{1}\hlstd{]} \hlkwb{<-} \hlnum{1}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+The next rate is the probability for a juvenile to survive but stay a juvenile. Alive juveniles at day 1 that did not mature and that were not observed dead on day 2, should have survived and stayed in the same stage:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{Sj1} \hlkwb{<-} \hlstd{(Roti}\hlopt{$}\hlstd{Live_Juv.1} \hlopt{-} \hlstd{...} \hlopt{-} \hlstd{...)}\hlopt{/}\hlstd{...}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+This time we see a few cases were survival is found to be negative. This time we account for it by setting these rate (again there are not many cases) to zero.
 
-A factorial LTRE is similar to a one-way LTRE; we want to find which differences in matrix elements between a focal matrix and a reference matrix contribute the most to the difference in $\lambda$ between the two matrices. Let us take the matrix "recovery" and "low" which we call $\boldsymbol{M}^{r,l}$ as the focal matrix, for this we average the rates over all the $6$ replicates that were subject to this treatment ($r,l$). We compare it to the matrix naive to any treatment, which we call $\boldsymbol{M}^{..}$. This matrix is obtained from taking the average rates for all the matrices that we are comparing to each other (that is in this case the average of $\boldsymbol{M}^{r,l}$,$\boldsymbol{M}^{r,m}$,$\boldsymbol{M}^{r,h}$,$\boldsymbol{M}^{p,l}$,$\boldsymbol{M}^{p,m}$ and $\boldsymbol{M}^{p,h}$). Again we are interested in understanding the effect of the different treatments on the asymptotic growth rates.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{Sj1[Rates}\hlopt{$}\hlstd{Sj1} \hlopt{<} \hlnum{0}\hlstd{]} \hlkwb{<-} \hlnum{0}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+Finally we arrive at the last rate: fecundity. Any juveniles observed on day 2, that are not surviving juveniles from day 1, must be new offspring. Calculate the fecundity rates from this concept:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{R1} \hlkwb{<-} \hlstd{...}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+Fortunately, for these rates, no weird values are found. Now continue and calculate the rates for the transition from day 2 to day 3. Check for every rate if some illogical values are calculated and correct them before continuing with the calculation of the next rate.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{Sa2} \hlkwb{<-} \hlstd{...}
+\hlstd{Rates}\hlopt{$}\hlstd{M2} \hlkwb{<-} \hlstd{...}
+\hlstd{Rates}\hlopt{$}\hlstd{Sj2} \hlkwb{<-} \hlstd{...}
+\hlstd{Rates}\hlopt{$}\hlstd{R2} \hlkwb{<-} \hlstd{...}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+We can now plot what these rates look like. For this it is easiest to first reshape the rates. The following two commands allow you to generate a boxplot of the rates for the transition of day 1 to day 2:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(tidyr)}
+\hlstd{Rates_plot} \hlkwb{<-} \hlkwd{gather_}\hlstd{(Rates,}\hlstr{"Rate"}\hlstd{,}\hlstr{"Value"}\hlstd{,}\hlkwd{c}\hlstd{(}\hlstr{"Sj1"}\hlstd{,}\hlstr{"Sa1"}\hlstd{,}\hlstr{"M1"}\hlstd{,}\hlstr{"R1"}\hlstd{))}
+\hlkwd{boxplot}\hlstd{(Value}\hlopt{~}\hlstd{Copper}\hlopt{+}\hlstd{Rate,Rates_plot)}
+\hlkwd{boxplot}\hlstd{(Value}\hlopt{~}\hlstd{Layer}\hlopt{+}\hlstd{Rate,Rates_plot)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+Here, we use \texttt{gather\_}, try to understand what it does. Then we use \texttt{boxplot}. Here, the first argument specifies what is plotted (in this case the column \texttt{Value} is plotted, but it is split out by the categories \texttt{Copper} and \texttt{Rate} for the first plot. This is parsed to the function by the code \texttt{Value $\sim$ Copper + Rate}). Adapt this code to also plot the rates for the second transition.
+
+Alternatively you may consider using \texttt{ggplot()} to obtain -- depending on your taste -- nicer looking plots.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(ggplot2)}
+\hlkwd{ggplot}\hlstd{(Rates_plot,}\hlkwd{aes}\hlstd{(}\hlkwd{factor}\hlstd{(Copper),Value,}\hlkwc{fill}\hlstd{=Rate))} \hlopt{+} \hlkwd{geom_boxplot}\hlstd{()}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+We will now continue and start creating the matrices. For this, first we calculate the average rates for the transition from day 1 to 2 and the one from day 2 to 3. This will allow us to make on matrix and thus one value of $\lambda$ per clone
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Averages}
+\hlstd{Rates}\hlopt{$}\hlstd{SaM} \hlkwb{<-} \hlstd{(Rates}\hlopt{$}\hlstd{Sa1} \hlopt{+} \hlstd{Rates}\hlopt{$}\hlstd{Sa2)}\hlopt{/}\hlnum{2}
+\hlstd{Rates}\hlopt{$}\hlstd{MM} \hlkwb{<-} \hlstd{...}
+\hlstd{Rates}\hlopt{$}\hlstd{SjM} \hlkwb{<-} \hlstd{...}
+\hlstd{Rates}\hlopt{$}\hlstd{RM} \hlkwb{<-} \hlstd{...}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+Now we create a new column with the name \texttt{lambda} and using a for-loop, we can now for each replicate calculate the value for lambda, by constructing the appropriate matrix.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Rates}\hlopt{$}\hlstd{lambda} \hlkwb{<-} \hlnum{0} \hlcom{# create empty column}
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(Rates))\{} \hlcom{# for each row in Rates}
+  \hlstd{Mat} \hlkwb{<-} \hlstd{...}
+  \hlstd{Rates}\hlopt{$}\hlstd{lambda[i]} \hlkwb{<-} \hlstd{...}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+We can now again use the boxplot commands that we used before to see how lambda varies among matrices.
+
+\subsection{Factorial LTRE}
+\begin{mdframed}
+\textbf{Fixed Factorial Designs (Theory)}
+Factorial LTRE allows the examination of the effects of several treatments and their interactions. This is the case for your rotifer data where you have a "layer" treatment and a "copper" treatment. We can no longer just compare two treatments with each other, instead we have a whole suite of treatments (9 in total, 3 layers times 3 copper levels). We thus have two factors, one with two levels, the second with three levels.
+
+A factorial LTRE is similar to a one-way LTRE; we want to find which differences in matrix elements between a focal matrix and a reference matrix contribute the most to the difference in $\lambda$ between the two matrices. Let us take the matrix "recovery" and "low copper" which we call $\boldsymbol{M}^{r,l}$ as the focal matrix, for this we average the rates over all the replicates that were subject to this treatment ($r,l$). We compare it to the matrix naive to any treatment, which we call $\boldsymbol{M}^{..}$. This matrix is obtained from taking the average rates for all 9 matrices (one for each treatment) that we are comparing to each other. Again we are interested in understanding the effect of the different treatments on the asymptotic growth rates.
 \begin{equation}\label{b}
 \lambda^{r,l}=\lambda^{..}+\alpha^{r}+\beta^{l}+(\alpha \beta)^{r,l}
 \end{equation}
-Equation \ref{b} tells us that $\lambda^{r,l}$ can be found from $\lambda^{..}$ plus an effect from the layer "recovery", an effect from the pollution "low" and an interaction between the two treatments.
+Equation \ref{b} tells us that $\lambda^{r,l}$ can be found from $\lambda^{..}$ plus an effect from the layer "recovery", an effect from the copper level "low" and an interaction between the two treatments.
 
-To isolate the effect of each treatment, we need to look at them separately. So we examine a matrix $\boldsymbol{M}^{r.}$, where the effect of pollution is ignored. The rates of this matrix are calculated as the average of all the matrices with the layer "recovery". 
+To isolate the effect of each treatment, we need to look at them separately. So we examine a matrix $\boldsymbol{M}^{r.}$, where the effect of copper is ignored. The rates of this matrix are calculated as the average of all the matrices with from the layer "recovery". 
 \begin{equation}\label{c}
 \alpha^{r}=\sum_{ij}(a^{r.}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{A}}{\partial a^{A}_{ij}}
 \end{equation}
-The structure of equation \ref{c} is the same as the last part of equation \ref{a}. The matrix $\boldsymbol{A}$ is again a "mid-way" matrix between $\boldsymbol{M}^{r.}$ and $\boldsymbol{M}^{..}$. $\alpha^{r}$ tells us how large the effect of the treatment "layer" is on the asymptotic growth rate. If we want to know which matrix elements are responsible for this effect, we need to look at the separate contributions to $\alpha^r$ ($(a^{r.}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{A}}{\partial a^{A}_{ij}}$). Analogously we can also calculate $\alpha^p$.
+The structure of equation \ref{c} is the same as the last part of equation \ref{a}. The matrix $\boldsymbol{A}$ is again a "mid-way" matrix between $\boldsymbol{M}^{r.}$ and $\boldsymbol{M}^{..}$. $\alpha^{r}$ tells us how large the effect of the treatment "layer" is on the asymptotic growth rate. If we want to know which matrix elements are responsible for this effect, we need to look at the separate contributions to $\alpha^r$ ($(a^{r.}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{A}}{\partial a^{A}_{ij}}$). Analogously we can also calculate the effects for the other layers, e.g. $\alpha^{peak}$.
 
 We do the same for the second factor. We examine a matrix $\boldsymbol{M}^{.l}$, where the effect of the layer is ignored: 
 \begin{equation}\label{d}
@@ -232,7 +532,7 @@ For the interaction effect, we apply the same logic. We examine a matrix $\bolds
 \begin{equation}
 (\alpha \beta)^{rl}=\sum_{ij}(a^{rl}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{C}}{\partial a^{C}_{ij}} -\alpha^{r}-\beta^{l}
 \end{equation}
-So far we have considered only the effect of the layer "recovery" and the pollution "low". Of course this can be extended to all other layers of all treatments. So in general the equations become for $k$ the level of treatment $1$ and $m$ the level of treatment $2$.
+So far we have considered only the effect of the layer "recovery" and the copper level "low". Of course this can be extended to all other layers of all treatments. So in general the equations become for $k$ the level of treatment $1$ and $m$ the level of treatment $2$.
 
 \begin{equation}\label{f}
 \lambda^{k,m}=\lambda^{..}+\alpha^{k}+\beta^{m}+(\alpha \beta)^{k,m}
@@ -250,301 +550,73 @@ In these equations:
 \begin{align}
 A &= \frac{\boldsymbol{M^{k.}} + \boldsymbol{M^{..}}}{2} & B &= \frac{\boldsymbol{M^{.m}} + \boldsymbol{M^{..}}}{2} & C &= \frac{\boldsymbol{M^{km}} + \boldsymbol{M^{..}}}{2}
 \end{align}
-LTREs provide additional information to the growth rate as it describes how the different treatments affect the growth rate. In particular, LTRE allow a detailed comparison of the effect of a treatment on growth rate by examining the contribution of each survival and fertility rate to the gorwth rates of populations subjected to different treatment levels. For example, the graph below depicts the contribution of each element of populations under different copper levels to the growth rate. Each bar describes what is the contribution of an element to the growth rate when subjected to a given treatment level. What conclusions can you draw from this graph?
+LTREs provide additional information to the growth rate as it describes how the different treatments affect the growth rate. In particular, LTRE allow a detailed comparison of the effect of a treatment on growth rate by examining the contribution of each survival and fertility rate to the gorwth rates of populations subjected to different treatment levels.
+\end{mdframed}
+We are now going to apply this theory on the rotifer data. First write a function that performs an \texttt{LTRE}. That is, if we give it two matrices as input, it calculates the sensitivities of the average matrix (you can call the function you made earlier) and it multiplies this with the difference between the matrices. You don't have to use a loop here, if you use \texttt{A*B}, this is not matrix multiplication, but element wise multiplication between the matrices. It simply multiplies the first matrix entry from A, with the first one from B. Then it multiplies the second from A with the second one from B.
 
-
-
-
-
-{\centering \includegraphics[width=\maxwidth]{figure/thypgraph-1} 
-
-}
-
-
-
-
-\section{Rotifer data analysis}
-In this section, you will apply the factorial LTRE to the rotifer data to compare the layers "pollution" and "recovery". The second factor is the copper treatment with the levels "low", "high", "medium".
-
-\subsection{Rate estimation}
-Before we can start with the analysis of the population matrices, we first need... the matrices and thus the rates (survival and reproduction). Here, we have only two stages: juveniles and adults, so we consider a $2\times 2$ matrix. First, we load in the data:
+Next, we will have to create the mean matrix, to which we will compare all other matrices. Simply take the means of all the rates (\texttt{mean}) and put these rates together in a matrix.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{Rot} \hlkwb{<-} \hlkwd{read.csv}\hlstd{(}\hlstr{"/Users/koen/Documents/Given Courses/BIO311/Prac 9/rotifer_data.csv"}\hlstd{)[,}\hlnum{2}\hlopt{:}\hlnum{9}\hlstd{]}
-\hlkwd{table}\hlstd{(Rot}\hlopt{$}\hlstd{Copper)}
-\end{alltt}
-\begin{verbatim}
-## 
-##    0   50  100 1000 
-##   54   54   50    4
-\end{verbatim}
-\begin{alltt}
-\hlstd{Rot}\hlopt{$}\hlstd{Copper[Rot}\hlopt{$}\hlstd{Copper}\hlopt{==}\hlnum{1000}\hlstd{]} \hlkwb{<-} \hlnum{100}
-\hlkwd{table}\hlstd{(Rot}\hlopt{$}\hlstd{Layer)}
-\end{alltt}
-\begin{verbatim}
-## 
-## peak post Post  rec 
-##   54   51    3   54
-\end{verbatim}
-\begin{alltt}
-\hlstd{Rot}\hlopt{$}\hlstd{Layer[Rot}\hlopt{$}\hlstd{Layer}\hlopt{==}\hlstr{"Post"}\hlstd{]} \hlkwb{<-} \hlstr{"post"}
-\hlstd{Rotti}\hlkwb{<-}\hlkwd{reshape}\hlstd{(Rot,}\hlkwc{timevar}\hlstd{=}\hlstr{"Day"}\hlstd{,}\hlkwc{idvar}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"Clone"}\hlstd{,}\hlstr{"Copper"}\hlstd{,}\hlstr{"Layer"}\hlstd{),}\hlkwc{direction}\hlstd{=}\hlstr{"wide"}\hlstd{)}
-\hlstd{Rates} \hlkwb{<-} \hlstd{Rotti[,}\hlnum{1}\hlopt{:}\hlnum{3}\hlstd{]}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-We shall now first calculate the adult survival rate for the period from day $1$ to day $2$.
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlcom{# 1 --> 2}
-\hlstd{Rates}\hlopt{$}\hlstd{Sa1} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.1} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.2)}\hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.1}
-\hlstd{Rates}\hlopt{$}\hlstd{M1} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.2} \hlopt{+} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.2} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.1)} \hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.1}
-\hlstd{Rates}\hlopt{$}\hlstd{Sj1} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Juv.1} \hlopt{-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.2} \hlopt{+} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.2} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.1)} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Juv.2)}\hlopt{/}\hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.1}
-\hlstd{Rates}\hlopt{$}\hlstd{R1} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Juv.2} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.2}\hlopt{*}\hlstd{Rates}\hlopt{$}\hlstd{Sj1)} \hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.1}
-
-\hlcom{# 2 --> 3}
-\hlstd{Rates}\hlopt{$}\hlstd{Sa2} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.2} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.3)}\hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.2}
-\hlstd{Rates}\hlopt{$}\hlstd{M2} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.3} \hlopt{+} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.3} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.2)} \hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.2}
-\hlstd{Rates}\hlopt{$}\hlstd{Sj2} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Juv.2} \hlopt{-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Adult.3} \hlopt{+} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Adult.3} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.2)} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Dead_Juv.3)}\hlopt{/}\hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.2}
-\hlstd{Rates}\hlopt{$}\hlstd{R2} \hlkwb{<-} \hlstd{(Rotti}\hlopt{$}\hlstd{Live_Juv.3} \hlopt{-} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Juv.3}\hlopt{*}\hlstd{Rates}\hlopt{$}\hlstd{Sj2)} \hlopt{/} \hlstd{Rotti}\hlopt{$}\hlstd{Live_Adult.2}
-
-\hlcom{# Averages}
-\hlstd{Rates}\hlopt{$}\hlstd{SaM} \hlkwb{<-} \hlstd{(Rates}\hlopt{$}\hlstd{Sa1} \hlopt{+} \hlstd{Rates}\hlopt{$}\hlstd{Sa2)}\hlopt{/}\hlnum{2}
-\hlstd{Rates}\hlopt{$}\hlstd{MM} \hlkwb{<-} \hlstd{(Rates}\hlopt{$}\hlstd{M1} \hlopt{+} \hlstd{Rates}\hlopt{$}\hlstd{M2)}\hlopt{/}\hlnum{2}
-\hlstd{Rates}\hlopt{$}\hlstd{SjM} \hlkwb{<-} \hlstd{(Rates}\hlopt{$}\hlstd{Sj1} \hlopt{+} \hlstd{Rates}\hlopt{$}\hlstd{Sj2)}\hlopt{/}\hlnum{2}
-\hlstd{Rates}\hlopt{$}\hlstd{RM} \hlkwb{<-} \hlstd{(Rates}\hlopt{$}\hlstd{R1} \hlopt{+} \hlstd{Rates}\hlopt{$}\hlstd{R2)}\hlopt{/}\hlnum{2}
-
-\hlstd{Rates2} \hlkwb{<-} \hlstd{Rates[,}\hlkwd{c}\hlstd{(}\hlstr{'Copper'}\hlstd{,}\hlstr{'Layer'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
-\hlstd{Rates3} \hlkwb{<-} \hlkwd{aggregate}\hlstd{( .}\hlopt{~} \hlstd{Copper}\hlopt{+}\hlstd{Layer,Rates2,mean)}
-\hlstd{Rates3}\hlopt{$}\hlstd{lambda} \hlkwb{<-} \hlnum{NA}
-\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(Rates3))\{}
-  \hlstd{Mat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(Rates3}\hlopt{$}\hlstd{SjM[i],Rates3}\hlopt{$}\hlstd{MM[i],Rates3}\hlopt{$}\hlstd{RM[i],Rates3}\hlopt{$}\hlstd{SaM[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
-  \hlstd{Rates3}\hlopt{$}\hlstd{lambda[i]} \hlkwb{<-} \hlkwd{eigen}\hlstd{(Mat)}\hlopt{$}\hlstd{values[}\hlnum{1}\hlstd{]}
-\hlstd{\}}
+\hlstd{MatMean} \hlkwb{<-} \hlstd{...}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 
+
+Now we proceed and calculate the effect of copper on lambda. For this we have to calculate an average matrix for each copper treatment and compare these with the overall average matrix. To obtain the average matrix, we again use \texttt{aggregate}, but this time we supply a formule: \texttt{.$\sim$Copper}, this means that \texttt{aggregate} will apply the function (in this case \texttt{mean}) on all columns, per coppr level. To make sure that we don't add up with lots of columns, we therefore first take a subset of \texttt{Rates} that only contains the relevant columns.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{#### FACTORIAL DESIGN LTRE}
-\hlkwd{library}\hlstd{(popbio)}
-
-\hlstd{LTRE} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{A}\hlstd{,}\hlkwc{B}\hlstd{)\{}
-  \hlstd{M} \hlkwb{<-} \hlstd{(A}\hlopt{+}\hlstd{B)}\hlopt{/}\hlnum{2}
-  \hlstd{(A}\hlopt{-}\hlstd{B)} \hlopt{*} \hlkwd{sensitivity}\hlstd{(M)}
-\hlstd{\}}
-
-\hlstd{MatMean} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlkwd{mean}\hlstd{(Rates3}\hlopt{$}\hlstd{SjM),}\hlkwd{mean}\hlstd{(Rates3}\hlopt{$}\hlstd{MM),}\hlkwd{mean}\hlstd{(Rates3}\hlopt{$}\hlstd{RM),}\hlkwd{mean}\hlstd{(Rates3}\hlopt{$}\hlstd{SaM)),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
-
 \hlcom{### Copper treatment}
-\hlstd{temp}  \hlkwb{<-} \hlstd{Rates3[,}\hlkwd{c}\hlstd{(}\hlstr{'Copper'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
+\hlstd{temp}  \hlkwb{<-} \hlstd{Rates[,}\hlkwd{c}\hlstd{(}\hlstr{'Copper'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
 \hlstd{tempc} \hlkwb{<-} \hlkwd{aggregate}\hlstd{(.}\hlopt{~}\hlstd{Copper,temp,mean)}
-\hlstd{copper} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlnum{3}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+Next, we have to build a matrix for each row in \texttt{tempc} and perform an LTRE on each of these matrices compared to the overall mean matrix. To make sure that we can store the result afterwards, we first create an empty list with the right length. Complete the code to obtain the effects of copper through the different matrix elements on $\lambda$.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{copper_effect} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlnum{3}\hlstd{)}
 \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{3}\hlstd{)\{}
-  \hlstd{mat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(tempc}\hlopt{$}\hlstd{SjM[i],tempc}\hlopt{$}\hlstd{MM[i],tempc}\hlopt{$}\hlstd{RM[i],tempc}\hlopt{$}\hlstd{SaM[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
-  \hlstd{copper[[i]]} \hlkwb{<-} \hlkwd{LTRE}\hlstd{(mat,MatMean)}
+  \hlstd{mat} \hlkwb{<-} \hlstd{...}
+  \hlstd{copper[[i]]} \hlkwb{<-} \hlstd{...}
 \hlstd{\}}
-\hlkwd{names}\hlstd{(copper)} \hlkwb{<-} \hlstd{tempc}\hlopt{$}\hlstd{Copper}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+Finally, we add the names of the copper levels to this list, so we can easily find the right matrix back:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{names}\hlstd{(copper_effect)} \hlkwb{<-} \hlstd{tempc}\hlopt{$}\hlstd{Copper}
 
-\hlcom{### Layer treatment}
-\hlstd{temp}  \hlkwb{<-} \hlstd{Rates3[,}\hlkwd{c}\hlstd{(}\hlstr{'Layer'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
-\hlstd{templ} \hlkwb{<-} \hlkwd{aggregate}\hlstd{(.}\hlopt{~}\hlstd{Layer,temp,mean)}
-\hlstd{layer} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlnum{3}\hlstd{)}
-\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{3}\hlstd{)\{}
-  \hlstd{mat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(templ}\hlopt{$}\hlstd{SjM[i],templ}\hlopt{$}\hlstd{MM[i],templ}\hlopt{$}\hlstd{RM[i],templ}\hlopt{$}\hlstd{SaM[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
-  \hlstd{layer[[i]]} \hlkwb{<-} \hlkwd{LTRE}\hlstd{(mat,MatMean)}
-\hlstd{\}}
-\hlkwd{names}\hlstd{(layer)} \hlkwb{=} \hlstd{templ}\hlopt{$}\hlstd{Layer}
+\hlcom{# now we can obtain specific copper levels}
+\hlcom{# by naming them}
+\hlstd{copper_effect[[}\hlstr{'100'}\hlstd{]]}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+What are the total effects of the different copper levels on $\lambda$? Repeat the same procedure for the layer effect.
 
-\hlcom{### Interactions}
-\hlstd{temp2}  \hlkwb{<-} \hlstd{Rates3[,}\hlkwd{c}\hlstd{(}\hlstr{'Copper'}\hlstd{,}\hlstr{'Layer'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
+Finally, we have to calculate the interactions. Now we can use that we names the lists with the copper and layer effects to efficiently access them. We will have to access these in order to be able to substract the correct fixed effects from each interaction, as described in the theory at the beginning of this section.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{temp2}  \hlkwb{<-} \hlstd{Rates[,}\hlkwd{c}\hlstd{(}\hlstr{'Copper'}\hlstd{,}\hlstr{'Layer'}\hlstd{,}\hlstr{'SaM'}\hlstd{,}\hlstr{'MM'}\hlstd{,}\hlstr{'SjM'}\hlstd{,}\hlstr{'RM'}\hlstd{)]}
+\hlstd{tempi} \hlkwb{<-} \hlkwd{aggregate}\hlstd{(.}\hlopt{~}\hlstd{Copper}\hlopt{+}\hlstd{Layer,temp2,mean)}
 \hlstd{interaction} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlnum{9}\hlstd{)}
 \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{9}\hlstd{)\{}
-  \hlstd{mat} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(temp2}\hlopt{$}\hlstd{SjM[i],temp2}\hlopt{$}\hlstd{MM[i],temp2}\hlopt{$}\hlstd{RM[i],temp2}\hlopt{$}\hlstd{SaM[i]),}\hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{)}
-  \hlstd{interaction[[i]]} \hlkwb{<-} \hlkwd{LTRE}\hlstd{(mat,MatMean)} \hlopt{-} \hlstd{layer[[}\hlkwd{as.character}\hlstd{(temp2}\hlopt{$}\hlstd{Layer[i])]]} \hlopt{-} \hlstd{copper[[}\hlkwd{as.character}\hlstd{(temp2}\hlopt{$}\hlstd{Copper[i])]]}
+  \hlstd{mat} \hlkwb{<-} \hlstd{...}
+  \hlstd{interaction[[i]]} \hlkwb{<-} \hlstd{...} \hlopt{-} \hlstd{...}
 \hlstd{\}}
-
-\hlcom{### Plots}
-\hlkwd{par}\hlstd{(}\hlkwc{mfrow}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{))}
-\hlkwd{barplot}\hlstd{(}\hlkwd{matrix}\hlstd{(}\hlkwd{unlist}\hlstd{(copper),}\hlkwc{nrow}\hlstd{=}\hlnum{4}\hlstd{),}\hlkwc{beside}\hlstd{=F)}
-\hlkwd{barplot}\hlstd{(}\hlkwd{matrix}\hlstd{(}\hlkwd{unlist}\hlstd{(copper),}\hlkwc{nrow}\hlstd{=}\hlnum{4}\hlstd{),}\hlkwc{beside}\hlstd{=T)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/LTRE_FACT-1} 
-\begin{kframe}\begin{alltt}
-\hlkwd{barplot}\hlstd{(}\hlkwd{matrix}\hlstd{(}\hlkwd{unlist}\hlstd{(layer),}\hlkwc{nrow}\hlstd{=}\hlnum{4}\hlstd{),}\hlkwc{beside}\hlstd{=T)}
-\hlkwd{barplot}\hlstd{(}\hlkwd{matrix}\hlstd{(}\hlkwd{unlist}\hlstd{(interaction),}\hlkwc{nrow}\hlstd{=}\hlnum{4}\hlstd{),}\hlkwc{beside}\hlstd{=T)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/LTRE_FACT-2} 
-\begin{kframe}\begin{alltt}
-\hlcom{## Summary}
-\hlkwd{sapply}\hlstd{(copper,sum)}
-\end{alltt}
-\begin{verbatim}
-##           0          50         100 
-##  0.08814100 -0.01002019 -0.09329622
-\end{verbatim}
-\begin{alltt}
-\hlkwd{sapply}\hlstd{(layer,sum)}
-\end{alltt}
-\begin{verbatim}
-##         peak         post          rec 
-## -0.004656362  0.041299880 -0.036841624
-\end{verbatim}
-\begin{alltt}
-\hlkwd{sapply}\hlstd{(interaction,sum)}
-\end{alltt}
-\begin{verbatim}
-## [1] -0.0007072465  0.0132467044 -0.0101268866  0.0112381029
-## [5]  0.0012824450  0.0012805065 -0.0113151382 -0.0142800310
-## [9]  0.0049814645
-\end{verbatim}
-\begin{alltt}
-\hlcom{### Outcome check}
-
-\hlstd{Rates3}\hlopt{$}\hlstd{lambda2} \hlkwb{<-} \hlnum{NA}
-\hlstd{Rates3}\hlopt{$}\hlstd{lambda3} \hlkwb{<-} \hlnum{NA}
-\hlstd{lam_mean} \hlkwb{<-} \hlkwd{lambda}\hlstd{(MatMean)}
-\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{9}\hlstd{)\{}
-  \hlstd{Rates3}\hlopt{$}\hlstd{lambda2[i]} \hlkwb{<-} \hlstd{lam_mean} \hlopt{+} \hlkwd{sum}\hlstd{(copper[[}\hlkwd{as.character}\hlstd{(Rates3}\hlopt{$}\hlstd{Copper[i])]])} \hlopt{+}\hlkwd{sum}\hlstd{(layer[[}\hlkwd{as.character}\hlstd{(Rates3}\hlopt{$}\hlstd{Layer[i])]])} \hlopt{+} \hlkwd{sum}\hlstd{(interaction[[i]])}
-  \hlstd{Rates3}\hlopt{$}\hlstd{lambda3[i]} \hlkwb{<-} \hlstd{lam_mean} \hlopt{+} \hlkwd{sum}\hlstd{(copper[[}\hlkwd{as.character}\hlstd{(Rates3}\hlopt{$}\hlstd{Copper[i])]])} \hlopt{+}\hlkwd{sum}\hlstd{(layer[[}\hlkwd{as.character}\hlstd{(Rates3}\hlopt{$}\hlstd{Layer[i])]])}
-\hlstd{\}}
-\hlstd{Rates3}
-\end{alltt}
-\begin{verbatim}
-##   Copper Layer       SaM        MM       SjM        RM
-## 1      0  peak 0.9062771 0.5625000 0.2993056 0.7330204
-## 2     50  peak 0.8325397 0.3436177 0.5429563 0.7901587
-## 3    100  peak 0.6763889 0.4187500 0.1827652 0.9999747
-## 4      0  post 0.8332341 0.5708333 0.4013889 0.9127561
-## 5     50  post 0.9101852 0.3851852 0.4495370 0.7438889
-## 6    100  post 0.8291667 0.3230519 0.5188312 0.7156417
-## 7      0   rec 0.8735119 0.5939484 0.3171627 0.6373810
-## 8     50   rec 0.8658069 0.3125000 0.6458333 0.5074206
-## 9    100   rec 0.8075397 0.1982143 0.6128968 0.7283050
-##     lambda  lambda2  lambda3
-## 1 1.313022 1.312811 1.313519
-## 2 1.228560 1.228604 1.215357
-## 3 1.122149 1.121954 1.132081
-## 4 1.370740 1.370713 1.359475
-## 5 1.262600 1.262596 1.261314
-## 6 1.179238 1.179318 1.178038
-## 7 1.270580 1.270018 1.281333
-## 8 1.168938 1.168892 1.183172
-## 9 1.102432 1.104878 1.099896
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
-
-\subsection{LTRE}
-\begin{enumerate}
-\item Because in the lab, you have made several replicates for each treatment combination, you now have a rate per replicate. We are however interested in the average rates per treatment. We want one juvenile survival rate, one adult survival rate and one fertility rate per population, per copper level and per species. For this you can use the \texttt{aggregate()} function that we have seen in practical $6$ and find the mean. Use the function three times seperately, once for each of the rates that we are interested in. Store the results in a variable. Use \texttt{?aggregate} to see how to use the function. You will need to use one special argument: \texttt{na.rm=TRUE}. This is to make sure that when there are $NA$s in the dataset, the function ignores them and still returns a value.
-\item Now you have three separate lists. You want to group them. For this you can adapt the following lines of code. Use the names of the variables that you specified in the previous step.
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{younewdata1}\hlkwb{<-}\hlkwd{merge}\hlstd{(SurvJuv, SurvAdu,} \hlkwc{by}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{3}\hlstd{))}
-\hlcom{#by set the column by which to merge the two elements}
-
-\hlstd{younewdata2}\hlkwb{<-}\hlkwd{merge}\hlstd{(younewdata1, Fertility,} \hlkwc{by}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{3}\hlstd{))}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-You can in addition give a more meaningful name to the columns by using:
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{colnames}\hlstd{(younewdata2)}\hlkwb{<-}\hlkwd{c}\hlstd{(}\hlstr{"name of col1"}\hlstd{,}
-\hlstr{"name of col2"}\hlstd{,} \hlstr{"name of col3"}\hlstd{,}
-\hlstr{"name of col4"}\hlstd{,} \hlstr{"name of col5"}\hlstd{,} \hlstr{"name of col6"}\hlstd{)}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-\item We mentioned that we are only interested at the moment in the layer "Recovery" and "Pollution". Both contained the species BU. Thus, select only the BU species with the \texttt{subset} function that we also used in practical $6$.
-\item Below is a useful function for the LTRE. It allows you to extract a specific matrix per treatment by using \texttt{get\_matrix}. You need to give it the following arguments 1) the dataset from which you want to extract the matrix, 2) the name of the layer that you are interested in (for example "Pollution"), and 3) the name of the copper level (for example "high"). You do not need to understand the details of this code. If you run this code once during your \texttt{R}-session, \texttt{R} will remember it and every time you type \texttt{get\_matrix(data,layer,copper)} it will execute that code.
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlcom{#code for function to extract matrices from the dataset#}
-\hlstd{get_matrix}\hlkwb{<-}\hlkwa{function}\hlstd{(}\hlkwc{roti}\hlstd{,}\hlkwc{pop}\hlstd{,}\hlkwc{cop}\hlstd{)\{}
-  \hlkwa{if}\hlstd{(}\hlopt{!}\hlstd{pop} \hlopt{%in%} \hlkwd{c}\hlstd{(}\hlkwd{levels}\hlstd{(roti}\hlopt{$}\hlstd{Population),}\hlstr{"mean"}\hlstd{))\{}
-    \hlkwd{warning}\hlstd{(}\hlstr{"Something went wrong, give the instructors 
-            a cookie and they may help you out:
-            \textbackslash{}n------------------------\textbackslash{}n "}\hlstd{,pop,}
-        \hlstr{" is not a valid entry\textbackslash{}n------------------------\textbackslash{}n"}\hlstd{)}
+What is left now is to plot the values and to examine the summed effect of each copper level, each layer level and each interaction. One way to plot for example the copper effects is by using \texttt{barplot(matrix(unlist(copper),nrow=4))}. 
 
-    \hlkwd{return}\hlstd{()}
-  \hlstd{\}}
 
-  \hlkwa{if}\hlstd{(}\hlopt{!}\hlstd{cop} \hlopt{%in%} \hlkwd{c}\hlstd{(}\hlkwd{levels}\hlstd{(roti}\hlopt{$}\hlstd{Copper),}\hlstr{"mean"}\hlstd{))\{}
-    \hlkwd{warning}\hlstd{(}\hlstr{"Something went wrong, give the instructors 
-            a cookie and they may help you out:
-            \textbackslash{}n------------------------\textbackslash{}n "}\hlstd{,cop,}\hlstr{" 
-            is not a valid entry\textbackslash{}n------------------------\textbackslash{}n"}\hlstd{)}
-
-    \hlkwd{return}\hlstd{()}
-  \hlstd{\}}
-
-  \hlkwa{if}\hlstd{(pop}\hlopt{==}\hlstr{"mean"} \hlopt{&} \hlstd{cop}\hlopt{==}\hlstr{"mean"}\hlstd{)\{}
-    \hlstd{i}\hlkwb{<-}\hlnum{1}\hlopt{:}\hlkwd{length}\hlstd{(roti}\hlopt{$}\hlstd{Copper)}
-  \hlstd{\}}\hlkwa{else if}\hlstd{(pop}\hlopt{==}\hlstr{"mean"}\hlstd{)\{}
-    \hlstd{i}\hlkwb{<-}\hlkwd{which}\hlstd{(roti}\hlopt{$}\hlstd{Copper}\hlopt{==}\hlstd{cop)}
-  \hlstd{\}}\hlkwa{else if}\hlstd{(cop}\hlopt{==}\hlstr{"mean"}\hlstd{)\{}
-    \hlstd{i}\hlkwb{<-}\hlkwd{which}\hlstd{(roti}\hlopt{$}\hlstd{Population}\hlopt{==}\hlstd{pop)}
-  \hlstd{\}}\hlkwa{else}\hlstd{\{}
-    \hlstd{i}\hlkwb{<-}\hlkwd{which}\hlstd{(roti}\hlopt{$}\hlstd{Population}\hlopt{==}\hlstd{pop} \hlopt{&} \hlstd{roti}\hlopt{$}\hlstd{Copper}\hlopt{==}\hlstd{cop)}
-  \hlstd{\}}
-
-  \hlstd{A}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwd{mean}\hlstd{(roti}\hlopt{$}\hlstd{Pj[i]),}
-        \hlkwd{mean}\hlstd{(roti}\hlopt{$}\hlstd{F[i]),} \hlkwd{mean}\hlstd{(roti}\hlopt{$}\hlstd{Pa[i])),} \hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{,} \hlkwc{ncol}\hlstd{=}\hlnum{2}\hlstd{)}
-  \hlkwd{return}\hlstd{(A)}
-  \hlstd{\}}
-\hlcom{#end of the function#}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-\item With the \texttt{get\_matrix} function, extract the matrix for each treatment combinations ($6$ matrices in total). You need to specify the dataset in the first position, in the second position you need to specify the layer and in the third position the copper level.
-\item Get the growth rate $\lambda$ of each of these matrix.
-\item Now we get to the LTRE. Let us isolate the effect of the first treatment which is the layer. This factor has two levels; pollution and recovery. What we need to do is to implement equation \ref{e} in \texttt{R}. Let us find the $\alpha$ for the level "pollution" first; $\alpha^p$. 
-\begin{enumerate}
-\item Find the matrix $\boldsymbol{M}^{..}$. The rates of this matrix are the averages of the rates of all the matrices of the BU species. For this you can use the \texttt{get\_matrix} function.  The second argument concerns the layer, but here we want the mean rate over all the layers, we have written the function such that you can achieve this by typing "mean" as an argument for the layer. The same holds for the third argument.
-\item Next you need the mean pollution matrix, $\boldsymbol{M}^{p.}$. Again, use the \texttt{get\_matrix} function.\\[1.5ex] 
-\textit{small tip} Here you can do a little trick to be able to use the code later on a different subset of your dataset. Before using the \texttt{get\_matrix} function, set a new name to your focal layers like in the code below. Then in \texttt{get\_matrix}, instead of calling for "Pollution", call for \texttt{yourname1}.
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{yourname1}\hlkwb{<-}\hlstr{'Pollution'}
-\hlstd{yourname2}\hlkwb{<-}\hlstr{'Recovery'}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-\item Find the $\lambda$ for this matrix.
-\item Find the "mid-way" matrix between $\boldsymbol{M}^{..}$ and $\boldsymbol{M}^{p.}$. This is the mean matrix between $\boldsymbol{M}^{..}$ and $\boldsymbol{M}^{p.}$.
-\item For equation \ref{e}, you need the summation term and the sensitivity of the "mid-way" matrix. Let us look first at the summation term. You need the difference between the elements of matrix $\boldsymbol{M}^{p.}$ and of matrix $\boldsymbol{M}^{..}$. Thus take $(\boldsymbol{M}^{p.} - \boldsymbol{M}^{..})$. 
-\item To find the sensitivity of the "mid-way" matrix, use the function \texttt{sensitivity} from the package \texttt{popbio} (see subsection \textit{sensitivity}). 
-\item Finally, multiply the substraction matrix by the sensitivity matrix (not a matrix multiplication!) and save this in a matrix.
-\item The sum of this matrix is your $\alpha^p$, the effect of the layer "Pollution" on the asymptotic growth rate. The separate entries of this matrix show how much each element of the population matrices contributes to the difference in $\lambda$ between them.
-\item Store this matrix because the different elements of the matrix are what we are ultimately interested in. Check whether the effect you found indeed explains the difference between $\boldsymbol{M}^{..}$ and $\boldsymbol{M}^{p.}$.
-\end{enumerate}
-\item Repeat the same proceedure to find the second $\alpha$, $\alpha^r$ and store the separate contributions $(a^{k.}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{A}}{\partial a^{A}_{ij}}$. DO the same for the three values for $\beta$ and finally for the interactions. For the separate contribution of the interactions $(a^{km}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{C}}{\partial a^{C}_{ij}}$, do not forget to substract the corresponding contributions from the $\alpha$ and $\beta$. 
-\item Once you have all the contributions of all the treatments, you may want to compare them. A possible graphs is a bar plot representing on the same graph the contribution to each parameter of each level of a factor, see for an example the graph above. If you agree that these sort of graphs are interesting, you can follow the next instructions. Feel free however to follow a different logic to produce the same graphs or to present your results in a different way. We do not claim to provide the most efficient code; any comments on how to improve the code are welcome.
-\begin{enumerate}
-\item Let us first look at the effect of the layer on the rates. One way of doing this is first to transform your matrices into vectors, using the \texttt{as.vector()} function and then combine the vector of each matrix into an array with \texttt{cbind()}. (you can actually ignore the first element of the matrices, the transition from juvenile to juvenile because it is always zero by selecting the vector elements 2 to 4). The columns are the layers and the row the rates. 
-\item You can now use the \texttt{barplot()} command to plot bar graphs. Specify \texttt{beside=TRUE} to see the bars next to each other rather than on top of each other.
-\item You may see that each bar (color) represents a rate although it would be more informative if each bar would be a layer. To correct for this, you can take the transpose of the array by using the function \texttt{t()} (we have seen this earlier this practical) and do the bar plot of the transpose. 
-\item There are a few arguments you may want to use in the \texttt{barplot()} command to improve the visual appearance of the graph such as \texttt{xlab=}, \texttt{ylab=}, \texttt{xlim=c()}, \texttt{ylim=c()}, \texttt{col=c("colorname")}, \texttt{main="yourtitle"}.
-\item Additionally, you may want to specify a legend and an axis. This you can do with the commands \texttt{legend()} and \texttt{axis()}. Look them up in the help section to see how to use them.
-\item Don't forget to save your figures! A detailed description is given at the end of practical 6.
-\end{enumerate}
-\item Repeat all of the steps above for the combinations of the layers "Commercial" \& "Postpollution" and of the layers "Postpollution" \& "Pollution".
-\end{enumerate}
 If you manage to go through all the steps describe above, you should now know the growth rate of your populations, have performed three LTRE analyses on your rotifer data and have plots to include in your report. The interpretation of the results is up to you.
 
 
@@ -557,546 +629,5 @@ Good luck!
 \includegraphics[width=0.3\textwidth]{Hippocrate.jpg}
 \caption{\label{fig:owl}random picture, from wikipedia.}
 \end{figure}
-
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlcom{#Open data}
-\hlkwd{rm}\hlstd{(}\hlkwc{list} \hlstd{=} \hlkwd{ls}\hlstd{())}
-\hlstd{rot}\hlkwb{<-}\hlkwd{read.csv}\hlstd{(}\hlstr{"BIO311_with_rates.csv"}\hlstd{,} \hlkwc{sep}\hlstd{=}\hlstr{","}\hlstd{)}
-\hlkwd{str}\hlstd{(rot)}
-\end{alltt}
-\begin{verbatim}
-## 'data.frame':	72 obs. of  13 variables:
-##  $ Group.ID   : Factor w/ 6 levels "A","B","C","D",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ Population : Factor w/ 4 levels "Commercial","Pollution",..: 1 1 1 2 2 3 3 3 3 4 ...
-##  $ Species    : Factor w/ 2 levels "BC","BU": 1 1 1 2 2 1 1 1 1 2 ...
-##  $ Copper     : Factor w/ 3 levels "high","low","medium": 2 3 1 2 1 2 3 3 1 2 ...
-##  $ Replicate  : int  1 6 4 2 3 6 2 4 2 1 ...
-##  $ Day        : int  2 2 2 2 2 2 2 2 2 2 ...
-##  $ Alive_Juv  : int  6 5 5 1 1 0 1 3 1 2 ...
-##  $ Alive_Adult: int  7 8 7 5 3 2 3 4 2 6 ...
-##  $ Dead_Juv   : int  0 0 0 0 0 0 0 1 0 0 ...
-##  $ Dead_Adult : int  2 0 4 0 2 4 2 1 1 0 ...
-##  $ Pj         : num  0.833 1 1 0 0 0 1 0 0 0.5 ...
-##  $ Pa         : num  0.714 1 0.714 0 0.667 0 1 0.75 0.5 0.833 ...
-##  $ F          : num  8 1.625 2 0 0.333 ...
-\end{verbatim}
-\begin{alltt}
-\hlcom{#Find the avg rate per treatment}
-\hlstd{Pj}\hlkwb{<-}\hlkwd{aggregate}\hlstd{(rot}\hlopt{$}\hlstd{Pj,} \hlkwd{list}\hlstd{(rot}\hlopt{$}\hlstd{Population, rot}\hlopt{$}\hlstd{Copper, rot}\hlopt{$}\hlstd{Species),}
-              \hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{FUN}\hlstd{=}\hlstr{"mean"}\hlstd{)}
-\hlstd{Pj}
-\end{alltt}
-\begin{verbatim}
-##          Group.1 Group.2 Group.3         x
-## 1     Commercial    high      BC 0.8916667
-## 2  Postpollution    high      BC 0.4166667
-## 3     Commercial     low      BC 0.8555000
-## 4  Postpollution     low      BC 0.2500000
-## 5     Commercial  medium      BC 0.9206667
-## 6  Postpollution  medium      BC 0.4000000
-## 7      Pollution    high      BU 0.5832500
-## 8       Recovery    high      BU 0.7221667
-## 9      Pollution     low      BU 0.5833333
-## 10      Recovery     low      BU 0.5833333
-## 11     Pollution  medium      BU 0.3195000
-## 12      Recovery  medium      BU 0.2000000
-\end{verbatim}
-\begin{alltt}
-\hlstd{Pa}\hlkwb{<-}\hlkwd{aggregate}\hlstd{(rot}\hlopt{$}\hlstd{Pa,} \hlkwd{list}\hlstd{(rot}\hlopt{$}\hlstd{Population, rot}\hlopt{$}\hlstd{Copper, rot}\hlopt{$}\hlstd{Species),}
-              \hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{FUN}\hlstd{=}\hlstr{"mean"}\hlstd{)}
-\hlstd{Pa}
-\end{alltt}
-\begin{verbatim}
-##          Group.1 Group.2 Group.3         x
-## 1     Commercial    high      BC 0.9523333
-## 2  Postpollution    high      BC 0.5833333
-## 3     Commercial     low      BC 0.9523333
-## 4  Postpollution     low      BC 0.5832500
-## 5     Commercial  medium      BC 0.9583333
-## 6  Postpollution  medium      BC 0.5833333
-## 7      Pollution    high      BU 0.8334000
-## 8       Recovery    high      BU 0.9583333
-## 9      Pollution     low      BU 0.6695000
-## 10      Recovery     low      BU 0.8888333
-## 11     Pollution  medium      BU 0.8790000
-## 12      Recovery  medium      BU 0.7111667
-\end{verbatim}
-\begin{alltt}
-\hlstd{F}\hlkwb{<-}\hlkwd{aggregate}\hlstd{(rot}\hlopt{$}\hlstd{F,} \hlkwd{list}\hlstd{(rot}\hlopt{$}\hlstd{Population, rot}\hlopt{$}\hlstd{Copper, rot}\hlopt{$}\hlstd{Species),}
-             \hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{FUN}\hlstd{=}\hlstr{"mean"}\hlstd{)}
-\hlstd{F}
-\end{alltt}
-\begin{verbatim}
-##          Group.1 Group.2 Group.3         x
-## 1     Commercial    high      BC 2.8556667
-## 2  Postpollution    high      BC 0.5750000
-## 3     Commercial     low      BC 3.3523333
-## 4  Postpollution     low      BC 1.0000000
-## 5     Commercial  medium      BC 2.2175000
-## 6  Postpollution  medium      BC 1.1527778
-## 7      Pollution    high      BU 0.5126000
-## 8       Recovery    high      BU 0.5973333
-## 9      Pollution     low      BU 0.8451667
-## 10      Recovery     low      BU 0.8888333
-## 11     Pollution  medium      BU 1.2013333
-## 12      Recovery  medium      BU 0.5911667
-\end{verbatim}
-\begin{alltt}
-\hlstd{Surv}\hlkwb{<-}\hlkwd{merge}\hlstd{(Pj, Pa,}  \hlkwc{by}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{3}\hlstd{))}
-\hlstd{Surv}
-\end{alltt}
-\begin{verbatim}
-##          Group.1 Group.2 Group.3       x.x       x.y
-## 1     Commercial    high      BC 0.8916667 0.9523333
-## 2     Commercial     low      BC 0.8555000 0.9523333
-## 3     Commercial  medium      BC 0.9206667 0.9583333
-## 4      Pollution    high      BU 0.5832500 0.8334000
-## 5      Pollution     low      BU 0.5833333 0.6695000
-## 6      Pollution  medium      BU 0.3195000 0.8790000
-## 7  Postpollution    high      BC 0.4166667 0.5833333
-## 8  Postpollution     low      BC 0.2500000 0.5832500
-## 9  Postpollution  medium      BC 0.4000000 0.5833333
-## 10      Recovery    high      BU 0.7221667 0.9583333
-## 11      Recovery     low      BU 0.5833333 0.8888333
-## 12      Recovery  medium      BU 0.2000000 0.7111667
-\end{verbatim}
-\begin{alltt}
-\hlcom{# Merge it into one dataset}
-\hlstd{Roti}\hlkwb{<-}\hlkwd{merge}\hlstd{(Surv, F,} \hlkwc{by}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{3}\hlstd{))}
-
-\hlkwd{colnames}\hlstd{(Roti)}\hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Population"}\hlstd{,} \hlstr{"Copper"}\hlstd{,} \hlstr{"Species"}\hlstd{,} \hlstr{"Pj"}\hlstd{,} \hlstr{"Pa"}\hlstd{,} \hlstr{"F"}\hlstd{)}
-\hlstd{Roti}
-\end{alltt}
-\begin{verbatim}
-##       Population Copper Species        Pj        Pa
-## 1     Commercial   high      BC 0.8916667 0.9523333
-## 2     Commercial    low      BC 0.8555000 0.9523333
-## 3     Commercial medium      BC 0.9206667 0.9583333
-## 4      Pollution   high      BU 0.5832500 0.8334000
-## 5      Pollution    low      BU 0.5833333 0.6695000
-## 6      Pollution medium      BU 0.3195000 0.8790000
-## 7  Postpollution   high      BC 0.4166667 0.5833333
-## 8  Postpollution    low      BC 0.2500000 0.5832500
-## 9  Postpollution medium      BC 0.4000000 0.5833333
-## 10      Recovery   high      BU 0.7221667 0.9583333
-## 11      Recovery    low      BU 0.5833333 0.8888333
-## 12      Recovery medium      BU 0.2000000 0.7111667
-##            F
-## 1  2.8556667
-## 2  3.3523333
-## 3  2.2175000
-## 4  0.5126000
-## 5  0.8451667
-## 6  1.2013333
-## 7  0.5750000
-## 8  1.0000000
-## 9  1.1527778
-## 10 0.5973333
-## 11 0.8888333
-## 12 0.5911667
-\end{verbatim}
-\begin{alltt}
-\hlcom{#Finding the lambda for each matrix (optional)}
-\hlstd{Roti}\hlopt{$}\hlstd{lambda}\hlkwb{<-}\hlnum{NA}
-
-\hlkwd{library}\hlstd{(}\hlstr{'popbio'}\hlstd{)}
-\hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{length}\hlstd{(Roti}\hlopt{$}\hlstd{Pj))\{}
-  \hlstd{M}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{, Roti}\hlopt{$}\hlstd{Pj[i], Roti}\hlopt{$}\hlstd{F[i], Roti}\hlopt{$}\hlstd{Pa[i]),} \hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{,} \hlkwc{ncol}\hlstd{=}\hlnum{2}\hlstd{)}
-
-  \hlstd{Roti}\hlopt{$}\hlstd{lambda[i]}\hlkwb{<-}\hlkwd{lambda}\hlstd{(M)}
-\hlstd{\}}
- \hlstd{Roti}
-\end{alltt}
-\begin{verbatim}
-##       Population Copper Species        Pj        Pa
-## 1     Commercial   high      BC 0.8916667 0.9523333
-## 2     Commercial    low      BC 0.8555000 0.9523333
-## 3     Commercial medium      BC 0.9206667 0.9583333
-## 4      Pollution   high      BU 0.5832500 0.8334000
-## 5      Pollution    low      BU 0.5833333 0.6695000
-## 6      Pollution medium      BU 0.3195000 0.8790000
-## 7  Postpollution   high      BC 0.4166667 0.5833333
-## 8  Postpollution    low      BC 0.2500000 0.5832500
-## 9  Postpollution medium      BC 0.4000000 0.5833333
-## 10      Recovery   high      BU 0.7221667 0.9583333
-## 11      Recovery    low      BU 0.5833333 0.8888333
-## 12      Recovery medium      BU 0.2000000 0.7111667
-##            F    lambda
-## 1  2.8556667 2.1414106
-## 2  3.3523333 2.2353301
-## 3  2.2175000 1.9862098
-## 4  0.5126000 1.1041684
-## 5  0.8451667 1.1126134
-## 6  1.2013333 1.1990961
-## 7  0.5750000 0.8614498
-## 8  1.0000000 0.8704558
-## 9  1.1527778 1.0307070
-## 10 0.5973333 1.2921703
-## 11 0.8888333 1.2905799
-## 12 0.5911667 0.8502275
-\end{verbatim}
-\begin{alltt}
-\hlcom{#----------- code for function to extract matrices from the dataset-----------#}
-\hlstd{get_matrix}\hlkwb{<-}\hlkwa{function}\hlstd{(}\hlkwc{roti}\hlstd{,}\hlkwc{pop}\hlstd{,}\hlkwc{cop}\hlstd{)\{}
-  \hlkwa{if}\hlstd{(}\hlopt{!}\hlstd{pop} \hlopt{%in%} \hlkwd{c}\hlstd{(}\hlkwd{levels}\hlstd{(roti}\hlopt{$}\hlstd{Population),}\hlstr{"mean"}\hlstd{))\{}
-    \hlkwd{warning}\hlstd{(}\hlstr{"Something went wrong, give the instructors a cookie and they may help you out:\textbackslash{}n------------------------\textbackslash{}n "}\hlstd{,}
-            \hlstd{pop,}\hlstr{" is not a valid entry\textbackslash{}n------------------------\textbackslash{}n"}\hlstd{)}
-
-    \hlkwd{return}\hlstd{()}
-  \hlstd{\}}
-
-  \hlkwa{if}\hlstd{(}\hlopt{!}\hlstd{cop} \hlopt{%in%} \hlkwd{c}\hlstd{(}\hlkwd{levels}\hlstd{(roti}\hlopt{$}\hlstd{Copper),}\hlstr{"mean"}\hlstd{))\{}
-    \hlkwd{warning}\hlstd{(}\hlstr{"Something went wrong, give the instructors a cookie and they may help you out:\textbackslash{}n------------------------\textbackslash{}n "}\hlstd{,}
-            \hlstd{cop,}\hlstr{" is not a valid entry\textbackslash{}n------------------------\textbackslash{}n"}\hlstd{)}
-
-    \hlkwd{return}\hlstd{()}
-  \hlstd{\}}
-
-  \hlkwa{if}\hlstd{(pop}\hlopt{==}\hlstr{"mean"} \hlopt{&} \hlstd{cop}\hlopt{==}\hlstr{"mean"}\hlstd{)\{}
-    \hlstd{i}\hlkwb{<-}\hlnum{1}\hlopt{:}\hlkwd{length}\hlstd{(roti}\hlopt{$}\hlstd{Copper)}
-  \hlstd{\}}\hlkwa{else if}\hlstd{(pop}\hlopt{==}\hlstr{"mean"}\hlstd{)\{}
-    \hlstd{i}\hlkwb{<-}\hlkwd{which}\hlstd{(roti}\hlopt{$}\hlstd{Copper}\hlopt{==}\hlstd{cop)}
-  \hlstd{\}}\hlkwa{else if}\hlstd{(cop}\hlopt{==}\hlstr{"mean"}\hlstd{)\{}
-    \hlstd{i}\hlkwb{<-}\hlkwd{which}\hlstd{(roti}\hlopt{$}\hlstd{Population}\hlopt{==}\hlstd{pop)}
-  \hlstd{\}}\hlkwa{else}\hlstd{\{}
-    \hlstd{i}\hlkwb{<-}\hlkwd{which}\hlstd{(roti}\hlopt{$}\hlstd{Population}\hlopt{==}\hlstd{pop} \hlopt{&} \hlstd{roti}\hlopt{$}\hlstd{Copper}\hlopt{==}\hlstd{cop)}
-  \hlstd{\}}
-
-  \hlstd{A}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwd{mean}\hlstd{(roti}\hlopt{$}\hlstd{Pj[i]),} \hlkwd{mean}\hlstd{(roti}\hlopt{$}\hlstd{F[i]),}
-              \hlkwd{mean}\hlstd{(roti}\hlopt{$}\hlstd{Pa[i])),} \hlkwc{nrow}\hlstd{=}\hlnum{2}\hlstd{,} \hlkwc{ncol}\hlstd{=}\hlnum{2}\hlstd{)}
-  \hlkwd{return}\hlstd{(A)}
-  \hlstd{\}}
-\hlcom{#--------------------------end of the function-----------------#}
-
-\hlcom{#Get the matrices we are interested in (for Species BC)}
-\hlkwd{library}\hlstd{(popbio)}
-\hlstd{a}\hlkwb{<-}\hlstr{'Pollution'}
-\hlstd{ash}\hlkwb{<-}\hlstr{'Poll'} \hlcom{# Short name for layer a}
-\hlstd{b}\hlkwb{<-}\hlstr{'Recovery'}
-\hlstd{bsh}\hlkwb{<-}\hlstr{'Rec'} \hlcom{# Short name for layer b}
-
-\hlstd{Rotisub} \hlkwb{<-} \hlkwd{subset}\hlstd{(Roti, Roti}\hlopt{$}\hlstd{Population}\hlopt{==}\hlstd{a} \hlopt{|} \hlstd{Roti}\hlopt{$}\hlstd{Population}\hlopt{==}\hlstd{b)}
-\hlstd{Rotisub}
-\end{alltt}
-\begin{verbatim}
-##    Population Copper Species        Pj        Pa         F
-## 4   Pollution   high      BU 0.5832500 0.8334000 0.5126000
-## 5   Pollution    low      BU 0.5833333 0.6695000 0.8451667
-## 6   Pollution medium      BU 0.3195000 0.8790000 1.2013333
-## 10   Recovery   high      BU 0.7221667 0.9583333 0.5973333
-## 11   Recovery    low      BU 0.5833333 0.8888333 0.8888333
-## 12   Recovery medium      BU 0.2000000 0.7111667 0.5911667
-##       lambda
-## 4  1.1041684
-## 5  1.1126134
-## 6  1.1990961
-## 10 1.2921703
-## 11 1.2905799
-## 12 0.8502275
-\end{verbatim}
-\begin{alltt}
-\hlcom{#Here let us do the LTRE}
-\hlcom{#two factors: population (1) and Copper (2)}
-\hlcom{#The average matrix:}
-\hlstd{M}\hlkwb{<-}\hlkwd{get_matrix}\hlstd{(Rotisub,} \hlstr{"mean"}\hlstd{,} \hlstr{"mean"}\hlstd{)}
-
-\hlcom{#First the effect of population (1)-> alpha}
-\hlstd{Pop1}\hlkwb{<-}\hlkwd{get_matrix}\hlstd{(Rotisub, a,} \hlstr{"mean"}\hlstd{)}
-\hlcom{#Population level 3->Postpollution}
-\hlcom{#Population level 1->Pollution }
-     \hlcom{#Pollution}
-       \hlcom{#The mid-way matrix }
-\hlstd{A}\hlkwb{<-}\hlstd{((M}\hlopt{+}\hlstd{Pop1)}\hlopt{/}\hlnum{2}\hlstd{)}
-\hlstd{alpha1}\hlkwb{<-}\hlstd{(Pop1}\hlopt{-}\hlstd{M)}\hlopt{*}\hlkwd{sensitivity}\hlstd{(A)}
-\hlstd{alpha1}
-\end{alltt}
-\begin{verbatim}
-##              [,1]        [,2]
-## [1,]  0.000000000  0.02648626
-## [2,] -0.001746024 -0.02259442
-\end{verbatim}
-\begin{alltt}
-\hlcom{#Recovery}
-\hlstd{Pop2}\hlkwb{<-}\hlkwd{get_matrix}\hlstd{(Rotisub, b,} \hlstr{"mean"}\hlstd{)}
-       \hlcom{#The mid-way matrix }
-\hlstd{B}\hlkwb{<-}\hlstd{((M}\hlopt{+}\hlstd{Pop2)}\hlopt{/}\hlnum{2}\hlstd{)}
-\hlstd{alpha2}\hlkwb{<-}\hlstd{(Pop2}\hlopt{-}\hlstd{M)}\hlopt{*}\hlkwd{sensitivity}\hlstd{(B)}
-\hlstd{alpha2}
-\end{alltt}
-\begin{verbatim}
-##             [,1]        [,2]
-## [1,] 0.000000000 -0.02727686
-## [2,] 0.001610043  0.02307102
-\end{verbatim}
-\begin{alltt}
-\hlcom{#Second the effect of Copper (2)-> beta}
-\hlstd{hig}\hlkwb{<-}\hlkwd{get_matrix}\hlstd{(Rotisub,} \hlstr{"mean"}\hlstd{,} \hlstr{"high"}\hlstd{)}
-\hlstd{med}\hlkwb{<-}\hlkwd{get_matrix}\hlstd{(Rotisub,} \hlstr{"mean"}\hlstd{,} \hlstr{"medium"}\hlstd{)}
-\hlstd{low}\hlkwb{<-}\hlkwd{get_matrix}\hlstd{(Rotisub,} \hlstr{"mean"}\hlstd{,} \hlstr{"low"}\hlstd{)}
-\hlcom{#Copper level 1->High}
-\hlcom{#Copper leve 2->Medium}
-\hlcom{#Copper leve 3->Low}
-     \hlcom{#High}
-       \hlcom{#The mid-way matrix }
-\hlcom{#for beta:}
-\hlstd{C}\hlkwb{<-}\hlstd{((M}\hlopt{+}\hlstd{hig)}\hlopt{/}\hlnum{2}\hlstd{)}
-\hlstd{beta1}\hlkwb{<-}\hlstd{(hig}\hlopt{-}\hlstd{M)}\hlopt{*}\hlkwd{sensitivity}\hlstd{(C)}
-\hlstd{beta1}
-\end{alltt}
-\begin{verbatim}
-##            [,1]        [,2]
-## [1,] 0.00000000 -0.08325026
-## [2,] 0.06794042  0.05693927
-\end{verbatim}
-\begin{alltt}
-  \hlcom{#Medium}
-       \hlcom{#The mid-way matrix }
-\hlcom{#for beta:}
-\hlstd{D}\hlkwb{<-}\hlstd{((M}\hlopt{+}\hlstd{med)}\hlopt{/}\hlnum{2}\hlstd{)}
-
-\hlstd{beta2}\hlkwb{<-}\hlstd{(med}\hlopt{-}\hlstd{M)}\hlopt{*}\hlkwd{sensitivity}\hlstd{(D)}
-\hlstd{beta2}
-\end{alltt}
-\begin{verbatim}
-##            [,1]        [,2]
-## [1,]  0.0000000  0.03379360
-## [2,] -0.1438248 -0.02240382
-\end{verbatim}
-\begin{alltt}
-  \hlcom{#Low}
-       \hlcom{#The mid-way matrix }
-\hlcom{#for beta:}
-\hlstd{E}\hlkwb{<-}\hlstd{((M}\hlopt{+}\hlstd{low)}\hlopt{/}\hlnum{2}\hlstd{)}
-
-\hlstd{beta3}\hlkwb{<-}\hlstd{(low}\hlopt{-}\hlstd{M)}\hlopt{*}\hlkwd{sensitivity}\hlstd{(E)}
-\hlstd{beta3}
-\end{alltt}
-\begin{verbatim}
-##            [,1]        [,2]
-## [1,] 0.00000000  0.03280523
-## [2,] 0.04469452 -0.03349652
-\end{verbatim}
-\begin{alltt}
-\hlcom{#Interactions}
-
-\hlcom{#Here let us extract the 6 matrices we need:}
-\hlstd{Pop1h}\hlkwb{<-}\hlkwd{get_matrix}\hlstd{(Rotisub, a,} \hlstr{"high"}\hlstd{)}
-\hlstd{Pop1m}\hlkwb{<-}\hlkwd{get_matrix}\hlstd{(Rotisub, a,} \hlstr{"medium"}\hlstd{)}
-\hlstd{Pop1l}\hlkwb{<-}\hlkwd{get_matrix}\hlstd{(Rotisub, a,} \hlstr{"low"}\hlstd{)}
-
-\hlstd{Pop2h}\hlkwb{<-}\hlkwd{get_matrix}\hlstd{(Rotisub, b,} \hlstr{"high"}\hlstd{)}
-\hlstd{Pop2m}\hlkwb{<-}\hlkwd{get_matrix}\hlstd{(Rotisub, b,} \hlstr{"medium"}\hlstd{)}
-\hlstd{Pop2l}\hlkwb{<-}\hlkwd{get_matrix}\hlstd{(Rotisub, b,} \hlstr{"low"}\hlstd{)}
-
-       \hlcom{#The mid-way matrix }
-\hlcom{#for alpha:beta:}
-\hlstd{F}\hlkwb{<-}\hlstd{((M}\hlopt{+}\hlstd{Pop1h)}\hlopt{/}\hlnum{2}\hlstd{)}
-
-\hlstd{inter1}\hlkwb{<-}\hlstd{((Pop1h}\hlopt{-}\hlstd{M)}\hlopt{*}\hlkwd{sensitivity}\hlstd{(F))}\hlopt{-}\hlstd{alpha1}\hlopt{-}\hlstd{beta1}
-\hlstd{inter1}
-\end{alltt}
-\begin{verbatim}
-##            [,1]        [,2]
-## [1,]  0.0000000 -0.04088048
-## [2,] -0.0284428 -0.02644883
-\end{verbatim}
-\begin{alltt}
-       \hlcom{#The mid-way matrix }
-\hlcom{#for alpha:beta:}
-\hlstd{G}\hlkwb{<-}\hlstd{((M}\hlopt{+}\hlstd{Pop1m)}\hlopt{/}\hlnum{2}\hlstd{)}
-\hlcom{#The loop}
-
-\hlstd{inter2}\hlkwb{<-}\hlstd{((Pop1m}\hlopt{-}\hlstd{M)}\hlopt{*}\hlkwd{sensitivity}\hlstd{(G))}\hlopt{-}\hlstd{alpha1}\hlopt{-}\hlstd{beta2}
-\hlstd{inter2}
-\end{alltt}
-\begin{verbatim}
-##            [,1]       [,2]
-## [1,] 0.00000000 0.05434000
-## [2,] 0.02999683 0.08829047
-\end{verbatim}
-\begin{alltt}
-\hlcom{#The mid-way matrix }
-\hlcom{#for alpha:beta:}
-\hlstd{H}\hlkwb{<-}\hlstd{((M}\hlopt{+}\hlstd{Pop1l)}\hlopt{/}\hlnum{2}\hlstd{)}
-
-\hlstd{inter3}\hlkwb{<-}\hlstd{((Pop1l}\hlopt{-}\hlstd{M)}\hlopt{*}\hlkwd{sensitivity}\hlstd{(H))}\hlopt{-}\hlstd{alpha1}\hlopt{-}\hlstd{beta3}
-\hlstd{inter3}
-\end{alltt}
-\begin{verbatim}
-##             [,1]        [,2]
-## [1,] 0.000000000 -0.03349910
-## [2,] 0.002175623 -0.05864936
-\end{verbatim}
-\begin{alltt}
-\hlcom{#The mid-way matrix }
-\hlcom{#for alpha:beta:}
-
-\hlstd{I}\hlkwb{<-}\hlstd{((M}\hlopt{+}\hlstd{Pop2h)}\hlopt{/}\hlnum{2}\hlstd{)}
-\hlstd{inter4}\hlkwb{<-}\hlstd{((Pop2h}\hlopt{-}\hlstd{M)}\hlopt{*}\hlkwd{sensitivity}\hlstd{(I))}\hlopt{-}\hlstd{alpha2}\hlopt{-}\hlstd{beta1}
-\hlstd{inter4}
-\end{alltt}
-\begin{verbatim}
-##            [,1]       [,2]
-## [1,] 0.00000000 0.04235057
-## [2,] 0.02797452 0.02575050
-\end{verbatim}
-\begin{alltt}
-\hlcom{#The mid-way matrix }
-\hlcom{#for alpha:beta:}
-\hlstd{J}\hlkwb{<-}\hlstd{((M}\hlopt{+}\hlstd{Pop2m)}\hlopt{/}\hlnum{2}\hlstd{)}
-\hlstd{inter5}\hlkwb{<-}\hlstd{((Pop2m}\hlopt{-}\hlstd{M)}\hlopt{*}\hlkwd{sensitivity}\hlstd{(J))}\hlopt{-}\hlstd{alpha2}\hlopt{-}\hlstd{beta2}
-\hlstd{inter5}
-\end{alltt}
-\begin{verbatim}
-##            [,1]        [,2]
-## [1,]  0.0000000 -0.05759913
-## [2,] -0.0217932 -0.09144026
-\end{verbatim}
-\begin{alltt}
-\hlcom{#The mid-way matrix }
-\hlcom{#for alpha:beta:}
-\hlstd{K}\hlkwb{<-}\hlstd{((M}\hlopt{+}\hlstd{Pop2l)}\hlopt{/}\hlnum{2}\hlstd{)}
-\hlstd{inter6}\hlkwb{<-}\hlstd{((Pop2l}\hlopt{-}\hlstd{M)}\hlopt{*}\hlkwd{sensitivity}\hlstd{(K))}\hlopt{-}\hlstd{alpha2}\hlopt{-}\hlstd{beta3}
-\hlstd{inter6}
-\end{alltt}
-\begin{verbatim}
-##              [,1]       [,2]
-## [1,]  0.000000000 0.03395076
-## [2,] -0.002051386 0.06077038
-\end{verbatim}
-\begin{alltt}
-\hlcom{######### ARRANGING THE DATA FOR PLOTTING ##############}
-\hlcom{#Copper}
-\hlstd{Copper} \hlkwb{<-} \hlkwd{cbind}\hlstd{(}\hlkwd{as.vector}\hlstd{(beta1)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwd{as.vector}\hlstd{(beta2)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],}
-                \hlkwd{as.vector}\hlstd{(beta3)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{])}
-\hlkwd{colnames}\hlstd{(Copper)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"High"}\hlstd{,} \hlstr{"Medium"}\hlstd{,} \hlstr{"Low"}\hlstd{)}
-\hlkwd{rownames}\hlstd{(Copper)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Pj"}\hlstd{,} \hlstr{"F"}\hlstd{,} \hlstr{"Pa"}\hlstd{)}
-\hlstd{Copper}
-\end{alltt}
-\begin{verbatim}
-##           High      Medium         Low
-## Pj  0.06794042 -0.14382485  0.04469452
-## F  -0.08325026  0.03379360  0.03280523
-## Pa  0.05693927 -0.02240382 -0.03349652
-\end{verbatim}
-\begin{alltt}
-\hlstd{Coppert}\hlkwb{<-}\hlkwd{t}\hlstd{(Copper)}
-
-\hlcom{#Layer}
-\hlstd{Layer} \hlkwb{<-} \hlkwd{cbind}\hlstd{(}\hlkwd{as.vector}\hlstd{(alpha1)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwd{as.vector}\hlstd{(alpha2)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{])}
-\hlkwd{colnames}\hlstd{(Layer)} \hlkwb{<-} \hlkwd{c}\hlstd{(a, b)}
-\hlkwd{rownames}\hlstd{(Layer)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Pj"}\hlstd{,} \hlstr{"F"}\hlstd{,} \hlstr{"Pa"}\hlstd{)}
-\hlstd{Layer}
-\end{alltt}
-\begin{verbatim}
-##       Pollution     Recovery
-## Pj -0.001746024  0.001610043
-## F   0.026486263 -0.027276861
-## Pa -0.022594421  0.023071020
-\end{verbatim}
-\begin{alltt}
-\hlstd{Layert}\hlkwb{<-}\hlkwd{t}\hlstd{(Layer)}
-
-\hlcom{#Interactions}
-\hlstd{Interactions} \hlkwb{<-} \hlkwd{cbind}\hlstd{(}\hlkwd{as.vector}\hlstd{(inter1)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwd{as.vector}\hlstd{(inter2)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],}
-                      \hlkwd{as.vector}\hlstd{(inter3)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwd{as.vector}\hlstd{(inter4)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],}
-                      \hlkwd{as.vector}\hlstd{(inter5)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{],} \hlkwd{as.vector}\hlstd{(inter6)[}\hlnum{2}\hlopt{:}\hlnum{4}\hlstd{])}
-\hlkwd{colnames}\hlstd{(Interactions)} \hlkwb{<-} \hlstd{axislabels}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'axislabels' not found}}\begin{alltt}
-\hlkwd{rownames}\hlstd{(Interactions)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Pj"}\hlstd{,} \hlstr{"F"}\hlstd{,} \hlstr{"Pa"}\hlstd{)}
-\hlstd{Interactions}
-\end{alltt}
-\begin{verbatim}
-##           [,1]       [,2]         [,3]       [,4]
-## Pj -0.02844280 0.02999683  0.002175623 0.02797452
-## F  -0.04088048 0.05434000 -0.033499097 0.04235057
-## Pa -0.02644883 0.08829047 -0.058649357 0.02575050
-##           [,5]         [,6]
-## Pj -0.02179320 -0.002051386
-## F  -0.05759913  0.033950764
-## Pa -0.09144026  0.060770385
-\end{verbatim}
-\begin{alltt}
-\hlstd{Interactionst}\hlkwb{<-}\hlkwd{t}\hlstd{(Interactions)}
-
-\hlcom{# Plotting}
-\hlstd{ymin}\hlkwb{<-}\hlkwd{min}\hlstd{(}\hlkwd{c}\hlstd{(}\hlkwd{min}\hlstd{(Layer),}\hlkwd{min}\hlstd{(Copper),}\hlkwd{min}\hlstd{(Interactions)))}
-
-\hlstd{ymax}\hlkwb{<-}\hlkwd{max}\hlstd{(}\hlkwd{c}\hlstd{(}\hlkwd{max}\hlstd{(Layer),}\hlkwd{max}\hlstd{(Copper),}\hlkwd{max}\hlstd{(Interactions)))}
-
-\hlstd{ylim}\hlkwb{<-}\hlnum{0.03}\hlopt{+}\hlkwd{max}\hlstd{(}\hlkwd{c}\hlstd{(ymax,}\hlkwd{abs}\hlstd{(ymin)))}
-
-\hlstd{limits}\hlkwb{<-}\hlkwd{c}\hlstd{(}\hlopt{-}\hlstd{ylim,ylim)}
-
-\hlcom{#graphs}
-\hlkwd{par}\hlstd{(}\hlkwc{mfrow}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{3}\hlstd{),}\hlkwc{mar}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{3}\hlstd{,}\hlnum{3}\hlstd{,}\hlnum{3}\hlstd{,}\hlnum{7}\hlstd{))}
-
-\hlkwd{barplot}\hlstd{(Coppert,}\hlkwc{xaxt}\hlstd{=}\hlstr{'n'}\hlstd{,} \hlkwc{xlab}\hlstd{=}\hlstr{""}\hlstd{,} \hlkwc{ylab}\hlstd{=}\hlstr{"Parameters contribution"}\hlstd{,}
-        \hlkwc{ylim}\hlstd{=limits,} \hlkwc{xlim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{14}\hlstd{),} \hlkwc{col}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"brown"}\hlstd{,}\hlstr{"orange"}\hlstd{,} \hlstr{"yellow"}\hlstd{),}
-        \hlkwc{beside}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{main}\hlstd{=}\hlstr{"Copper level"}\hlstd{)}
-\hlkwd{segments}\hlstd{(}\hlopt{-}\hlnum{1}\hlstd{,}\hlnum{0}\hlstd{,} \hlnum{13}\hlstd{,}\hlnum{0}\hlstd{)}
-\hlkwd{par}\hlstd{(}\hlkwc{mar}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{5.1}\hlstd{,} \hlnum{5.1}\hlstd{,} \hlnum{4.1}\hlstd{,} \hlnum{5.1}\hlstd{),} \hlkwc{xpd}\hlstd{=}\hlnum{TRUE}\hlstd{)}
-\hlkwd{legend}\hlstd{(}\hlstr{"topleft"}\hlstd{,}
-     \hlkwd{c}\hlstd{(}\hlstr{"High"}\hlstd{,} \hlstr{"Medium"}\hlstd{,} \hlstr{"Low"}\hlstd{),} \hlkwc{fill}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"brown"}\hlstd{,}\hlstr{"orange"}\hlstd{,} \hlstr{"yellow"}\hlstd{),}
-     \hlkwc{bty}\hlstd{=}\hlstr{"n"}\hlstd{)}
-\hlkwd{axis}\hlstd{(}\hlkwc{side}\hlstd{=}\hlnum{1}\hlstd{,} \hlkwc{at}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{3}\hlstd{,}\hlnum{7}\hlstd{,}\hlnum{11}\hlstd{),} \hlkwc{labels}\hlstd{=}\hlkwd{c}\hlstd{(} \hlstr{"Pj"}\hlstd{,} \hlstr{"F"}\hlstd{,} \hlstr{"Pa"}\hlstd{),} \hlkwc{line}\hlstd{=}\hlnum{1}\hlstd{,}
-     \hlkwc{tick}\hlstd{=}\hlnum{FALSE}\hlstd{)}
-
-\hlkwd{barplot}\hlstd{(Layert,}\hlkwc{xaxt}\hlstd{=}\hlstr{'n'}\hlstd{,} \hlkwc{xlab}\hlstd{=}\hlstr{""}\hlstd{,} \hlkwc{ylab}\hlstd{=}\hlstr{""}\hlstd{,} \hlkwc{ylim}\hlstd{=limits,} \hlkwc{xlim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{14}\hlstd{),}
-        \hlkwc{col}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"blue"}\hlstd{,}\hlstr{"lightblue"}\hlstd{),} \hlkwc{beside}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{main}\hlstd{=}\hlstr{"Layer"}\hlstd{)}
-\hlkwd{segments}\hlstd{(}\hlopt{-}\hlnum{1}\hlstd{,}\hlnum{0}\hlstd{,} \hlnum{10}\hlstd{,}\hlnum{0}\hlstd{)}
-\hlkwd{par}\hlstd{(}\hlkwc{mar}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{5.1}\hlstd{,} \hlnum{5.1}\hlstd{,} \hlnum{4.1}\hlstd{,} \hlnum{5.1}\hlstd{),} \hlkwc{xpd}\hlstd{=}\hlnum{TRUE}\hlstd{)}
-\hlkwd{legend}\hlstd{(}\hlstr{"topleft"}\hlstd{,}
-     \hlkwd{c}\hlstd{(a,b),} \hlkwc{fill}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"blue"}\hlstd{,}\hlstr{"lightblue"}\hlstd{),} \hlkwc{bty}\hlstd{=}\hlstr{"n"}\hlstd{)}
-\hlkwd{axis}\hlstd{(}\hlkwc{side}\hlstd{=}\hlnum{1}\hlstd{,} \hlkwc{at}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{2}\hlstd{,}\hlnum{5}\hlstd{,}\hlnum{8}\hlstd{),} \hlkwc{labels}\hlstd{=}\hlkwd{c}\hlstd{(} \hlstr{"Pj"}\hlstd{,} \hlstr{"F"}\hlstd{,} \hlstr{"Pa"}\hlstd{),} \hlkwc{line}\hlstd{=}\hlnum{1}\hlstd{,} \hlkwc{tick}\hlstd{=}\hlnum{FALSE}\hlstd{)}
-
-
-
-\hlcom{#Interaction}
-\hlcom{#Layer}
-\hlstd{axislabels}\hlkwb{<-}\hlkwd{c}\hlstd{()}
-\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlkwd{c}\hlstd{(ash,bsh))\{}
-  \hlkwa{for}\hlstd{(j} \hlkwa{in} \hlkwd{c}\hlstd{(}\hlstr{"H"}\hlstd{,}\hlstr{"M"}\hlstd{,}\hlstr{"L"}\hlstd{))\{}
-    \hlstd{axislabels}\hlkwb{<-}\hlkwd{c}\hlstd{(axislabels,}\hlkwd{paste}\hlstd{(i,j,}\hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{))}
-  \hlstd{\}}
-\hlstd{\}}
-
-\hlstd{axislabels2}\hlkwb{<-}\hlkwd{c}\hlstd{()}
-\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlkwd{c}\hlstd{(ash,bsh))\{}
-  \hlkwa{for}\hlstd{(j} \hlkwa{in} \hlkwd{c}\hlstd{(}\hlstr{"$+$"}\hlstd{,}\hlstr{"$\textbackslash{}\textbackslash{}pm$"}\hlstd{,}\hlstr{"$-$"}\hlstd{))\{}
-    \hlstd{axislabels2}\hlkwb{<-}\hlkwd{c}\hlstd{(axislabels2,}\hlkwd{paste}\hlstd{(i,j,}\hlkwc{sep}\hlstd{=}\hlstr{"; "}\hlstd{))}
-  \hlstd{\}}
-\hlstd{\}}
-
-
-\hlkwd{rainbow}\hlstd{(}\hlnum{6}\hlstd{,}\hlkwc{start} \hlstd{=} \hlnum{0}\hlstd{,} \hlkwc{end} \hlstd{=} \hlnum{0.5}\hlstd{,} \hlkwc{alpha} \hlstd{=} \hlnum{0.7}\hlstd{)}
-\end{alltt}
-\begin{verbatim}
-## [1] "#FF0000B3" "#FF9900B3" "#CCFF00B3" "#33FF00B3"
-## [5] "#00FF66B3" "#00FFFFB3"
-\end{verbatim}
-\begin{alltt}
-\hlkwd{library}\hlstd{(}\hlstr{"RColorBrewer"}\hlstd{)}
-
-\hlkwd{barplot}\hlstd{(Interactionst,} \hlkwc{xaxt}\hlstd{=}\hlstr{'n'}\hlstd{,} \hlkwc{xlab}\hlstd{=}\hlstr{""}\hlstd{,} \hlkwc{ylab}\hlstd{=}\hlstr{""}\hlstd{,} \hlkwc{ylim}\hlstd{=limits,} \hlkwc{xlim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{20}\hlstd{),}
-        \hlkwc{col}\hlstd{=}\hlkwd{brewer.pal}\hlstd{(}\hlnum{6}\hlstd{,} \hlstr{"Set3"}\hlstd{) ,} \hlkwc{beside}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{main}\hlstd{=}\hlstr{"Interactions"}\hlstd{)}
-\hlkwd{segments}\hlstd{(}\hlopt{-}\hlnum{1}\hlstd{,}\hlnum{0}\hlstd{,} \hlnum{20}\hlstd{,}\hlnum{0}\hlstd{)}
-\hlkwd{par}\hlstd{(}\hlkwc{mar}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{5.1}\hlstd{,} \hlnum{5.1}\hlstd{,} \hlnum{4.1}\hlstd{,} \hlnum{7.1}\hlstd{),} \hlkwc{xpd}\hlstd{=}\hlnum{TRUE}\hlstd{)}
-\hlkwd{legend}\hlstd{(}\hlstr{"topleft"}\hlstd{,}
-     \hlstd{axislabels2,} \hlkwc{fill}\hlstd{=}\hlkwd{brewer.pal}\hlstd{(}\hlnum{6}\hlstd{,} \hlstr{"Set3"}\hlstd{),} \hlkwc{bty}\hlstd{=}\hlstr{"n"}\hlstd{,} \hlkwc{ncol}\hlstd{=}\hlnum{2}\hlstd{,}\hlkwc{text.width}\hlstd{=}\hlnum{5}\hlstd{)}
-\hlkwd{axis}\hlstd{(}\hlkwc{side}\hlstd{=}\hlnum{1}\hlstd{,} \hlkwc{at}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{5}\hlstd{,}\hlnum{12}\hlstd{,}\hlnum{18}\hlstd{),} \hlkwc{labels}\hlstd{=}\hlkwd{c}\hlstd{(} \hlstr{"Pj"}\hlstd{,} \hlstr{"F"}\hlstd{,} \hlstr{"Pa"}\hlstd{),} \hlkwc{line}\hlstd{=}\hlnum{1}\hlstd{,} \hlkwc{tick}\hlstd{=}\hlnum{FALSE}\hlstd{)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/tReco_vs_Post-1} 
-
-\end{knitrout}
-
 
 \end{document}
