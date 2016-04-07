@@ -99,7 +99,25 @@ To start, we will examine two populations of yellow-necked mice.
 
 This species lives mostly in woodlands and it is suspected that its distribution is limited by altitude. Let us compare a population living in the mountain (population $\boldsymbol{M}$) with a population living in the plain (population $\boldsymbol{P}$) to see if the altitude is a limiting distribution factor. This species can be described by a life-cylce in two stages; juveniles and adults. Thus the matrices describing those populations are given by:
 
-\begin{equation}
+\begi<<numm_approx,echo=FALSE>>=
+A<-matrix(runif(4),ncol=2)
+sens <- function(A){
+  da <- 1e-4
+  lam <- eigen(A)$value[1]
+  dim <- ncol(A)
+  output <- matrix(NA,ncol=dim,nrow=dim)
+  for(i in 1:nrow(A)){
+    for(j in 1:ncol(A)){
+      TempA <- A
+      TempA[i,j] <- A[i,j] + da
+      TemLam <- eigen(TempA)$value[1]
+      output[i,j] <- (TemLam - lam) /da
+    }
+  }
+  return(output)
+}
+@
+n{equation}
 \boldsymbol{P}=\begin{pmatrix}
 0&2\\
 0.25&0.5
@@ -115,35 +133,43 @@ and
 Find the asymptotic growth rates of these populations. You can see that they differ. We would now like to investigate which matrix elements contribute the most to the difference in the asymptotic growth rates. As before, we will start by looking at the sensitivities. This time however, we will write a function that calculates the sensitivities of $\lambda$ to the matrix elements. Writing a general function, will make it easier for us to calculate sensitivities for matrices later. We provide two options for doing so: by numerical perturbation as we did in the previous practical, or by using the exact solution. The latter is conceptually more difficult, but more precise and less code. You may choose yourself which one you want to implement.
 
 \begin{mdframed}\textbf{A: Sensitivities using perturbations}\\
+
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{A}\hlkwb{<-}\hlkwd{matrix}\hlstd{(}\hlkwd{runif}\hlstd{(}\hlnum{4}\hlstd{),}\hlkwc{ncol}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlcom{# We are going to make a function with the name}
+\hlcom{# sens, that takes 1 input variable. We call this}
+\hlcom{# variable A. Everything between \{ and \} is the code}
+\hlcom{# of the function}
 \hlstd{sens} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{A}\hlstd{)\{}
-  \hlstd{da} \hlkwb{<-} \hlnum{1e-4}
-  \hlstd{lam} \hlkwb{<-} \hlkwd{eigen}\hlstd{(A)}\hlopt{$}\hlstd{value[}\hlnum{1}\hlstd{]}
-  \hlstd{dim} \hlkwb{<-} \hlkwd{ncol}\hlstd{(A)}
+
+  \hlstd{da} \hlkwb{<-} \hlnum{1e-4} \hlcom{# define a small perturbation}
+  \hlstd{lam} \hlkwb{<-} \hlstd{...}  \hlcom{# extract the dominant eigenvalue of A}
+  \hlstd{dim} \hlkwb{<-} \hlstd{...} \hlcom{# store the size of A. Use ncol()}
+             \hlcom{# use ?ncol to see what it does}
+
+  \hlcom{# finally, create an empty matrix to store your results in}
   \hlstd{output} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{NA}\hlstd{,}\hlkwc{ncol}\hlstd{=dim,}\hlkwc{nrow}\hlstd{=dim)}
-  \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(A))\{}
-    \hlkwa{for}\hlstd{(j} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{ncol}\hlstd{(A))\{}
-      \hlstd{TempA} \hlkwb{<-} \hlstd{A}
-      \hlstd{TempA[i,j]} \hlkwb{<-} \hlstd{A[i,j]} \hlopt{+} \hlstd{da}
-      \hlstd{TemLam} \hlkwb{<-} \hlkwd{eigen}\hlstd{(TempA)}\hlopt{$}\hlstd{value[}\hlnum{1}\hlstd{]}
-      \hlstd{output[i,j]} \hlkwb{<-} \hlstd{(TemLam} \hlopt{-} \hlstd{lam)} \hlopt{/}\hlstd{da}
+
+  \hlcom{# loop over all indices [i,j] in A, both the rows and the columns}
+  \hlcom{# to calculate the sensitivity of each and every index}
+  \hlkwa{for}\hlstd{(i} \hlkwa{in} \hlstd{...)\{}
+    \hlkwa{for}\hlstd{(j} \hlkwa{in} \hlstd{...)\{}
+      \hlstd{TempA} \hlkwb{<-} \hlstd{A} \hlcom{# we copy the matrix}
+      \hlstd{TempA[i,j]} \hlkwb{<-} \hlstd{...} \hlcom{# we perturb one element}
+      \hlstd{TemLam} \hlkwb{<-} \hlstd{...} \hlcom{# calculate the dominant eigenvalue of the perturbed matrix}
+      \hlstd{output[i,j]} \hlkwb{<-} \hlstd{...} \hlcom{# calculate the sensitivity of lambda to the element (dlambda/da)}
     \hlstd{\}}
   \hlstd{\}}
-  \hlkwd{return}\hlstd{(output)}
+
+  \hlkwd{return}\hlstd{(output)} \hlcom{# The end of the function is reached, we now return the value of output}
 \hlstd{\}}
-\hlkwd{sens}\hlstd{(A)}
 \end{alltt}
-\begin{verbatim}
-##           [,1]      [,2]
-## [1,] 0.2412714 0.1855591
-## [2,] 0.9863592 0.7587660
-\end{verbatim}
 \end{kframe}
 \end{knitrout}
+
 \end{mdframed}
+
 \begin{mdframed}
 \textbf{B: Sensitivities using the exact solution}\\
 Here we will use the formula that was shown in the lecture:
@@ -167,13 +193,7 @@ Here, $\vec{w}$ and $\vec{v}$ are the dominant right and left eigenvector respec
   \hlstd{outcome} \hlkwb{<-} \hlstd{v} \hlopt{%*%} \hlkwd{t}\hlstd{(w)} \hlopt{/} \hlkwd{as.numeric}\hlstd{(}\hlkwd{t}\hlstd{(v)}\hlopt{%*%}\hlstd{w)}
   \hlkwd{return}\hlstd{(outcome)}
 \hlstd{\}}
-\hlkwd{sens}\hlstd{(A)}
 \end{alltt}
-\begin{verbatim}
-##           [,1]      [,2]
-## [1,] 0.2412527 0.1855626
-## [2,] 0.9864586 0.7587473
-\end{verbatim}
 \end{kframe}
 \end{knitrout}
 \end{mdframed}

@@ -65,23 +65,7 @@ lamM<-lambda(M)
 lamP
 lamM
 @
-\begin{equation}
-\boldsymbol{P}=\begin{pmatrix}
-\Sexpr{P[1,1]}&\Sexpr{P[1,2]}\\
-\Sexpr{P[2,1]}&\Sexpr{P[2,2]}
-\end{pmatrix}
-\end{equation}
-and
-\begin{equation}
-\boldsymbol{M}=\begin{pmatrix}
-\Sexpr{M[1,1]}&\Sexpr{M[1,2]}\\
-\Sexpr{M[2,1]}&\Sexpr{M[2,2]}
-\end{pmatrix}
-\end{equation}
-Find the asymptotic growth rates of these populations. You can see that they differ. We would now like to investigate which matrix elements contribute the most to the difference in the asymptotic growth rates. As before, we will start by looking at the sensitivities. This time however, we will write a function that calculates the sensitivities of $\lambda$ to the matrix elements. Writing a general function, will make it easier for us to calculate sensitivities for matrices later. We provide two options for doing so: by numerical perturbation as we did in the previous practical, or by using the exact solution. The latter is conceptually more difficult, but more precise and less code. You may choose yourself which one you want to implement.
-
-\begin{mdframed}\textbf{A: Sensitivities using perturbations}\\
-<<numm_approx>>=
+\begi<<numm_approx,echo=FALSE>>=
 A<-matrix(runif(4),ncol=2)
 sens <- function(A){
   da <- 1e-4
@@ -98,9 +82,73 @@ sens <- function(A){
   }
   return(output)
 }
-sens(A)
 @
+n{equation}
+\boldsymbol{P}=\begin{pmatrix}
+\Sexpr{P[1,1]}&\Sexpr{P[1,2]}\\
+\Sexpr{P[2,1]}&\Sexpr{P[2,2]}
+\end{pmatrix}
+\end{equation}
+and
+\begin{equation}
+\boldsymbol{M}=\begin{pmatrix}
+\Sexpr{M[1,1]}&\Sexpr{M[1,2]}\\
+\Sexpr{M[2,1]}&\Sexpr{M[2,2]}
+\end{pmatrix}
+\end{equation}
+Find the asymptotic growth rates of these populations. You can see that they differ. We would now like to investigate which matrix elements contribute the most to the difference in the asymptotic growth rates. As before, we will start by looking at the sensitivities. This time however, we will write a function that calculates the sensitivities of $\lambda$ to the matrix elements. Writing a general function, will make it easier for us to calculate sensitivities for matrices later. We provide two options for doing so: by numerical perturbation as we did in the previous practical, or by using the exact solution. The latter is conceptually more difficult, but more precise and less code. You may choose yourself which one you want to implement.
+
+\begin{mdframed}\textbf{A: Sensitivities using perturbations}\\
+<<numm_approx,echo=FALSE>>=
+A<-matrix(runif(4),ncol=2)
+sens <- function(A){
+  da <- 1e-4
+  lam <- eigen(A)$value[1]
+  dim <- ncol(A)
+  output <- matrix(NA,ncol=dim,nrow=dim)
+  for(i in 1:nrow(A)){
+    for(j in 1:ncol(A)){
+      TempA <- A
+      TempA[i,j] <- A[i,j] + da
+      TemLam <- eigen(TempA)$value[1]
+      output[i,j] <- (TemLam - lam) /da
+    }
+  }
+  return(output)
+}
+@
+<<numm_approx_text,eval=FALSE>>=
+# We are going to make a function with the name
+# sens, that takes 1 input variable. We call this
+# variable A. Everything between { and } is the code
+# of the function
+sens <- function(A){
+
+  da <- 1e-4 # define a small perturbation
+  lam <- ...  # extract the dominant eigenvalue of A
+  dim <- ... # store the size of A. Use ncol()
+             # use ?ncol to see what it does
+  
+  # finally, create an empty matrix to store your results in
+  output <- matrix(NA,ncol=dim,nrow=dim)
+  
+  # loop over all indices [i,j] in A, both the rows and the columns
+  # to calculate the sensitivity of each and every index
+  for(i in ...){
+    for(j in ...){
+      TempA <- A # we copy the matrix
+      TempA[i,j] <- ... # we perturb one element
+      TemLam <- ... # calculate the dominant eigenvalue of the perturbed matrix
+      output[i,j] <- ... # calculate the sensitivity of lambda to the element (dlambda/da)
+    }
+  }
+  
+  return(output) # The end of the function is reached, we now return the value of output
+}
+@
+
 \end{mdframed}
+
 \begin{mdframed}
 \textbf{B: Sensitivities using the exact solution}\\
 Here we will use the formula that was shown in the lecture:
@@ -122,7 +170,6 @@ sens <- function(A){
   outcome <- v %*% t(w) / as.numeric(t(v)%*%w)
   return(outcome)
 }
-sens(A)
 @
 \end{mdframed}
 This is a very good start! We now have a function that easily provides us with the sensitivity values for any matrix. All we have to do now to get the sensitivity of \texttt{P} is to type \texttt{sens(P)}. 
