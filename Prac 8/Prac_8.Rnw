@@ -782,17 +782,21 @@ c2 <- (v1[2]*n[1]/(v1[1])-n[2])/(v1[2]*v2[1]/(v1[1])-v2[2])
 @
 Now, using equation \ref{sol3}, we can easily calculate $c_1$:
 \begin{equation*} 
-c_1 = \Sexpr{round(n[1]/(v1[1]),2)} - \Sexpr{round(v2[1]/v1[1],2)} \cdot c_2 = \Sexpr{round(n[1]/v1[1] - c22*v2[1]/v1[1],2)}
+c_1 = \Sexpr{round(n[1]/(v1[1]),2)} - \Sexpr{round(v2[1]/v1[1],2)} \cdot c_2 = \Sexpr{round(n[1]/v1[1] - c2*v2[1]/v1[1],2)}
 \end{equation*}
 <<setc1,include=FALSE>>=
 c1 <- n[1]/v1[1] - c2*v2[1]/v1[1]
 @
 Now we can check if these two factors are correct:
 \begin{equation*}
-\Sexpr{round(c11,2)} \cdot \begin{pmatrix} \Sexpr{round(v1[1],2)} \\ \Sexpr{round(v1[2],2)} \end{pmatrix} + \Sexpr{round(c22,2)} \cdot \begin{pmatrix} \Sexpr{round(v2[1],2)} \\ \Sexpr{round(v2[2],2)} \end{pmatrix} = \begin{pmatrix} \Sexpr{(c11 * v1 + c22 * v2)[1]} \\ \Sexpr{(c11 * v1 + c22 * v2)[2]} \end{pmatrix}
+\Sexpr{round(c1,2)} \cdot \begin{pmatrix} \Sexpr{round(v1[1],2)} \\ \Sexpr{round(v1[2],2)} \end{pmatrix} + \Sexpr{round(c2,2)} \cdot \begin{pmatrix} \Sexpr{round(v2[1],2)} \\ \Sexpr{round(v2[2],2)} \end{pmatrix} = \begin{pmatrix} \Sexpr{(c1 * v1 + c2 * v2)[1]} \\ \Sexpr{(c1 * v1 + c2 * v2)[2]} \end{pmatrix}
 \end{equation*}
 <<calcN,include=FALSE>>=
 c1 * v1 + c2 * v2
+v1
+v2
+c1
+c2
 @
 \subQuestion
 \begin{equation*}
@@ -881,7 +885,7 @@ At<-t(A)
 eigens.At<-eigen(At)
 eigens.At
 @
-We apply the same proceedure as for the right eigenvector to find the left eigenvector and the eigenvalue. Write the code to extract the eigenvalue and the left eigenvector. Do you notice anything about the eigenvalue? Check that the found dominant left eigenvector is indeed a left eigenvector of the matrix with the dominant eigenvalue as its eigenvalue.\\[1.5ex]
+Do you notice anything about the eigenvalue? Check that the found dominant left eigenvector is indeed a left eigenvector of the matrix with the dominant eigenvalue as its eigenvalue.\\[1.5ex]
 <<t19,echo=F,eval=T, results='hide'>>=
 position3<-which.max(eigens.At$values)
 lambda3<-eigens.At$values[position3]

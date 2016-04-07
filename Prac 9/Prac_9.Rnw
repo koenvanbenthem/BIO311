@@ -65,7 +65,7 @@ lamM<-lambda(M)
 lamP
 lamM
 @
-\begi<<numm_approx,echo=FALSE>>=
+<<numm_approx_calc,echo=FALSE>>=
 A<-matrix(runif(4),ncol=2)
 sens <- function(A){
   da <- 1e-4
@@ -83,7 +83,8 @@ sens <- function(A){
   return(output)
 }
 @
-n{equation}
+
+\begin{equation}
 \boldsymbol{P}=\begin{pmatrix}
 \Sexpr{P[1,1]}&\Sexpr{P[1,2]}\\
 \Sexpr{P[2,1]}&\Sexpr{P[2,2]}
@@ -297,7 +298,8 @@ In this section, you will apply the factorial LTRE to the rotifer data to compar
 \subsection{Rate estimation}
 Before we can start with the analysis of the population matrices, we first need... the matrices and thus the rates (survival and reproduction). Here, we have only two stages: juveniles and adults, so we consider a $2\times 2$ matrix. First, we load in the data:
 <<LoadDat>>=
-Rot <- read.csv("/Users/koen/Documents/Given Courses/BIO311/Prac 9/rotifer_data.csv")[,2:9]
+#Rot <- read.csv("/Users/koen/Documents/Given Courses/BIO311/Prac 9/rotifer_data.csv")[,2:9]
+Rot <- read.csv("rotifer_data.csv")[,2:9]
 table(Rot$Copper)
 Rot$Copper[Rot$Copper==1000] <- 100
 table(Rot$Layer)
