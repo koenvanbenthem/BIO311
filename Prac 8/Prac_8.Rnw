@@ -785,14 +785,14 @@ c2 <- (v1[2]*n[1]/(v1[1])-n[2])/(v1[2]*v2[1]/(v1[1])-v2[2])
 @
 Now, using equation \ref{sol3}, we can easily calculate $c_1$:
 \begin{equation*} 
-c_1 = \Sexpr{round(n[1]/(v1[1]),2)} - \Sexpr{round(v2[1]/v1[1],2)} \cdot c_2 = \Sexpr{round(n[1]/v1[1] - c22*v2[1]/v1[1],2)}
+c_1 = \Sexpr{round(n[1]/(v1[1]),2)} - \Sexpr{round(v2[1]/v1[1],2)} \cdot c_2 = \Sexpr{round(n[1]/v1[1] - c2*v2[1]/v1[1],2)}
 \end{equation*}
 <<setc1,include=FALSE>>=
 c1 <- n[1]/v1[1] - c2*v2[1]/v1[1]
 @
 Now we can check if these two factors are correct:
 \begin{equation*}
-\Sexpr{round(c11,2)} \cdot \begin{pmatrix} \Sexpr{round(v1[1],2)} \\ \Sexpr{round(v1[2],2)} \end{pmatrix} + \Sexpr{round(c22,2)} \cdot \begin{pmatrix} \Sexpr{round(v2[1],2)} \\ \Sexpr{round(v2[2],2)} \end{pmatrix} = \begin{pmatrix} \Sexpr{(c11 * v1 + c22 * v2)[1]} \\ \Sexpr{(c11 * v1 + c22 * v2)[2]} \end{pmatrix}
+\Sexpr{round(c1,2)} \cdot \begin{pmatrix} \Sexpr{round(v1[1],2)} \\ \Sexpr{round(v1[2],2)} \end{pmatrix} + \Sexpr{round(c2,2)} \cdot \begin{pmatrix} \Sexpr{round(v2[1],2)} \\ \Sexpr{round(v2[2],2)} \end{pmatrix} = \begin{pmatrix} \Sexpr{(c1 * v1 + c2 * v2)[1]} \\ \Sexpr{(c1 * v1 + c2 * v2)[2]} \end{pmatrix}
 \end{equation*}
 <<calcN,include=FALSE>>=
 c1 * v1 + c2 * v2
@@ -997,6 +997,6 @@ However, now the numbers no longer add up to $100\%$. Since all we care about is
 \end{equation*}
 This is indeed again the left eigenvector! (Hopefully. Every time we save this document new random numbers are generated, so actually we can only hope that the theory is general enough to work for all random matrices \texttt{B} that are accidentally generated...). We see thus that the left eigenvector actually mainly tell you how many more offspring an individual that starts in a certain age class will have compared to individuals in other age classes on the long term. -- This is indeed a relatively difficult concept, but maybe if you think about it and go over this simulation yourself, it might sink in.
 \end{mdframed}
-
-%\shipoutAnswer
+\section{Answers to the exercises}
+\shipoutAnswer
 \end{document}
