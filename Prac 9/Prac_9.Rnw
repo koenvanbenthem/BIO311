@@ -65,7 +65,7 @@ lamM<-lambda(M)
 lamP
 lamM
 @
-\begi<<numm_approx,echo=FALSE>>=
+<<numm_approx,echo=FALSE>>=
 A<-matrix(runif(4),ncol=2)
 sens <- function(A){
   da <- 1e-4
@@ -83,7 +83,7 @@ sens <- function(A){
   return(output)
 }
 @
-n{equation}
+\begin{equation}
 \boldsymbol{P}=\begin{pmatrix}
 \Sexpr{P[1,1]}&\Sexpr{P[1,2]}\\
 \Sexpr{P[2,1]}&\Sexpr{P[2,2]}
@@ -99,7 +99,7 @@ and
 Find the asymptotic growth rates of these populations. You can see that they differ. We would now like to investigate which matrix elements contribute the most to the difference in the asymptotic growth rates. As before, we will start by looking at the sensitivities. This time however, we will write a function that calculates the sensitivities of $\lambda$ to the matrix elements. Writing a general function, will make it easier for us to calculate sensitivities for matrices later. We provide two options for doing so: by numerical perturbation as we did in the previous practical, or by using the exact solution. The latter is conceptually more difficult, but more precise and less code. You may choose yourself which one you want to implement.
 
 \begin{mdframed}\textbf{A: Sensitivities using perturbations}\\
-<<numm_approx,echo=FALSE>>=
+<<numm_approx_run,echo=FALSE>>=
 A<-matrix(runif(4),ncol=2)
 sens <- function(A){
   da <- 1e-4
