@@ -43,10 +43,187 @@ options(width=60)
 %%%%%%%%%%%%%%%% LTREs %%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Life Table Response Experiment}
-Life table response experiments (LTREs) are used to assess which  differences in vital rates lead to a change in $\lambda$ in an experimental design. The experiment you performed on the rotifers is well suited to be analysed by an LTRE. More information on the LTREs can be find in Caswell (2001) \textit{Matrix population models}, this is also the book that we based the theoretical background of this practical on. Before analysing the rotifer data, we will first perform a simple LTRE analysis on different data. During this part of the practical, we will write some of the functions that we will use later to analyse the rotifer data.
+Life table response experiments (LTREs) are used to assess which  differences in vital rates lead to a change in $\lambda$ in an experimental design. The experiment you performed on the rotifers is well suited to be analysed by an LTRE. More information on the LTREs can be find in Caswell (2001) \textit{Matrix population models}, this is also the book that we based the theoretical background of this practical on. Before analysing the rotifer data, we will first perform a simple LTRE analysis on different data. During this part of the practical, we will write some of the functions that we will use later to analyse the rotifer data. In practical 6 (last tuesday) we had a short introduction on functions. We repeat (and slightly extend) it here, to refresh your memory.
+\begin{mdframed}
+\textbf{Functions} so far we have worked with variables that represent a value or set of values, for example \texttt{rot} is a variable that we have defined that contains our data. A function is in a sense a variable that does not contain values, but instead contains a set of tasks. When you call a variable, \texttt{R} will show the value of that variable. When you call a function, \texttt{R} will perform the set of tasks in that function. In general when you want to define a function, it will look like this:
+<<fnc00,eval=FALSE>>=
+name_of_new_function <- function(input_1,input_2,...){
 
-\subsection{Comparison of two Leslie matrices}
-To start, we will examine two populations of yellow-necked mice. 
+  do stuff
+  
+  return(output)
+}
+@
+Let's try to make that less abstract with an example:
+<<fnc1>>=
+x_sq <- function(x){
+  return(x^2)
+}
+
+x_sq(3)
+@
+Here we have first defined a function (\texttt{x\textunderscore sq}) that takes one input variable (\texttt{x}). This function returns the squared value of the input. We can use the function by typing \texttt{x\textunderscore sq(x)}. The advantage of a function as that we don't have to rewrite the code all the time. If we now want to square a different number, we can just type:
+<<fnc111>>=
+x_sq(5)
+
+x_sq(7)
+@
+Of course, this is not very usefull when the operation that we perform is just simply squaring a number, but when the operations (or set of operations) become more complicated, functions are a great way to save time.
+
+Similarly we can also make a function that adds up two numbers and returns the squared sum:
+<<fnc2>>=
+x_y_sq <- function(x,y){
+  ans <- x + y
+  return(ans^2)
+}
+x_y_sq(3, 4)
+@
+One important thing to realise is that things that happen in a function, usually stay in a function (there are ways around this, but in general it is good practice to keep it that way). This means that the tasks in the function are performed in their own 'world' and as soon as the function is executed, the changes are gone.
+<<fnc3>>=
+x_y_sq <- function(x,y){
+  ans <- x + y
+  return(ans^2)
+}
+x_y_sq(3, 4)
+ans
+@
+We now get an error, because \texttt{ans} only exists in the function and is deleted as soon as the function is completed. 
+<<fnc4>>=
+ans <- 4
+x_y_sq <- function(x,y){
+  ans <- x + y
+  return(ans^2)
+}
+x_y_sq(3, 4)
+@
+What will now be the value of \texttt{ans}?
+
+We have seen that we can not access the version of \texttt{ans} that 'lives' inside the function anymore, once the function has run. If you change anything in a function, you best return these changes to \texttt{R} at the end of the function using \texttt{return()}. Please note that when a function executes \texttt{return(x)}, \texttt{x} is given back to \texttt{R} and anything that comes after it will not be executed.
+\end{mdframed}
+
+We will now write a function that calculates the sensitivities of $\lambda$ to the matrix elements. Writing a general function, will make it easier for us to calculate sensitivities for matrices later (which we will do frequently). We provide two options for doing so: by numerical perturbation as we did in the previous practical, or by using the exact solution. The latter is conceptually more difficult, but more precise and less code. You may choose yourself which one you want to implement. Do try to write your function such that it can handle matrices with different sizes.
+
+\begin{mdframed}\textbf{A: Sensitivities using perturbations}\\
+Yesterday we have calculated the sensitivities for a barn owl population. We can now re-use that code and put it in a function, so we can use it to from now on easily calculate sensitivities for new matrices. Below the outline is given.
+<<numm_approx_run,echo=FALSE>>=
+A<-matrix(runif(4),ncol=2)
+sens1 <- function(A){
+  da <- 1e-4
+  lam <- eigen(A)$value[1]
+  dim <- ncol(A)
+  output <- matrix(NA,ncol=dim,nrow=dim)
+  for(i in 1:nrow(A)){
+    for(j in 1:ncol(A)){
+      TempA <- A
+      TempA[i,j] <- A[i,j] + da
+      TemLam <- eigen(TempA)$value[1]
+      output[i,j] <- (TemLam - lam) /da
+    }
+  }
+  output <- Re(output)
+  return(output)
+}
+@
+<<numm_approx_text,eval=FALSE>>=
+# We are going to make a function with the name
+# sens, that takes 1 input variable: a matrix. We call this
+# matrix A. Everything between { and } is the code
+# of the function. At the end the function uses return()
+# to give back the calculated values of the sensitivities
+sens <- function(A){
+
+  da <- 1e-4 # define a small perturbation
+  lam <- ...  # extract the dominant eigenvalue of A
+  dim <- ... # store the size of A. Use ncol()
+             # use ?ncol to see what it does
+  
+  # finally, create an empty matrix to store your results in
+  output <- matrix(0,ncol=dim,nrow=dim)
+  
+  # loop over all indices [i,j] in A, rows and columns
+  # to calculate the sensitivity of each and every index
+  for(i in ...){
+    for(j in ...){
+      TempA <- A # we copy the matrix
+      TempA[i,j] <- ... # we perturb one element
+      TemLam <- ... # get lambda of the perturbed matrix
+      output[i,j] <- ... # calculate the sensitivity of 
+                         #lambda to a[i,j] (dlambda/da)
+    }
+  }
+  
+  # In higher dimensions, some eigenvalues may have complex parts
+  # These are not relevant for the sensitivity analysis 
+  # (because the sensitivities will not have complex parts)
+  # we still add the following line to R to make sure that R does
+  # not annoy us constantly by adding a +0i (+ an imaginary part of 0)
+  # to the outcomes
+  output <- Re(output)
+  
+  return(output) # The end of the function is reached, 
+                 # we now return the value of output
+}
+@
+\end{mdframed}
+
+\begin{mdframed}
+\textbf{B: Sensitivities using the exact solution}\\
+Here we will use the formula that was shown in the lecture:
+\begin{equation}
+\begin{pmatrix} 
+\frac{\partial \lambda}{\partial a_{1,1}} & \frac{\partial \lambda}{\partial a_{1,2}} & \dots & \frac{\partial \lambda}{\partial a_{1,N}} \\ 
+\frac{\partial \lambda}{\partial a_{2,1}} & \frac{\partial \lambda}{\partial a_{2,2}} & \dots & \frac{\partial \lambda}{\partial a_{2,N}}\\
+\vdots & \vdots & & \vdots \\
+\frac{\partial \lambda}{\partial a_{N,1}} & \frac{\partial \lambda}{\partial a_{N,2}} & \dots & \frac{\partial \lambda}{\partial a_{N,N}} \\ 
+\end{pmatrix}
+=
+ \frac{\vec{v} \vec{w}^T}{\vec{v}^T \vec{w}}
+\end{equation}
+Here, $\vec{w}$ and $\vec{v}$ are the dominant right and left eigenvector respectively. Furthermore $\vec{v}^T$ responds to the transpose of $\vec{v}$ (try \texttt{?t} in \texttt{R}). The product of two vectors can be performed in \texttt{R} by using the \texttt{\%*\%} operator. Using this we can now wite a function to calculate the sensitivities:
+<<exact_approach_show,eval=FALSE>>=
+sens <- function(A){
+  w <- ...
+  v <- ...
+  outcome <- ... / as.numeric(...)
+  # here we have to add the as.numeric argument.
+  # this is just a problem of R:
+  # it sees that the number comes from a vector
+  # multiplication and therefore stores it as a matrix
+  # with dimension 1x1. However, it then has difficulties
+  # to divide a matrix by another matrix. We therefore
+  # explicitly have to tell R that this 1x1 matrix is just
+  # a number.
+  
+  # Next: we delete the imaginary part:
+  outcome <- Re(outcome)
+  return(outcome)
+}
+@
+<<exact_approach,echo=FALSE>>=
+sens <- function(A){
+  w <- eigen(A)$vector[,1]
+  v <- eigen(t(A))$vector[,1]
+  outcome <- v %*% t(w) / as.numeric(t(v)%*%w)
+  
+  outcome <- Re(outcome)
+  return(outcome)
+}
+@
+\end{mdframed}
+Now test your function on the following two matrices, to make sure that it works.
+<<secretpopbio,include=FALSE>>=
+library(popbio)
+@
+<<goat>>=
+A <- matrix(c(0.5,0.3,0.75,0.9),nrow=2)
+sens(A)
+
+B <- matrix(c(0.5,0.3,0.7,0.9,0.3,0.2,0.4,0.8,0),nrow=3)
+sens(B)
+@
+This is a very good start! We now have a function that easily provides us with the sensitivity values for any matrix. From here, we can finally think about more biological problems!
+\subsection{Comparison of two populations of mice}
+We will now continue with the more biological part of the practical and examine two populations of yellow-necked mice. 
 
 \begin{figure}[h]
 \centering
@@ -65,24 +242,6 @@ lamM<-lambda(M)
 lamP
 lamM
 @
-<<numm_approx,echo=FALSE>>=
-A<-matrix(runif(4),ncol=2)
-sens <- function(A){
-  da <- 1e-4
-  lam <- eigen(A)$value[1]
-  dim <- ncol(A)
-  output <- matrix(NA,ncol=dim,nrow=dim)
-  for(i in 1:nrow(A)){
-    for(j in 1:ncol(A)){
-      TempA <- A
-      TempA[i,j] <- A[i,j] + da
-      TemLam <- eigen(TempA)$value[1]
-      output[i,j] <- (TemLam - lam) /da
-    }
-  }
-  return(output)
-}
-@
 \begin{equation}
 \boldsymbol{P}=\begin{pmatrix}
 \Sexpr{P[1,1]}&\Sexpr{P[1,2]}\\
@@ -96,90 +255,25 @@ and
 \Sexpr{M[2,1]}&\Sexpr{M[2,2]}
 \end{pmatrix}
 \end{equation}
-Find the asymptotic growth rates of these populations. You can see that they differ. We would now like to investigate which matrix elements contribute the most to the difference in the asymptotic growth rates. As before, we will start by looking at the sensitivities. This time however, we will write a function that calculates the sensitivities of $\lambda$ to the matrix elements. Writing a general function, will make it easier for us to calculate sensitivities for matrices later. We provide two options for doing so: by numerical perturbation as we did in the previous practical, or by using the exact solution. The latter is conceptually more difficult, but more precise and less code. You may choose yourself which one you want to implement.
+Find the asymptotic growth rates of these populations. You can see that they differ. We would now like to investigate which matrix elements contribute the most to the difference in the asymptotic growth rates between the two populations. As before, we will start by looking at the sensitivities: which parameter seems to have the biggest effect on $\lambda$?
 
-\begin{mdframed}\textbf{A: Sensitivities using perturbations}\\
-<<numm_approx_run,echo=FALSE>>=
-A<-matrix(runif(4),ncol=2)
-sens <- function(A){
-  da <- 1e-4
-  lam <- eigen(A)$value[1]
-  dim <- ncol(A)
-  output <- matrix(NA,ncol=dim,nrow=dim)
-  for(i in 1:nrow(A)){
-    for(j in 1:ncol(A)){
-      TempA <- A
-      TempA[i,j] <- A[i,j] + da
-      TemLam <- eigen(TempA)$value[1]
-      output[i,j] <- (TemLam - lam) /da
-    }
-  }
-  return(output)
-}
-@
-<<numm_approx_text,eval=FALSE>>=
-# We are going to make a function with the name
-# sens, that takes 1 input variable. We call this
-# variable A. Everything between { and } is the code
-# of the function
-sens <- function(A){
-
-  da <- 1e-4 # define a small perturbation
-  lam <- ...  # extract the dominant eigenvalue of A
-  dim <- ... # store the size of A. Use ncol()
-             # use ?ncol to see what it does
-  
-  # finally, create an empty matrix to store your results in
-  output <- matrix(NA,ncol=dim,nrow=dim)
-  
-  # loop over all indices [i,j] in A, both the rows and the columns
-  # to calculate the sensitivity of each and every index
-  for(i in ...){
-    for(j in ...){
-      TempA <- A # we copy the matrix
-      TempA[i,j] <- ... # we perturb one element
-      TemLam <- ... # calculate the dominant eigenvalue of the perturbed matrix
-      output[i,j] <- ... # calculate the sensitivity of lambda to the element (dlambda/da)
-    }
-  }
-  
-  return(output) # The end of the function is reached, we now return the value of output
-}
-@
-
-\end{mdframed}
-
-\begin{mdframed}
-\textbf{B: Sensitivities using the exact solution}\\
-Here we will use the formula that was shown in the lecture:
+The sensitivites give us an idea of what might happen in the future. It shows how much $\lambda$ would increase if a matrix elemant increases with a certain amount. For this, we look at the equations. As we have shown before:
 \begin{equation}
-\begin{pmatrix} 
-\frac{\partial \lambda}{\partial a_{1,1}} & \frac{\partial \lambda}{\partial a_{1,2}} & \dots & \frac{\partial \lambda}{\partial a_{1,N}} \\ 
-\frac{\partial \lambda}{\partial a_{2,1}} & \frac{\partial \lambda}{\partial a_{2,2}} & \dots & \frac{\partial \lambda}{\partial a_{2,N}}\\
-\vdots & \vdots & & \vdots \\
-\frac{\partial \lambda}{\partial a_{N,1}} & \frac{\partial \lambda}{\partial a_{N,2}} & \dots & \frac{\partial \lambda}{\partial a_{N,N}} \\ 
-\end{pmatrix}
-=
- \frac{\vec{v} \vec{w}^T}{\vec{v}^T \vec{w}}
+s_{i,j} = \frac{\partial \lambda}{\partial a_{i,j}}
 \end{equation}
-Here, $\vec{w}$ and $\vec{v}$ are the dominant right and left eigenvector respectively. Furthermore $\vec{v}^T$ responds to the transpose of $\vec{v}$. Using this we can now wite a function to calculate the sensitivities:
-<<exact_approach>>=
-sens <- function(A){
-  w <- eigen(A)$vector[,1]
-  v <- eigen(t(A))$vector[,1]
-  outcome <- v %*% t(w) / as.numeric(t(v)%*%w)
-  return(outcome)
-}
-@
-\end{mdframed}
-This is a very good start! We now have a function that easily provides us with the sensitivity values for any matrix. All we have to do now to get the sensitivity of \texttt{P} is to type \texttt{sens(P)}. 
+from this it also follows that:
+\begin{equation}
+s_{i,j} \partial a_{i,j} = \partial \lambda
+\end{equation}
+So what we see is that if a matrix element increases with an amount of $\partial a_{i,j}$, $\lambda$ will increase with an amount of $\partial \lambda$. For our population however, we know how big the difference in $a_{i,j}$ are from looking at the differences between the matrices (for example, there is a difference of \Sexpr{P[2,1]}-\Sexpr{M[2,1]}=Sexpr{M[2,1]-P[2,1]} in the maturation rate between the two populations). If we want to know how much each of these differences contributes to differences in $\lambda$, all we have to do with these differences is multiply them with the sensitivities of the corresponding elements.
 
-For this we describe the asymptotic growth rate of the mountain population matrix, $\boldsymbol{M}$, as a function of the asymptotic growth rate of the plain population matrix, $\boldsymbol{P}$ , our reference population plus a treatment effect:  
+There is one problem however, which sensitivities do we take? The ones from $\boldsymbol{M}$ or the ones from $\boldsymbol{P}$? In practice what we do is that we use the sensitivities of the average matrix, to make sure that our sensitivities are not biased towards one of the two matrices. 
 
+Using these values, we can describe the asymptotic growth rate of the mountain population matrix, $\boldsymbol{M}$, as a function of the asymptotic growth rate of the plain population matrix, $\boldsymbol{P}$ , our reference population plus a treatment effect:  
 \begin{equation}\label{a}
 \lambda^{(M)} \approx \lambda^{(P)}+\sum_{i,j}{(a^{(M)}_{ij}-a^{(P)}_{ij})} \frac{ \partial\lambda^{A}}{\partial a^{A}_{ij}}
 \end{equation}
-Let us work through the right part of this equation together. 
+Below we explain the different terms:
 \begin{itemize}
 \item $\lambda^{(P)}$ is the asymptotic growth rate of the $\boldsymbol{P}$ matrix. 
 \item The term ${(a^{(M)}_{ij}-a^{(P)}_{ij})}$, is the change in the elements of the matrix due to the treatment effect, here the moutain habitat. It tells us how different an element in matrix $\boldsymbol{M}$ is from the element at the same position in matrix $\boldsymbol{P}$.
@@ -227,23 +321,145 @@ lamP+sum((M-P)*Sen)
 
 
 @
-\subsection{Fixed Factorial Designs (Theory)}
-Factorial LTRE allows the examination of the effects of several treatments and their interactions. This is the case for your rotifer data where you have a "layer" treatment, a "pollution" treatment and a "species" treatment. Not all the combinations were investigated though; the layers "recovery" and "pollution" contained only the species BU whereas the layers "commercial" and "postpollution" contained only species BC. What difficulty would this pose if you want to compare the species to each other? Because of this, we cannot make a full factorial LTRE on the rotifer data, but we will examine subsets of the full dataset.
+\section{Rotifer data analysis}
+In this section, you will apply the factorial LTRE to the rotifer data to compare the layers "peak", "pollution" and "recovery". The second factor is the copper treatment with the levels "low", "high", "medium".
 
+\subsection{Rate estimation}
+Before we can start with the analysis of the population matrices, we first need... the matrices and thus the rates (survival and reproduction). Here, we have only two stages: juveniles and adults, so we consider a $2\times 2$ matrix. First, we load in the data:
+<<LoadDat>>=
+Rot <- read.csv("rotifer_data.csv")
+@
+Next, we use the function \texttt{reshape()} to change the format of the data. This will later make it easier to calculate the rates. Make sure that you understand how this function changes the data!
+<<Reshape_dat>>=
+Roti<-reshape(Rot,timevar="Day",idvar=c("Clone","Copper","Layer"),direction="wide")
+@
+We will now continue and calculte the rates, for this, we first create a new data frame to store the rates in. This data frame is basically 
+<<Make_dat>>=
+Rates <- Roti[,1:3] 
+@
+Before we start, draw a 2 stage life cycle for the rotifers, this will make it easier to keep track of what is happening. We shall now first calculate the adult survival rate for the period from day $1$ to day $2$. We start by looking at adult survival. We assume that we counted all dead individuals. Now, the survival rate can easily be calculated, it should be the number of alive adults on the first day, minus the number of dead adults observed on the second day, divided by the number of alive adults in the first time step.
+<<Rates>>=
+Rates$Sa1 <- (Roti$Live_Adult.1 - Roti$Dead_Adult.2)/ Roti$Live_Adult.1
+@
+Next, we look at the maturation rate. We have already calcuated how many adults survived from day 1, to day 2. The total number of adults on day 2 will however be higher than this number. The additional adults should have arrived due to maturation of juveniles. Calculate the maturation rates (the following expression is incomplete):
+<<Ratsekkk,eval=FALSE>>=
+Rates$M1 <- (Roti$Live_Adult.2 - ....) / ...
+@
+<<Rates_2,echo=FALSE>>=
+Rates$M1 <- (Roti$Live_Adult.2 + Roti$Dead_Adult.2 - Roti$Live_Adult.1) / Roti$Live_Juv.1
+@
+When we look into the calculated maturation rates, we will see that sometimes it is sometimes higher than 1. The reason is that we have uncertainty in our count data, maybe an adult too many was counted on day 2, or maybe a juvenile too few on day 1. An alternative explanation is that we assume only 1 transition to take place, it is however theoretically possible that within 1 day a juvenile is born and already grows up to the adult stage. Since we have only very few entries that display such problems, we will cut off the maturation rate at 1: we know that it should not be higher than 1. Uncertainty in the data should not change that theoretical assumption.
+<<Rates_topoff>>=
+Rates$M1[Rates$M1 > 1] <- 1
+@
+The next rate is the probability for a juvenile to survive but stay a juvenile. Alive juveniles at day 1 that did not mature and that were not observed dead on day 2, should have survived and stayed in the same stage:
+<<Rates_3,eval=FALSE>>=
+Rates$Sj1 <- (Roti$Live_Juv.1 - ... - ...)/...
+@
+This time we see a few cases were survival is found to be negative. This time we account for it by setting these rate (again there are not many cases) to zero.
+<<Ratesssse,echo=FALSE>>=
+Rates$Sj1 <- (Roti$Live_Juv.1 - Roti$Dead_Juv.2 - Roti$Live_Juv.1*Rates$M1) / Roti$Live_Juv.1
+@
+<<uzinilaki>>=
+Rates$Sj1[Rates$Sj1 < 0] <- 0
+@
+Finally we arrive at the last rate: fecundity. Any juveniles observed on day 2, that are not surviving juveniles from day 1, must be new offspring. Calculate the fecundity rates from this concept:
+<<oioi,eval=FALSE>>=
+Rates$R1 <- ...
+@
+Fortunately, for these rates, no weird values are found. Now continue and calculate the rates for the transition from day 2 to day 3. Check for every rate if some illogical values are calculated and correct them before continuing with the calculation of the next rate.
+<<douhsdjng,eval=FALSE>>=
+Rates$Sa2 <- ...
+Rates$M2 <- ...
+Rates$Sj2 <- ...
+Rates$R2 <- ...
+@
+<<doin,echo=FALSE>>=
+Rates$R1 <- (Roti$Live_Juv.2 - Roti$Live_Juv.1*Rates$Sj1) / Roti$Live_Adult.1
 
-For example let us consider the species BU which has two treatments of the type "layer": the layers "recovery" ($r$) and "pollution" ($p$). For each of these layers it has 3 possible levels for the copper treatment: "low" ($l$), "medium" ($m$) and "high" ($h$). We thus have two factors, one with two levels, the second with three levels.
+# 2 --> 3
+Rates$Sa2 <- (Roti$Live_Adult.2 - Roti$Dead_Adult.3)/ Roti$Live_Adult.2
+Rates$M2 <- (Roti$Live_Adult.3 + Roti$Dead_Adult.3 - Roti$Live_Adult.2) / Roti$Live_Juv.2
+Rates$M2[Rates$M2 > 1] <- 1
+Rates$Sj2 <- (Roti$Live_Juv.2 - Roti$Dead_Juv.3 - Roti$Live_Juv.2*Rates$M2) / Roti$Live_Juv.2
+Rates$Sj2[Rates$Sj2 < 0] <- 0
+Rates$R2 <- (Roti$Live_Juv.3 - Roti$Live_Juv.2*Rates$Sj2) / Roti$Live_Adult.2
+Rates$R2[Rates$R2 < 0] <- 0
+@
+We can now plot what these rates look like. For this it is easiest to first reshape the rates. The following two commands allow you to generate a boxplot of the rates for the transition of day 1 to day 2:
+<<boxplot1,eval=FALSE>>=
+library(tidyr)
+Rates_plot <- gather_(Rates,"Rate","Value",c("Sj1","Sa1","M1","R1"))
+boxplot(Value~Copper+Rate,Rates_plot)
+boxplot(Value~Layer+Rate,Rates_plot)
+@
+Here, we use \texttt{gather\_}, try to understand what it does. Then we use \texttt{boxplot}. Here, the first argument specifies what is plotted (in this case the column \texttt{Value} is plotted, but it is split out by the categories \texttt{Copper} and \texttt{Rate} for the first plot. This is parsed to the function by the code \texttt{Value $\sim$ Copper + Rate}). Adapt this code to also plot the rates for the second transition.
+<<boxplot2,include=FALSE,eval=FALSE>>=
+Rates_plot <- gather_(Rates,"Rate","Value",c("Sj2","Sa2","M2","R2"))
+boxplot(Value~Copper+Rate,Rates_plot)
+boxplot(Value~Layer+Rate,Rates_plot)
+@
+Alternatively you may consider using \texttt{ggplot()} to obtain -- depending on your taste -- nicer looking plots.
+<<boxplot3,eval=FALSE>>=
+library(ggplot2)
+ggplot(Rates_plot,aes(factor(Copper),Value,fill=Rate)) + geom_boxplot()
+@
+We will now continue and start creating the matrices. For this, first we calculate the average rates for the transition from day 1 to 2 and the one from day 2 to 3. This will allow us to make on matrix and thus one value of $\lambda$ per clone
+<<RateAVG,eval=FALSE>>=
+# Averages
+Rates$SaM <- (Rates$Sa1 + Rates$Sa2)/2
+Rates$MM <- ...
+Rates$SjM <- ...
+Rates$RM <- ...
+@
+<<RateAVG3,echo=FALSE>>=
+# Averages
+Rates$SaM <- (Rates$Sa1 + Rates$Sa2)/2
+Rates$MM <- (Rates$M1 + Rates$M2)/2
+Rates$SjM <- (Rates$Sj1 + Rates$Sj2)/2
+Rates$RM <- (Rates$R1 + Rates$R2)/2
+@
+Now we create a new column with the name \texttt{lambda} and using a for-loop, we can now for each replicate calculate the value for lambda, by constructing the appropriate matrix.
+<<lams,eval=FALSE>>=
+Rates$lambda <- 0 # create empty column
+for(i in 1:nrow(Rates)){ # for each row in Rates
+  Mat <- ...
+  Rates$lambda[i] <- ...
+}
+@
+We can now again use the boxplot commands that we used before to see how lambda varies among matrices.
+<<RateAVG2,echo=F>>=
+Rates2 <- Rates[,c('Copper','Layer','SaM','MM','SjM','RM')]
+Rates3 <- aggregate( .~ Copper+Layer,Rates2,mean)
+Rates3$lambda <- NA
+Rates$lambda <- NA
+for(i in 1:nrow(Rates3)){
+  Mat <- matrix(c(Rates3$SjM[i],Rates3$MM[i],Rates3$RM[i],Rates3$SaM[i]),nrow=2)
+  Rates3$lambda[i] <- eigen(Mat)$values[1]
+}
 
-A factorial LTRE is similar to a one-way LTRE; we want to find which differences in matrix elements between a focal matrix and a reference matrix contribute the most to the difference in $\lambda$ between the two matrices. Let us take the matrix "recovery" and "low" which we call $\boldsymbol{M}^{r,l}$ as the focal matrix, for this we average the rates over all the $6$ replicates that were subject to this treatment ($r,l$). We compare it to the matrix naive to any treatment, which we call $\boldsymbol{M}^{..}$. This matrix is obtained from taking the average rates for all the matrices that we are comparing to each other (that is in this case the average of $\boldsymbol{M}^{r,l}$,$\boldsymbol{M}^{r,m}$,$\boldsymbol{M}^{r,h}$,$\boldsymbol{M}^{p,l}$,$\boldsymbol{M}^{p,m}$ and $\boldsymbol{M}^{p,h}$). Again we are interested in understanding the effect of the different treatments on the asymptotic growth rates.
+for(i in 1:nrow(Rates)){
+  Mat <- matrix(c(Rates$SjM[i],Rates$MM[i],Rates$RM[i],Rates$SaM[i]),nrow=2)
+  Rates$lambda[i] <- eigen(Mat)$values[1]
+}
+# boxplot(lambda~Copper+Layer,Rates)
+@
+\subsection{Factorial LTRE}
+\begin{mdframed}
+\textbf{Fixed Factorial Designs (Theory)}
+Factorial LTRE allows the examination of the effects of several treatments and their interactions. This is the case for your rotifer data where you have a "layer" treatment and a "copper" treatment. We can no longer just compare two treatments with each other, instead we have a whole suite of treatments (9 in total, 3 layers times 3 copper levels). We thus have two factors, one with two levels, the second with three levels.
+
+A factorial LTRE is similar to a one-way LTRE; we want to find which differences in matrix elements between a focal matrix and a reference matrix contribute the most to the difference in $\lambda$ between the two matrices. Let us take the matrix "recovery" and "low copper" which we call $\boldsymbol{M}^{r,l}$ as the focal matrix, for this we average the rates over all the replicates that were subject to this treatment ($r,l$). We compare it to the matrix naive to any treatment, which we call $\boldsymbol{M}^{..}$. This matrix is obtained from taking the average rates for all 9 matrices (one for each treatment) that we are comparing to each other. Again we are interested in understanding the effect of the different treatments on the asymptotic growth rates.
 \begin{equation}\label{b}
 \lambda^{r,l}=\lambda^{..}+\alpha^{r}+\beta^{l}+(\alpha \beta)^{r,l}
 \end{equation}
-Equation \ref{b} tells us that $\lambda^{r,l}$ can be found from $\lambda^{..}$ plus an effect from the layer "recovery", an effect from the pollution "low" and an interaction between the two treatments.
+Equation \ref{b} tells us that $\lambda^{r,l}$ can be found from $\lambda^{..}$ plus an effect from the layer "recovery", an effect from the copper level "low" and an interaction between the two treatments.
 
-To isolate the effect of each treatment, we need to look at them separately. So we examine a matrix $\boldsymbol{M}^{r.}$, where the effect of pollution is ignored. The rates of this matrix are calculated as the average of all the matrices with the layer "recovery". 
+To isolate the effect of each treatment, we need to look at them separately. So we examine a matrix $\boldsymbol{M}^{r.}$, where the effect of copper is ignored. The rates of this matrix are calculated as the average of all the matrices with from the layer "recovery". 
 \begin{equation}\label{c}
 \alpha^{r}=\sum_{ij}(a^{r.}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{A}}{\partial a^{A}_{ij}}
 \end{equation}
-The structure of equation \ref{c} is the same as the last part of equation \ref{a}. The matrix $\boldsymbol{A}$ is again a "mid-way" matrix between $\boldsymbol{M}^{r.}$ and $\boldsymbol{M}^{..}$. $\alpha^{r}$ tells us how large the effect of the treatment "layer" is on the asymptotic growth rate. If we want to know which matrix elements are responsible for this effect, we need to look at the separate contributions to $\alpha^r$ ($(a^{r.}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{A}}{\partial a^{A}_{ij}}$). Analogously we can also calculate $\alpha^p$.
+The structure of equation \ref{c} is the same as the last part of equation \ref{a}. The matrix $\boldsymbol{A}$ is again a "mid-way" matrix between $\boldsymbol{M}^{r.}$ and $\boldsymbol{M}^{..}$. $\alpha^{r}$ tells us how large the effect of the treatment "layer" is on the asymptotic growth rate. If we want to know which matrix elements are responsible for this effect, we need to look at the separate contributions to $\alpha^r$ ($(a^{r.}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{A}}{\partial a^{A}_{ij}}$). Analogously we can also calculate the effects for the other layers, e.g. $\alpha^{peak}$.
 
 We do the same for the second factor. We examine a matrix $\boldsymbol{M}^{.l}$, where the effect of the layer is ignored: 
 \begin{equation}\label{d}
@@ -253,7 +469,7 @@ For the interaction effect, we apply the same logic. We examine a matrix $\bolds
 \begin{equation}
 (\alpha \beta)^{rl}=\sum_{ij}(a^{rl}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{C}}{\partial a^{C}_{ij}} -\alpha^{r}-\beta^{l}
 \end{equation}
-So far we have considered only the effect of the layer "recovery" and the pollution "low". Of course this can be extended to all other layers of all treatments. So in general the equations become for $k$ the level of treatment $1$ and $m$ the level of treatment $2$.
+So far we have considered only the effect of the layer "recovery" and the copper level "low". Of course this can be extended to all other layers of all treatments. So in general the equations become for $k$ the level of treatment $1$ and $m$ the level of treatment $2$.
 
 \begin{equation}\label{f}
 \lambda^{k,m}=\lambda^{..}+\alpha^{k}+\beta^{m}+(\alpha \beta)^{k,m}
@@ -271,115 +487,92 @@ In these equations:
 \begin{align}
 A &= \frac{\boldsymbol{M^{k.}} + \boldsymbol{M^{..}}}{2} & B &= \frac{\boldsymbol{M^{.m}} + \boldsymbol{M^{..}}}{2} & C &= \frac{\boldsymbol{M^{km}} + \boldsymbol{M^{..}}}{2}
 \end{align}
-LTREs provide additional information to the growth rate as it describes how the different treatments affect the growth rate. In particular, LTRE allow a detailed comparison of the effect of a treatment on growth rate by examining the contribution of each survival and fertility rate to the gorwth rates of populations subjected to different treatment levels. For example, the graph below depicts the contribution of each element of populations under different copper levels to the growth rate. Each bar describes what is the contribution of an element to the growth rate when subjected to a given treatment level. What conclusions can you draw from this graph?
-
-
-
-<<thypgraph,echo=F, eval=T, results='asis',fig.align='center'>>=
-#Copper
-Copper <- matrix(c(0.06, -0.08, -0.007, -0.07, 0.01, 0.04, 0.04, -0.05, 0.01), nrow=3, ncol=3)
-colnames(Copper) <- c("High", "Medium", "Low")
-rownames(Copper) <- c("Pj", "F", "Pa")
-Coppert<-t(Copper)
-
-par(mar=c(6.1, 6.1, 4.1, 5.1), xpd=TRUE)
-barplot(Coppert,xaxt='n', xlab="", ylab="Parameters contribution",ylim=c(-0.1, 0.1), xlim=c(0,14), col=c("brown","orange", "yellow"), beside=TRUE, main="Copper level")
-segments(-1,0, 13,0)
-legend("topleft", 
-     c("High", "Medium", "Low"), fill=c("brown","orange", "yellow"),  bty="n")
-axis(side=1, at=c(3,7,11), labels=c( "Pj", "F", "Pa"), line=1, tick=FALSE)
-
-@
-
-\section{Rotifer data analysis}
-In this section, you will apply the factorial LTRE to the rotifer data to compare the layers "pollution" and "recovery". The second factor is the copper treatment with the levels "low", "high", "medium".
-
-\subsection{Rate estimation}
-Before we can start with the analysis of the population matrices, we first need... the matrices and thus the rates (survival and reproduction). Here, we have only two stages: juveniles and adults, so we consider a $2\times 2$ matrix. First, we load in the data:
-<<LoadDat>>=
-Rot <- read.csv("/Users/koen/Documents/Given Courses/BIO311/Prac 9/rotifer_data.csv")[,2:9]
-table(Rot$Copper)
-Rot$Copper[Rot$Copper==1000] <- 100
-table(Rot$Layer)
-Rot$Layer[Rot$Layer=="Post"] <- "post"
-Rotti<-reshape(Rot,timevar="Day",idvar=c("Clone","Copper","Layer"),direction="wide")
-Rates <- Rotti[,1:3] 
-@
-We shall now first calculate the adult survival rate for the period from day $1$ to day $2$.
-<<Rates>>=
-# 1 --> 2
-Rates$Sa1 <- (Rotti$Live_Adult.1 - Rotti$Dead_Adult.2)/ Rotti$Live_Adult.1
-Rates$M1 <- (Rotti$Live_Adult.2 + Rotti$Dead_Adult.2 - Rotti$Live_Adult.1) / Rotti$Live_Juv.1
-Rates$Sj1 <- (Rotti$Live_Juv.1 - (Rotti$Live_Adult.2 + Rotti$Dead_Adult.2 - Rotti$Live_Adult.1) - Rotti$Dead_Juv.2)/Rotti$Live_Juv.1
-Rates$R1 <- (Rotti$Live_Juv.2 - Rotti$Live_Juv.2*Rates$Sj1) / Rotti$Live_Adult.1
-
-# 2 --> 3
-Rates$Sa2 <- (Rotti$Live_Adult.2 - Rotti$Dead_Adult.3)/ Rotti$Live_Adult.2
-Rates$M2 <- (Rotti$Live_Adult.3 + Rotti$Dead_Adult.3 - Rotti$Live_Adult.2) / Rotti$Live_Juv.2
-Rates$Sj2 <- (Rotti$Live_Juv.2 - (Rotti$Live_Adult.3 + Rotti$Dead_Adult.3 - Rotti$Live_Adult.2) - Rotti$Dead_Juv.3)/Rotti$Live_Juv.2
-Rates$R2 <- (Rotti$Live_Juv.3 - Rotti$Live_Juv.3*Rates$Sj2) / Rotti$Live_Adult.2
-
-# Averages
-Rates$SaM <- (Rates$Sa1 + Rates$Sa2)/2
-Rates$MM <- (Rates$M1 + Rates$M2)/2
-Rates$SjM <- (Rates$Sj1 + Rates$Sj2)/2
-Rates$RM <- (Rates$R1 + Rates$R2)/2
-
-Rates2 <- Rates[,c('Copper','Layer','SaM','MM','SjM','RM')]
-Rates3 <- aggregate( .~ Copper+Layer,Rates2,mean)
-Rates3$lambda <- NA
-for(i in 1:nrow(Rates3)){
-  Mat <- matrix(c(Rates3$SjM[i],Rates3$MM[i],Rates3$RM[i],Rates3$SaM[i]),nrow=2)
-  Rates3$lambda[i] <- eigen(Mat)$values[1]
-}
-@
-
-<<LTRE_FACT>>=
+LTREs provide additional information to the growth rate as it describes how the different treatments affect the growth rate. In particular, LTRE allow a detailed comparison of the effect of a treatment on growth rate by examining the contribution of each survival and fertility rate to the gorwth rates of populations subjected to different treatment levels.
+\end{mdframed}
+We are now going to apply this theory on the rotifer data. First write a function that performs an \texttt{LTRE}. That is, if we give it two matrices as input, it calculates the sensitivities of the average matrix (you can call the function you made earlier) and it multiplies this with the difference between the matrices. You don't have to use a loop here, if you use \texttt{A*B}, this is not matrix multiplication, but element wise multiplication between the matrices. It simply multiplies the first matrix entry from A, with the first one from B. Then it multiplies the second from A with the second one from B.
+<<LTRE_FACT,include=FALSE>>=
 
 #### FACTORIAL DESIGN LTRE
-library(popbio)
-
 LTRE <- function(A,B){
   M <- (A+B)/2
-  (A-B) * sensitivity(M)
+  (A-B) * sens(M)
 }
+@
+Next, we will have to create the mean matrix, to which we will compare all other matrices. Simply take the means of all the rates (\texttt{mean}) and put these rates together in a matrix.
+<<coffeehouse,eval=FALSE>>=
+MatMean <- ...
+@
 
-MatMean <- matrix(c(mean(Rates3$SjM),mean(Rates3$MM),mean(Rates3$RM),mean(Rates3$SaM)),nrow=2)
-
+<<LTRE_FACT2,echo=FALSE>>=
+MatMean <- matrix(c(mean(Rates$SjM),mean(Rates$MM),mean(Rates$RM),mean(Rates$SaM)),nrow=2)
+@
+Now we proceed and calculate the effect of copper on lambda. For this we have to calculate an average matrix for each copper treatment and compare these with the overall average matrix. To obtain the average matrix, we again use \texttt{aggregate}, but this time we supply a formule: \texttt{.$\sim$Copper}, this means that \texttt{aggregate} will apply the function (in this case \texttt{mean}) on all columns, per coppr level. To make sure that we don't add up with lots of columns, we therefore first take a subset of \texttt{Rates} that only contains the relevant columns.
+<<Polka>>=
 ### Copper treatment
-temp  <- Rates3[,c('Copper','SaM','MM','SjM','RM')]
+temp  <- Rates[,c('Copper','SaM','MM','SjM','RM')]
 tempc <- aggregate(.~Copper,temp,mean)
-copper <- list(3)
+@
+Next, we have to build a matrix for each row in \texttt{tempc} and perform an LTRE on each of these matrices compared to the overall mean matrix. To make sure that we can store the result afterwards, we first create an empty list with the right length. Complete the code to obtain the effects of copper through the different matrix elements on $\lambda$.
+<<Shostakov,eval=FALSE>>=
+copper_effect <- list(3)
+for(i in 1:3){
+  mat <- ...
+  copper[[i]] <- ...
+}
+@
+Finally, we add the names of the copper levels to this list, so we can easily find the right matrix back:
+<<konijn,eval=FALSE>>=
+names(copper_effect) <- tempc$Copper
+
+# now we can obtain specific copper levels
+# by naming them
+copper_effect[['100']]
+@
+What are the total effects of the different copper levels on $\lambda$? Repeat the same procedure for the layer effect.
+<<Trojka,echo=FALSE>>=
+copper_effect <- list(3)
 for(i in 1:3){
   mat <- matrix(c(tempc$SjM[i],tempc$MM[i],tempc$RM[i],tempc$SaM[i]),nrow=2)
-  copper[[i]] <- LTRE(mat,MatMean)
+  copper_effect[[i]] <- LTRE(mat,MatMean)
 }
-names(copper) <- tempc$Copper
+names(copper_effect) <- tempc$Copper
 
 ### Layer treatment
-temp  <- Rates3[,c('Layer','SaM','MM','SjM','RM')]
+temp  <- Rates[,c('Layer','SaM','MM','SjM','RM')]
 templ <- aggregate(.~Layer,temp,mean)
-layer <- list(3)
+layer_effect <- list(3)
 for(i in 1:3){
   mat <- matrix(c(templ$SjM[i],templ$MM[i],templ$RM[i],templ$SaM[i]),nrow=2)
-  layer[[i]] <- LTRE(mat,MatMean)
+  layer_effect[[i]] <- LTRE(mat,MatMean)
 }
-names(layer) = templ$Layer
-
-### Interactions
-temp2  <- Rates3[,c('Copper','Layer','SaM','MM','SjM','RM')]
+names(layer_effect) = templ$Layer
+@
+Finally, we have to calculate the interactions. Now we can use that we names the lists with the copper and layer effects to efficiently access them. We will have to access these in order to be able to substract the correct fixed effects from each interaction, as described in the theory at the beginning of this section.
+<<LAST2,eval=FALSE>>=
+temp2  <- Rates[,c('Copper','Layer','SaM','MM','SjM','RM')]
+tempi <- aggregate(.~Copper+Layer,temp2,mean)
 interaction <- list(9)
 for(i in 1:9){
-  mat <- matrix(c(temp2$SjM[i],temp2$MM[i],temp2$RM[i],temp2$SaM[i]),nrow=2)
-  interaction[[i]] <- LTRE(mat,MatMean) - layer[[as.character(temp2$Layer[i])]] - copper[[as.character(temp2$Copper[i])]]
+  mat <- ...
+  interaction[[i]] <- ... - ...
+}
+
+@
+What is left now is to plot the values and to examine the summed effect of each copper level, each layer level and each interaction. One way to plot for example the copper effects is by using \texttt{barplot(matrix(unlist(copper),nrow=4))}. 
+<<LAST1,include=FALSE,eval=FALSE>>=
+### Interactions
+temp2  <- Rates[,c('Copper','Layer','SaM','MM','SjM','RM')]
+tempi <- aggregate(.~Copper+Layer,temp2,mean)
+interaction <- list(9)
+for(i in 1:9){
+  mat <- matrix(c(tempi$SjM[i],tempi$MM[i],tempi$RM[i],tempi$SaM[i]),nrow=2)
+  interaction[[i]] <- LTRE(mat,MatMean) - layer[[as.character(tempi$Layer[i])]] - copper[[as.character(tempi$Copper[i])]]
 }
 
 ### Plots
-par(mfrow=c(1,2))
-barplot(matrix(unlist(copper),nrow=4),beside=F)
-barplot(matrix(unlist(copper),nrow=4),beside=T)
+barplot(matrix(unlist(copper_effect),nrow=4),beside=T)
 
-barplot(matrix(unlist(layer),nrow=4),beside=T)
+barplot(matrix(unlist(layer_effect),nrow=4),beside=T)
 barplot(matrix(unlist(interaction),nrow=4),beside=T)
 
 ## Summary
@@ -399,94 +592,6 @@ for(i in 1:9){
 Rates3
 @
 
-\subsection{LTRE}
-\begin{enumerate}
-\item Because in the lab, you have made several replicates for each treatment combination, you now have a rate per replicate. We are however interested in the average rates per treatment. We want one juvenile survival rate, one adult survival rate and one fertility rate per population, per copper level and per species. For this you can use the \texttt{aggregate()} function that we have seen in practical $6$ and find the mean. Use the function three times seperately, once for each of the rates that we are interested in. Store the results in a variable. Use \texttt{?aggregate} to see how to use the function. You will need to use one special argument: \texttt{na.rm=TRUE}. This is to make sure that when there are $NA$s in the dataset, the function ignores them and still returns a value.
-\item Now you have three separate lists. You want to group them. For this you can adapt the following lines of code. Use the names of the variables that you specified in the previous step.
-<<t23,echo=T, eval=F>>=
-younewdata1<-merge(SurvJuv, SurvAdu, by=c(1,2,3)) 
-#by set the column by which to merge the two elements
-
-younewdata2<-merge(younewdata1, Fertility, by=c(1,2,3))
-@
-You can in addition give a more meaningful name to the columns by using:
-<<t24,echo=T, eval=F>>=
-colnames(younewdata2)<-c("name of col1", 
-"name of col2", "name of col3", 
-"name of col4", "name of col5", "name of col6")
-@
-\item We mentioned that we are only interested at the moment in the layer "Recovery" and "Pollution". Both contained the species BU. Thus, select only the BU species with the \texttt{subset} function that we also used in practical $6$.
-\item Below is a useful function for the LTRE. It allows you to extract a specific matrix per treatment by using \texttt{get\_matrix}. You need to give it the following arguments 1) the dataset from which you want to extract the matrix, 2) the name of the layer that you are interested in (for example "Pollution"), and 3) the name of the copper level (for example "high"). You do not need to understand the details of this code. If you run this code once during your \texttt{R}-session, \texttt{R} will remember it and every time you type \texttt{get\_matrix(data,layer,copper)} it will execute that code.
-<<t26,echo=T, eval=F>>=
-#code for function to extract matrices from the dataset#
-get_matrix<-function(roti,pop,cop){
-  if(!pop %in% c(levels(roti$Population),"mean")){
-    warning("Something went wrong, give the instructors 
-            a cookie and they may help you out:
-            \n------------------------\n ",pop,
-        " is not a valid entry\n------------------------\n")
-    
-    return()
-  }
-  
-  if(!cop %in% c(levels(roti$Copper),"mean")){
-    warning("Something went wrong, give the instructors 
-            a cookie and they may help you out:
-            \n------------------------\n ",cop," 
-            is not a valid entry\n------------------------\n")
-    
-    return()
-  }
-  
-  if(pop=="mean" & cop=="mean"){
-    i<-1:length(roti$Copper)
-  }else if(pop=="mean"){
-    i<-which(roti$Copper==cop)
-  }else if(cop=="mean"){
-    i<-which(roti$Population==pop)
-  }else{
-    i<-which(roti$Population==pop & roti$Copper==cop)  
-  }
-  
-  A<-matrix(c(0, mean(roti$Pj[i]), 
-        mean(roti$F[i]), mean(roti$Pa[i])), nrow=2, ncol=2)
-  return(A)
-  }
-#end of the function#
-@
-\item With the \texttt{get\_matrix} function, extract the matrix for each treatment combinations ($6$ matrices in total). You need to specify the dataset in the first position, in the second position you need to specify the layer and in the third position the copper level.
-\item Get the growth rate $\lambda$ of each of these matrix.
-\item Now we get to the LTRE. Let us isolate the effect of the first treatment which is the layer. This factor has two levels; pollution and recovery. What we need to do is to implement equation \ref{e} in \texttt{R}. Let us find the $\alpha$ for the level "pollution" first; $\alpha^p$. 
-\begin{enumerate}
-\item Find the matrix $\boldsymbol{M}^{..}$. The rates of this matrix are the averages of the rates of all the matrices of the BU species. For this you can use the \texttt{get\_matrix} function.  The second argument concerns the layer, but here we want the mean rate over all the layers, we have written the function such that you can achieve this by typing "mean" as an argument for the layer. The same holds for the third argument.
-\item Next you need the mean pollution matrix, $\boldsymbol{M}^{p.}$. Again, use the \texttt{get\_matrix} function.\\[1.5ex] 
-\textit{small tip} Here you can do a little trick to be able to use the code later on a different subset of your dataset. Before using the \texttt{get\_matrix} function, set a new name to your focal layers like in the code below. Then in \texttt{get\_matrix}, instead of calling for "Pollution", call for \texttt{yourname1}.
-
-<<tpos,echo=T, eval=F>>=
-yourname1<-'Pollution'
-yourname2<-'Recovery'
-
-@
-\item Find the $\lambda$ for this matrix.
-\item Find the "mid-way" matrix between $\boldsymbol{M}^{..}$ and $\boldsymbol{M}^{p.}$. This is the mean matrix between $\boldsymbol{M}^{..}$ and $\boldsymbol{M}^{p.}$.
-\item For equation \ref{e}, you need the summation term and the sensitivity of the "mid-way" matrix. Let us look first at the summation term. You need the difference between the elements of matrix $\boldsymbol{M}^{p.}$ and of matrix $\boldsymbol{M}^{..}$. Thus take $(\boldsymbol{M}^{p.} - \boldsymbol{M}^{..})$. 
-\item To find the sensitivity of the "mid-way" matrix, use the function \texttt{sensitivity} from the package \texttt{popbio} (see subsection \textit{sensitivity}). 
-\item Finally, multiply the substraction matrix by the sensitivity matrix (not a matrix multiplication!) and save this in a matrix.
-\item The sum of this matrix is your $\alpha^p$, the effect of the layer "Pollution" on the asymptotic growth rate. The separate entries of this matrix show how much each element of the population matrices contributes to the difference in $\lambda$ between them.
-\item Store this matrix because the different elements of the matrix are what we are ultimately interested in. Check whether the effect you found indeed explains the difference between $\boldsymbol{M}^{..}$ and $\boldsymbol{M}^{p.}$.
-\end{enumerate}
-\item Repeat the same proceedure to find the second $\alpha$, $\alpha^r$ and store the separate contributions $(a^{k.}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{A}}{\partial a^{A}_{ij}}$. DO the same for the three values for $\beta$ and finally for the interactions. For the separate contribution of the interactions $(a^{km}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{C}}{\partial a^{C}_{ij}}$, do not forget to substract the corresponding contributions from the $\alpha$ and $\beta$. 
-\item Once you have all the contributions of all the treatments, you may want to compare them. A possible graphs is a bar plot representing on the same graph the contribution to each parameter of each level of a factor, see for an example the graph above. If you agree that these sort of graphs are interesting, you can follow the next instructions. Feel free however to follow a different logic to produce the same graphs or to present your results in a different way. We do not claim to provide the most efficient code; any comments on how to improve the code are welcome.
-\begin{enumerate}
-\item Let us first look at the effect of the layer on the rates. One way of doing this is first to transform your matrices into vectors, using the \texttt{as.vector()} function and then combine the vector of each matrix into an array with \texttt{cbind()}. (you can actually ignore the first element of the matrices, the transition from juvenile to juvenile because it is always zero by selecting the vector elements 2 to 4). The columns are the layers and the row the rates. 
-\item You can now use the \texttt{barplot()} command to plot bar graphs. Specify \texttt{beside=TRUE} to see the bars next to each other rather than on top of each other.
-\item You may see that each bar (color) represents a rate although it would be more informative if each bar would be a layer. To correct for this, you can take the transpose of the array by using the function \texttt{t()} (we have seen this earlier this practical) and do the bar plot of the transpose. 
-\item There are a few arguments you may want to use in the \texttt{barplot()} command to improve the visual appearance of the graph such as \texttt{xlab=}, \texttt{ylab=}, \texttt{xlim=c()}, \texttt{ylim=c()}, \texttt{col=c("colorname")}, \texttt{main="yourtitle"}.
-\item Additionally, you may want to specify a legend and an axis. This you can do with the commands \texttt{legend()} and \texttt{axis()}. Look them up in the help section to see how to use them.
-\item Don't forget to save your figures! A detailed description is given at the end of practical 6.
-\end{enumerate}
-\item Repeat all of the steps above for the combinations of the layers "Commercial" \& "Postpollution" and of the layers "Postpollution" \& "Pollution".
-\end{enumerate}
 If you manage to go through all the steps describe above, you should now know the growth rate of your populations, have performed three LTRE analyses on your rotifer data and have plots to include in your report. The interpretation of the results is up to you.
 
 
@@ -499,284 +604,5 @@ Good luck!
 \includegraphics[width=0.3\textwidth]{Hippocrate.jpg}
 \caption{\label{fig:owl}random picture, from wikipedia.}
 \end{figure}
-
-
-
-<<tReco_vs_Post,echo=T, eval=T>>=
-
-#Open data
-rm(list = ls())
-rot<-read.csv("BIO311_with_rates.csv", sep=",")
-str(rot)
-
-
-#Find the avg rate per treatment
-Pj<-aggregate(rot$Pj, list(rot$Population, rot$Copper, rot$Species),
-              na.rm=TRUE, FUN="mean")
-Pj
-Pa<-aggregate(rot$Pa, list(rot$Population, rot$Copper, rot$Species), 
-              na.rm=TRUE, FUN="mean")
-Pa
-F<-aggregate(rot$F, list(rot$Population, rot$Copper, rot$Species),
-             na.rm=TRUE, FUN="mean")
-F
-Surv<-merge(Pj, Pa,  by=c(1,2,3))
-Surv
-
-
-# Merge it into one dataset
-Roti<-merge(Surv, F, by=c(1,2,3))
-
-colnames(Roti)<- c("Population", "Copper", "Species", "Pj", "Pa", "F")
-Roti
-
-#Finding the lambda for each matrix (optional)
-Roti$lambda<-NA
-
-library('popbio')
-for (i in 1:length(Roti$Pj)){
-  M<-matrix(c(0, Roti$Pj[i], Roti$F[i], Roti$Pa[i]), nrow=2, ncol=2)
-    
-  Roti$lambda[i]<-lambda(M)
-}
- Roti
-
-#----------- code for function to extract matrices from the dataset-----------#
-get_matrix<-function(roti,pop,cop){
-  if(!pop %in% c(levels(roti$Population),"mean")){
-    warning("Something went wrong, give the instructors a cookie and they may help you out:\n------------------------\n ",
-            pop," is not a valid entry\n------------------------\n")
-    
-    return()
-  }
-  
-  if(!cop %in% c(levels(roti$Copper),"mean")){
-    warning("Something went wrong, give the instructors a cookie and they may help you out:\n------------------------\n ",
-            cop," is not a valid entry\n------------------------\n")
-    
-    return()
-  }
-  
-  if(pop=="mean" & cop=="mean"){
-    i<-1:length(roti$Copper)
-  }else if(pop=="mean"){
-    i<-which(roti$Copper==cop)
-  }else if(cop=="mean"){
-    i<-which(roti$Population==pop)
-  }else{
-    i<-which(roti$Population==pop & roti$Copper==cop)  
-  }
-  
-  A<-matrix(c(0, mean(roti$Pj[i]), mean(roti$F[i]),
-              mean(roti$Pa[i])), nrow=2, ncol=2)
-  return(A)
-  }
-#--------------------------end of the function-----------------#
-
-#Get the matrices we are interested in (for Species BC)
-library(popbio)
-a<-'Pollution'
-ash<-'Poll' # Short name for layer a
-b<-'Recovery'
-bsh<-'Rec' # Short name for layer b
-
-Rotisub <- subset(Roti, Roti$Population==a | Roti$Population==b)
-Rotisub
-
-
-#Here let us do the LTRE
-#two factors: population (1) and Copper (2)
-#The average matrix:
-M<-get_matrix(Rotisub, "mean", "mean")
-
-#First the effect of population (1)-> alpha
-Pop1<-get_matrix(Rotisub, a, "mean")
-#Population level 3->Postpollution
-#Population level 1->Pollution 
-     #Pollution
-       #The mid-way matrix 
-A<-((M+Pop1)/2)
-alpha1<-(Pop1-M)*sensitivity(A)
-alpha1
-
-#Recovery
-Pop2<-get_matrix(Rotisub, b, "mean")
-       #The mid-way matrix 
-B<-((M+Pop2)/2)
-alpha2<-(Pop2-M)*sensitivity(B)
-alpha2
-
-#Second the effect of Copper (2)-> beta
-hig<-get_matrix(Rotisub, "mean", "high")
-med<-get_matrix(Rotisub, "mean", "medium")
-low<-get_matrix(Rotisub, "mean", "low")
-#Copper level 1->High
-#Copper leve 2->Medium
-#Copper leve 3->Low
-     #High
-       #The mid-way matrix 
-#for beta:
-C<-((M+hig)/2)
-beta1<-(hig-M)*sensitivity(C)
-beta1
-
-
-  #Medium
-       #The mid-way matrix 
-#for beta:
-D<-((M+med)/2)
-
-beta2<-(med-M)*sensitivity(D)
-beta2
-
-  #Low
-       #The mid-way matrix 
-#for beta:
-E<-((M+low)/2)
-
-beta3<-(low-M)*sensitivity(E)
-beta3
-
-
-#Interactions
-
-#Here let us extract the 6 matrices we need:
-Pop1h<-get_matrix(Rotisub, a, "high")
-Pop1m<-get_matrix(Rotisub, a, "medium")
-Pop1l<-get_matrix(Rotisub, a, "low")
-
-Pop2h<-get_matrix(Rotisub, b, "high")
-Pop2m<-get_matrix(Rotisub, b, "medium")
-Pop2l<-get_matrix(Rotisub, b, "low")
-
-       #The mid-way matrix 
-#for alpha:beta:
-F<-((M+Pop1h)/2)
-
-inter1<-((Pop1h-M)*sensitivity(F))-alpha1-beta1
-inter1
-
-       #The mid-way matrix 
-#for alpha:beta:
-G<-((M+Pop1m)/2)
-#The loop
-
-inter2<-((Pop1m-M)*sensitivity(G))-alpha1-beta2
-inter2
-
-#The mid-way matrix 
-#for alpha:beta:
-H<-((M+Pop1l)/2)
-
-inter3<-((Pop1l-M)*sensitivity(H))-alpha1-beta3
-inter3
-#The mid-way matrix 
-#for alpha:beta:
-
-I<-((M+Pop2h)/2)
-inter4<-((Pop2h-M)*sensitivity(I))-alpha2-beta1
-inter4
-
-#The mid-way matrix 
-#for alpha:beta:
-J<-((M+Pop2m)/2)
-inter5<-((Pop2m-M)*sensitivity(J))-alpha2-beta2
-inter5
-
-#The mid-way matrix 
-#for alpha:beta:
-K<-((M+Pop2l)/2)
-inter6<-((Pop2l-M)*sensitivity(K))-alpha2-beta3
-inter6
-
-
-######### ARRANGING THE DATA FOR PLOTTING ##############
-#Copper
-Copper <- cbind(as.vector(beta1)[2:4], as.vector(beta2)[2:4],
-                as.vector(beta3)[2:4])
-colnames(Copper) <- c("High", "Medium", "Low")
-rownames(Copper) <- c("Pj", "F", "Pa")
-Copper
-Coppert<-t(Copper)
-
-#Layer
-Layer <- cbind(as.vector(alpha1)[2:4], as.vector(alpha2)[2:4])
-colnames(Layer) <- c(a, b)
-rownames(Layer) <- c("Pj", "F", "Pa")
-Layer
-Layert<-t(Layer)
-
-#Interactions
-Interactions <- cbind(as.vector(inter1)[2:4], as.vector(inter2)[2:4], 
-                      as.vector(inter3)[2:4], as.vector(inter4)[2:4],
-                      as.vector(inter5)[2:4], as.vector(inter6)[2:4])
-colnames(Interactions) <- axislabels
-rownames(Interactions) <- c("Pj", "F", "Pa")
-Interactions
-Interactionst<-t(Interactions)
-
-# Plotting
-ymin<-min(c(min(Layer),min(Copper),min(Interactions)))
-
-ymax<-max(c(max(Layer),max(Copper),max(Interactions)))
-
-ylim<-0.03+max(c(ymax,abs(ymin)))
-
-limits<-c(-ylim,ylim)
-
-#graphs
-par(mfrow=c(1,3),mar=c(3,3,3,7))
-
-barplot(Coppert,xaxt='n', xlab="", ylab="Parameters contribution",
-        ylim=limits, xlim=c(0,14), col=c("brown","orange", "yellow"), 
-        beside=TRUE, main="Copper level")
-segments(-1,0, 13,0)
-par(mar=c(5.1, 5.1, 4.1, 5.1), xpd=TRUE)
-legend("topleft", 
-     c("High", "Medium", "Low"), fill=c("brown","orange", "yellow"),
-     bty="n")
-axis(side=1, at=c(3,7,11), labels=c( "Pj", "F", "Pa"), line=1,
-     tick=FALSE)
-
-barplot(Layert,xaxt='n', xlab="", ylab="", ylim=limits, xlim=c(0,14),
-        col=c("blue","lightblue"), beside=TRUE, main="Layer")
-segments(-1,0, 10,0)
-par(mar=c(5.1, 5.1, 4.1, 5.1), xpd=TRUE)
-legend("topleft",
-     c(a,b), fill=c("blue","lightblue"), bty="n")
-axis(side=1, at=c(2,5,8), labels=c( "Pj", "F", "Pa"), line=1, tick=FALSE)
-
-
-
-#Interaction
-#Layer
-axislabels<-c()
-for(i in c(ash,bsh)){
-  for(j in c("H","M","L")){
-    axislabels<-c(axislabels,paste(i,j,sep=""))
-  }
-}
-
-axislabels2<-c()
-for(i in c(ash,bsh)){
-  for(j in c("$+$","$\\pm$","$-$")){
-    axislabels2<-c(axislabels2,paste(i,j,sep="; "))
-  }
-}
-
-
-rainbow(6,start = 0, end = 0.5, alpha = 0.7)
-library("RColorBrewer")
-
-barplot(Interactionst, xaxt='n', xlab="", ylab="", ylim=limits, xlim=c(0,20),
-        col=brewer.pal(6, "Set3") , beside=TRUE, main="Interactions")
-segments(-1,0, 20,0)
-par(mar=c(5.1, 5.1, 4.1, 7.1), xpd=TRUE)
-legend("topleft",  
-     axislabels2, fill=brewer.pal(6, "Set3"), bty="n", ncol=2,text.width=5)
-axis(side=1, at=c(5,12,18), labels=c( "Pj", "F", "Pa"), line=1, tick=FALSE)
-
-@
-
 
 \end{document}

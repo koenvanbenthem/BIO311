@@ -528,7 +528,7 @@ P41<- #insert your value here
   
 A1<-matrix(c(F11,P11,0,0,F21,0,P21,0,F31,0,0,P31,F41,0,0,P41), nr=4)
 A1
-lambdaF1<- lambda(A1)
+lambdaF1<- eigen(A1)$values[1]
 @
 
 The sensitivity of $\lambda$ to one element of the matrix is given by:
