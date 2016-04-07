@@ -805,7 +805,7 @@ N = \frac{1}{1+\frac{1-N_0}{N_0}e^{-t}}
 \end{equation}
 
 \textbf{This information is extra!\\}
-%\section{Answers to the \textit{pen \& paper} exercises}
-%\shipoutAnswer
+\section{Answers to the \textit{pen \& paper} exercises}
+\shipoutAnswer
 
 \end{document}
