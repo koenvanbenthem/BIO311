@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  8 APR 2016 00:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  8 APR 2016 13:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1425,11 +1425,12 @@ File: mouse.jpg Graphic file (type jpg)
  <use mouse.jpg>
 Package pdftex.def Info: mouse.jpg used on input line 315.
 (pdftex.def)             Requested size: 103.50105pt x 68.73183pt.
- [7 <./mouse.jpg>] [8]
+ [7 <./mouse.jpg>]
 Underfull \hbox (badness 10000) in paragraph at lines 367--368
 
  []
 
+[8]
 
 Package xcolor Warning: Incompatible color definition on input line 377.
 
@@ -1449,13 +1450,12 @@ Package xcolor Warning: Incompatible color definition on input line 393.
 
 Package xcolor Warning: Incompatible color definition on input line 401.
 
-
+[9]
 Overfull \hbox (27.74675pt too wide) in paragraph at lines 403--403
 [][]\OT1/cmtt/m/n/10 Rates[][]$[][]Sa1[] []<-[] [](Roti[][]$[][]Live_Adult.1[] 
 []-[] []Roti[][]$[][]Dead_Adult.2)[][]/[] []Roti[][]$[][]Live_Adult.1[][] 
  []
 
-[9]
 
 Package xcolor Warning: Incompatible color definition on input line 409.
 
@@ -1476,100 +1476,257 @@ Package xcolor Warning: Incompatible color definition on input line 451.
 
 [10]
 
-Package xcolor Warning: Incompatible color definition on input line 463.
+Package xcolor Warning: Incompatible color definition on input line 461.
 
 
-Overfull \hbox (11.99689pt too wide) in paragraph at lines 466--466
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 463--463
+[][]\OT1/cmtt/m/n/10 Rates[][]$[][]R1[] []<-[] [](Roti[][]$[][]Live_Juv.2[] []-
+[] []Roti[][]$[][]Live_Juv.1[][]*[][]Rates[][]$[][]Sj1)[] []/[] []Roti[][]$[][]
+Live_Adult.1[][] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 466--466
+[][]\OT1/cmtt/m/n/10 Rates[][]$[][]Sa2[] []<-[] [](Roti[][]$[][]Live_Adult.2[] 
+[]-[] []Roti[][]$[][]Dead_Adult.3)[][]/[] []Roti[][]$[][]Live_Adult.2[][] 
+ []
+
+
+Overfull \hbox (122.24593pt too wide) in paragraph at lines 467--467
+[][]\OT1/cmtt/m/n/10 Rates[][]$[][]M2[] []<-[] [](Roti[][]$[][]Live_Adult.3[] [
+]+[] []Roti[][]$[][]Dead_Adult.3[] []-[] []Roti[][]$[][]Live_Adult.2)[] []/[] [
+]Roti[][]$[][]Live_Juv.2[][] 
+ []
+
+
+Overfull \hbox (143.24574pt too wide) in paragraph at lines 469--469
+[][]\OT1/cmtt/m/n/10 Rates[][]$[][]Sj2[] []<-[] [](Roti[][]$[][]Live_Juv.2[] []
+-[] []Roti[][]$[][]Dead_Juv.3[] []-[] []Roti[][]$[][]Live_Juv.2[][]*[][]Rates[]
+[]$[][]M2)[] []/[] []Roti[][]$[][]Live_Juv.2[][] 
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 471--471
+[][]\OT1/cmtt/m/n/10 Rates[][]$[][]R2[] []<-[] [](Roti[][]$[][]Live_Juv.3[] []-
+[] []Roti[][]$[][]Live_Juv.2[][]*[][]Rates[][]$[][]Sj2)[] []/[] []Roti[][]$[][]
+Live_Adult.2[][] 
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 478.
+
+
+Overfull \hbox (11.99689pt too wide) in paragraph at lines 481--481
 [][]\OT1/cmtt/m/n/10 Rates_plot[] []<-[] []gather_[][](Rates,[][]"Rate"[][],[][
 ]"Value"[][],[][]c[][]([][]"Sj1"[][],[][]"Sa1"[][],[][]"M1"[][],[][]"R1"[][]))[
 ][] 
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 476.
+Package xcolor Warning: Incompatible color definition on input line 491.
 
 
-Overfull \hbox (27.74675pt too wide) in paragraph at lines 479--479
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 494--494
 [][]\OT1/cmtt/m/n/10 ggplot[][](Rates_plot,[][]aes[][]([][]factor[][](Copper),V
 alue,[][]fill[][]=Rate))[] []+[] []geom_boxplot[][]()[][] 
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 485.
-
-
-Package xcolor Warning: Incompatible color definition on input line 498.
+Package xcolor Warning: Incompatible color definition on input line 500.
 
 [11]
+
+Package xcolor Warning: Incompatible color definition on input line 513.
+
+
+Package xcolor Warning: Incompatible color definition on input line 525.
+
+
+Overfull \hbox (74.99634pt too wide) in paragraph at lines 532--532
+[]  []\OT1/cmtt/m/n/10 Mat[] []<-[] []matrix[][]([][]c[][](Rates3[][]$[][]SjM[i
+],Rates3[][]$[][]MM[i],Rates3[][]$[][]RM[i],Rates3[][]$[][]SaM[i]),[][]nrow[][]
+=[][]2[][])[][] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 537--537
+[]  []\OT1/cmtt/m/n/10 Mat[] []<-[] []matrix[][]([][]c[][](Rates[][]$[][]SjM[i]
+,Rates[][]$[][]MM[i],Rates[][]$[][]RM[i],Rates[][]$[][]SaM[i]),[][]nrow[][]=[][
+]2[][])[][] 
+ []
+
+[12]
 Package mdframed Info: Box was splittet wrong
  starting loop to iterate the splitting point
-(mdframed)              on input line 554.
- [12]
-
-Package xcolor Warning: Incompatible color definition on input line 559.
-
-[13]
-
-Package xcolor Warning: Incompatible color definition on input line 569.
-
-
-Package xcolor Warning: Incompatible color definition on input line 579.
-
+(mdframed)              on input line 588.
+ [13]
 
 Package xcolor Warning: Incompatible color definition on input line 591.
 
-
-Package xcolor Warning: Incompatible color definition on input line 605.
-
 [14]
-Overfull \hbox (9.27625pt too wide) in paragraph at lines 617--618
-\OT1/cmr/m/n/10 am-ple the cop-per ef-fects is by us-ing \OT1/cmtt/m/n/10 barpl
-ot(matrix(unlist(copper),nrow=4))\OT1/cmr/m/n/10 . 
+
+Package xcolor Warning: Incompatible color definition on input line 622.
+
+
+Package xcolor Warning: Incompatible color definition on input line 634.
+
+
+Package xcolor Warning: Incompatible color definition on input line 642.
+
+
+Overfull \hbox (127.49588pt too wide) in paragraph at lines 644--644
+[][]\OT1/cmtt/m/n/10 MatMean[] []<-[] []matrix[][]([][]c[][]([][]mean[][](Rates
+[][]$[][]SjM),[][]mean[][](Rates[][]$[][]MM),[][]mean[][](Rates[][]$[][]RM),[][
+]mean[][](Rates[][]$[][]SaM)),[][]nrow[][]=[][]2[][])[][] 
  []
 
-<Hippocrate.jpg, id=74, 146.64787pt x 180.675pt>
+
+Package xcolor Warning: Incompatible color definition on input line 650.
+
+
+Package xcolor Warning: Incompatible color definition on input line 660.
+
+
+Package xcolor Warning: Incompatible color definition on input line 672.
+
+[15]
+
+Package xcolor Warning: Incompatible color definition on input line 684.
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 688--688
+[]  []\OT1/cmtt/m/n/10 mat[] []<-[] []matrix[][]([][]c[][](tempc[][]$[][]SjM[i]
+,tempc[][]$[][]MM[i],tempc[][]$[][]RM[i],tempc[][]$[][]SaM[i]),[][]nrow[][]=[][
+]2[][])[][] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 698--698
+[]  []\OT1/cmtt/m/n/10 mat[] []<-[] []matrix[][]([][]c[][](templ[][]$[][]SjM[i]
+,templ[][]$[][]MM[i],templ[][]$[][]RM[i],templ[][]$[][]SaM[i]),[][]nrow[][]=[][
+]2[][])[][] 
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 707.
+
+
+Package xcolor Warning: Incompatible color definition on input line 721.
+
+
+Overfull \hbox (9.27625pt too wide) in paragraph at lines 719--721
+\OT1/cmr/m/n/10 am-ple the cop-per ef-fects is by us-ing \OT1/cmtt/m/n/10 barpl
+ot(matrix(unlist(copper),nrow=4))\OT1/cmr/m/n/10 .
+ []
+
+[16]
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 728--728
+[]  []\OT1/cmtt/m/n/10 mat[] []<-[] []matrix[][]([][]c[][](tempi[][]$[][]SjM[i]
+,tempi[][]$[][]MM[i],tempi[][]$[][]RM[i],tempi[][]$[][]SaM[i]),[][]nrow[][]=[][
+]2[][])[][] 
+ []
+
+
+Overfull \hbox (363.74382pt too wide) in paragraph at lines 729--729
+[]  []\OT1/cmtt/m/n/10 interaction[[i]][] []<-[] []LTRE[][](mat,MatMean)[] []-[
+] []layer_effect[[[][]as.character[][](tempi[][]$[][]Layer[i])]][] []-[] []copp
+er_effect[[[][]as.character[][](tempi[][]$[][]Copper[i])]][][] 
+ []
+
+<figure/LAST1-1.pdf, id=80, 505.89pt x 505.89pt>
+File: figure/LAST1-1.pdf Graphic file (type pdf)
+ <use figure/LAST1-1.pdf>
+Package pdftex.def Info: figure/LAST1-1.pdf used on input line 736.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 736--737
+[][] 
+ []
+
+<figure/LAST1-2.pdf, id=81, 505.89pt x 505.89pt>
+File: figure/LAST1-2.pdf Graphic file (type pdf)
+ <use figure/LAST1-2.pdf>
+Package pdftex.def Info: figure/LAST1-2.pdf used on input line 741.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 741--742
+[][] 
+ []
+
+[17 <./figure/LAST1-1.pdf>] <figure/LAST1-3.pdf, id=91, 505.89pt x 505.89pt>
+File: figure/LAST1-3.pdf Graphic file (type pdf)
+
+<use figure/LAST1-3.pdf>
+Package pdftex.def Info: figure/LAST1-3.pdf used on input line 746.
+(pdftex.def)             Requested size: 345.0pt x 345.00414pt.
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 746--747
+[][] 
+ []
+
+[18 <./figure/LAST1-2.pdf>]
+Overfull \hbox (505.49258pt too wide) in paragraph at lines 777--777
+[]  []\OT1/cmtt/m/n/10 Rates3[][]$[][]lambda2[i][] []<-[] []lam_mean[] []+[] []
+sum[][](copper_effect[[[][]as.character[][](Rates3[][]$[][]Copper[i])]])[] []+[
+][]sum[][](layer_effect[[[][]as.character[][](Rates3[][]$[][]Layer[i])]])[] []+
+[] []sum[][](interaction[[i]])[][] 
+ []
+
+
+Overfull \hbox (379.49368pt too wide) in paragraph at lines 778--778
+[]  []\OT1/cmtt/m/n/10 Rates3[][]$[][]lambda3[i][] []<-[] []lam_mean[] []+[] []
+sum[][](copper_effect[[[][]as.character[][](Rates3[][]$[][]Copper[i])]])[] []+[
+][]sum[][](layer_effect[[[][]as.character[][](Rates3[][]$[][]Layer[i])]])[][] 
+ []
+
+[19 <./figure/LAST1-3.pdf>] <Hippocrate.jpg, id=107, 146.64787pt x 180.675pt>
 File: Hippocrate.jpg Graphic file (type jpg)
- <use Hippocrate.jpg>
-Package pdftex.def Info: Hippocrate.jpg used on input line 629.
+
+<use Hippocrate.jpg>
+Package pdftex.def Info: Hippocrate.jpg used on input line 816.
 (pdftex.def)             Requested size: 103.50105pt x 127.52199pt.
- [15 <./Hippocrate.jpg>] (./Prac_9.aux) ) 
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[20] [21 <./Hippocrate.jpg>] (./Prac_9.aux) ) 
 Here is how much of TeX's memory you used:
- 23635 strings out of 493089
- 454865 string characters out of 6134843
- 507078 words of memory out of 5000000
- 26726 multiletter control sequences out of 15000+600000
+ 23652 strings out of 493089
+ 455182 string characters out of 6134843
+ 500080 words of memory out of 5000000
+ 26738 multiletter control sequences out of 15000+600000
  13682 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,14n,92p,10437b,421s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2015/texmf-dist/fo
-nts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2015/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/font
-s/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2015/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2015/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1
-/public/amsfonts/cmextra/cmmib7.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmti12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmtt10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmtt12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-super
-/sfrm0600.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-super/s
-frm0800.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfr
-m1000.pfb>
-Output written on Prac_9.pdf (15 pages, 496386 bytes).
+{/usr/local/texlive/2015/texmf-dis
+t/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2015/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2015/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2015/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
+ype1/public/amsfonts/cmextra/cmmib7.pfb></usr/local/texlive/2015/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2015/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmti12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmtt10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmtt12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-s
+uper/sfrm0600.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-sup
+er/sfrm0800.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/cm-super
+/sfrm1000.pfb>
+Output written on Prac_9.pdf (21 pages, 510021 bytes).
 PDF statistics:
- 152 PDF objects out of 1000 (max. 8388607)
- 108 compressed objects within 2 object streams
+ 187 PDF objects out of 1000 (max. 8388607)
+ 134 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 23 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 38 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -265,7 +265,7 @@ from this it also follows that:
 \begin{equation}
 s_{i,j} \partial a_{i,j} = \partial \lambda
 \end{equation}
-So what we see is that if a matrix element increases with an amount of $\partial a_{i,j}$, $\lambda$ will increase with an amount of $\partial \lambda$. For our population however, we know how big the difference in $a_{i,j}$ are from looking at the differences between the matrices (for example, there is a difference of \Sexpr{P[2,1]}-\Sexpr{M[2,1]}=Sexpr{M[2,1]-P[2,1]} in the maturation rate between the two populations). If we want to know how much each of these differences contributes to differences in $\lambda$, all we have to do with these differences is multiply them with the sensitivities of the corresponding elements.
+So what we see is that if a matrix element increases with an amount of $\partial a_{i,j}$, $\lambda$ will increase with an amount of $\partial \lambda$. For our population however, we know how big the difference in $a_{i,j}$ are from looking at the differences between the matrices (for example, there is a difference of \Sexpr{P[2,1]}-\Sexpr{M[2,1]}=\Sexpr{M[2,1]-P[2,1]} in the maturation rate between the two populations). If we want to know how much each of these differences contributes to differences in $\lambda$, all we have to do with these differences is multiply them with the sensitivities of the corresponding elements.
 
 There is one problem however, which sensitivities do we take? The ones from $\boldsymbol{M}$ or the ones from $\boldsymbol{P}$? In practice what we do is that we use the sensitivities of the average matrix, to make sure that our sensitivities are not biased towards one of the two matrices. 
 
@@ -322,10 +322,10 @@ lamP+sum((M-P)*Sen)
 
 @
 \section{Rotifer data analysis}
-In this section, you will apply the factorial LTRE to the rotifer data to compare the layers "peak", "pollution" and "recovery". The second factor is the copper treatment with the levels "low", "high", "medium".
+In this section, you will apply a factorial LTRE to the rotifer data to compare the layers "peak", "pollution" and "recovery". The second factor is the copper treatment with the levels "low", "high", "medium".
 
 \subsection{Rate estimation}
-Before we can start with the analysis of the population matrices, we first need... the matrices and thus the rates (survival and reproduction). Here, we have only two stages: juveniles and adults, so we consider a $2\times 2$ matrix. First, we load in the data:
+Before we can start with the analysis of the population matrices, we first need... the matrices and thus the rates (survival and reproduction). Here, we have only two stages: juveniles and adults, so we consider a $2\times 2$ matrix. First, we load in the data (we have now uploaded a new data file on OLAT that does not containt the errors that we introduced for the previous labsession):
 <<LoadDat>>=
 Rot <- read.csv("rotifer_data.csv")
 @
@@ -348,7 +348,7 @@ Rates$M1 <- (Roti$Live_Adult.2 - ....) / ...
 <<Rates_2,echo=FALSE>>=
 Rates$M1 <- (Roti$Live_Adult.2 + Roti$Dead_Adult.2 - Roti$Live_Adult.1) / Roti$Live_Juv.1
 @
-When we look into the calculated maturation rates, we will see that sometimes it is sometimes higher than 1. The reason is that we have uncertainty in our count data, maybe an adult too many was counted on day 2, or maybe a juvenile too few on day 1. An alternative explanation is that we assume only 1 transition to take place, it is however theoretically possible that within 1 day a juvenile is born and already grows up to the adult stage. Since we have only very few entries that display such problems, we will cut off the maturation rate at 1: we know that it should not be higher than 1. Uncertainty in the data should not change that theoretical assumption.
+When we look into the calculated maturation rates, we will see that it is sometimes higher than 1. The reason is that we have uncertainty in our count data, maybe an adult too many was counted on day 2, or maybe a juvenile too few on day 1. An alternative explanation is that we assume only 1 transition to take place, it is however theoretically possible that within 1 day a juvenile is born and already grows up to the adult stage. Since we have only very few entries that display such problems, we will cut off the maturation rate at 1: we know that it should not be higher than 1. Uncertainty in the data should not change that theoretical assumption.
 <<Rates_topoff>>=
 Rates$M1[Rates$M1 > 1] <- 1
 @
@@ -356,7 +356,7 @@ The next rate is the probability for a juvenile to survive but stay a juvenile. 
 <<Rates_3,eval=FALSE>>=
 Rates$Sj1 <- (Roti$Live_Juv.1 - ... - ...)/...
 @
-This time we see a few cases were survival is found to be negative. This time we account for it by setting these rate (again there are not many cases) to zero.
+This time we see a few cases were survival is found to be negative. We account for it by setting these rate (again there are not many cases) to zero.
 <<Ratesssse,echo=FALSE>>=
 Rates$Sj1 <- (Roti$Live_Juv.1 - Roti$Dead_Juv.2 - Roti$Live_Juv.1*Rates$M1) / Roti$Live_Juv.1
 @
@@ -374,7 +374,7 @@ Rates$M2 <- ...
 Rates$Sj2 <- ...
 Rates$R2 <- ...
 @
-<<doin,echo=FALSE>>=
+<<doin,echo=TRUE>>=
 Rates$R1 <- (Roti$Live_Juv.2 - Roti$Live_Juv.1*Rates$Sj1) / Roti$Live_Adult.1
 
 # 2 --> 3
@@ -393,7 +393,7 @@ Rates_plot <- gather_(Rates,"Rate","Value",c("Sj1","Sa1","M1","R1"))
 boxplot(Value~Copper+Rate,Rates_plot)
 boxplot(Value~Layer+Rate,Rates_plot)
 @
-Here, we use \texttt{gather\_}, try to understand what it does. Then we use \texttt{boxplot}. Here, the first argument specifies what is plotted (in this case the column \texttt{Value} is plotted, but it is split out by the categories \texttt{Copper} and \texttt{Rate} for the first plot. This is parsed to the function by the code \texttt{Value $\sim$ Copper + Rate}). Adapt this code to also plot the rates for the second transition.
+Here, we use \texttt{gather\_}, try to understand what it does. Then we use \texttt{boxplot}. Here, the first argument specifies what is plotted (in this case the column \texttt{Value} is plotted, but it is split out by the categories \texttt{Copper} and \texttt{Rate} for the first plot. This is parsed to the function by the code \texttt{Value $\sim$ Copper + Rate}, this can be read as: plot the numbers in the column Value, but split them up according to both Copper and Rate). Adapt this code to also plot the rates for the second transition.
 <<boxplot2,include=FALSE,eval=FALSE>>=
 Rates_plot <- gather_(Rates,"Rate","Value",c("Sj2","Sa2","M2","R2"))
 boxplot(Value~Copper+Rate,Rates_plot)
@@ -428,7 +428,7 @@ for(i in 1:nrow(Rates)){ # for each row in Rates
 }
 @
 We can now again use the boxplot commands that we used before to see how lambda varies among matrices.
-<<RateAVG2,echo=F>>=
+<<RateAVG2,echo=TRUE>>=
 Rates2 <- Rates[,c('Copper','Layer','SaM','MM','SjM','RM')]
 Rates3 <- aggregate( .~ Copper+Layer,Rates2,mean)
 Rates3$lambda <- NA
@@ -447,15 +447,15 @@ for(i in 1:nrow(Rates)){
 \subsection{Factorial LTRE}
 \begin{mdframed}
 \textbf{Fixed Factorial Designs (Theory)}
-Factorial LTRE allows the examination of the effects of several treatments and their interactions. This is the case for your rotifer data where you have a "layer" treatment and a "copper" treatment. We can no longer just compare two treatments with each other, instead we have a whole suite of treatments (9 in total, 3 layers times 3 copper levels). We thus have two factors, one with two levels, the second with three levels.
+Factorial LTRE allows the examination of the effects of several treatments and their interactions. This is the case for your rotifer data where you have a "layer" treatment and a "copper" treatment. We can no longer just compare two treatments with each other, instead we have a whole suite of treatments (9 in total, 3 layers times 3 copper levels). We thus have two factors, both with three levels.
 
-A factorial LTRE is similar to a one-way LTRE; we want to find which differences in matrix elements between a focal matrix and a reference matrix contribute the most to the difference in $\lambda$ between the two matrices. Let us take the matrix "recovery" and "low copper" which we call $\boldsymbol{M}^{r,l}$ as the focal matrix, for this we average the rates over all the replicates that were subject to this treatment ($r,l$). We compare it to the matrix naive to any treatment, which we call $\boldsymbol{M}^{..}$. This matrix is obtained from taking the average rates for all 9 matrices (one for each treatment) that we are comparing to each other. Again we are interested in understanding the effect of the different treatments on the asymptotic growth rates.
+A factorial LTRE is similar to a one-way LTRE; we want to find which differences in matrix elements between a focal matrix and a reference matrix contribute the most to the difference in $\lambda$ between the two matrices. Let us take the matrix "recovery layer and low copper" which we call $\boldsymbol{M}^{r,l}$ as the focal matrix, for this we average the rates over all the replicates that were subject to this treatment ($r,l$). We compare it to the matrix naive to any treatment, which we call $\boldsymbol{M}^{..}$. This matrix is obtained from taking the average rates for all the data. Again we are interested in understanding the effect of the different treatments on the asymptotic growth rates.
 \begin{equation}\label{b}
 \lambda^{r,l}=\lambda^{..}+\alpha^{r}+\beta^{l}+(\alpha \beta)^{r,l}
 \end{equation}
-Equation \ref{b} tells us that $\lambda^{r,l}$ can be found from $\lambda^{..}$ plus an effect from the layer "recovery", an effect from the copper level "low" and an interaction between the two treatments.
+Equation \ref{b} tells us that $\lambda^{r,l}$ can be found from the average matrix (with $\lambda^{..}$) plus an effect from the layer "recovery" ($\alpha^r$), an effect from the copper level "low" ($\beta^l$) and an interaction between the two treatments ($(\alpha \beta)^{r,l}$).
 
-To isolate the effect of each treatment, we need to look at them separately. So we examine a matrix $\boldsymbol{M}^{r.}$, where the effect of copper is ignored. The rates of this matrix are calculated as the average of all the matrices with from the layer "recovery". 
+To isolate the effect of each factor, we need to look at them separately. So we examine a matrix $\boldsymbol{M}^{r.}$, where the effect of copper is ignored. The rates of this matrix are calculated as the average of all the matrices with from the layer "recovery". 
 \begin{equation}\label{c}
 \alpha^{r}=\sum_{ij}(a^{r.}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{A}}{\partial a^{A}_{ij}}
 \end{equation}
@@ -465,11 +465,11 @@ We do the same for the second factor. We examine a matrix $\boldsymbol{M}^{.l}$,
 \begin{equation}\label{d}
 \beta^{l}=\sum_{ij}(a^{.l}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{B}}{\partial a^{B}_{ij}}
 \end{equation}
-For the interaction effect, we apply the same logic. We examine a matrix $\boldsymbol{M}^{rl}$ where both the effects of the layer and the pollution are taken into account so as to capture the effect of the interaction between the two factors. Because we want to isolate the interaction effect, we need to remove the effects of the layer and copper treatment.
+For the interaction effect, we apply the same logic. We examine a matrix $\boldsymbol{M}^{rl}$ where both the effects of the layer and the copper level are taken into account so as to capture the effect of the interaction between the two factors. Because we want to isolate the interaction effect, we need to remove the effects of the layer and copper treatment.
 \begin{equation}
 (\alpha \beta)^{rl}=\sum_{ij}(a^{rl}_{ij}-a^{..}_{ij}) \frac{\partial\lambda^{C}}{\partial a^{C}_{ij}} -\alpha^{r}-\beta^{l}
 \end{equation}
-So far we have considered only the effect of the layer "recovery" and the copper level "low". Of course this can be extended to all other layers of all treatments. So in general the equations become for $k$ the level of treatment $1$ and $m$ the level of treatment $2$.
+So far we have considered only the effect of the layer "recovery" and the copper level "low". Of course this can be extended to all other layers of all treatments. So in general the equations become for the $k^{th}$ level of treatment $1$ and the $m^{th}$ the level of treatment $2$.
 
 \begin{equation}\label{f}
 \lambda^{k,m}=\lambda^{..}+\alpha^{k}+\beta^{m}+(\alpha \beta)^{k,m}
@@ -487,10 +487,18 @@ In these equations:
 \begin{align}
 A &= \frac{\boldsymbol{M^{k.}} + \boldsymbol{M^{..}}}{2} & B &= \frac{\boldsymbol{M^{.m}} + \boldsymbol{M^{..}}}{2} & C &= \frac{\boldsymbol{M^{km}} + \boldsymbol{M^{..}}}{2}
 \end{align}
-LTREs provide additional information to the growth rate as it describes how the different treatments affect the growth rate. In particular, LTRE allow a detailed comparison of the effect of a treatment on growth rate by examining the contribution of each survival and fertility rate to the gorwth rates of populations subjected to different treatment levels.
+LTREs provide additional information to the growth rate as it describes how the different treatments affect the growth rate. In particular, LTRE allow a detailed comparison of the effect of a treatment on growth rate by examining the contribution of each survival and fertility rate to the growth rates of populations subjected to different treatment levels.
 \end{mdframed}
-We are now going to apply this theory on the rotifer data. First write a function that performs an \texttt{LTRE}. That is, if we give it two matrices as input, it calculates the sensitivities of the average matrix (you can call the function you made earlier) and it multiplies this with the difference between the matrices. You don't have to use a loop here, if you use \texttt{A*B}, this is not matrix multiplication, but element wise multiplication between the matrices. It simply multiplies the first matrix entry from A, with the first one from B. Then it multiplies the second from A with the second one from B.
-<<LTRE_FACT,include=FALSE>>=
+We are now going to apply this theory on the rotifer data. First write a function that performs an \texttt{LTRE}. That is, if we give it two matrices as input, it calculates the sensitivities of the average matrix (you can call the function \texttt{sens}) and it multiplies this with the difference between the matrices. You don't have to use a loop here, if you use \texttt{A*B}, this is not matrix multiplication, but element wise multiplication between the matrices. To get the first element of the result, it simply multiplies the first matrix entry from A, with the first one from B. For the second element of the results, it multiplies the second from A with the second one from B, this is thus not the same as the matrix multiplication that we have used before!
+<<example7>>=
+A <- matrix(c(1,2,3,4),nrow=2)
+B <- matrix(c(1,2,3,4),nrow=2)
+A
+B
+A*B
+@
+
+<<LTRE_FACT,include=TRUE>>=
 
 #### FACTORIAL DESIGN LTRE
 LTRE <- function(A,B){
@@ -503,10 +511,10 @@ Next, we will have to create the mean matrix, to which we will compare all other
 MatMean <- ...
 @
 
-<<LTRE_FACT2,echo=FALSE>>=
+<<LTRE_FACT2,echo=TRUE>>=
 MatMean <- matrix(c(mean(Rates$SjM),mean(Rates$MM),mean(Rates$RM),mean(Rates$SaM)),nrow=2)
 @
-Now we proceed and calculate the effect of copper on lambda. For this we have to calculate an average matrix for each copper treatment and compare these with the overall average matrix. To obtain the average matrix, we again use \texttt{aggregate}, but this time we supply a formule: \texttt{.$\sim$Copper}, this means that \texttt{aggregate} will apply the function (in this case \texttt{mean}) on all columns, per coppr level. To make sure that we don't add up with lots of columns, we therefore first take a subset of \texttt{Rates} that only contains the relevant columns.
+Now we proceed and calculate the effect of copper on $\lambda$. For this we have to calculate an average matrix for each copper treatment and compare these with the overall average matrix. To obtain the average matrix, we again use \texttt{aggregate}, but this time we supply a formule: \texttt{.$\sim$Copper}, this means that \texttt{aggregate} will apply the function (in this case we will use \texttt{mean}) on all columns, per coppr level. To make sure that we don't end up with lots of columns, we first take a subset of \texttt{Rates} that only contains the relevant columns.
 <<Polka>>=
 ### Copper treatment
 temp  <- Rates[,c('Copper','SaM','MM','SjM','RM')]
@@ -529,7 +537,7 @@ names(copper_effect) <- tempc$Copper
 copper_effect[['100']]
 @
 What are the total effects of the different copper levels on $\lambda$? Repeat the same procedure for the layer effect.
-<<Trojka,echo=FALSE>>=
+<<Trojka,echo=TRUE>>=
 copper_effect <- list(3)
 for(i in 1:3){
   mat <- matrix(c(tempc$SjM[i],tempc$MM[i],tempc$RM[i],tempc$SaM[i]),nrow=2)
@@ -559,14 +567,14 @@ for(i in 1:9){
 
 @
 What is left now is to plot the values and to examine the summed effect of each copper level, each layer level and each interaction. One way to plot for example the copper effects is by using \texttt{barplot(matrix(unlist(copper),nrow=4))}. 
-<<LAST1,include=FALSE,eval=FALSE>>=
+<<LAST1,include=TRUE,eval=TRUE>>=
 ### Interactions
 temp2  <- Rates[,c('Copper','Layer','SaM','MM','SjM','RM')]
 tempi <- aggregate(.~Copper+Layer,temp2,mean)
 interaction <- list(9)
 for(i in 1:9){
   mat <- matrix(c(tempi$SjM[i],tempi$MM[i],tempi$RM[i],tempi$SaM[i]),nrow=2)
-  interaction[[i]] <- LTRE(mat,MatMean) - layer[[as.character(tempi$Layer[i])]] - copper[[as.character(tempi$Copper[i])]]
+  interaction[[i]] <- LTRE(mat,MatMean) - layer_effect[[as.character(tempi$Layer[i])]] - copper_effect[[as.character(tempi$Copper[i])]]
 }
 
 ### Plots
@@ -576,8 +584,8 @@ barplot(matrix(unlist(layer_effect),nrow=4),beside=T)
 barplot(matrix(unlist(interaction),nrow=4),beside=T)
 
 ## Summary
-sapply(copper,sum)
-sapply(layer,sum)
+sapply(copper_effect,sum)
+sapply(layer_effect,sum)
 sapply(interaction,sum)
 
 ### Outcome check
@@ -586,13 +594,13 @@ Rates3$lambda2 <- NA
 Rates3$lambda3 <- NA
 lam_mean <- lambda(MatMean)
 for(i in 1:9){
-  Rates3$lambda2[i] <- lam_mean + sum(copper[[as.character(Rates3$Copper[i])]]) +sum(layer[[as.character(Rates3$Layer[i])]]) + sum(interaction[[i]])
-  Rates3$lambda3[i] <- lam_mean + sum(copper[[as.character(Rates3$Copper[i])]]) +sum(layer[[as.character(Rates3$Layer[i])]])
+  Rates3$lambda2[i] <- lam_mean + sum(copper_effect[[as.character(Rates3$Copper[i])]]) +sum(layer_effect[[as.character(Rates3$Layer[i])]]) + sum(interaction[[i]])
+  Rates3$lambda3[i] <- lam_mean + sum(copper_effect[[as.character(Rates3$Copper[i])]]) +sum(layer_effect[[as.character(Rates3$Layer[i])]])
 }
 Rates3
 @
 
-If you manage to go through all the steps describe above, you should now know the growth rate of your populations, have performed three LTRE analyses on your rotifer data and have plots to include in your report. The interpretation of the results is up to you.
+If you manage to go through all the steps describe above, you should now know the asymptotic growth rates ($\lambda$) of your populations, have performed three LTRE analyses on your rotifer data and have plots to include in your report. The interpretation of the results is up to you.
 
 
 \begin{center}
