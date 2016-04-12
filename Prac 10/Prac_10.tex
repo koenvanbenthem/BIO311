@@ -85,7 +85,7 @@
 \section{Environmental Stochasticity}
 In practical $9$ we investigated the population dynamics for two populations of yellow-necked mice. Here we focus on one of the two populations presented in that practical: the population living on the plain. For this population the Leslie matrix was given by:
 \begin{equation*} \boldsymbol{A}=% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Apr 12 13:01:38 2016
+% Tue Apr 12 13:21:36 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.25 & 0.50 \\ 
@@ -93,19 +93,19 @@ In practical $9$ we investigated the population dynamics for two populations of 
 \end{equation*}
 It turns out however that the conditions for the population are not the same every year. Measurements have been done (okay, this is what we say, in reality we made up some numbers that give reasonable results in the end...) for three years in a row and the matrices that were found for these years are shown below:
 \begin{align*}\boldsymbol{A_1} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Apr 12 13:01:38 2016
+% Tue Apr 12 13:21:36 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.25 & 0.50 \\ 
   \end{pmatrix}
 & \boldsymbol{A_2} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Apr 12 13:01:38 2016
+% Tue Apr 12 13:21:36 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.27 & 0.54 \\ 
   \end{pmatrix}
 & \boldsymbol{A_3} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Apr 12 13:01:38 2016
+% Tue Apr 12 13:21:36 2016
 \begin{pmatrix}{}
   0.00 & 1.80 \\ 
   0.20 & 0.44 \\ 
@@ -113,7 +113,7 @@ It turns out however that the conditions for the population are not the same eve
 \\ \lambda &= 1 &\lambda &= 1.052879 &\lambda &= 0.8590618\end{align*}
 We see that the year that we considered was a relatively average year. The year after the survival rates of the individuals was higher at both stages. In the third year however the population experienced some severe conditions with the survival rates and the fertility rate being lower than in both preceding years.
 
-We thus have to realise that the transition rates in nature will vary from year to year. This would mean that the Leslie matrix would also look differently every year. Two possibilities of taking this into account when predicting the behaviour of the population are given below:
+We thus have to realise that the transition rates in nature will vary from year to year. This would mean that the Leslie matrix would also look differently every year. Two possibilities of taking this into account when predicting the behaviour of the population are given below (we will only code one of the two in \texttt{R}, which one and why?):
 \begin{enumerate}
 \item From the matrices we see that the mean fertility rate is $\mu_{F} = 1.9333333$ with a standard deviation of $\sigma_{F} = 0.1154701$. For the survival rates we find:
 \begin{align*}
@@ -131,7 +131,6 @@ In this equation $\mu$ is the average value of $x$ (thus $\mu=\frac{1}{N}\sum_{i
 \end{mdframed}
 \item Every time step we randomly choose one of the measured matrices ($\boldsymbol{A_1,A_2,A_3}$) with equal probabilities. Thereby taking into account the variation in the environment.
 \end{enumerate}
-Which of these approaches do you prefer in this case? And why?
 \begin{mdframed}
 \textbf{If-statements}\\ The last \texttt{R} element that we will use in the practicals is the \texttt{if} statement. This allows us to make choices in the program depending on the value of a variable. For this, there is series of test that can be performed, we show the most important ones here:\\
 \begin{tabular}{l l}
@@ -221,7 +220,7 @@ compare this to:
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-You can add in as many \texttt{else if} statements as you want, but only one \texttt{else} statement. This \texttt{else} statement will only be executed if none of the \texttt{if} and \texttt{else if} statements in the block was not executed. Can you explain what the value of \texttt{b} will be after running the following code if:
+You can add in as many \texttt{else if} statements as you want, but only one \texttt{else} statement (which has to come after the \texttt{if} and \texttt{else if} statements). This \texttt{else} statement will only be executed if none of the \texttt{if} and \texttt{else if} statements in the block was executed. Can you explain what the value of \texttt{b} will be after running the following code if:
 \begin{enumerate}
 \item \texttt{a} is 7
 \item \texttt{a} is 17
@@ -249,7 +248,7 @@ In the rest of this practical, we will explore what happens if we decide to mode
 \hlkwd{sample}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{3}\hlstd{,}\hlnum{4}\hlstd{),}\hlnum{1}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 1
+## [1] 4
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -411,7 +410,7 @@ It turns out that all functions use the logit, we will therefore first write a f
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{logit}\hlkwb{=}\hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)} \hlnum{1}\hlopt{/}\hlstd{(}\hlnum{1}\hlopt{+}\hlkwd{exp}\hlstd{(}\hlopt{-}\hlstd{x))}
+\hlstd{logit} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)} \hlnum{1}\hlopt{/}\hlstd{(}\hlnum{1}\hlopt{+}\hlkwd{exp}\hlstd{(}\hlopt{-}\hlstd{x))}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -456,7 +455,7 @@ Let us check the function for juvenile survival and plot how it varies with temp
 Also check if the other functions make sense over a temperature range from $-5^{\circ}$C up to $40^{\circ}$C. Next, we will need a function (let's call it MatTemp) that takes temperature as an input variable and returns the matrix for that temperature value. This function will use the functions that we have defined before. So if we type \texttt{MatTemp(5)}, we should get the $3\times 3$ population matrix in which all rates are the rates in the population at $5^\circ$C.
 
 
-We have now created all the functions that we will need. Now we have to define how are temperature varies over time. Consider for example the following 3 possibilities (here we look at temperature value at 50 different timepoints. E.g. the first entry of temp1, would be the temperature at the first time point in this scenario, the second would be the temperature at the second point in time and so on):
+We have now created all the functions that we will need. Now we have to define how the temperature varies over time. Consider for example the following 3 possibilities (here we look at temperature value at 50 different timepoints. E.g. the first entry of temp1, would be the temperature at the first time point in this scenario, the second would be the temperature at the second point in time and so on):
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -505,7 +504,7 @@ For example we have a dice with 6 sides and we want to roll it $100$ times and w
 \hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 37
+## [1] 32
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -516,7 +515,7 @@ We see that this function indeed returns us an integer number. \texttt{R} has in
 \hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-##  [1] 28 35 33 33 40 32 27 21 35 34
+##  [1] 26 30 39 36 31 28 30 37 31 30
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -527,7 +526,7 @@ However, if we average the outcomes of very many of these simulations, we should
 \hlkwd{mean}\hlstd{(}\hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10000}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{))}
 \end{alltt}
 \begin{verbatim}
-## [1] 33.363
+## [1] 33.3273
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -559,7 +558,7 @@ Let us now check whether the mean value of many numbers drawn from a Poisson dis
 \hlkwd{mean}\hlstd{(}\hlkwd{rpois}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10000}\hlstd{,}\hlkwc{lambda}\hlstd{=}\hlnum{2}\hlstd{))}
 \end{alltt}
 \begin{verbatim}
-## [1] 1.9974
+## [1] 2.0207
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -662,13 +661,13 @@ So far we have considered only populations in isolation of each other. For insta
 Let us consider two populations of peregrine falcons. 
 The demography of the two populations is summarized by the Leslie matrices $\boldsymbol{B_1}$ and $\boldsymbol{B_2}$ and by the associated asymptotic growth rates:
 \begin{align*}\boldsymbol{B_1} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Apr 12 13:01:52 2016
+% Tue Apr 12 13:21:50 2016
 \begin{pmatrix}{}
   0.00 & 0.25 \\ 
   0.72 & 0.77 \\ 
   \end{pmatrix}
 & \boldsymbol{B_2} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Apr 12 13:01:52 2016
+% Tue Apr 12 13:21:50 2016
 \begin{pmatrix}{}
   0.00 & 0.32 \\ 
   0.74 & 0.79 \\ 
@@ -678,7 +677,7 @@ One of the populations seem to be in good shape, while the other one is likely t
 
 For convenience, we can write these two matrices into a single matrix, $\boldsymbol{B}$, of dimension $4\times 4$:
 \begin{align*}\boldsymbol{B} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Apr 12 13:01:52 2016
+% Tue Apr 12 13:21:50 2016
 \begin{pmatrix}{}
   0.00 & 0.25 & 0.00 & 0.00 \\ 
   0.72 & 0.77 & 0.00 & 0.00 \\ 
@@ -691,7 +690,7 @@ These two populations are not ecologically isolated, however, and they exchange 
 Migration rates vary depending on age, and are not symmetrical. Thus, $73\%$ of juveniles born in the population 1 stay there (and therefor $50\%$ emigrate to population 2), while $50\%$ of juveniles born in population 2 stay there ($50\%$ emmigrate). 
 These rates are summarized in the matrix $\boldsymbol{M_j}$:
 \begin{align*}\boldsymbol{M_j} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Apr 12 13:01:52 2016
+% Tue Apr 12 13:21:50 2016
 \begin{pmatrix}{}
   0.73 & 0.50 \\ 
   0.27 & 0.50 \\ 
@@ -699,7 +698,7 @@ These rates are summarized in the matrix $\boldsymbol{M_j}$:
 \end{align*}
 Similarly, migration rates for adults are summarized in matrix $\boldsymbol{M_a}$:
 \begin{align*}\boldsymbol{M_a} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Apr 12 13:01:52 2016
+% Tue Apr 12 13:21:50 2016
 \begin{pmatrix}{}
   0.50 & 0.20 \\ 
   0.50 & 0.80 \\ 
@@ -708,7 +707,7 @@ Similarly, migration rates for adults are summarized in matrix $\boldsymbol{M_a}
 
 We also define a matrix $\boldsymbol{M}$ summarizing the migration rates:
 \begin{align*}\boldsymbol{M} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Apr 12 13:01:52 2016
+% Tue Apr 12 13:21:50 2016
 \begin{pmatrix}{}
   0.73 & 0.50 & 0.00 & 0.00 \\ 
   0.27 & 0.50 & 0.00 & 0.00 \\ 
@@ -780,19 +779,19 @@ Let us consider another hypothetical meta-population, consisting of three very d
 
 
 \begin{align*}\boldsymbol{B_1} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Apr 12 13:01:52 2016
+% Tue Apr 12 13:21:50 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.10 & 0.20 \\ 
   \end{pmatrix}
 & \boldsymbol{B_2} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Apr 12 13:01:52 2016
+% Tue Apr 12 13:21:50 2016
 \begin{pmatrix}{}
   0.00 & 0.20 \\ 
   0.80 & 0.20 \\ 
   \end{pmatrix}
 & \boldsymbol{B_3} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Apr 12 13:01:52 2016
+% Tue Apr 12 13:21:50 2016
 \begin{pmatrix}{}
   0.00 & 0.20 \\ 
   0.10 & 0.80 \\ 
@@ -803,14 +802,14 @@ What are their asymptotic growth rates? What do you think about the fate of this
 These three populations are exchanging quite a lot of migrants, both juveniles and adults:
 
 \begin{align*}\boldsymbol{M_j} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Apr 12 13:01:52 2016
+% Tue Apr 12 13:21:50 2016
 \begin{pmatrix}{}
   0.10 & 0.05 & 0.05 \\ 
   0.85 & 0.90 & 0.05 \\ 
   0.05 & 0.05 & 0.90 \\ 
   \end{pmatrix}
 & \boldsymbol{M_a} =% latex table generated in R 3.2.2 by xtable 1.7-4 package
-% Tue Apr 12 13:01:52 2016
+% Tue Apr 12 13:21:50 2016
 \begin{pmatrix}{}
   0.80 & 0.85 & 0.75 \\ 
   0.10 & 0.10 & 0.05 \\ 

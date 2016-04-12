@@ -73,7 +73,7 @@ cat("\\end{align*}")
 @
 We see that the year that we considered was a relatively average year. The year after the survival rates of the individuals was higher at both stages. In the third year however the population experienced some severe conditions with the survival rates and the fertility rate being lower than in both preceding years.
 
-We thus have to realise that the transition rates in nature will vary from year to year. This would mean that the Leslie matrix would also look differently every year. Two possibilities of taking this into account when predicting the behaviour of the population are given below:
+We thus have to realise that the transition rates in nature will vary from year to year. This would mean that the Leslie matrix would also look differently every year. Two possibilities of taking this into account when predicting the behaviour of the population are given below (we will only code one of the two in \texttt{R}, which one and why?):
 \begin{enumerate}
 \item From the matrices we see that the mean fertility rate is $\mu_{F} = \Sexpr{mean(c(A[1,2],B[1,2],C[1,2]))}$ with a standard deviation of $\sigma_{F} = \Sexpr{sd(c(A[1,2],B[1,2],C[1,2]))}$. For the survival rates we find:
 \begin{align*}
@@ -91,7 +91,6 @@ In this equation $\mu$ is the average value of $x$ (thus $\mu=\frac{1}{N}\sum_{i
 \end{mdframed}
 \item Every time step we randomly choose one of the measured matrices ($\boldsymbol{A_1,A_2,A_3}$) with equal probabilities. Thereby taking into account the variation in the environment.
 \end{enumerate}
-Which of these approaches do you prefer in this case? And why?
 \begin{mdframed}
 \textbf{If-statements}\\ The last \texttt{R} element that we will use in the practicals is the \texttt{if} statement. This allows us to make choices in the program depending on the value of a variable. For this, there is series of test that can be performed, we show the most important ones here:\\
 \begin{tabular}{l l}
@@ -157,7 +156,7 @@ if(a == 5){
   b <- 8
 }
 @
-You can add in as many \texttt{else if} statements as you want, but only one \texttt{else} statement. This \texttt{else} statement will only be executed if none of the \texttt{if} and \texttt{else if} statements in the block was not executed. Can you explain what the value of \texttt{b} will be after running the following code if:
+You can add in as many \texttt{else if} statements as you want, but only one \texttt{else} statement (which has to come after the \texttt{if} and \texttt{else if} statements). This \texttt{else} statement will only be executed if none of the \texttt{if} and \texttt{else if} statements in the block was executed. Can you explain what the value of \texttt{b} will be after running the following code if:
 \begin{enumerate}
 \item \texttt{a} is 7
 \item \texttt{a} is 17
@@ -441,7 +440,7 @@ S_j & 0 & 0 \\
 \end{equation*}
 It turns out that all functions use the logit, we will therefore first write a function to do the logit transform (don't worry about understanding this one, it is just a mathematical help)
 <<tripleclass>>=
-logit=function(x) 1/(1+exp(-x))
+logit <- function(x) 1/(1+exp(-x))
 @
 Now, we will write functions for each of the vital rates. The functions should take the temperature (T) as an input variable and return the value of that vital rate at the input temperature. In order to do so, we provide you with the mathematical equations that these functions are based on:
 \begin{align*}
@@ -496,7 +495,7 @@ Also check if the other functions make sense over a temperature range from $-5^{
 MatTemp = function(temp) matrix(c(0,Sj(temp),0,0,0,Ss(temp),Sa(temp)*Ra(temp),0,Sa(temp)),3,3)
 
 @
-We have now created all the functions that we will need. Now we have to define how are temperature varies over time. Consider for example the following 3 possibilities (here we look at temperature value at 50 different timepoints. E.g. the first entry of temp1, would be the temperature at the first time point in this scenario, the second would be the temperature at the second point in time and so on):
+We have now created all the functions that we will need. Now we have to define how the temperature varies over time. Consider for example the following 3 possibilities (here we look at temperature value at 50 different timepoints. E.g. the first entry of temp1, would be the temperature at the first time point in this scenario, the second would be the temperature at the second point in time and so on):
 <<Tempsies>>=
 # Scenario 1
 # Temperatures are drawn from a normal distribution

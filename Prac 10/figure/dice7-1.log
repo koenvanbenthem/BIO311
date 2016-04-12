@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  12 APR 2016 13:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  12 APR 2016 13:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1094,7 +1094,7 @@ Preview: PDFoutput 1
 \AtBeginShipoutBox=\box90
 \c@lstlisting=\count188
 
-Overfull \hbox (160.89pt too wide) in paragraph at lines 196--196
+Overfull \hbox (160.89pt too wide) in paragraph at lines 194--194
 [][] 
  []
 
@@ -1103,17 +1103,17 @@ Preview: Tightpage 0 0 0 0
 Non-PDF special ignored!
 Non-PDF special ignored!] (./dice7-1.aux) ) 
 Here is how much of TeX's memory you used:
- 21448 strings out of 493089
- 418709 string characters out of 6134843
- 448337 words of memory out of 5000000
- 24618 multiletter control sequences out of 15000+600000
+ 21452 strings out of 493089
+ 418789 string characters out of 6134843
+ 447337 words of memory out of 5000000
+ 24622 multiletter control sequences out of 15000+600000
  3948 words of font info for 15 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,7n,54p,10439b,626s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on dice7-1.pdf (1 page, 30269 bytes).
+Output written on dice7-1.pdf (1 page, 30053 bytes).
 PDF statistics:
  19 PDF objects out of 1000 (max. 8388607)
  13 compressed objects within 1 object stream
