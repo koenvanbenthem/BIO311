@@ -84,28 +84,28 @@
 
 \section{Environmental Stochasticity}
 In practical $9$ we investigated the population dynamics for two populations of yellow-necked mice. Here we focus on one of the two populations presented in that practical: the population living on the plain. For this population the Leslie matrix was given by:
-\begin{equation*} \boldsymbol{A}=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Mon Mar 14 14:34:24 2016
+\begin{equation*} \boldsymbol{A}=% latex table generated in R 3.2.2 by xtable 1.7-4 package
+% Tue Apr 12 13:01:38 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.25 & 0.50 \\ 
   \end{pmatrix}
 \end{equation*}
 It turns out however that the conditions for the population are not the same every year. Measurements have been done (okay, this is what we say, in reality we made up some numbers that give reasonable results in the end...) for three years in a row and the matrices that were found for these years are shown below:
-\begin{align*}\boldsymbol{A_1} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Mon Mar 14 14:34:24 2016
+\begin{align*}\boldsymbol{A_1} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
+% Tue Apr 12 13:01:38 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.25 & 0.50 \\ 
   \end{pmatrix}
-& \boldsymbol{A_2} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Mon Mar 14 14:34:24 2016
+& \boldsymbol{A_2} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
+% Tue Apr 12 13:01:38 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.27 & 0.54 \\ 
   \end{pmatrix}
-& \boldsymbol{A_3} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Mon Mar 14 14:34:24 2016
+& \boldsymbol{A_3} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
+% Tue Apr 12 13:01:38 2016
 \begin{pmatrix}{}
   0.00 & 1.80 \\ 
   0.20 & 0.44 \\ 
@@ -132,6 +132,115 @@ In this equation $\mu$ is the average value of $x$ (thus $\mu=\frac{1}{N}\sum_{i
 \item Every time step we randomly choose one of the measured matrices ($\boldsymbol{A_1,A_2,A_3}$) with equal probabilities. Thereby taking into account the variation in the environment.
 \end{enumerate}
 Which of these approaches do you prefer in this case? And why?
+\begin{mdframed}
+\textbf{If-statements}\\ The last \texttt{R} element that we will use in the practicals is the \texttt{if} statement. This allows us to make choices in the program depending on the value of a variable. For this, there is series of test that can be performed, we show the most important ones here:\\
+\begin{tabular}{l l}
+\texttt{a==b} & a is equal to b\\
+\texttt{a>b} & a is larger than b\\
+\texttt{a<b} & a is smaller than b\\
+\texttt{a!=b} & a is not the same as b\\
+\end{tabular}\\
+Furthermore there are ways to combine tests:\\
+\begin{tabular}{l l}
+\texttt{test1 \& test2} & test1 and test2 are both true.\\
+\texttt{test1 | test2} & at least test1 or test2 is true\\
+\end{tabular}\\
+We can now use these tests with an \texttt{if} statement to make the code more flexible. An \texttt{if} statement looks as follows:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{if}(test)\{
+  ... what to do in case the test is true
+\}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+To test youreself, what would the value of \texttt{b} be after you run this code?
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{a} \hlkwb{<-} \hlnum{7}
+\hlstd{b} \hlkwb{<-} \hlnum{3}
+\hlkwa{if}\hlstd{(a} \hlopt{>} \hlnum{5}\hlstd{)\{}
+  \hlstd{b} \hlkwb{<-} \hlnum{6}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+And after this code?
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{a} \hlkwb{<-} \hlnum{7}
+\hlstd{b} \hlkwb{<-} \hlnum{3}
+\hlkwa{if}\hlstd{(a} \hlopt{==} \hlnum{5}\hlstd{)\{}
+  \hlstd{b} \hlkwb{<-} \hlnum{6}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+Finally, we can extend \texttt{if} statements. So far we only say, what the code should do if a certain test is true, but what if it isn't true? For this there are the \texttt{else} and \texttt{else if} statements. An \texttt{else} statement basically say what to do in all other cases (so all cases in which the test was not true). What would the value of \texttt{b} then be after the following code?
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{a} \hlkwb{<-} \hlnum{7}
+\hlstd{b} \hlkwb{<-} \hlnum{3}
+\hlkwa{if}\hlstd{(a} \hlopt{==} \hlnum{5}\hlstd{)\{}
+  \hlstd{b} \hlkwb{<-} \hlnum{6}
+\hlstd{\}} \hlkwa{else}\hlstd{\{}
+  \hlstd{b} \hlkwb{<-} \hlnum{8}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+An alternative is the \texttt{else if} statement: it says what to do if the previous test(s) was/were not true, but some extra test is true, for example:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{a} \hlkwb{<-} \hlnum{7}
+\hlstd{b} \hlkwb{<-} \hlnum{3}
+\hlkwa{if}\hlstd{(a} \hlopt{==} \hlnum{5}\hlstd{)\{}
+  \hlstd{b} \hlkwb{<-} \hlnum{6}
+\hlstd{\}} \hlkwa{else if}\hlstd{(a} \hlopt{==}\hlnum{7}\hlstd{)\{}
+  \hlstd{b} \hlkwb{<-} \hlnum{8}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+compare this to:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{a} \hlkwb{<-} \hlnum{7}
+\hlstd{b} \hlkwb{<-} \hlnum{3}
+\hlkwa{if}\hlstd{(a} \hlopt{==} \hlnum{5}\hlstd{)\{}
+  \hlstd{b} \hlkwb{<-} \hlnum{6}
+\hlstd{\}} \hlkwa{else if}\hlstd{(a} \hlopt{==} \hlnum{3}\hlstd{)\{}
+  \hlstd{b} \hlkwb{<-} \hlnum{8}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+You can add in as many \texttt{else if} statements as you want, but only one \texttt{else} statement. This \texttt{else} statement will only be executed if none of the \texttt{if} and \texttt{else if} statements in the block was not executed. Can you explain what the value of \texttt{b} will be after running the following code if:
+\begin{enumerate}
+\item \texttt{a} is 7
+\item \texttt{a} is 17
+\item \texttt{a} is -3
+\end{enumerate}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwa{if}\hlstd{(a} \hlopt{>} \hlnum{10}\hlstd{)\{}
+  \hlstd{b} \hlkwb{<-} \hlnum{6}
+\hlstd{\}} \hlkwa{else if}\hlstd{(a} \hlopt{<} \hlnum{3}\hlstd{)\{}
+  \hlstd{b} \hlkwb{<-} \hlnum{8}
+\hlstd{\}} \hlkwa{else}\hlstd{\{}
+  \hlstd{b} \hlkwb{<-} \hlnum{7}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\end{mdframed}
 \subsection{Independent sequences}
 In the rest of this practical, we will explore what happens if we decide to model the dynamics by randomly choosing one of the three matrices each time step. Assume an initial population of $5$ juveniles and $5$ adults. Create a matrix \texttt{N} to store the numbers that you will calculate. Now use the \texttt{sample()} function to generate a random number every time step and use this number (using \texttt{if/else}) to decide which matrix is used in a specific time step. To illustrate the use of \texttt{sample}
 \begin{knitrout}
@@ -140,11 +249,12 @@ In the rest of this practical, we will explore what happens if we decide to mode
 \hlkwd{sample}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{3}\hlstd{,}\hlnum{4}\hlstd{),}\hlnum{1}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 4
+## [1] 1
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
 randomly draws $1$ entry out of the vector \texttt{c(1,2,3,4)}. Now use this function to generate one possible prediction of the population dynamics until time step $50$.
+
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -214,7 +324,7 @@ at the end of the calculation of each simulation we have the vector \texttt{Ntot
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-Finally, after having calculated all the different predictions, divide \texttt{TotalN} by the number of predictions to obtain the main behaviour. You can add this behaviour to the plot with \texttt{lines()} after the calculations have been finished. Change the \texttt{lwd} parameter to draw a thicker (more visible) line and the colour with \texttt{col=} to be able to distinguish the line. What is the trend of this average line? Is this what you expected based on the initial matrices? 
+Finally, after having calculated all the different predictions, divide \texttt{TotalN} by the number of predictions to obtain the mean behaviour. You can add this behaviour to the plot with \texttt{lines()} after the calculations have been finished. Change the \texttt{lwd} parameter to draw a thicker (more visible) line and the colour with \texttt{col=} to be able to distinguish the line. What is the trend of this average line? Is this what you expected based on the initial matrices? 
 
 
 
@@ -287,6 +397,95 @@ If you start with a population of 5 adults and 5 juveniles and make 200 simulati
 
 \end{tabular}
 \end{center}
+
+\section{Directed environmental change}
+In the last exercise this practical, we will look at the effects of an environmental driver on population dynamics, for this we use the example that Arpat showed in the lectures. 
+
+So far we have assumed the environment to be unmeasured, however, it is possible that we actually have measured some part of the environment (e.g. temperature) and that we know how this variable affects the vital rates in the population. Here, we consider an age structured population with 3 age classes (post breeding census). Only individuals of the last age class can reproduce.
+\begin{equation*}
+\boldsymbol{A} = \begin{pmatrix} 0 & 0 & S_a R_a \\
+S_j & 0 & 0 \\
+0 & S_s & S_a\end{pmatrix}
+\end{equation*}
+It turns out that all functions use the logit, we will therefore first write a function to do the logit transform (don't worry about understanding this one, it is just a mathematical help)
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{logit}\hlkwb{=}\hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)} \hlnum{1}\hlopt{/}\hlstd{(}\hlnum{1}\hlopt{+}\hlkwd{exp}\hlstd{(}\hlopt{-}\hlstd{x))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+Now, we will write functions for each of the vital rates. The functions should take the temperature (T) as an input variable and return the value of that vital rate at the input temperature. In order to do so, we provide you with the mathematical equations that these functions are based on:
+\begin{align*}
+S_j (T) & = 1.2\cdot \text{logit}(-3 + 0.3\cdot T - 0.008\cdot T^2)\\
+S_s (T) & = 1.7\cdot \text{logit}(-3 + 0.3\cdot T - 0.008\cdot T^2)\\
+S_a (T) & = 0.9\cdot \text{logit}(-3 + 0.5\cdot T)\\
+R_a(T) & = 3\cdot \text{logit}(-3 + 0.3\cdot T - 0.008\cdot T^2)
+\end{align*}
+Define these functions:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Sj} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{Temp}\hlstd{) ...}
+\hlstd{Ss} \hlkwb{<-} \hlstd{...}
+\hlstd{Sa} \hlkwb{<-} \hlstd{...}
+\hlstd{Ra} \hlkwb{<-} \hlstd{...}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+Let us check the function for juvenile survival and plot how it varies with temperature.
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# define a set of temperatures}
+\hlcom{# for which we will calculate juvenile survival}
+\hlstd{TempRange} \hlkwb{<-} \hlkwd{seq}\hlstd{(}\hlopt{-}\hlnum{5}\hlstd{,}\hlnum{40}\hlstd{,}\hlnum{1}\hlstd{)}
+
+\hlcom{# Calculate juvenile survival}
+\hlstd{JuvSurv} \hlkwb{<-} \hlkwd{Sj}\hlstd{(TempRange)}
+
+\hlcom{# Plot the juvenile survival as a function of temperature}
+\hlkwd{plot}\hlstd{(TempRange,JuvSurv,}\hlkwc{type}\hlstd{=}\hlstr{"l"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/juvsurv-1} 
+
+\end{knitrout}
+Also check if the other functions make sense over a temperature range from $-5^{\circ}$C up to $40^{\circ}$C. Next, we will need a function (let's call it MatTemp) that takes temperature as an input variable and returns the matrix for that temperature value. This function will use the functions that we have defined before. So if we type \texttt{MatTemp(5)}, we should get the $3\times 3$ population matrix in which all rates are the rates in the population at $5^\circ$C.
+
+
+We have now created all the functions that we will need. Now we have to define how are temperature varies over time. Consider for example the following 3 possibilities (here we look at temperature value at 50 different timepoints. E.g. the first entry of temp1, would be the temperature at the first time point in this scenario, the second would be the temperature at the second point in time and so on):
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Scenario 1}
+\hlcom{# Temperatures are drawn from a normal distribution}
+\hlcom{# no correlation is present}
+\hlstd{temp1} \hlkwb{<-} \hlkwd{rnorm}\hlstd{(}\hlnum{50}\hlstd{,}\hlnum{25}\hlstd{,}\hlnum{5}\hlstd{)}
+
+\hlcom{# Scenario 2}
+\hlcom{# As with the first scenario,}
+\hlcom{# but with more variation (larger sd)}
+\hlstd{temp2} \hlkwb{<-} \hlkwd{rnorm}\hlstd{(}\hlnum{50}\hlstd{,}\hlnum{25}\hlstd{,}\hlnum{15}\hlstd{)}
+
+\hlcom{# Scenario 3}
+\hlcom{# Temperatures decrease over time, but some variation is still present}
+\hlstd{temp3} \hlkwb{<-} \hlkwd{seq}\hlstd{(}\hlnum{30}\hlstd{,}\hlnum{0}\hlstd{,}\hlkwc{length}\hlstd{=}\hlnum{50}\hlstd{)}\hlopt{+}\hlkwd{rnorm}\hlstd{(}\hlnum{50}\hlstd{,}\hlnum{0}\hlstd{,}\hlnum{5}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+Now, consider a starting population of 300 individuals (100 in each age class) and use a for loop to calculate what happens to this population from time 1 to time 50. Consider plotting both the total number of individuals over time and the number of individuals per age class over time. Compare these outcomes to the patterns that Arpat showed in the lecture.
+
+If you really want to see the difference between the three different scenarios, you would of course have to repeat the calculations many times (to make sure that you are not just having a lucky or unlucky set of temperature values). This would require writing an additional for-loop. 
+
+The code might be cleaner by writing a function that takes a temperature scenario and a starting vector as an input and returns how the population changes over time. 
+
+\subsection{Extra: lower level sensitivity}
+Using numerical perturbations, can you calculte how sensitive $\lambda$ is to changes in temperature? Calculate $\frac{\partial \lambda}{\partial T}$ for a range of temperatures. Will changes in temperature influence $\lambda$ strongly at all temperatures? Is this a usefull calculation to begin with?
+
+
 \section{Demographic Stochasticity (Demonstration only)}
 A problem that we have not talked about so far is the fact that matrices allow for half individuals. You may for example find that the expected number of juveniles after 10 time steps equals $2.4$, but what are $0.4$ individuals? We interpret this as an 'average'. It is however also possible to take into account the fact that half an individual can not exist. For this we do not use the matrix framework, but we can use the rates that we also used in the matrix framework.
 
@@ -306,7 +505,7 @@ For example we have a dice with 6 sides and we want to roll it $100$ times and w
 \hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 32
+## [1] 37
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -317,7 +516,7 @@ We see that this function indeed returns us an integer number. \texttt{R} has in
 \hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-##  [1] 29 32 34 33 37 29 36 32 47 31
+##  [1] 28 35 33 33 40 32 27 21 35 34
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -328,7 +527,7 @@ However, if we average the outcomes of very many of these simulations, we should
 \hlkwd{mean}\hlstd{(}\hlkwd{rbinom}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10000}\hlstd{,}\hlkwc{size}\hlstd{=}\hlnum{100}\hlstd{,}\hlkwc{prob}\hlstd{=}\hlnum{1}\hlopt{/}\hlnum{3}\hlstd{))}
 \end{alltt}
 \begin{verbatim}
-## [1] 33.4163
+## [1] 33.363
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -349,7 +548,7 @@ Now all that is left is calculating the amount of offspring that is produced at 
 \hlkwd{rpois}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{lambda}\hlstd{=}\hlnum{2}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] 1
+## [1] 2
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -360,7 +559,7 @@ Let us now check whether the mean value of many numbers drawn from a Poisson dis
 \hlkwd{mean}\hlstd{(}\hlkwd{rpois}\hlstd{(}\hlkwc{n}\hlstd{=}\hlnum{10000}\hlstd{,}\hlkwc{lambda}\hlstd{=}\hlnum{2}\hlstd{))}
 \end{alltt}
 \begin{verbatim}
-## [1] 1.9852
+## [1] 1.9974
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -449,27 +648,27 @@ Only because we took into account demographic stochasticity, we see that the pop
 \end{knitrout}
 We see that here as expected (because $\lambda=1$) the population size stabilizes at one single value ($12.5$). 
 
-\section{Metapopulation dynamics}
-
+\section{Metapopulation dynamics (Not part of the course this year)}
+\textbf{This year there was not enough time in the lectures to go over metapopulations. The following exercise is therefore not part of the practicals this year. (but if you're very interested you may of course try it)}
 So far we have considered only populations in isolation of each other. For instance, in practical 9 we have compared two populations of yellow-necked mice, but have assumed that they were not exchanging migrants. More in general, in all matrix models so far, we have completely ignored the fact that new individuals appear in a population not only because of birth, but also because of immigration. Likewise, death is not the only factor removing individuals from a population, permanent emigration does the job as effectively. 
 
 
 
 \begin{figure}
-\includegraphics[width=0.95\textwidth]{peregrine}
+\includegraphics[width=15cm]{peregrine.jpg}
 \caption{\label{fig:peregrine}One of these birds is a peregrine falcon in a dive attack. The other birds are starlings and are in trouble. Populations of peregrine falcons, and other bird species, have declined during the 20th century in North America and Europe as a result of the massive use of the insecticide dichlorodiphenyltrichloroethane. DDT, which causes eggshell thinning, has now been banned from these regions but is still used in tropical regions to fight malaria. Picture by Rob Palmer.}
 \end{figure}
 
 Let us consider two populations of peregrine falcons. 
 The demography of the two populations is summarized by the Leslie matrices $\boldsymbol{B_1}$ and $\boldsymbol{B_2}$ and by the associated asymptotic growth rates:
-\begin{align*}\boldsymbol{B_1} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Mon Mar 14 14:34:40 2016
+\begin{align*}\boldsymbol{B_1} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
+% Tue Apr 12 13:01:52 2016
 \begin{pmatrix}{}
   0.00 & 0.25 \\ 
   0.72 & 0.77 \\ 
   \end{pmatrix}
-& \boldsymbol{B_2} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Mon Mar 14 14:34:40 2016
+& \boldsymbol{B_2} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
+% Tue Apr 12 13:01:52 2016
 \begin{pmatrix}{}
   0.00 & 0.32 \\ 
   0.74 & 0.79 \\ 
@@ -478,8 +677,8 @@ The demography of the two populations is summarized by the Leslie matrices $\bol
 One of the populations seem to be in good shape, while the other one is likely to be declining (but remember that stochasticity can make predictions based on asymptotic behaviour unreliable). Let us assume that the differences between the two populations is due to the massive use of DDT as an insecticide around population 1, while population 2 is located in a remote mountain area with less human influence.
 
 For convenience, we can write these two matrices into a single matrix, $\boldsymbol{B}$, of dimension $4\times 4$:
-\begin{align*}\boldsymbol{B} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Mon Mar 14 14:34:40 2016
+\begin{align*}\boldsymbol{B} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
+% Tue Apr 12 13:01:52 2016
 \begin{pmatrix}{}
   0.00 & 0.25 & 0.00 & 0.00 \\ 
   0.72 & 0.77 & 0.00 & 0.00 \\ 
@@ -491,16 +690,16 @@ For convenience, we can write these two matrices into a single matrix, $\boldsym
 These two populations are not ecologically isolated, however, and they exchange a number of migrants, both juveniles and adults every year. 
 Migration rates vary depending on age, and are not symmetrical. Thus, $73\%$ of juveniles born in the population 1 stay there (and therefor $50\%$ emigrate to population 2), while $50\%$ of juveniles born in population 2 stay there ($50\%$ emmigrate). 
 These rates are summarized in the matrix $\boldsymbol{M_j}$:
-\begin{align*}\boldsymbol{M_j} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Mon Mar 14 14:34:40 2016
+\begin{align*}\boldsymbol{M_j} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
+% Tue Apr 12 13:01:52 2016
 \begin{pmatrix}{}
   0.73 & 0.50 \\ 
   0.27 & 0.50 \\ 
   \end{pmatrix}
 \end{align*}
 Similarly, migration rates for adults are summarized in matrix $\boldsymbol{M_a}$:
-\begin{align*}\boldsymbol{M_a} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Mon Mar 14 14:34:40 2016
+\begin{align*}\boldsymbol{M_a} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
+% Tue Apr 12 13:01:52 2016
 \begin{pmatrix}{}
   0.50 & 0.20 \\ 
   0.50 & 0.80 \\ 
@@ -508,8 +707,8 @@ Similarly, migration rates for adults are summarized in matrix $\boldsymbol{M_a}
 \end{align*}
 
 We also define a matrix $\boldsymbol{M}$ summarizing the migration rates:
-\begin{align*}\boldsymbol{M} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Mon Mar 14 14:34:40 2016
+\begin{align*}\boldsymbol{M} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
+% Tue Apr 12 13:01:52 2016
 \begin{pmatrix}{}
   0.73 & 0.50 & 0.00 & 0.00 \\ 
   0.27 & 0.50 & 0.00 & 0.00 \\ 
@@ -528,7 +727,7 @@ What are the two assumptions you have to make before you can start?
 
 This task is not absolutely trivial to do mathematically because $\boldsymbol{M}$ is organized by age, while $\boldsymbol{B}$ is organized by site. 
 Nevertheless, by thinking carefully, you can find what should be the elements of the matrix one by one. We just need to understand how the matrix is organized.
-You can visualize four compartments in \boldsymbol{A}:
+You can visualize four compartments in $\boldsymbol{A}$:
 \begin{align*}
 \boldsymbol{A}=
 \begin{pmatrix}
@@ -542,24 +741,24 @@ You can visualize four compartments in \boldsymbol{A}:
   \color{blue}{a_{41}} & \color{blue}{a_{42}} & \color{purple}{a_{43}} & \color{purple}{a_{44}}\\
 \end{pmatrix}
 \end{align*}
-In {\color{red}{red}}, the sub-matrix $\boldsymbol{\color{red}{A_1}}$ contains the contribution of the population $1$ to itself, that is, the fertility ($f_1$) and survival ($\phi_{j1}$ & $\phi_{a1}$) rates, corrected for emigration out of $1$ ($d_1$). Within $\boldsymbol{\color{red}{A_1}}$, $\color{red}{a_{11}}$ is the contribution of the juvenile age class to itself, within population $1$. Clearly this is zero, for juveniles do not reproduce. $\color{red}{a_{21}}$ is the contribution of juveniles to adults, within population $1$, and is the product of juvenile survival by the proportion of non-migrating adults (not the proportion of non-migrating juveniles, because of the order of sequence of life-history events we assume). 
+In {\color{red}{red}}, the sub-matrix $\boldsymbol{\color{red}{A_1}}$ contains the contribution of the population $1$ to itself, that is, the fertility ($f_1$) and survival ($\phi_{j1}$ \& $\phi_{a1}$) rates, corrected for emigration out of $1$ ($d_1$). Within $\boldsymbol{\color{red}{A_1}}$, $\color{red}{a_{11}}$ is the contribution of the juvenile age class to itself, within population $1$. Clearly this is zero, for juveniles do not reproduce. $\color{red}{a_{21}}$ is the contribution of juveniles to adults, within population $1$, and is the product of juvenile survival by the proportion of non-migrating adults (not the proportion of non-migrating juveniles, because of the order of sequence of life-history events we assume). 
 What are $\color{red}{a_{12}}$ and $\color{red}{a_{22}}$?\\
 
-Let's now look at the rest of our matrix $\boldsymbol{A}$. The sub-matrix $\boldsymbol{\color{orange}{A_2}}$ represents the contributions of the population $2$ to the population $1$, that is, the fertility ($f_2$) and survival ($\phi_{j2}$ & $\phi_{a2}$) rates within population $2$, multiplied by the rate of emigration out of $2$ ($d_2$).
+Let's now look at the rest of our matrix $\boldsymbol{A}$. The sub-matrix $\boldsymbol{\color{orange}{A_2}}$ represents the contributions of the population $2$ to the population $1$, that is, the fertility ($f_2$) and survival ($\phi_{j2}$ \& $\phi_{a2}$) rates within population $2$, multiplied by the rate of emigration out of $2$ ($d_2$).
 
 You should now be able to guess the rest and write $\boldsymbol{A}$ completely, using symbols $f$ (fertility), $\phi$ (survival) and $d$ (emigration), and indexes $1$ (population $1$), $2$ (population $2$), $j$ (juvenile) and $a$ (adult).
 Do it, and the proceed to the numerical application.\\
 
 
-During the lectures, you have seen how one can use matrix algebra, instead of biological thinking (as you just did), to efficiently obtain this meta-population matrix $\boldsymbol{A}$, using a vec-permutation matrix, \boldsymbol{P}.
+During the lectures, you have seen how one can use matrix algebra, instead of biological thinking (as you just did), to efficiently obtain this meta-population matrix $\boldsymbol{A}$, using a vec-permutation matrix, $\boldsymbol{P}$.
 
-\boldsymbol{P} can be defined as:
+$\boldsymbol{P}$ can be defined as:
 \begin{align*}
 \boldsymbol{P} = \sum\limits_{i=1}^s  \sum\limits_{j=1}^p \boldsymbol{E_{ij}} \bigotimes \boldsymbol{E_{ij}}^T\text{, }
 \end{align*}
 where $s$ and $p$ are the dimensions of the two square matrices to be combined, $\bigotimes$ is the Kronecker product (google it if you don't know it, it's nothing difficult) and where $\boldsymbol{E_{ij}}$ is a matrix of dimension $s\times p$ containing a $1$ on the $i^{th}$ line of the $j^{th}$ column, and $0$ elsewhere. 
 For instance, for $s=p=2$, $\boldsymbol{E_{1,2}} = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}$.
-Can you write a code that calculates \boldsymbol{P}?
+Can you write a code that calculates $\boldsymbol{P}$?
 
 
 
@@ -567,7 +766,7 @@ From the lecture, you know that
 \begin{align*}
 \boldsymbol{A} = \boldsymbol{P^T}\boldsymbol{M}\boldsymbol{P}\boldsymbol{B} \text{,}
 \end{align*}
-where $\boldsymbol{P^T}$ is the transposition of \boldsymbol{P}. 
+where $\boldsymbol{P^T}$ is the transposition of $\boldsymbol{P}$. 
 Using the English language (and not maths), describe what this formula means: What is $\boldsymbol{B}$? What means the product of $\boldsymbol{P}$ and $\boldsymbol{B}$, and so on.\\
 
 Now write a code that applies this formula to compute $\boldsymbol{A}$. You will need to know how to multiply matrices in \texttt{R}, and you might want to know how to transpose matrices (although here it is useless because $\boldsymbol{P^T}=\boldsymbol{P}$).\\
@@ -580,20 +779,20 @@ Let us consider another hypothetical meta-population, consisting of three very d
 
 
 
-\begin{align*}\boldsymbol{B_1} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Mon Mar 14 14:34:40 2016
+\begin{align*}\boldsymbol{B_1} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
+% Tue Apr 12 13:01:52 2016
 \begin{pmatrix}{}
   0.00 & 2.00 \\ 
   0.10 & 0.20 \\ 
   \end{pmatrix}
-& \boldsymbol{B_2} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Mon Mar 14 14:34:40 2016
+& \boldsymbol{B_2} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
+% Tue Apr 12 13:01:52 2016
 \begin{pmatrix}{}
   0.00 & 0.20 \\ 
   0.80 & 0.20 \\ 
   \end{pmatrix}
-& \boldsymbol{B_3} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Mon Mar 14 14:34:40 2016
+& \boldsymbol{B_3} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
+% Tue Apr 12 13:01:52 2016
 \begin{pmatrix}{}
   0.00 & 0.20 \\ 
   0.10 & 0.80 \\ 
@@ -603,15 +802,15 @@ What are their asymptotic growth rates? What do you think about the fate of this
 
 These three populations are exchanging quite a lot of migrants, both juveniles and adults:
 
-\begin{align*}\boldsymbol{M_j} &=% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Mon Mar 14 14:34:40 2016
+\begin{align*}\boldsymbol{M_j} &=% latex table generated in R 3.2.2 by xtable 1.7-4 package
+% Tue Apr 12 13:01:52 2016
 \begin{pmatrix}{}
   0.10 & 0.05 & 0.05 \\ 
   0.85 & 0.90 & 0.05 \\ 
   0.05 & 0.05 & 0.90 \\ 
   \end{pmatrix}
-& \boldsymbol{M_a} =% latex table generated in R 3.2.3 by xtable 1.8-0 package
-% Mon Mar 14 14:34:40 2016
+& \boldsymbol{M_a} =% latex table generated in R 3.2.2 by xtable 1.7-4 package
+% Tue Apr 12 13:01:52 2016
 \begin{pmatrix}{}
   0.80 & 0.85 & 0.75 \\ 
   0.10 & 0.10 & 0.05 \\ 
@@ -623,9 +822,10 @@ Construct and analyze the meta-population matrix. Did you change your opinion as
 
 This example is obviously extreme, but it hopefully helps to demonstrate that population structure and migration can matter a lot. 
 
-\vspace{2ex}
+\section{Concluding remarks}
 
-This is where the practical ends. If it ends a bit too soon for you and you would like to continue fighting \texttt{R}, think about a model that combines migration with both types of stochasticity: environmental and demographic. Alternatively, do something less biologically relevant, but quite beautiful programming wise: understand (or write) a recursive function. This is a function that calls itself, an example that draws a tree is given below. Finally, you could of course also consider doing a project in our research group. (These options are not mutually exclusive).
+This is where our part of the practicals ends. We tried to teach you both: the basic elements of programming in \texttt{R} (for-loops, functions and if-statements) and the basic processes that may influence population dynamics. If it ends a bit too soon for you and you could think about a model that combines migration with both types of stochasticity: environmental and demographic. Alternatively, do something less biologically relevant, but quite beautiful programming wise: understand (or write) a recursive function. This is a function that calls itself, an example that draws a tree is given below. 
+Finally, you could of course also consider doing a project in our research group. In our group we study both experimental systems (such as the rotifers) as well as long-term datasets (the african striped mouse, albatrosses, sheep, meerkats and many more) and we are always looking for enthusiastic students that want to explore these systems with us.
 
 \begin{center}
 Ciao!
