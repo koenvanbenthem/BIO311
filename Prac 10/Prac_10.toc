@@ -1,6 +1,9 @@
 \contentsline {section}{\numberline {1}Environmental Stochasticity}{2}
-\contentsline {subsection}{\numberline {1.1}Independent sequences}{3}
-\contentsline {subsection}{\numberline {1.2}Temporal environmental correlations}{5}
-\contentsline {section}{\numberline {2}Population Viability Analysis}{6}
-\contentsline {section}{\numberline {3}Demographic Stochasticity (Demonstration only)}{8}
-\contentsline {section}{\numberline {4}Metapopulation dynamics}{12}
+\contentsline {subsection}{\numberline {1.1}Independent sequences}{5}
+\contentsline {subsection}{\numberline {1.2}Temporal environmental correlations}{7}
+\contentsline {section}{\numberline {2}Population Viability Analysis}{8}
+\contentsline {section}{\numberline {3}Directed environmental change}{10}
+\contentsline {subsection}{\numberline {3.1}Extra: lower level sensitivity}{12}
+\contentsline {section}{\numberline {4}Demographic Stochasticity (Demonstration only)}{12}
+\contentsline {section}{\numberline {5}Metapopulation dynamics (Not part of the course this year)}{16}
+\contentsline {section}{\numberline {6}Concluding remarks}{20}
