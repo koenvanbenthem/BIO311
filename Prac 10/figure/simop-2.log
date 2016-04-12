@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  12 APR 2016 13:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.8)  12 APR 2016 13:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1094,7 +1094,7 @@ Preview: PDFoutput 1
 \AtBeginShipoutBox=\box90
 \c@lstlisting=\count188
 
-Overfull \hbox (160.89pt too wide) in paragraph at lines 169--169
+Overfull \hbox (160.89pt too wide) in paragraph at lines 177--177
 [][] 
  []
 
@@ -1103,16 +1103,16 @@ Preview: Tightpage 0 0 0 0
 Non-PDF special ignored!
 Non-PDF special ignored!] (./simop-2.aux) ) 
 Here is how much of TeX's memory you used:
- 21473 strings out of 493089
- 419239 string characters out of 6134843
+ 21475 strings out of 493089
+ 419279 string characters out of 6134843
  446337 words of memory out of 5000000
- 24644 multiletter control sequences out of 15000+600000
+ 24646 multiletter control sequences out of 15000+600000
  3640 words of font info for 14 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,7n,54p,10439b,626s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on simop-2.pdf (1 page, 15288 bytes).
+Output written on simop-2.pdf (1 page, 15365 bytes).
 PDF statistics:
  15 PDF objects out of 1000 (max. 8388607)
  10 compressed objects within 1 object stream
