@@ -2,7 +2,7 @@
 
 This repository contains the documents for the population ecology course that is taught at the university of Zurich in the spring semeter 2016. 
 
-Every practical has their own folder. The first practical is a 'pen and paper' refresher of mathematics. This practical is in the 'Intro' folder. The concerning file is the .tex file.
+Every practical has their own folder. The first practical is a 'pen and paper' refresher of mathematics. This practical is in the 'Intro' folder. The concerning file is the .tex file. We would not let the students solve every single exercise, instead we would decide on a subset of the exercises (at least one from every section) and leave the other exercises for additional practice. In the last section (eigenvalue and eigenvectors) we usually let the students do all exercises (since our experience is that they find this part the hardest).
 
 The other practicals should be in folder Prac6 -- Prac10. These practicals are written as knitr files (I believe that's the term). The main file is always the .rnw file (we were a bit chaotic at the time, I cannot exclude the possibility that some folders contain two .rnw files, only one of them being what we used in the course so far). We used to compile these in RStudio.
 
