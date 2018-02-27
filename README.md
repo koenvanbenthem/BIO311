@@ -30,3 +30,14 @@ the answer of every exercise is printed directly after the exercise
 `\usepackage[noanswer]{exercise}`
 
 the answers are not printed at all
+
+# Compiling the pdf
+we compiled the pdf from the .rnw files using knitr through the rstudio interface.
+
+In rstudio, go to 
+tools > global options > sweave
+
+make sure that the option 'weave Rnw files using' is set to 'knitr'
+and 'Typeset LaTeX into PDF using' is set to 'pdfLaTeX'
+
+When these options are set, the 'compile PDF' button should do it's work. Make sure that the 'tikzDevice' package is installed in R, this package is required for compilation.
